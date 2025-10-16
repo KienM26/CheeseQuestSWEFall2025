@@ -1818,7 +1818,7 @@ def inGame(debug):
 
             print("\nFunnel Cakes Galore\n")
             if self.characterDead:
-                menu = ""
+                
                 print("There is a charred body here, lying by a stovetop.")
             else:
                 if invFood.funnelCake <= 0:
