@@ -529,7 +529,10 @@ LEVER_ANSWER = "BACKWARDS"
 # Non-resetable varaibles
 #   Caries on between lives
 # Total game counters
-# Continue between playthroughs of a single sitting
+# Continue between playthroughs of a single sitting'
+## Testing out for duplicate strings here
+turnCounter_total = 0
+turnCounter_total = 0
 turnCounter_total = 0
 deaths_total = 0
 # Ozkavosh spells
@@ -979,7 +982,7 @@ def inGame(debug):
                 print("Alternatively, give the staff of Garrotxa to Eden von Roquefort")
 
 
-
+    ## good place to start making methods for repeated ass code
     # Inventory
     class Inventory(object):
         def __init__(self, name = "room", gold = 0, letter = 0, key = 0, keySkeleton = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, coal = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, note_1 = 0, note_2 = 0, note_3 = 0, note_4 = 0):
@@ -1598,6 +1601,7 @@ def inGame(debug):
             elif self.bird:
                 print("    a wooden bird")
 
+    #Very good place to use a method again lol
     #_______Jail____________________________________________________________________
     # Cell
     class classJailCell(Room):
