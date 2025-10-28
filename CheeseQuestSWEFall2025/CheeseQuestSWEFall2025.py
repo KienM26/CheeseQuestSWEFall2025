@@ -7818,7 +7818,9 @@ def inGame(debug):
                                         print('You place %s %s by the troll\'s body to pay respects.' % (give_count,itemsName))
                                     else:
                                         if give_count == 1 and not giveGold:
-                                            print('You give %s %s.' % (receiverName,itemName))
+                                            print(hi)
+                                            #print('You give %s %s.' % (receiverName,itemName))
+                                            #Deepsource warns about UnboundLocalError due to Variable used before assignment
                                         elif give_count > 1 and not giveGold:
                                             print('You give %s %s %s.' % (receiverName,give_count,itemsName))
                                         # Response once item given
@@ -8386,17 +8388,38 @@ def inGame(debug):
             inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
             print("The mountain shakes again, and more rubble collapses from above. A large rock hits you, knocking you unconcious.")
 
+        # OLD CODE
+
         # Crevasse block check
-        if roomCurrent.isCrevasse:
-            if not roomCurrent.hook and not roomCurrent.northBlocked and not roomCurrent.eastBlocked and not roomCurrent.westBlocked and not roomCurrent.southBlocked:
-                if roomID == "roomCave_3_llm_crevasse":
-                    roomCurrent.westBlocked = True
-                elif roomID == "roomCave__3_lllm_treasure_crevasse":
-                    roomCurrent.eastBlocked = True
-                elif roomID == "roomCave_8_mr_crevasse":
-                    roomCurrent.northBlocked = True
-                elif roomID == "roomCave_9_mr_crevasse":
-                    roomCurrent.southBlocked = True
+        # if roomCurrent.isCrevasse:
+        #     if not roomCurrent.hook and not roomCurrent.northBlocked and not roomCurrent.eastBlocked and not roomCurrent.westBlocked and not roomCurrent.southBlocked:
+        #         if roomID == "roomCave_3_llm_crevasse":
+        #             roomCurrent.westBlocked = True
+        #         elif roomID == "roomCave__3_lllm_treasure_crevasse":
+        #             roomCurrent.eastBlocked = True
+        #         elif roomID == "roomCave_8_mr_crevasse":
+        #             roomCurrent.northBlocked = True
+        #         elif roomID == "roomCave_9_mr_crevasse":
+        #             roomCurrent.southBlocked = True
+
+        # END OF OLD CODE
+
+
+        #DEEPSOURCE OUTPUT
+        if (
+            roomCurrent.isCrevasse
+            and not roomCurrent.hook and not roomCurrent.northBlocked and not roomCurrent.eastBlocked and not roomCurrent.westBlocked
+            and not roomCurrent.southBlocked
+        ):
+            if roomID == "roomCave_3_llm_crevasse":
+                roomCurrent.westBlocked = True
+            elif roomID == "roomCave__3_lllm_treasure_crevasse":
+                roomCurrent.eastBlocked = True
+            elif roomID == "roomCave_8_mr_crevasse":
+                roomCurrent.northBlocked = True
+            elif roomID == "roomCave_9_mr_crevasse":
+                roomCurrent.southBlocked = True
+        #END DEEPSOURCE OUTPUT
 
         # Grappling hook spawn check
         if roomID in ("roomCave_3_llm_crevasse","roomCave__3_lllm_treasure_crevasse","roomCave_8_mr_crevasse","roomCave_9_mr_crevasse"):
@@ -8561,7 +8584,8 @@ def inGame(debug):
             if roomID == "roomCourtyardNorth" and roomCurrent.firstTime:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"I do not know who you are, but you if you seek to do me harm, you are making a grave mistake.\"")
-                messageCounter = 1
+                #messageCounter = 1
+                #Deepsource said unsed variable found for 'messageCounter = 1'
             # roomRoadSouth
             elif roomID == "roomRoadMid" and roomCurrent.firstTime:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
