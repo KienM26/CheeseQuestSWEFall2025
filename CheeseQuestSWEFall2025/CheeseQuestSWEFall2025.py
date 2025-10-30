@@ -562,7 +562,8 @@ playerName = False
 #_______Functions_______________________________________________________________
 
 def demonWords():
-    global spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse
+    #global spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse
+    # global variable not being used
     if not (spell_learn or spell_unlock or spell_persuade or spell_jump or spell_light or spell_heal or spell_feed or spell_kill or spell_killself or spell_oblivion or word_darkness or word_reign or word_stop or word_servant or word_mirror or word_dominion or word_curse):
         print("You do not know any words in Ozhkavosh.")
     else:
@@ -831,7 +832,13 @@ def inGame(debug):
     #_______Class Initialization - Objects - Reset
     # Stats
     class Stat(object):
-        def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = [0], objectiveSecondaryBlock = [0]):
+        # def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = [0], objectiveSecondaryBlock = [0]): 
+        # Was changed due to dangerous default arg
+        def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = None, objectiveSecondaryBlock = None):
+            if objectiveSecondary is None:
+                objectiveSecondary = [0]
+            if objectiveSecondaryBlock is None:
+                objectiveSecondaryBlock = [0]
             self.hunger = hunger
             self.health = health
             self.healthmax = HEALTH_MAX
@@ -3289,7 +3296,8 @@ def inGame(debug):
                     elif option in ("slit","small slit","through slit","through small slit"):
                         print("You can see out into the corridor. Other jail cells are visible, but you can't see inside of them.")
                         if not roomCurrent.counter_1 and not playerName:
-                            roomCurrent.counter_1 = 1
+                           # roomCurrent.counter_1 = 1
+                           # removed due to satement has no effect
                     elif askName:
                         if option in ("woman","her","stranger"):
                             print("She is wearing white robes, covering her face and body.")
@@ -8312,11 +8320,15 @@ def inGame(debug):
                         endGame = True
                     roomCurrent.counter_1 += 1
         elif roomID == "roomJailFoyer":
-            if jailGuards == False:
+            # if jailGuards == False: 
+            # used singleton pattern
+             if jailGuards == False:
                 jailGuards = True
                 jailGuardCounter = 3
         elif roomID == "roomCourtyardSouth":
-            if jailGuards == True:
+
+            #if jailGuards == True:
+                 if jailGuards == True:
                 print("You get lost in the crowd, confusing and disorienting the jail guards. They lose interest, probably because they don't get paid enough.")
                 jailGuards = False
         # Creature stops chase at crevasse if visible or outside
@@ -8622,11 +8634,15 @@ def inGame(debug):
                 # Eden asks to give staff at firstTime
                 if not roomCurrent.characterDead:
                     # If player gives staff: counter_1 = 1 and isGive = False
-                    if roomCurrent.counter_1 == 1 and roomCurrent.isGive == False:
-                        # spawn Vesh ()
+                    #if roomCurrent.counter_1 == 1 and roomCurrent.isGive == False:
+                    #singleton
+                    if roomCurrent.counter_1 == 1 and roomCurrent.isGive is False: 
+                 # spawn Vesh ()
                         roomCurrent.counter_2 = 1
                     # If player does not give staff: counter_1 = 0 and isGive = True
-                    elif roomCurrent.counter_1 == 0 and roomCurrent.isGive == True:
+                    #elif roomCurrent.counter_1 == 0 and roomCurrent.isGive == True:
+                    # Singleton
+                    elif roomCurrent.counter_1 == 0 and roomCurrent.isGive is True:
                         # If player does something else, or nothing, given a second chance
                         roomCurrent.counter_3 += 1
                         if roomCurrent.counter_3 == 2:
