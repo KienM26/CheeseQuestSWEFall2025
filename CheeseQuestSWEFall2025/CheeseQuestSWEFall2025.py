@@ -3153,8 +3153,10 @@ def inGame(debug):
                     notTurn = True
                 elif option in ("health","hp"):
                     stat.examineHealth()
-                    if stat.health != HEALTH_MAX:
-                        print("You need to heal your wounds in",stat.health,"turns.")
+                   # if stat.health != HEALTH_MAX:
+                        #print("You need to heal your wounds in",stat.health,"turns.")
+                    if stat.health < HEALTH_MAX:
+                         print(f"You need to heal your wounds in {stat.health} turns.")
                     notTurn = True
                 elif option in ("stat","stats","self"):
                     stat.examineHunger()
