@@ -3153,6 +3153,7 @@ def inGame(debug):
                     notTurn = True
                 elif option in ("health","hp"):
                     stat.examineHealth()
+                    #Code Climate (Deeply nested control flow)
                    # if stat.health != HEALTH_MAX:
                         #print("You need to heal your wounds in",stat.health,"turns.")
                     if stat.health < HEALTH_MAX:
@@ -3162,8 +3163,15 @@ def inGame(debug):
                     stat.examineHunger()
                     stat.examineHealth()
                     print("You need to eat something in",stat.hunger,"turns.")
-                    if stat.health != HEALTH_MAX:
-                        print("You need to heal your wounds in",stat.health,"turns.")
+                    #Code Climate (Deeply nested control flow)
+                    #if stat.health != HEALTH_MAX:
+                       # print("You need to heal your wounds in",stat.health,"turns.")
+                    def display_healing_message(stat):
+                        print(f"You need to heal your wounds in {stat.health} turns.")
+
+                        # existing code
+                        if stat.health != HEALTH_MAX:
+                            display_healing_message(stat)
                 elif option in ("o","objective","current objective"):
                     stat.printObjective()
                     notTurn = True
@@ -3181,10 +3189,12 @@ def inGame(debug):
                     option = "letter"
                     inv.examineInventory(option, roomCurrent)
                 elif option.endswith(("key","key of ahm'domosh")):
-                    if inv.keySkeleton or roomCurrent.keySkeleton:
-                        option = "key of Ahm'domosh"
-                    else:
-                        option = "key"
+                    #Code Climate (Deeply nested control flow)
+                    #if inv.keySkeleton or roomCurrent.keySkeleton:
+                        #option = "key of Ahm'domosh"
+                    #else:
+                        #option = "key"
+                    option = "key of Ahm'domosh" if inv.keySkeleton or roomCurrent.keySkeleton else "key"
                     inv.examineInventory(option, roomCurrent)
                 elif option.endswith(("pickaxe","pick","pickaxes","picks")):
                     option = "pickaxe"
@@ -3298,7 +3308,7 @@ def inGame(debug):
                     elif option in ("slit","small slit","through slit","through small slit"):
                         print("You can see out into the corridor. Other jail cells are visible, but you can't see inside of them.")
                         if not roomCurrent.counter_1 and not playerName:
-                           # roomCurrent.counter_1 = 1
+                            roomCurrent.counter_1 = 1
                            # removed due to satement has no effect
                     elif askName:
                         if option in ("woman","her","stranger"):
@@ -4183,17 +4193,35 @@ def inGame(debug):
                         roomCurrent.characterDead = True
                         print("A bolt of lightning fires out from the staff, striking ",end = "")
                         if roomID == "roomCarnivalShellGame":
-                            print("the old woman. As she topples over, all her gold is spilled across the ground.")
-                            roomCurrent.isBet = False
-                            roomCurrent.gold += invShell.gold
-                            invShell.gold = 0
-                            roomCurrent.itemsPresent()
-                        elif roomID.startswith("roomJail"):
-                            print("a jail guard. The rest surround you and take you down.")
-                            endGame = True
-                        elif roomID == "roomCarnivalWheelGame":
-                            print("the man. The crowd goes into panic as guards enter the tent and overwhelm you.")
-                            endGame = True
+                            #Code Climate(Similar Code)
+                            #print("the old woman. As she topples over, all her gold is spilled across the ground.")
+                            #roomCurrent.isBet = False
+                            #roomCurrent.gold += invShell.gold
+                            #invShell.gold = 0
+                            #roomCurrent.itemsPresent()
+                        #elif roomID.startswith("roomJail"):
+                            #print("a jail guard. The rest surround you and take you down.")
+                            #endGame = True
+                        #elif roomID == "roomCarnivalWheelGame":
+                            #print("the man. The crowd goes into panic as guards enter the tent and overwhelm you.")
+                            def handle_room_event(roomID, roomCurrent, invShell):
+                                events = {
+                                "roomOldWoman": "the old woman. As she topples over, all her gold is spilled across the ground.",
+                                "roomJail": "a jail guard. The rest surround you and take you down.",
+                                "roomCarnivalWheelGame": "the man. The crowd goes into panic as guards enter the tent and overwhelm you."
+    }
+
+                            if roomID in events:
+                                print(events[roomID])
+
+                            if roomID == "roomOldWoman":
+                                roomCurrent.isBet = False
+                                roomCurrent.gold += invShell.gold
+                                invShell.gold = 0
+                                roomCurrent.itemsPresent()
+                            elif roomID == "roomJail":
+                                endGame = True
+                               
                         elif roomID == "roomCarnivalFood":
                             print("the vendor. He falls over, leaving his supply of food behind.")
                             roomCurrent.isBuy = False
@@ -4975,42 +5003,68 @@ def inGame(debug):
                     take_count = option[:len(option) - len("keys of ahm'domosh") - 1]
             # Key
             elif "key" in option and (roomCurrent.key or roomCurrent.keySkeleton):
-                itemName = "key"
-                itemsName = "keys"
-                if roomCurrent.key:
-                    invItem = inv.key
-                    roomItem = roomCurrent.key
-                elif roomCurrent.keySkeleton:
-                    invItem = inv.keySkeleton
-                    roomItem = roomCurrent.keySkeleton
-                if option == itemName:
-                    take_count = 1
-                elif option == itemsName:
+                #Code Climate (Similar Code)
+                #itemName = "key"
+                #itemsName = "keys"
+                #if roomCurrent.key:
+                    #invItem = inv.key
+                    #roomItem = roomCurrent.key
+                #elif roomCurrent.keySkeleton:
+                    #invItem = inv.keySkeleton
+                    #roomItem = roomCurrent.keySkeleton
+                #if option == itemName:
+                    #take_count = 1
+                def handle_key_items(roomCurrent, inv, option):
+                    key_types = {
+                    "key": (inv.key, roomCurrent.key),
+                    "keySkeleton": (inv.keySkeleton, roomCurrent.keySkeleton)
+                    }
+
+                for name, (invItem, roomItem) in key_types.items():
+                    if getattr(roomCurrent, name, None):
+                        if option == name:
+                            take_count = 1
+                    return invItem, roomItem, take_count
+                    return None, None, 0
+            elif option == itemsName:
                     take_count = roomItem
-                elif option.endswith("key"):
+            elif option.endswith("key"):
                     take_count = option[:len(option) - len("key") - 1]
-                elif option.endswith("keys"):
+            elif option.endswith("keys"):
                     take_count = option[:len(option) - len("keys") - 1]
             # Pickaxe
             elif "pick" in option and roomCurrent.pickaxe:
-                itemName = "pickaxe"
-                itemsName = "pickaxes"
-                invItem = inv.pickaxe
-                roomItem = roomCurrent.pickaxe
-                if option in (itemName,"pick"):
-                    take_count = 1
-                elif option == itemsName:
+                #Code Climate (Similar Code)
+                #itemName = "pickaxe"
+                #itemsName = "pickaxes"
+                #invItem = inv.pickaxe
+                #roomItem = roomCurrent.pickaxe
+                #if option in (itemName,"pick"):
+                    #take_count = 1
+                #elif option == itemsName:
+                    #take_count = roomItem
+                #elif option.endswith("pick"):
+                    #take_count = option[:len(option) - len("pick") - 1]
+                    invItem  = inv.pickaxe
+                    roomItem = roomCurrent.pickaxe
+
+                    if option in ("pickaxe", "pick"):
+                        take_count = 1
+            elif option == "pickaxes":
                     take_count = roomItem
-                elif option.endswith("pick"):
-                    take_count = option[:len(option) - len("pick") - 1]
-                elif option.endswith("picks"):
-                    take_count = option[:len(option) - len("picks") - 1]
-                elif option.endswith("pickaxe"):
+            elif option.endswith("pick"):
+                    num = option[:-len("pick")].strip()
+                    take_count = int(num) if num.isdigit() else 0
+            else:
+                take_count = 0
+        elif option.endswith("picks"):
+            take_count = option[:len(option) - len("picks") - 1]
+        elif option.endswith("pickaxe"):
                     take_count = option[:len(option) - len("pickaxe") - 1]
-                elif option.endswith("pickaxes"):
+        elif option.endswith("pickaxes"):
                     take_count = option[:len(option) - len("pickaxes") - 1]
             # shrubbery
-            elif ("shrubbery" in option) or ("shrubberies" in option) and roomCurrent.shrubbery:
+        elif ("shrubbery" in option) or ("shrubberies" in option) and roomCurrent.shrubbery:
                 itemName = "shrubbery"
                 itemsName = "shrubberies"
                 invItem = inv.shrubbery
@@ -5024,7 +5078,7 @@ def inGame(debug):
                 elif option.endswith("shrubberies"):
                     take_count = option[:len(option) - len("shrubberies") - 1]
             # Half-eaten funnel cake
-            elif ("cake" in option) and ("half" in option) and roomCurrent.halfFunnelCake:
+        elif ("cake" in option) and ("half" in option) and roomCurrent.halfFunnelCake:
                 itemName = "half-eaten funnel cake"
                 itemsName = "half-eaten funnel cakes"
                 invItem = inv.halfFunnelCake
@@ -5055,7 +5109,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("half cakes") - 1]
             # Funnel cake and Half-eaten funnel cake
             # If half-eaten cake is in room and cake not in room, treat half-eaten cake as cake
-            elif "cake" in option and (roomCurrent.funnelCake or roomCurrent.halfFunnelCake):
+        elif "cake" in option and (roomCurrent.funnelCake or roomCurrent.halfFunnelCake):
                 if roomCurrent.halfFunnelCake and not roomCurrent.funnelCake:
                     itemName = "half-eaten funnel cake"
                     itemsName = "half-eaten funnel cakes"
@@ -5079,7 +5133,7 @@ def inGame(debug):
                 elif option.endswith("cakes"):
                     take_count = option[:len(option) - len("cakes") - 1]
             # Lucky rabbit foot
-            elif ("foot" in option) or ("feet" in option) and roomCurrent.foot:
+        elif ("foot" in option) or ("feet" in option) and roomCurrent.foot:
                 itemName = "lucky rabbit foot"
                 itemsName = "lucky rabbit feet"
                 invItem = inv.foot
@@ -5099,7 +5153,7 @@ def inGame(debug):
                 elif option.endswith(("foot","feet")):
                     take_count = option[:len(option) - len("foot") - 1]
             # Porridge (bowl of porridge)
-            elif "porridge" in option and roomCurrent.porridge:
+        elif "porridge" in option and roomCurrent.porridge:
                 itemName = "bowl of porridge"
                 itemsName = "bowls of porridge"
                 invItem = inv.porridge
@@ -5115,7 +5169,7 @@ def inGame(debug):
                 elif option.endswith("porridge"):
                     take_count = option[:len(option) - len("porridge") - 1]
             # Bowl
-            elif "bowl" in option and (roomCurrent.bowl or roomCurrent.porridge):
+        elif "bowl" in option and (roomCurrent.bowl or roomCurrent.porridge):
                 if roomCurrent.porridge and not roomCurrent.bowl:
                     itemName = "bowl of porridge"
                     itemsName = "bowls of porridge"
@@ -5136,7 +5190,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len(itemsName) - 1]
 
             # Vial of lantern oil
-            elif ("oil" in option) or ("vial" in option) and roomCurrent.oil:
+        elif ("oil" in option) or ("vial" in option) and roomCurrent.oil:
                 itemName = "vial of lantern oil"
                 itemsName = "vials of lantern oil"
                 invItem = inv.oil
@@ -5158,7 +5212,7 @@ def inGame(debug):
                 elif option.endswith("oil"):
                     take_count = option[:len(option) - len("oil") - 1]
             # Lantern
-            elif "lantern" in option and roomCurrent.lantern:
+        elif "lantern" in option and roomCurrent.lantern:
                 itemName = "lantern"
                 itemsName = "lanterns"
                 invItem = inv.lantern
@@ -5173,7 +5227,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len(itemsName) - 1]
 
             # Hardtack biscuit
-            elif ("biscuit" in option) or ("hardtack" in option) and roomCurrent.biscuit:
+        elif ("biscuit" in option) or ("hardtack" in option) and roomCurrent.biscuit:
                 itemName = "hardtack biscuit"
                 itemsName = "hardtack biscuit"
                 invItem = inv.biscuit
@@ -5193,7 +5247,7 @@ def inGame(debug):
                 elif option.endswith("hardtack"):
                     take_count = option[:len(option) - len("hardtack") - 1]
             # Coil of hook
-            elif "hook" in option and roomCurrent.hook:
+        elif "hook" in option and roomCurrent.hook:
                 itemName = "grappling hook"
                 itemsName = "grappling hooks"
                 invItem = inv.hook
@@ -5211,7 +5265,7 @@ def inGame(debug):
                 elif option.endswith("hooks"):
                     take_count = option[:len(option) - len("hooks") - 1]
             # The staff of Garrotxa
-            elif ("staff" in option) or ("staves" in option) and roomCurrent.staff:
+        elif ("staff" in option) or ("staves" in option) and roomCurrent.staff:
                 itemName = "staff of Garrotxa"
                 itemsName = "staves of Garrotxa"
                 invItem = inv.staff
@@ -5229,7 +5283,7 @@ def inGame(debug):
                 elif option.endswith("staves"):
                     take_count = option[:len(option) - len("staves") - 1]
             # Raffle ticket
-            elif "ticket" in option and roomCurrent.ticket:
+        elif "ticket" in option and roomCurrent.ticket:
                 itemName = "raffle ticket"
                 itemsName = "raffle tickets"
                 invItem = inv.ticket
@@ -5247,7 +5301,7 @@ def inGame(debug):
                 elif option.endswith("tickets"):
                     take_count = option[:len(option) - len("tickets") - 1]
             # Piece of coal
-            elif "coal" in option and roomCurrent.coal:
+        elif "coal" in option and roomCurrent.coal:
                 itemName = "piece of coal"
                 itemsName = "pieces of coal"
                 invItem = inv.coal
@@ -5263,7 +5317,7 @@ def inGame(debug):
                 elif option.endswith("coal"):
                     take_count = option[:len(option) - len("coal") - 1]
             # Potato
-            elif "potato" in option and roomCurrent.potato:
+        elif "potato" in option and roomCurrent.potato:
                 itemName = "rotten potato"
                 itemsName = "rotten potatoes"
                 invItem = inv.potato
@@ -5282,7 +5336,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("potatoes") - 1]
 
             # Bandage
-            elif "bandage" in option and roomCurrent.bandage:
+        elif "bandage" in option and roomCurrent.bandage:
                 itemName = "bandage"
                 itemsName = "bandages"
                 invItem = inv.bandage
@@ -5296,7 +5350,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len(option) - len(itemsName) - 1]
             # Journal
-            elif "journal" in option and roomCurrent.journal:
+        elif "journal" in option and roomCurrent.journal:
                 itemName = "journal"
                 itemsName = "journals"
                 invItem = inv.journal
@@ -5310,7 +5364,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len(option) - len(itemsName) - 1]
             # Mysterious book
-            elif "book" in option and roomCurrent.book:
+        elif "book" in option and roomCurrent.book:
                 itemName = "mysterious book"
                 itemsName = "mysterious books"
                 invItem = inv.book
@@ -5328,7 +5382,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len("books") - len("books") - 1]
              # Cheeses
-            elif "brie" in option and roomCurrent.brie:
+        elif "brie" in option and roomCurrent.brie:
                 itemName = "slice of brie cheese"
                 itemsName = "slices of brie cheese"
                 invItem = inv.brie
@@ -5345,7 +5399,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("brie") - 1]
                 elif option.endswith("brie cheese"):
                     take_count = option[:len(option) - len("brie cheese") - 1]
-            elif "munster" in option and roomCurrent.munster:
+        elif "munster" in option and roomCurrent.munster:
                 itemName = "slice of munster cheese"
                 itemsName = "slices of munster cheese"
                 invItem = inv.munster
@@ -5362,7 +5416,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("munster") - 1]
                 elif option.endswith("munster cheese"):
                     take_count = option[:len(option) - len("munster cheese") - 1]
-            elif "stilton" in option and roomCurrent.brie:
+        elif "stilton" in option and roomCurrent.brie:
                 itemName = "slice of stilton cheese"
                 itemsName = "slices of stilton cheese"
                 invItem = inv.stilton
@@ -5379,7 +5433,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("stilton") - 1]
                 elif option.endswith("stilton cheese"):
                     take_count = option[:len(option) - len("stilton cheese") - 1]
-            elif "swiss" in option and roomCurrent.brie:
+        elif "swiss" in option and roomCurrent.brie:
                 itemName = "slice of swiss cheese"
                 itemsName = "slices of swiss cheese"
                 invItem = inv.swiss
@@ -5396,7 +5450,7 @@ def inGame(debug):
                     take_count = option[:len(option) - len("swiss") - 1]
                 elif option.endswith("swiss cheese"):
                     take_count = option[:len(option) - len("swiss cheese") - 1]
-            elif "wensleydale" in option and roomCurrent.brie:
+        elif "wensleydale" in option and roomCurrent.brie:
                 itemName = "slice of wensleydale cheese"
                 itemsName = "slices of wensleydale cheese"
                 invItem = inv.wensleydale
@@ -5414,7 +5468,7 @@ def inGame(debug):
                 elif option.endswith("wensleydale cheese"):
                     take_count = option[:len(option) - len("wensleydale cheese") - 1]
             # Potion
-            elif "potion" in option and roomCurrent.potion:
+        elif "potion" in option and roomCurrent.potion:
                 itemName = "potion of rejuvination"
                 itemsName = "potions of rejuvination"
                 invItem = inv.potion
@@ -5432,7 +5486,7 @@ def inGame(debug):
                 elif option.endswith("potions"):
                     take_count = option[:len(option) - len("potions") - 1]
             # Flask
-            elif "flask" in option and roomCurrent.flask:
+        elif "flask" in option and roomCurrent.flask:
                 itemName = "flask"
                 itemsName = "flasks"
                 invItem = inv.flask
@@ -5446,7 +5500,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len(option) - len(itemsName) - 1]
             # Dragonstone
-            elif "stone" in option and roomCurrent.stone:
+        elif "stone" in option and roomCurrent.stone:
                 itemName = "dragonstone"
                 itemsName = "dragonstones"
                 invItem = inv.stone
@@ -5464,7 +5518,7 @@ def inGame(debug):
                 elif option.endswith("stones"):
                     take_count = option[:len(option) - len("stones") - 1]
             # Wooden bird
-            elif "bird" in option and roomCurrent.bird:
+        elif "bird" in option and roomCurrent.bird:
                 itemName = "wooden bird"
                 itemsName = "wooden birds"
                 invItem = inv.bird
@@ -5482,7 +5536,7 @@ def inGame(debug):
                 elif option.endswith("birds"):
                     take_count = option[:len(option) - len("birds") - 1]
             # Note
-            elif "note" in option and roomCurrent.note:
+        elif "note" in option and roomCurrent.note:
                 itemName = "note"
                 itemsName = "notes"
                 invItem = inv.note
@@ -5496,7 +5550,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len(option) - len(itemsName) - 1]
             # Memo
-            elif "memo" in option and roomCurrent.memo:
+        elif "memo" in option and roomCurrent.memo:
                 itemName = "memo"
                 itemsName = "memos"
                 invItem = inv.memo
@@ -5510,7 +5564,7 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     take_count = option[:len(option) - len(itemsName) - 1]
             # Chicken pot pie
-            elif "pie" in option and roomCurrent.pie:
+        elif "pie" in option and roomCurrent.pie:
                 itemName = "chicken pot pie"
                 itemsName = "chicken pot pies"
                 invItem = inv.pie
@@ -5535,17 +5589,17 @@ def inGame(debug):
                     take_count = option[:len(option) - len("chicken pies") - 1]
                 elif option.endswith("pies"):
                     take_count = option[:len(option) - len("pies") - 1]
-            elif option == "":
+        elif option == "":
                 print("Take what?")
                 notTurn = True
-            else:
+        else:
                 if option in ("all","everything"):
                     print("You cannot take anything here.")
                 else:
                     print("There is no %s here to take." % option)
                 notTurn = True
-            if itemName:
-                takeCountOkay = False
+                if itemName:
+                    takeCountOkay = False
                 try:
                     take_count = float(take_count)
                     if take_count % 1 == 0 and take_count > 0 and take_count <= roomItem:
@@ -5710,74 +5764,74 @@ def inGame(debug):
                 if invItem > 1 and not invItem == take_count:
                     print("You have",invItem,"%s." % itemsName)
         # Drop
-        elif option.startswith(("drop","discard","remove")):
-            if option.startswith("drop"):
-                option = option[5:]
-            elif option.startswith("discard"):
-                option = option[8:]
-            elif option.startswith("remove"):
-                option = option[7:]
-            itemName = False
-            itemsName = False
-            roomItem = False
-            invItem = False
-            drop_count = 0
+                elif option.startswith(("drop","discard","remove")):
+                    if option.startswith("drop"):
+                        option = option[5:]
+                elif option.startswith("discard"):
+                    option = option[8:]
+                elif option.startswith("remove"):
+                    option = option[7:]
+                    itemName = False
+                    itemsName = False
+                    roomItem = False
+                    invItem = False
+                    drop_count = 0
             # All/Everything
-            if option in ("all","everything") and inv.itemTypes():
-                roomCurrent.gold += inv.gold
-                roomCurrent.letter += inv.letter
-                roomCurrent.key += inv.key
-                roomCurrent.keySkeleton += inv.keySkeleton
-                roomCurrent.pickaxe += inv.pickaxe
-                roomCurrent.shrubbery += inv.shrubbery
-                roomCurrent.funnelCake += inv.funnelCake
-                roomCurrent.halfFunnelCake += inv.halfFunnelCake
-                roomCurrent.foot += inv.foot
-                roomCurrent.porridge += inv.porridge
-                roomCurrent.bowl += inv.bowl
-                roomCurrent.lantern += inv.lantern
-                roomCurrent.oil += inv.oil
-                roomCurrent.pie += inv.pie
-                roomCurrent.biscuit += inv.biscuit
-                roomCurrent.hook += inv.hook
-                roomCurrent.staff += inv.staff
-                roomCurrent.ticket += inv.ticket
-                roomCurrent.coal += inv.coal
-                roomCurrent.potato += inv.potato
-                roomCurrent.bandage += inv.bandage
-                roomCurrent.journal += inv.journal
-                roomCurrent.book += inv.book
-                roomCurrent.brie += inv.brie
-                roomCurrent.munster += inv.munster
-                roomCurrent.stilton += inv.stilton
-                roomCurrent.swiss += inv.swiss
-                roomCurrent.wensleydale += inv.wensleydale
-                roomCurrent.potion += inv.potion
-                roomCurrent.flask += inv.flask
-                roomCurrent.stone += inv.stone
-                roomCurrent.bird += inv.bird
-                roomCurrent.memo += inv.memo
-                inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
-                print("You drop everything.")
-                itemName = "everything"
-                itemsName = "everything"
-                drop_count = "all"
+                if option in ("all","everything") and inv.itemTypes():
+                    roomCurrent.gold += inv.gold
+                    roomCurrent.letter += inv.letter
+                    roomCurrent.key += inv.key
+                    roomCurrent.keySkeleton += inv.keySkeleton
+                    roomCurrent.pickaxe += inv.pickaxe
+                    roomCurrent.shrubbery += inv.shrubbery
+                    roomCurrent.funnelCake += inv.funnelCake
+                    roomCurrent.halfFunnelCake += inv.halfFunnelCake
+                    roomCurrent.foot += inv.foot
+                    roomCurrent.porridge += inv.porridge
+                    roomCurrent.bowl += inv.bowl
+                    roomCurrent.lantern += inv.lantern
+                    roomCurrent.oil += inv.oil
+                    roomCurrent.pie += inv.pie
+                    roomCurrent.biscuit += inv.biscuit
+                    roomCurrent.hook += inv.hook
+                    roomCurrent.staff += inv.staff
+                    roomCurrent.ticket += inv.ticket
+                    roomCurrent.coal += inv.coal
+                    roomCurrent.potato += inv.potato
+                    roomCurrent.bandage += inv.bandage
+                    roomCurrent.journal += inv.journal
+                    roomCurrent.book += inv.book
+                    roomCurrent.brie += inv.brie
+                    roomCurrent.munster += inv.munster
+                    roomCurrent.stilton += inv.stilton
+                    roomCurrent.swiss += inv.swiss
+                    roomCurrent.wensleydale += inv.wensleydale
+                    roomCurrent.potion += inv.potion
+                    roomCurrent.flask += inv.flask
+                    roomCurrent.stone += inv.stone
+                    roomCurrent.bird += inv.bird
+                    roomCurrent.memo += inv.memo
+                    inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
+                    print("You drop everything.")
+                    itemName = "everything"
+                    itemsName = "everything"
+                    drop_count = "all"
             # Gold # continue add quantities like in buy and sell
-            elif "gold" in option and inv.gold:
-                itemName = "gold"
-                itemsName = "gold"
-                roomItem = roomCurrent.gold
-                invItem = inv.gold
+                elif "gold" in option and inv.gold:
+                    itemName = "gold"
+                    itemsName = "gold"
+                    roomItem = roomCurrent.gold
+                    invItem = inv.gold
                 if option == itemName:
                     drop_count = inv.gold
                 elif option.endswith("gold"):
                     drop_count = option[:len(option) - len("gold") - 1]
             # Letter
-            elif "letter" in option and inv.letter:
-                itemName = "letter"
-                itemsName = "letters"
-                roomItem = roomCurrent.letter
-                invItem = inv.letter
+                elif "letter" in option and inv.letter:
+                    itemName = "letter"
+                    itemsName = "letters"
+                    roomItem = roomCurrent.letter
+                    invItem = inv.letter
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -5787,11 +5841,11 @@ def inGame(debug):
                 elif option.endswith("letters"):
                     drop_count = option[:len(option) - len("letters") - 1]
             # Skeleton key
-            elif "key of ahm'domosh" in option and inv.keySkeleton:
-                itemName = "key of Ahm'domosh"
-                itemsName = "keys of Ahm'domosh"
-                roomItem = roomCurrent.keySkeleton
-                invItem = inv.keySkeleton
+                elif "key of ahm'domosh" in option and inv.keySkeleton:
+                    itemName = "key of Ahm'domosh"
+                    itemsName = "keys of Ahm'domosh"
+                    roomItem = roomCurrent.keySkeleton
+                    invItem = inv.keySkeleton
                 if option == itemName.lower():
                     drop_count = 1
                 elif option == itemsName.lower():
@@ -5801,9 +5855,9 @@ def inGame(debug):
                 elif option.endswith("keys of ahm'domosh"):
                     drop_count = option[:len(option) - len("keys of ahm'domosh") - 1]
             # Key
-            elif "key" in option and (inv.key or inv.keySkeleton):
-                itemName = "key"
-                itemsName = "keys"
+                elif "key" in option and (inv.key or inv.keySkeleton):
+                    itemName = "key"
+                    itemsName = "keys"
                 if inv.key:
                     roomItem = roomCurrent.key
                     invItem = inv.key
@@ -5819,11 +5873,11 @@ def inGame(debug):
                 elif option.endswith("keys"):
                     drop_count = option[:len(option) - len("keys") - 1]
             # Pickaxe
-            elif "pick" in option and inv.pickaxe:
-                itemName = "pickaxe"
-                itemsName = "pickaxes"
-                roomItem = roomCurrent.pickaxe
-                invItem = inv.pickaxe
+                elif "pick" in option and inv.pickaxe:
+                    itemName = "pickaxe"
+                    itemsName = "pickaxes"
+                    roomItem = roomCurrent.pickaxe
+                    invItem = inv.pickaxe
                 if option in (itemName,"pick"):
                     drop_count = 1
                 elif option == itemsName:
@@ -5837,11 +5891,11 @@ def inGame(debug):
                 elif option.endswith("pickaxes"):
                     drop_count = option[:len(option) - len("pickaxes") - 1]
             # shrubbery
-            elif ("shrubbery" in option) or ("shrubberies" in option) and inv.shrubbery:
-                itemName = "shrubbery"
-                itemsName = "shrubberies"
-                roomItem = roomCurrent.shrubbery
-                invItem = inv.shrubbery
+                elif ("shrubbery" in option) or ("shrubberies" in option) and inv.shrubbery:
+                    itemName = "shrubbery"
+                    itemsName = "shrubberies"
+                    roomItem = roomCurrent.shrubbery
+                    invItem = inv.shrubbery
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -5851,11 +5905,11 @@ def inGame(debug):
                 elif option.endswith("shrubberies"):
                     drop_count = option[:len(option) - len("shrubberies") - 1]
             # Half-eaten funnel cake
-            elif ("cake" in option) and ("half" in option) and inv.halfFunnelCake:
-                itemName = "half-eaten funnel cake"
-                itemsName = "half-eaten funnel cakes"
-                roomItem = roomCurrent.halfFunnelCake
-                invItem = inv.halfFunnelCake
+                elif ("cake" in option) and ("half" in option) and inv.halfFunnelCake:
+                    itemName = "half-eaten funnel cake"
+                    itemsName = "half-eaten funnel cakes"
+                    roomItem = roomCurrent.halfFunnelCake
+                    invItem = inv.halfFunnelCake
                 if option.endswith("half-eaten funnel cake"):
                     drop_count = option[:len(option) - len("half-eaten funnel cake") - 1]
                 if option.endswith("half eaten funnel cake"):
@@ -5882,12 +5936,12 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("half cakes") - 1]
             # Funnel cake and Half-eaten funnel cake
             # If half-eaten cake is in room and cake not in inv, treat half-eaten cake as cake
-            elif "cake" in option and (inv.funnelCake or inv.halfFunnelCake):
-                if inv.halfFunnelCake and not inv.funnelCake:
-                    itemName = "half-eaten funnel cake"
-                    itemsName = "half-eaten funnel cakes"
-                    roomItem = roomCurrent.halfFunnelCake
-                    invItem = inv.halfFunnelCake
+                elif "cake" in option and (inv.funnelCake or inv.halfFunnelCake):
+                    if inv.halfFunnelCake and not inv.funnelCake:
+                        itemName = "half-eaten funnel cake"
+                        itemsName = "half-eaten funnel cakes"
+                        roomItem = roomCurrent.halfFunnelCake
+                        invItem = inv.halfFunnelCake
                 else:
                     itemName = "funnel cake"
                     itemsName = "funnel cakes"
@@ -5906,11 +5960,11 @@ def inGame(debug):
                 elif option.endswith("cakes"):
                     drop_count = option[:len(option) - len("cakes") - 1]
             # Lucky rabbit foot
-            elif ("foot" in option) or ("feet" in option) and inv.foot:
-                itemName = "lucky rabbit foot"
-                itemsName = "lucky rabbit feet"
-                roomItem = roomCurrent.foot
-                invItem = inv.foot
+                elif ("foot" in option) or ("feet" in option) and inv.foot:
+                    itemName = "lucky rabbit foot"
+                    itemsName = "lucky rabbit feet"
+                    roomItem = roomCurrent.foot
+                    invItem = inv.foot
                 if option in (itemName,"foot","rabbit foot","lucky foot"):
                     drop_count = 1
                 elif option in (itemsName,"feet","rabbit feet","lucky feet"):
@@ -5926,11 +5980,11 @@ def inGame(debug):
                 elif option.endswith(("foot","feet")):
                     drop_count = option[:len(option) - len("foot") - 1]
             # Porridge (bowl of porridge)
-            elif "porridge" in option and inv.porridge:
-                itemName = "bowl of porridge"
-                itemsName = "bowls of porridge"
-                roomItem = roomCurrent.porridge
-                invItem = inv.porridge
+                elif "porridge" in option and inv.porridge:
+                    itemName = "bowl of porridge"
+                    itemsName = "bowls of porridge"
+                    roomItem = roomCurrent.porridge
+                    invItem = inv.porridge
                 if option == itemName:
                     drop_count = 1
                 elif option in (itemsName,"porridge"):
@@ -5942,12 +5996,12 @@ def inGame(debug):
                 elif option.endswith("porridge"):
                     drop_count = option[:len(option) - len("porridge") - 1]
             # Bowl
-            elif "bowl" in option and (inv.bowl or inv.porridge):
-                if inv.porridge and not inv.bowl:
-                    itemName = "bowl of porridge"
-                    itemsName = "bowls of porridge"
-                    roomItem = roomCurrent.porridge
-                    invItem = inv.porridge
+                elif "bowl" in option and (inv.bowl or inv.porridge):
+                    if inv.porridge and not inv.bowl:
+                        itemName = "bowl of porridge"
+                        itemsName = "bowls of porridge"
+                        roomItem = roomCurrent.porridge
+                        invItem = inv.porridge
                 else:
                     itemName = "bowl"
                     itemsName = "bowls"
@@ -5962,11 +6016,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Lantern
-            elif "lantern" in option and inv.lantern:
-                itemName = "lantern"
-                itemsName = "lanterns"
-                roomItem = roomCurrent.lantern
-                invItem = inv.lantern
+                elif "lantern" in option and inv.lantern:
+                    itemName = "lantern"
+                    itemsName = "lanterns"
+                    roomItem = roomCurrent.lantern
+                    invItem = inv.lantern
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -5976,11 +6030,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Vial of lantern oil
-            elif ("oil" in option) or ("vial" in option) and inv.oil:
-                itemName = "vial of lantern oil"
-                itemsName = "vials of lantern oil"
-                roomItem = roomCurrent.oil
-                invItem = inv.oil
+                elif ("oil" in option) or ("vial" in option) and inv.oil:
+                    itemName = "vial of lantern oil"
+                    itemsName = "vials of lantern oil"
+                    roomItem = roomCurrent.oil
+                    invItem = inv.oil
                 if option in (itemName,"vial"):
                     drop_count = 1
                 elif option in (itemsName,"oil","vials","lantern oil"):
@@ -5998,11 +6052,11 @@ def inGame(debug):
                 elif option.endswith("oil"):
                     drop_count = option[:len(option) - len("oil") - 1]
             # Hardtack biscuit
-            elif ("biscuit" in option) or ("hardtack" in option) and inv.biscuit:
-                itemName = "hardtack biscuit"
-                itemsName = "hardtack biscuit"
-                roomItem = roomCurrent.biscuit
-                invItem = inv.biscuit
+                elif ("biscuit" in option) or ("hardtack" in option) and inv.biscuit:
+                    itemName = "hardtack biscuit"
+                    itemsName = "hardtack biscuit"
+                    roomItem = roomCurrent.biscuit
+                    invItem = inv.biscuit
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6018,11 +6072,11 @@ def inGame(debug):
                 elif option.endswith("hardtack"):
                     drop_count = option[:len(option) - len("hardtack") - 1]
             # Coil of hook
-            elif "hook" in option and inv.hook:
-                itemName = "grappling hook"
-                itemsName = "grappling hooks"
-                roomItem = roomCurrent.hook
-                invItem = inv.hook
+                elif "hook" in option and inv.hook:
+                    itemName = "grappling hook"
+                    itemsName = "grappling hooks"
+                    roomItem = roomCurrent.hook
+                    invItem = inv.hook
                 if option in (itemName,"hook"):
                     drop_count = 1
                 elif option in (itemsName,"hooks"):
@@ -6036,11 +6090,11 @@ def inGame(debug):
                 elif option.endswith("hooks"):
                     drop_count = option[:len(option) - len("hooks") - 1]
             # The staff of Garrotxa
-            elif ("staff" in option) or ("staves" in option) and inv.staff:
-                itemName = "staff of Garrotxa"
-                itemsName = "staves of Garrotxa"
-                roomItem = roomCurrent.staff
-                invItem = inv.staff
+                elif ("staff" in option) or ("staves" in option) and inv.staff:
+                    itemName = "staff of Garrotxa"
+                    itemsName = "staves of Garrotxa"
+                    roomItem = roomCurrent.staff
+                    invItem = inv.staff
                 if option in (itemName.lower(),"staff"):
                     drop_count = 1
                 elif option in (itemsName.lower(),"staves"):
@@ -6054,11 +6108,11 @@ def inGame(debug):
                 elif option.endswith("staves"):
                     drop_count = option[:len(option) - len("staves") - 1]
             # Raffle ticket
-            elif "ticket" in option and inv.ticket:
-                itemName = "raffle ticket"
-                itemsName = "raffle tickets"
-                roomItem = roomCurrent.ticket
-                invItem = inv.ticket
+                elif "ticket" in option and inv.ticket:
+                    itemName = "raffle ticket"
+                    itemsName = "raffle tickets"
+                    roomItem = roomCurrent.ticket
+                    invItem = inv.ticket
                 if option in (itemName,"ticket"):
                     drop_count = 1
                 elif option in (itemsName,"tickets"):
@@ -6072,11 +6126,11 @@ def inGame(debug):
                 elif option.endswith("tickets"):
                     drop_count = option[:len(option) - len("tickets") - 1]
             # Piece of coal
-            elif "coal" in option and inv.coal:
-                itemName = "piece of coal"
-                itemsName = "pieces of coal"
-                roomItem = roomCurrent.coal
-                invItem = inv.coal
+                elif "coal" in option and inv.coal:
+                    itemName = "piece of coal"
+                    itemsName = "pieces of coal"
+                    roomItem = roomCurrent.coal
+                    invItem = inv.coal
                 if option == itemName:
                     drop_count = 1
                 elif option in (itemsName,"coal"):
@@ -6088,8 +6142,8 @@ def inGame(debug):
                 elif option.endswith("coal"):
                     drop_count = option[:len(option) - len("coal") - 1]
             # Potato
-            elif "potato" in option and inv.potato:
-                itemName = "rotten potato"
+                elif "potato" in option and inv.potato:
+                    itemName = "rotten potato"
                 itemsName = "rotten potatoes"
                 roomItem = roomCurrent.potato
                 invItem = inv.potato
@@ -6106,11 +6160,11 @@ def inGame(debug):
                 elif option.endswith("potatoes"):
                     drop_count = option[:len(option) - len("potatoes") - 1]
             # Bandage
-            elif "bandage" in option and inv.bandage:
-                itemName = "bandage"
-                itemsName = "bandages"
-                roomItem = roomCurrent.bandage
-                invItem = inv.bandage
+                elif "bandage" in option and inv.bandage:
+                    itemName = "bandage"
+                    itemsName = "bandages"
+                    roomItem = roomCurrent.bandage
+                    invItem = inv.bandage
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6120,11 +6174,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Journal
-            elif "journal" in option and inv.journal:
-                itemName = "journal"
-                itemsName = "journals"
-                roomItem = roomCurrent.journal
-                invItem = inv.journal
+                elif "journal" in option and inv.journal:
+                    itemName = "journal"
+                    itemsName = "journals"
+                    roomItem = roomCurrent.journal
+                    invItem = inv.journal
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6134,11 +6188,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Mysterious book
-            elif "book" in option and inv.book:
-                itemName = "mysterious book"
-                itemsName = "mysterious books"
-                roomItem = roomCurrent.book
-                invItem = roomCurrent.book
+                elif "book" in option and inv.book:
+                    itemName = "mysterious book"
+                    itemsName = "mysterious books"
+                    roomItem = roomCurrent.book
+                    invItem = roomCurrent.book
                 if option in (itemName,"book"):
                     drop_count = 1
                 elif option in (itemsName,"books"):
@@ -6152,11 +6206,11 @@ def inGame(debug):
                 elif option.endswith("books"):
                     drop_count = option[:len(option) - len("books") - 1]
              # Cheeses
-            elif "brie" in option and inv.brie:
-                itemName = "slice of brie cheese"
-                itemsName = "slices of brie cheese"
-                roomItem = roomCurrent.brie
-                invItem = inv.brie
+                elif "brie" in option and inv.brie:
+                    itemName = "slice of brie cheese"
+                    itemsName = "slices of brie cheese"
+                    roomItem = roomCurrent.brie
+                    invItem = inv.brie
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6169,11 +6223,11 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("brie") - 1]
                 elif option.endswith("brie cheese"):
                     drop_count = option[:len(option) - len("brie cheese") - 1]
-            elif "munster" in option and inv.munster:
-                itemName = "slice of munster cheese"
-                itemsName = "slices of munster cheese"
-                roomItem = roomCurrent.munster
-                invItem = inv.munster
+                elif "munster" in option and inv.munster:
+                    itemName = "slice of munster cheese"
+                    itemsName = "slices of munster cheese"
+                    roomItem = roomCurrent.munster
+                    invItem = inv.munster
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6186,11 +6240,11 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("munster") - 1]
                 elif option.endswith("munster cheese"):
                     drop_count = option[:len(option) - len("munster cheese") - 1]
-            elif "stilton" in option and inv.brie:
-                itemName = "slice of stilton cheese"
-                itemsName = "slices of stilton cheese"
-                roomItem = roomCurrent.stilton
-                invItem = inv.stilton
+                elif "stilton" in option and inv.brie:
+                    itemName = "slice of stilton cheese"
+                    itemsName = "slices of stilton cheese"
+                    roomItem = roomCurrent.stilton
+                    invItem = inv.stilton
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6203,11 +6257,11 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("stilton") - 1]
                 elif option.endswith("stilton cheese"):
                     drop_count = option[:len(option) - len("stilton cheese") - 1]
-            elif "swiss" in option and inv.brie:
-                itemName = "slice of swiss cheese"
-                itemsName = "slices of swiss cheese"
-                roomItem = roomCurrent.swiss
-                invItem = inv.swiss
+                elif "swiss" in option and inv.brie:
+                    itemName = "slice of swiss cheese"
+                    itemsName = "slices of swiss cheese"
+                    roomItem = roomCurrent.swiss
+                    invItem = inv.swiss
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6220,11 +6274,11 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("swiss") - 1]
                 elif option.endswith("swiss cheese"):
                     drop_count = option[:len(option) - len("swiss cheese") - 1]
-            elif "wensleydale" in option and inv.brie:
-                itemName = "slice of wensleydale cheese"
-                itemsName = "slices of wensleydale cheese"
-                roomItem = roomCurrent.wensleydale
-                invItem = inv.wensleydale
+                elif "wensleydale" in option and inv.brie:
+                    itemName = "slice of wensleydale cheese"
+                    itemsName = "slices of wensleydale cheese"
+                    roomItem = roomCurrent.wensleydale
+                    invItem = inv.wensleydale
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6238,11 +6292,11 @@ def inGame(debug):
                 elif option.endswith("wensleydale cheese"):
                     drop_count = option[:len(option) - len("wensleydale cheese") - 1]
             # Potion
-            elif "potion" in option and inv.potion:
-                itemName = "potion of rejuvination"
-                itemsName = "potions of rejuvination"
-                roomItem = roomCurrent.potion
-                invItem = inv.potion
+                elif "potion" in option and inv.potion:
+                    itemName = "potion of rejuvination"
+                    itemsName = "potions of rejuvination"
+                    roomItem = roomCurrent.potion
+                    invItem = inv.potion
                 if option in (itemName,"potion"):
                     drop_count = 1
                 elif option in (itemsName,"potions"):
@@ -6256,11 +6310,11 @@ def inGame(debug):
                 elif option.endswith("potions"):
                     drop_count = option[:len(option) - len("potions") - 1]
             # Flask
-            elif "flask" in option and inv.flask:
-                itemName = "flask"
-                itemsName = "flasks"
-                roomItem = roomCurrent.flask
-                invItem = inv.flask
+                elif "flask" in option and inv.flask:
+                    itemName = "flask"
+                    itemsName = "flasks"
+                    roomItem = roomCurrent.flask
+                    invItem = inv.flask
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6270,11 +6324,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Dragonstone
-            elif "stone" in option and inv.stone:
-                itemName = "dragonstone"
-                itemsName = "dragonstones"
-                roomItem = roomCurrent.stone
-                invItem = inv.stone
+                elif "stone" in option and inv.stone:
+                    itemName = "dragonstone"
+                    itemsName = "dragonstones"
+                    roomItem = roomCurrent.stone
+                    invItem = inv.stone
                 if option in (itemName,"stone"):
                     drop_count = 1
                 elif option in (itemsName,"stones"):
@@ -6288,11 +6342,11 @@ def inGame(debug):
                 elif option.endswith("stones"):
                     drop_count = option[:len(option) - len("stones") - 1]
             # Wooden bird
-            elif "bird" in option and inv.bird:
-                itemName = "wooden bird"
-                itemsName = "wooden birds"
-                roomItem = roomCurrent.bird
-                invItem = inv.bird
+                elif "bird" in option and inv.bird:
+                    itemName = "wooden bird"
+                    itemsName = "wooden birds"
+                    roomItem = roomCurrent.bird
+                    invItem = inv.bird
                 if option in (itemName,"bird"):
                     drop_count = 1
                 elif option in (itemsName,"birds"):
@@ -6306,11 +6360,11 @@ def inGame(debug):
                 elif option.endswith("birds"):
                     drop_count = option[:len(option) - len("birds") - 1]
             # Note
-            elif "note" in option and inv.note:
-                itemName = "note"
-                itemsName = "notes"
-                roomItem = roomCurrent.note
-                invItem = inv.note
+                elif "note" in option and inv.note:
+                    itemName = "note"
+                    itemsName = "notes"
+                    roomItem = roomCurrent.note
+                    invItem = inv.note
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6320,11 +6374,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Memo
-            elif "memo" in option and inv.memo:
-                itemName = "memo"
-                itemsName = "memos"
-                roomItem = roomCurrent.memo
-                invItem = inv.note
+                elif "memo" in option and inv.memo:
+                    itemName = "memo"
+                    itemsName = "memos"
+                    roomItem = roomCurrent.memo
+                    invItem = inv.note
                 if option == itemName:
                     drop_count = 1
                 elif option == itemsName:
@@ -6334,11 +6388,11 @@ def inGame(debug):
                 elif option.endswith(itemsName):
                     drop_count = option[:len(option) - len(itemsName) - 1]
             # Chicken pot pie
-            elif "pie" in option and inv.pie:
-                itemName = "chicken pot pie"
-                itemsName = "chicken pot pies"
-                roomItem = roomCurrent.pie
-                invItem = inv.pie
+                elif "pie" in option and inv.pie:
+                    itemName = "chicken pot pie"
+                    itemsName = "chicken pot pies"
+                    roomItem = roomCurrent.pie
+                    invItem = inv.pie
                 if option in (itemName,"chicken pie","pot pie","pie"):
                     drop_count = 1
                 elif option in (itemsName,"chicken pies","pot pies","pies"):
@@ -6359,17 +6413,17 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("chicken pies") - 1]
                 elif option.endswith("pies"):
                     drop_count = option[:len(option) - len("pies") - 1]
-            elif option == "":
-                print("Drop what?")
-                notTurn = True
-            else:
-                if option in ("all","everything"):
-                    print("You have nothing to drop.")
+                elif option == "":
+                    print("Drop what?")
+                    notTurn = True
                 else:
-                    print("You have no %s to drop." % option)
-                notTurn = True
-            if itemName:
-                dropCountOkay = False
+                    if option in ("all","everything"):
+                        print("You have nothing to drop.")
+                    else:
+                        print("You have no %s to drop." % option)
+                        notTurn = True
+                if itemName:
+                    dropCountOkay = False
                 try:
                     drop_count = float(drop_count)
                     if drop_count % 1 == 0 and drop_count > 0 and drop_count <= invItem:
@@ -6500,27 +6554,27 @@ def inGame(debug):
                         roomCurrent.memo = roomItem
                         inv.memo = invItem
         # Hurt, Punch, Kick
-        elif option.startswith("punch") or option.startswith("kick"):
-            hurt = False
-            if option.startswith("punch"):
-                if option == "punch":
-                    print("Punch what?")
-                    notTurn = True
-                else:
-                    option = option[6:]
-                    hurt = "punch"
-            elif option.startswith("kick"):
-                if option == "kick":
-                    print("Kick what?")
-                    notTurn = True
-                else:
-                    option = option[5:]
-                    hurt = "kick"
-            if hurt:
-                if option in ("self","myself","me"):
-                    if hurt == "punch":
-                        print("You punch yourself.")
-                        stat.lowerHealth()
+                   
+                elif option.startswith("punch"):
+                    if option == "punch":
+                        print("Punch what?")
+                        notTurn = True
+                    else:
+                        hurt = "punch"
+                        option = option[6:]   # remove "punch "
+        
+                elif option.startswith("kick"):
+                    if option == "kick":
+                        print("Kick what?")
+                        notTurn = True
+                    else:
+                        hurt = "kick"
+                        option = option[5:]   # remove "kick "
+                    if hurt:
+                        if option in ("self","myself","me"):
+                            if hurt == "punch":
+                                print("You punch yourself.")
+                                stat.lowerHealth()
                     else:
                         print("You try to kick yourself, however that would work, and quickly get frustrated. You end up kicking the back of one of your calves with your other foot, causing you to fall over and hit your head.")
                         stat.lowerHealth()
@@ -6560,24 +6614,25 @@ def inGame(debug):
                 else:
                     print("You cannot",hurt,"that.")
                     notTurn = True
-        # Say, Yell, Shout, Scream
-        elif option.startswith("say") or option.startswith("yell") or option.startswith("shout") or option.startswith("scream"):
-            spell = False
-            valid = False
-            say = False
-            if silenced:
-                print("You try to speak but cannot say anything.")
-            else:
-                if option.startswith("say"):
-                    option = option[4:5].upper() + option[5:]
+
+               # Say, Yell, Shout, Scream
+                if option.startswith("say") or option.startswith("yell") or option.startswith("shout") or option.startswith("scream"):
+                    spell = False
+                    valid = False
+                    say = False
+                if silenced:
+                    print("You try to speak but cannot say anything.")
+                else:
+                    if option.startswith("say"):
+                        option = option[4:5].upper() + option[5:]
                     if option.startswith("\""):
                         option = option[1:2].upper() + option[2:]
                     say = True
                 elif option.startswith("yell"):
                     option = option[5:].upper()
-                elif option.startswith("shout"):
+        elif option.startswith("shout"):
                     option = option[6:].upper()
-                elif option.startswith("scream"):
+        elif option.startswith("scream"):
                     option = option[7:].upper()
                 option = option.strip("\"").strip("\'")
                 if askName:
@@ -6987,14 +7042,14 @@ def inGame(debug):
         # Filler commands
         # Do nothing important
         # Lie down
-        elif option in ("save","save game","save the game"):
-            print("HAHAHAHA. YOU THOUGHT THIS GAME WAS ACTUALLY GOOD ENOUGH TO HAVE A SAVE FEATURE?")
-            notTurn = True
-        elif option in ("load","load game","load saved game"):
-            print("No saved game to load.")
-            notTurn = True
-        elif option.startswith("lie down on") or option.startswith("lie down in"):
-            option = option[11:]
+                elif option in ("save","save game","save the game"):
+                    print("HAHAHAHA. YOU THOUGHT THIS GAME WAS ACTUALLY GOOD ENOUGH TO HAVE A SAVE FEATURE?")
+                    notTurn = True
+                elif option in ("load","load game","load saved game"):
+                    print("No saved game to load.")
+                    notTurn = True
+                elif option.startswith("lie down on") or option.startswith("lie down in"):
+                    option = option[11:]
             if option in ("floor","ground","back"):
                     print("You lie down. It'x pretty relaxing.")
             elif roomID == "roomJailCell":
@@ -7002,11 +7057,11 @@ def inGame(debug):
                     print("You lie down. The haystack makes your back a bit itchy, but you've gotten used to it by now.")
             else:
                 print("You can't do that.")
-        elif option.endswith("lie down"):
-            print("You lie down. It's pretty relaxing.")
+            elif option.endswith("lie down"):
+                    print("You lie down. It's pretty relaxing.")
         # Wait
-        elif option.startswith("wait") or option == "z":
-            print("Time passes.")
+            elif option.startswith("wait") or option == "z":
+                print("Time passes.")
         # Do Nothing
         elif option == "do nothing":
             print("Nothing done.")
