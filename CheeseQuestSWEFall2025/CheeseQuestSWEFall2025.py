@@ -3302,7 +3302,7 @@ def inGame(debug):
                         print("It's made of cold steel. There is a small slit in it.")
                     elif option in ("slit","small slit","through slit","through small slit"):
                         print("You can see out into the corridor. Other jail cells are visible, but you can't see inside of them.")
-                        if not roomCurrent.counter_1 and not playerName:
+                        #if not roomCurrent.counter_1 and not playerName:
                            # roomCurrent.counter_1 = 1
                            # removed due to satement has no effect
                     elif askName:
@@ -8335,8 +8335,8 @@ def inGame(debug):
         elif roomID == "roomCourtyardSouth":
 
             #if jailGuards == True:
-                 if jailGuards == True:
-                print("You get lost in the crowd, confusing and disorienting the jail guards. They lose interest, probably because they don't get paid enough.")
+                if jailGuards == True:
+                    print("You get lost in the crowd, confusing and disorienting the jail guards. They lose interest, probably because they don't get paid enough.")
                 jailGuards = False
         # Creature stops chase at crevasse if visible or outside
         elif roomID == "roomMountEntrance" or (roomID.endswith("crevasse") and roomID_Last.endswith("crevasse") and roomID != roomID_Last):
