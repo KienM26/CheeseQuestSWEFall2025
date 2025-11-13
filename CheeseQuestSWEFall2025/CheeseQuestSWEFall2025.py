@@ -1,4 +1,7 @@
 # Cheese Quest: The Plight of Kashkaval
+# Edited by: 
+# Gage Halpin, Kien Ma, Christina Kuo, Liam Casey, Sean Reynolds
+
 # Evan Quan Oct. 17, 2016
 # Single-player text based adventure game
 # Save the world from the Cheese Mage!
