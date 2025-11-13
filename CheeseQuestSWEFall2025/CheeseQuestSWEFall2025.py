@@ -6,6 +6,8 @@
 # Single-player text based adventure game
 # Save the world from the Cheese Mage!
 
+# edited by Liam Casey!
+
 # Developed in Python 3.5.2
 
 # Inspired by: http://pages.cpsc.ucalgary.ca/~tamj/2016/231F/assignments/assignment2/index.htm
