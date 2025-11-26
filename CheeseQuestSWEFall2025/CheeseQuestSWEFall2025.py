@@ -8835,8 +8835,11 @@ def inGame(debug):
             turn = "turns"
         print("\nOh no! You died%s.\nYou took %s %s this life.\n\nTotal deaths: %s\nTotal turns: %s\n" % (cause,turnCounter,turn, deaths_total,turnCounter_total))
 
-    # Restart the program
+   # Restart the program
     repeat()
-# Start game
-menu()
 
+# Start game
+# This check prevents the game from starting automatically 
+# when you import it into your test file.
+if __name__ == "__main__":
+    menu()
