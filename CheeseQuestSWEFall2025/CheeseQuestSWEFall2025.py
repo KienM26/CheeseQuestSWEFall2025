@@ -2,418 +2,362 @@
 # Edited by: 
 # Gage Halpin, Kien Ma, Christina Kuo, Liam Casey, Sean Reynolds
 
-# Evan Quan Oct. 17, 2016
+# Original Author: Evan Quan Oct. 17, 2016
 # Single-player text based adventure game
 # Save the world from the Cheese Mage!
 
-# edited by Liam Casey!
+import random, os, getpass
 
-# Developed in Python 3.5.2
-
-# Inspired by: http://pages.cpsc.ucalgary.ca/~tamj/2016/231F/assignments/assignment2/index.htm
-# Simple puzzles http://h2g2.com/approved_entry/A22196289
-
-# NO LONGER IN DEVELOPMENT - WORKING ON CHEESE QUEST 2 IN JAVA
-# Development history https://repl.it/ERe1/0 (incomplete)
-
-# Currently working on for 1.5.0
-# Balancing numbers during playthrough
-# POTENTIALLY: Change cave layout to be less confusing?
-#   Remove south and inward dead ends
-
-# Kidnapping
-
-
-# Adding more examine text where important
-# Check for text issues
-# Mead
-# if drink too much, go to darkness for 3 turns and wake up
-# balance numbers
-#   turns to find and use bandage
-#   turns to find and eat biscuit
-#   turns to take staff, pick and escape before creature hits you
-#	   make sure creatures hits once in optimal escape
-#   update roomLairWest description
-
-
-# add 1 more level to mysterious book
-# find right action/verb for animal totems
-# consider other interactions with mirror image
-#   maybe make it do nothing but talk in reverse (how to make clear, add text?)
-
-#____Less Important features_____
-
-
-# First time descriptions
-# Adds immersion, less repetitive
-
-# Punch, kick
-# If people in room
-
-## continue##
-# simplify cave, balance coal mine placement/coal quantity/price, monster spawn and chase
-# have small opening with rewards
-#   If not monster chase, inside small openings do not initiate lair chase
-#   View adjacent room (outside hole) as the same light settings as hole
-
-
-# change roquefort end talk
-# more clear, just overall improve
-
-# poison potion for alchemist
-# ingredient in cave, near back
-# use on funnel cake to make poisoned funnel cake
-# Make moat around roquefort house instead of lock (allows use of ozh thok alatho, as well as opportunity to go back to town and buy grappling hook (difficult) instead)
-
-# make skeleton key open lockbox, vault? first roquefort gate
-
-# Fix more spacing for rooms, especially with dialogue
-# Make going fullscreen unnecessary
+# === KEEP THESE VARIABLES (Your game uses them) ===
 VERSION = "1.4.3"
 DATE = "October 17, 2016"
-"""
-Changelog
-1.4.3 - August 3, 2017
-    - Class definitions and object instantiation are reverted back to inside inGame() function
-        - Fixed crashes and bugs caused by variable/class scope issues
-            - Fixed player gold showing up as 0 in shop description when in shops (player still had normal gold and could buy stuff as normal)
-    - oilCounter is readded properly to beginning of counter initialization
-    - Changed "About this Game" to only show starting date
-1.4.2 - Feb. 18, 2017
-    - Decrementing hunger changed to Stat method
-1.4.1 - Feb. 6, 2017
-    - Added another example to How to Play
-    - Changed the spacing for room descriptions
-    - Recommendation to play in fullscreen removed
-1.4.0 - Feb. 6, 2017
-    - Class definitions moved outside of inGame() loop
-    - Implemented Help System
-        - How to play provides all command shortcuts
-        - Command shortcuts can be accessed in-game with "help"
-        - "h" implemented and added to shortcuts ("hunger")
-        - Main and secondary objectives implemented to guide players at any point in the game ("objective")
-        - "o" implemented and added to shortcuts ("objective")
-    - HUNGER_WARNING increased from 9 to 15 (original value)
-    - roomMountEntrance now has foliage block message for East and West
-    - Direction descriptions at roomRoad2Mid and roomRoadMid now describe adjacent rooms once sign has been read
-    - "<Direction> is inside" descriptions now more descriptive
-    - LAKE_GOLD_REWARD increased from 183 to 241
-1.3.4 - Feb. 4, 2017
-    - HUNGER_PORRIDGE is set to HUNGER_MAX
-    - Added "heal" and "heal wound(s)/injury/bleeding/self" as alternative to use bandage
-    - How to Play is more descriptive and help command added in game
-    - Fixed examining roomRoadMid sign giving roomRoad2Mid sign description
-    - Fixed darkness loop not having the same input spacing
-    - Entering darkness now sets shield to 0
-    - Fixed taking potato/potatoes not working
-    - Can now "set dial <colour>" in roomHousePantry
-    - Changed Vesh'kathal staff knockout text to be more clear
-    - Fixed creature blinded by light message not appearing when escaping to roomMountEntrance
-    - Fixed dropping and taking rotten potato not working
-    - Vault door now has exactly 2 dials set to correct answer and 2 not to correct answer
-        - Prevents 3 or all dials starting off correct by chance
-    - Changing dials or levers to the position they already are in displays a message
-    - Can now bet "all,every" gold or "no,none" gold correctly in roomCarnivalShellGame
-    - roomCarnivalShellGame text spacing improved
-    - Can now "examine through slit", "look through small slit" etc. in roomJailCell
-    - roomRoad2North is now roomHouseGate
-    - Key of Ahm'domosh can now unlock the roomHouseGate, roomLake lockbox
-    - Attempting to unlock roomHouseGate or roomLake lockbox has messages with inv.key or not inv.key
-1.3.3 - Feb. 4, 2017
-    - Changed lantern, hunger and wound warning messages to be normal case and more clear in meaning.
-    - Increased COAL_MIN,COAL_MAX from 5,8 to 6,9
-    - Potion of rejuvination now provides a shield for HUNGER_POTION duration, preventing player from getting harmed (but not killed).
-    - Fixed rejuvination typos
-    - Added "exit game"
-    - Removed unused help_counter
-    - Changed How to Play description spacing
-    - Changed About this Game description to be more concise
-1.3.2 - Jan. 25, 2017
-    - Fixed "again" command crashing game if first turn
-    - Fixed problem with "taking" "rotten potato."
-    - Fixed various typos.
-    - Fixed lantern warnings not being in caps.
-    - Fixed "pick up" splitting one character too late.
-1.3.1 - Jan. 23, 2017
-    - Fixed a crash when restarting
-    - Grappling hook price increased from 350 to 400
-    - CHEST_REWARD increased from 263 to 324
-1.3.0 - Jan. 23, 2017
-    - Added password for debug mode (uses getpass library to not show password in terminal window)
-    - Examine "self","stat","stats" prints health and hunger information
-    - Rubble now blocks north roomTempleInside
-    - roomBarnUp letter revamped to reveal "eyik vo'hollom" as password for obsidian sphere, and explain the importance of staff
-        - letter is now it's own item "memo" so both letter and memo can be simultaneously acquired
-    - Added South shrine that connects to North Shrine
-        - roomForest is outside south shrine
-        - roomRoad2East renamed to roomField
-        - password to enter is "eyik vo'hollom"
-    - Player is only silenced at house
-        - Once player leaves house, no longer silenced
-        - Silenced again if returns to house
-            - From mysterious book or by walking in/out
-    - Veiled woman no longer spawnable if cell door is spell unlocked
-        - If no name set, default is "the hero of Kashkaval"
-    - Veiled woman does not spawn if already asked name
-    - Improved "How to Play" to clarify how commands work at menu
-    - Removed excess directional roads to streamline movement
-    - Revamped examine commands to include more variation
-        - Can now examine items in room (not in inventory)
-    - Revamped buy/sell commands to allow for quantities
-    - Sell now allows for "all" and "every"
-    - Added wooden bird (again) for injured stranger (now just stranger) quest instead of bandage, placed in roomCave_2m
-    - Ozh sol fek spell added in roomCave_4_mr (still in journal)
-    - Added directionBlock for forest messages
-    - Vault door moved from roomJailCorridor to roomMountEntrance to decrease repetition after death
-    - Treasure chest in roomCave__3_lllm_treasure_crevasse is now locked.
-        - Can be opened with Ozh vo'ses sa
-    - Changed the connection between some rooms in the cave
-        - Should be easier to move from North to South (easier when escape creature to south entrance)
-        - Should be easier to find coal going from South to North
-        - Dead body, when examined has NOTE item with answer
-        - Dead body has 3 pieces of coal
-    - Gold removed from roomJailFoyer (bait gold)
-    - Updated potato description to warn of death.
-    - Potato is now called Rotten potato
-    - HUNGER_WARNING decreased from 15 to 9 turns
-    - Game balance
-        - COAL_MIN,COAL_MAX from 6-10 to 5-8
-        - CHEST_REWARD decreased from 463 to 263
-        - PRICE_BUY_TICKET increased from 10 to 20
-        - PRICE_BUY_FOOT increased from 15 to 30
-        - HUNGER_MAX decreased from 100 to 80
-        - HUNGER_PORRIDGE increased from 65 to 70
-        - HUNGER_PIE decreased from 80 to 70
-        - HUNGER_CHEESE increased from 2 to 10
-        - Chicken pot pie from roomHouseKitchen removed
-        - roomJailCell haystack loot from 1 gold to 2 gold and 1 hardtack biscuit
-            - Made it worth the turn loss
-        - roomCourtyardNorth gold increased from 9 to 16
-        - Grappling hook buy price increased from 250 gold to 350 gold
-        - Dragonstone sell price increased from 150 gold to 300 gold
-        - Porridge hunger increased from 60 to 65
-        - LOOT_B_GOLD increased from 76 to 96
-        - LOOT_A_GOLD increased from 87 to 187
-        - LOOT_A_BISCUIT increased from 3 to 4
-        - CREATURE_ROAM_MIN decreased from 26 to 22
-    - Improvements
-        - Direction prompts are more clear
-        - Creature does not despawn or stop roaming when crossing the crevasse unless it is already visible
-        - Examine hunger and health do not count as turns
-        - Examine hunger no longer prints additional invalid turn text
-        - Examine hunger and health commands both display numerical hunger and health values
-        - Improved clarity and formatting of various text
-        - Examine now factors in "examine a" and "examine the"
-        - Added "pick up", "grab", "obtain", "acquire"
-        - Added "remove", "discard"
-        - Added "rotate"
-        - Added "gamble" and to bet "all"
-        - Fixed roomLake injured stranger text not applying to the right conditions
-        - Fixed askName instantly killing player in roomJailCell if they do not respond
-        - Letter instructions are more clear
-        - Letter with default name is spawned in roomJailCorridor if cell door is spell unlocked
-        - "Again" command no longer crashes if it is the first command done
-1.2.0 - Jan. 15, 2017
-    - Removed roomCave_3_llllm_crevasse and roomCave_3_lllm to make treasure chest more obvious
-    - Replaced lake reward with lockbox
-    - Moved Ozh ensh, Ozh vo'ses sa to roomLake
-    - Moved Ozh sol fek to journal
-    - Added Ozh thok alatho to roomLairEast
-    - Added "light lantern" command
-    - Creature will not spawn if in first cave room (roomCave_1_m)
-        - If player wants to enter cave first, then light lantern
-    - 2 random roomJailCorridor vault numbers will already be set to the correct answer
-    - Block descriptions added along invalid road directions
-    - Game balance
-        - Increased max hunger from 50 to 100
-        - Increased food hunger values
-            - Porridge hunger increased from 50 to 60
-            - Pie hunger increased from 40 to 80 (4 hunger/gold)
-            - Funnel cake hunger increased from 10 to 20 (4 hunger/gold)
-            - Potion hunger increased from 40 to 125 (5 hunger/gold, or 12.5 hunger/gold if refill)
-            - Biscuit hunger increased from 15 to 30
-                - LOOT_MID_BANDAGE decreased from 4 to 1
-                - HUNGER_DARKNESS increased from 25 to 30
-            - Cheese hunger decreased from 3 to 2
-        - Oil duration increased from 25 to 30
-        - Rubble fall chance decreased from 5% to 1%
-        - Pickaxe break chance decreased from 7% to 1%
-        - Lucky foot modifier increased from 25% to 100%
-        - Raffle compensation increased from 150 gold to 200 gold
-        - Creature roam minimum increased from 24 to 26
-        - Lake gold reward increased from 143 gold to 183 gold
-        - LOOT_WEST_GOLD increased from 14 to 42
-    - Improvements
-        - Fixed typo in various room descriptions
-        - Improved clarity for various room descriptions
-        - Spells with descriptions are now added to spell list if used validly
-        - Shops and bridge now display player gold values upon entering
-        - Staff and kill spell can be used against creature in lair and cave, but has no effect
-        - Staff and kill spell can be used in carnival wheel game and jail, resulting in death
-        - Blacksmith first time description added to clarify that coal is found in the Mount Magna mine
-        - Examining room does not count as turn
-        - Moving into blocked direction does not count as turn
-        - Indented movement text
-        - Added !spells and !learn debug commands
-        - Capitalized final death warning messages for health and hunger
-1.1.0 - Jan. 14, 2017
-    - Completed:
-        - Injured stranger fetch quest to roomLake to replace lake apparition
-            - Provides early game reward of 143 gold and 1 pie for bandage and increases clarity of "Ozh ensh"
-            - Tablet now reads non-spell, "Eyik vo'hollom"
-        - Cannot eat or drink anything if hunger is above HUNGER_MAX
-        - Added 5% chance of rubble falling from ceiling and injuring player when moving around in normal cave
-            - Make bandages serve a purpose
-        - Increased CREATURE_ROAM from 18-32 to 24-32 to compensate
-    - Game balance:
-        "Game was too difficult from escaping jail to passing bridge troll. Rewards were increased for entering the cave, the risk getting caught by the creature with a light source decreased."
-        - Increased raffle ticket refund from 100 gold to 150 gold
-        - Increased the cave body loot gold, vial and biscuit rewards
-        - Swapped cave bodies so explorer with journal is closet to entrance
-        - Increased dragonstone sell price from 120 gold to 150 gold
-            - LOOT_A gold and biscuit from 14 and 2 to 87 and 3 respectively
-            - LOOT_B gold from 29 to 76
-            - LOOT_C oil from 1 to 2
-        - Increased the cave treasure chest gold reward from 263 to 463
-        - Increased the range of coal quantity in coal mines from 4-6 to 6-10
-        - Increased cave creature roam and chase variance and average times
-            - CREATURE_ROAM from 16-26 to 18-32
-            - CREATURE_CHASE from 14-20 to 16-22
-        - Added earlier warning for creature chase
-        - Pickaxe break chance increased from 5% to 7%
-        - Food hunger values increased and standardized to make food purchases more balanced and hunger/gold ratios more fair
-            - Pie hunger increased from 35 to 40 hunger (2 hunger/gold)
-            - Potion hunger increased from 20 to 30
-                - Potion cost increased from 20 to 25 (1.2 hunger/gold)
-                - Refill is now more efficient (3 hunger/gold)
-    - Improvements:
-        - Buying and refilling now display total money after purchase
-        - Fixed lack of error message when selling invalid item
-        - Examining inventory now does not count as a turn
-        - Examining spells does not count as a turn
-            - Convenience factor when checking for gold and other item quantities
-        - Fixed grappling hook now spawning hook on opposite end of crevasse once thrown
-        - Take all in lair chase counts as 2 turns to be equivalent to taking each item individually
-        - Added examine text for roomHouseGate, roomFarm, roomBarnUp, roomShrineNorth, roomHouseFoyer, roomHouseKitchen, roomHousePantry, roomHouseHallway
-        - Updated barn letter
-        - Fixed roomBookMirror text
-        - Fixed "spells" etc. command
-        - Fixed roomGate description text
-        - Made invalid give, open, close not count as a turn
-        - changeRoom is now default False
-        - Fixed mysterious book inventory interactions with key of Ahm'domosh
-        - Fixed selling dragonstone not removing dragonstone from inventory
-        - Fixed giving Roquefort staff crashing the game
-1.0.1 - Jan. 13, 2017
-    - Fixed Alchemist's hut crash on entering a second time.
-    - Fixed cave pathing
-    - Fixed Roquefort telepathy message to occur after staff is acquired
-    - Fixed roomTempleInside description text
-    - Fixed taking backpack items in creature lair and lair chase sequence
-    - Fixed using vial of lantern oil not removing vial from inventory
-1.0.0 - Jan. 13, 2017 - Completed all main features to complete a playthrough of the game
-    - Completed:
-        - Added command prompt window resize on launch
-       	    - Alchemist's Hut - Activatable shop
-       	    - Dragonstone fetch quest
-            - Potion
-            - Flask
-            - Fill command
-    - Game balance
-        - Adjusted prices and rewards values
-0.9.0 - Jan. 11, 2017
-    - Completed:
-        - Game ending
-        - Debug mode
-        - Roquefort house
-        - Creature lair
-        - Field roads
-        - Farm and barn
-        - Black knight enemy
-        - Ozkavosh shrine, Mysterious book and book puzzles
-        - Roquefort telepathy messages
-        - Ozkavosh spells and spellbook
-        - Up and down movement
-        - Cheese slices
-        - Biscuits
-        - Lootable corpses in cave
-        - Journal in cave
-        - Take all and drop all
-    - Improvements
-        - Main menu splash art
-        - Jail size and room improvements
-        - Various item and room descriptions to add clarity and detail
-        - Temple inner sanctum
-        - Temple murals
-        - Revamped jail letter text
-        - Replaced wooden bird with shrubbery
-        - 5% change of breaking pickaxe when mining
-0.6.0 - Jan. 03, 2017
-    - Completed:
-        - Gate guard quest
-        - General store
-        - Mining system
-        - Funnel cake buy limit
-        - Wheel game room and ticket system
-        - Improvements:
-        - Give command
-        - Buy command
-        - Look command
-        - Use staff
-0.5.1 - Dec. 12, 2016
-    - Completed:
-        - Grappling hook mechanic
-        - Cave pathing
-        - Improvements:
-        - Shell game gold limit
-0.5.0 - Dec. 11, 2016
-    - Completed:
-        - Bridge and temple
-        - Menu changes:
-        - Changelog (Wow. Such meta.)
-        - About game information
-        - Restart game menu
-0.1.0 - 0.4.0 - Oct. 17, 2016 - Dec. 10, 2016
-    - Completed:
-        - Room and movement system
-        - Inventory and item system
-        - Buying/selling/betting system
-        - Examine/read/description system
-        - Jail, town, most of cave
-        - Cave creature and jail guard chasing mechanics
-        - Hunger and health system
-"""
 
-# Notes
-# If adding ITEM, add to:
-#   Inventory
-#	   examineInventory(self)
-#   Take
-#   Drop
-#   Room
-#	   itemsPresent(self)
-#   Examine
+# === ADD THIS LINE (Required for Inventory to work) ===
+playerName = "Hero"
 
-# If adding ROOM, add to:
-#   class className
-#   changeRoom (at start and at end loop)
-#   Instantiate
+# Inventory
+class Inventory(object):
+        def __init__(self, name = "room", gold = 0, letter = 0, key = 0, keySkeleton = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, coal = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, note_1 = 0, note_2 = 0, note_3 = 0, note_4 = 0):
+            self.name = name
+            self.gold = gold
+            self.goldDescription = "The edges are worn down from handling."
+            self.letter = letter
+            self.letterDescription = "Made out of old parchment, the message on it is written in ink."
+            self.letterRead = "It reads:\n\nTo " + str(playerName) + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
+            self.key = key
+            self.keyDescription = "The key to your jail cell."
+            self.keySkeleton = keySkeleton
+            self.keySkeletonDescription = "The head is a skull with glowing purple eyes."
+            self.pickaxe = pickaxe
+            self.pickaxeDescription = "A sturdy tool useful for mining."
+            self.shrubbery = shrubbery
+            self.shrubberyDescription = "It's a very nice shrubbery, and not too expensive."
+            self.funnelCake = funnelCake
+            self.funnelCakeDescription = "It's covered in powdered sugar. Mmmmm... and still warm."
+            self.halfFunnelCake = halfFunnelCake
+            self.halfFunnelCakeDescription = "Ew. You can see the bite marks."
+            self.foot = foot
+            self.footDescription = "A prominent symbol of RNGesus, the ancient god of gambling, luck, and salt."
+            self.porridge = porridge
+            self.porridgeDescription = "Bland prison food. Makes you consider if eating this everyday was the real punishment."
+            self.bowl = bowl
+            self.bowlDescription = "Small and dented. Made of out of tin."
+            self.lantern = lantern
+            self.lanternDescription = "Perfect for lighting dark areas."
+            self.oil = oil
+            self.oilDescription = "Perfect for things that are perfect for lighting dark areas."
+            self.pie = pie
+            self.pieDescription = "Hardy and delicious. Just looking at it makes you hungry."
+            self.biscuit = biscuit
+            self.biscuitDescription = "Harder than a brick and probably just as tasty."
+            self.hook = hook
+            self.hookDescription = "Just having one makes you feel like a secret agent."
+            self.staff = staff
+            self.staffDescription = "Elaboratedly designed and encrusted with sapphires, this staff holds unspeakable power."
+            self.ticket = ticket
+            self.ticketDescription = "The number 77 is written on it."
+            self.coal = coal
+            self.coalDescription = "A valuable fuel source for a variety of uses."
+            self.potato = potato
+            self.potatoDescription = "It looks rotten and covered in ash. You probably shouldn't eat it."
+            self.bandage = bandage
+            self.bandageDescription = "Good for healing wounds."
+            self.journal = journal
+            self.journalDescription = "The cover is leather-bound. The whatever text there was along the spine is worn off."
+            self.book = book
+            self.bookDescription = "The cover is entirely black, made out of a material unbeknownst to you. It is heavier than it looks."
+            self.brie = brie
+            self.brieDescription = "Soft and creamy."
+            self.munster = munster
+            self.munsterDescription = "Milky white."
+            self.stilton = stilton
+            self.stiltonDescription = "Hard, with blue veins."
+            self.swiss = swiss
+            self.swissDescription = "It has more holes than the plot to the story of this game."
+            self.wensleydale = wensleydale
+            self.wensleydaleDescription = "Crumbly and a bit dry."
+            self.potion = potion
+            self.potionDescription = "The fluid is red, bubbling, and and foggy. Looks completely safe to drink."
+            self.flask = flask
+            self.flaskDescription = "It's empty."
+            self.stone = stone
+            self.stoneDescription = "It glows a pulsing red as if it were alive. It also seems to produces its own heat."
+            self.bird = bird
+            self.birdDescription = "It's crudely carved to look like a raven."
+            self.note = note
+            self.noteDescription = "Some numbers are written on the small slip of paper."
+            self.note_1 = note_1
+            self.note_2 = note_2
+            self.note_3 = note_3
+            self.note_4 = note_4
+            self.noteRead = "It reads: \"If you must enter, bring a LIGHT SOURCE to keep the creature away. It won't work forever, but it will give you some time. The vault code is %s%s%s%s.\"" % (note_1,note_2,note_3,note_4)
+            self.memo = memo
+            self.memoDescription = "The edges are burnt and the parchment is covered in ash."
+            self.memoRead = "It reads:\n\n\"To whoever is still alive,\n\nBy the time you read this, I will probably be dead. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one of them in order to help look for survivors up North. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with the staff of Garrotxa back in my home town. It is our only hope.\""
+            # "It reads:\n\nTo whoever is still alive,\n\nBy the time you read this, I will probably be dead. It turns out POTATOES, of all things, are the Ozkavosh's greatest WEAKNESS. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one in order to get as many potatoes as I could find. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with a potato. Either that, or get hold of the staff of Garrotxa back in my town."
+        def itemTypes(self):
+            type_count = 0
+            if self.gold:
+                type_count += 1
+            if self.letter:
+                type_count += 1
+            if self.key:
+                type_count += 1
+            if self.keySkeleton:
+                type_count += 1
+            if self.pickaxe:
+                type_count += 1
+            if self.shrubbery:
+                type_count += 1
+            if self.funnelCake:
+                type_count += 1
+            if self.halfFunnelCake:
+                type_count += 1
+            if self.foot:
+                type_count += 1
+            if self.porridge:
+                type_count += 1
+            if self.bowl:
+                type_count += 1
+            if self.lantern:
+                type_count += 1
+            if self.oil:
+                type_count += 1
+            if self.pie:
+                type_count += 1
+            if self.biscuit:
+                type_count += 1
+            if self.hook:
+                type_count += 1
+            if self.staff:
+                type_count += 1
+            if self.ticket:
+                type_count += 1
+            if self.coal:
+                type_count += 1
+            if self.potato:
+                type_count += 1
+            if self.bandage:
+                type_count += 1
+            if self.journal:
+                type_count += 1
+            if self.book:
+                type_count += 1
+            if self.brie:
+                type_count += 1
+            if self.munster:
+                type_count += 1
+            if self.stilton:
+                type_count += 1
+            if self.swiss:
+                type_count += 1
+            if self.wensleydale:
+                type_count += 1
+            if self.potion:
+                type_count += 1
+            if self.flask:
+                type_count += 1
+            if self.stone:
+                type_count += 1
+            if self.bird:
+                type_count += 1
+            if self.note:
+                type_count += 1
+            if self.memo:
+                type_count += 1
+            return type_count
+        def examineInventory(self, option, roomCurrent):
+            # Quantity and Description
+            # Inventory
+            if option == "inventory":
+                if not self.itemTypes():
+                    print("You have nothing.")
+                else:
+                    print("You have:")
+                    if self.bandage == 1:
+                        print("    a bandage")
+                    elif self.bandage > 1:
+                        print("   ",self.bandage,"bandages")
+                    if self.porridge:
+                        print("    a bowl of porridge")
+                    if self.bowl:
+                        print("    a bowl")
+                    if self.pie == 1:
+                        print("    a chicken pot pie")
+                    elif self.pie > 1:
+                        print("   ",self.pie,"chicken pot pies")
+                    if self.stone:
+                        print("    a dragonstone")
+                    if self.flask == 1:
+                        print("    a flask")
+                    elif self.flask > 1:
+                        print("   ",self.flask,"flasks")
+                    if self.funnelCake == 1:
+                        print("    a funnel cake")
+                    elif self.funnelCake > 1:
+                        print("   ",self.funnelCake,"funnel cakes")
+                    if self.gold:
+                        print("   ",self.gold,"gold")
+                    if self.hook == 1:
+                        print("    a grappling hook")
+                    elif self.hook > 1:
+                        print("   ",self.hook,"grappling hooks")
+                    if self.halfFunnelCake == 1:
+                        print("    a half-eaten funnel cake")
+                    elif self.halfFunnelCake > 1:
+                        print("   ",self.halfFunnelCake,"half-eaten funnel cakes")
+                    if self.biscuit == 1:
+                        print("    a hardtack biscuit")
+                    elif self.biscuit > 1:
+                        print("   ",self.biscuit,"hardtack biscuits")
+                    if self.journal == 1:
+                        print("    a journal")
+                    elif self.journal > 1:
+                        print("   ",self.journal,"journals")
+                    if self.key:
+                        print("    a key")
+                    if self.keySkeleton:
+                        print("    the key of Ahm'domosh")
+                    if self.lantern == 1:
+                        print("    a lantern")
+                    elif self.lantern > 1:
+                        print("   ",self.lantern,"lanterns")
+                    if self.letter:
+                        print("    a letter")
+                    if self.foot == 1:
+                        print("    a lucky rabbit foot")
+                    elif self.foot > 1:
+                        print("   ",self.foot,"lucky rabbit feet")
+                    if self.memo:
+                        print("    a memo")
+                    if self.book == 1:
+                        print("    a mysterious book")
+                    elif self.book > 1:
+                        print("   ",self.book,"mysterious books")
+                    if self.note:
+                        print("    a note")
+                    if self.pickaxe == 1:
+                        print("    a pickaxe")
+                    elif self.pickaxe > 1:
+                        print("   ",self.pickaxe,"pickaxes")
+                    if self.coal == 1:
+                        print("    a piece of coal")
+                    elif self.coal > 1:
+                        print("   ",self.coal,"pieces of coal")
+                    if self.potato:
+                        print("    a rotten potato")
+                    if self.potion == 1:
+                        print("    a potion of rejuvination")
+                    elif self.potion > 1:
+                        print("   ",self.potion,"potions of rejuvination")
+                    if self.ticket:
+                        print("    a raffle ticket")
+                    if self.shrubbery == 1:
+                        print("    a shrubbery")
+                    elif self.shrubbery > 1:
+                        print("   ",self.shrubbery,"shrubberies")
+                    if self.brie:
+                        print("    a slice of brie cheese")
+                    if self.munster:
+                        print("    a slice of munster cheese")
+                    if self.stilton:
+                        print("    a slice of stilton cheese")
+                    if self.swiss:
+                        print("    a slice of swiss cheese")
+                    if self.wensleydale:
+                        print("    a slice of wensleydale cheese")
+                    if self.staff:
+                        print("    the staff of Garrotxa")
+                    if self.oil == 1:
+                        print("    a vial of lantern oil")
+                    elif self.oil > 1:
+                        print("   ",self.oil,"vials of lantern oil")
+                    if self.bird:
+                        print("    a wooden bird")
+            # Individual items
+            elif option == "gold" and (self.gold or roomCurrent.gold):
+                print(self.goldDescription)
+            elif option == "letter" and (self.letter or roomCurrent.letter):
+                    print(self.letterDescription)
+            elif option == "key" and (self.key or roomCurrent.key):
+                print(self.keyDescription)
+            elif option == "key of Ahm'domosh" and (self.keySkeleton or roomCurrent.keySkeleton):
+                print(self.keySkeletonDescription)
+            elif option == "pickaxe" and (self.pickaxe or roomCurrent.pickaxe):
+                print(self.pickaxeDescription)
+            elif option == "shrubbery" and (self.shrubbery or roomCurrent.shrubbery):
+                print(self.shrubberyDescription)
+            elif option == "funnelCake" and (self.funnelCake or roomCurrent.funnelCake):
+                print(self.funnelCakeDescription)
+            elif option == "half-eaten funnel cake" and (self.halfFunnelCake or roomCurrent.halfFunnelCake):
+                print(self.halfFunnelCakeDescription)
+            elif option == "lucky rabbit foot" and (self.foot or roomCurrent.foot):
+                print(self.footDescription)
+            elif option == "bowl of porridge" and (self.porridge or roomCurrent.porridge):
+                print(self.porridgeDescription)
+            elif option == "bowl" and (self.bowl or roomCurrent.bowl):
+                print(self.bowlDescription)
+            elif option == "lantern" and (self.lantern or roomCurrent.lantern):
+                print(self.lanternDescription)
+            elif option == "vial of oil lantern" and (self.oil or roomCurrent.oil):
+                print(self.oilDescription)
+            elif option == "chicken pot pie" and (self.pie or roomCurrent.pie):
+                print(self.pieDescription)
+            elif option == "hardtack biscuit" and (self.biscuit or roomCurrent.biscuit):
+                print(self.biscuitDescription)
+            elif option == "grappling hook" and (self.hook or roomCurrent.hook):
+                print(self.hookDescription)
+            elif option == "staff of Garrotxa" and (self.staff or roomCurrent.staff):
+                print(self.staffDescription)
+            elif option == "raffle ticket" and (self.ticket or roomCurrent.ticket):
+                print(self.ticketDescription)
+            elif option == "piece of coal" and (self.coal or roomCurrent.coal):
+                print(self.coalDescription)
+            elif option == "potato" and (self.potato or roomCurrent.potato):
+                print(self.potatoDescription)
+            elif option == "bandage" and (self.bandage or roomCurrent.bandage):
+                print(self.bandageDescription)
+            elif option == "journal" and (self.journal or roomCurrent.journal):
+                print(self.journalDescription)
+            elif option == "book" and (self.book or roomCurrent.book):
+                print(self.bookDescription)
+            elif option == "brie" and (self.brie or roomCurrent.brie):
+                print(self.brieDescription)
+            elif option == "slice of munster cheese" and (self.munster or roomCurrent.munster):
+                print(self.munsterDescription)
+            elif option == "slice of stilton cheese" and (self.stilton or roomCurrent.stilton):
+                print(self.stiltonDescription)
+            elif option == "slice of swiss cheese" and (self.swiss or roomCurrent.swiss):
+                print(self.swissDescription)
+            elif option == "slice of wensleydale cheese" and (self.wensleydale or roomCurrent.wensleydale):
+                print(self.wensleydaleDescription)
+            elif option == "potion or rejuvination" and (self.potion or roomCurrent.potion):
+                print(self.potionDescription)
+            elif option == "flask" and (self.flask or roomCurrent.flask):
+                print(self.flaskDescription)
+            elif option == "dragonstone" and (self.stone or roomCurrent.stone):
+                print(self.stoneDescription)
+            elif option == "wooden bird" and (self.bird or roomCurrent.bird):
+                print(self.birdDescription)
+            elif option == "note" and (self.note or roomCurrent.note):
+                print(self.noteDescription)
+            elif option == "memo" and (self.memo or roomCurrent.memo):
+                print(self.memoDescription)
+            else:
+                if option == "gold":
+                    print("There is no gold here to examine.")
+                else:
+                    print("There is no",option,"here to examine.")
 
 #_______Libraries_______________________________________________________________
 import random,os,getpass
-
-#_______Library stuff___________________________________________________________
-# def playSound(file):
-#     cwd = os.getcwd()
-#     os.system("start " + cwd + "/music/" + file)
-# music = vlc.MediaPlayer()
+playerName = "Hero"
 
 # Resize command line window to appropriate size
 # col is width
 # lines is buffer height
 os.system('mode con: cols=200')
 #_______Constants_______________________________________________________________
-
 # Debug mode password
 PASSWORD = "mwop"
 # Stats
@@ -424,7 +368,6 @@ HEALTH_MAX = 7
 HUNGER_DARKNESS = 30
 # How many turns until death that warning messages appear
 HUNGER_WARNING = 15
-
 # Food Hunger Values
 HUNGER_PORRIDGE = HUNGER_MAX
 HUNGER_FUNNELCAKE = 20 # 2 hunger/gold
@@ -995,340 +938,7 @@ def inGame(debug):
 
 
     ## good place to start making methods for repeated ass code
-    # Inventory
-    class Inventory(object):
-        def __init__(self, name = "room", gold = 0, letter = 0, key = 0, keySkeleton = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, coal = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, note_1 = 0, note_2 = 0, note_3 = 0, note_4 = 0):
-            self.name = name
-            self.gold = gold
-            self.goldDescription = "The edges are worn down from handling."
-            self.letter = letter
-            self.letterDescription = "Made out of old parchment, the message on it is written in ink."
-            self.letterRead = "It reads:\n\nTo " + str(playerName) + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
-            self.key = key
-            self.keyDescription = "The key to your jail cell."
-            self.keySkeleton = keySkeleton
-            self.keySkeletonDescription = "The head is a skull with glowing purple eyes."
-            self.pickaxe = pickaxe
-            self.pickaxeDescription = "A sturdy tool useful for mining."
-            self.shrubbery = shrubbery
-            self.shrubberyDescription = "It's a very nice shrubbery, and not too expensive."
-            self.funnelCake = funnelCake
-            self.funnelCakeDescription = "It's covered in powdered sugar. Mmmmm... and still warm."
-            self.halfFunnelCake = halfFunnelCake
-            self.halfFunnelCakeDescription = "Ew. You can see the bite marks."
-            self.foot = foot
-            self.footDescription = "A prominent symbol of RNGesus, the ancient god of gambling, luck, and salt."
-            self.porridge = porridge
-            self.porridgeDescription = "Bland prison food. Makes you consider if eating this everyday was the real punishment."
-            self.bowl = bowl
-            self.bowlDescription = "Small and dented. Made of out of tin."
-            self.lantern = lantern
-            self.lanternDescription = "Perfect for lighting dark areas."
-            self.oil = oil
-            self.oilDescription = "Perfect for things that are perfect for lighting dark areas."
-            self.pie = pie
-            self.pieDescription = "Hardy and delicious. Just looking at it makes you hungry."
-            self.biscuit = biscuit
-            self.biscuitDescription = "Harder than a brick and probably just as tasty."
-            self.hook = hook
-            self.hookDescription = "Just having one makes you feel like a secret agent."
-            self.staff = staff
-            self.staffDescription = "Elaboratedly designed and encrusted with sapphires, this staff holds unspeakable power."
-            self.ticket = ticket
-            self.ticketDescription = "The number 77 is written on it."
-            self.coal = coal
-            self.coalDescription = "A valuable fuel source for a variety of uses."
-            self.potato = potato
-            self.potatoDescription = "It looks rotten and covered in ash. You probably shouldn't eat it."
-            self.bandage = bandage
-            self.bandageDescription = "Good for healing wounds."
-            self.journal = journal
-            self.journalDescription = "The cover is leather-bound. The whatever text there was along the spine is worn off."
-            self.book = book
-            self.bookDescription = "The cover is entirely black, made out of a material unbeknownst to you. It is heavier than it looks."
-            self.brie = brie
-            self.brieDescription = "Soft and creamy."
-            self.munster = munster
-            self.munsterDescription = "Milky white."
-            self.stilton = stilton
-            self.stiltonDescription = "Hard, with blue veins."
-            self.swiss = swiss
-            self.swissDescription = "It has more holes than the plot to the story of this game."
-            self.wensleydale = wensleydale
-            self.wensleydaleDescription = "Crumbly and a bit dry."
-            self.potion = potion
-            self.potionDescription = "The fluid is red, bubbling, and and foggy. Looks completely safe to drink."
-            self.flask = flask
-            self.flaskDescription = "It's empty."
-            self.stone = stone
-            self.stoneDescription = "It glows a pulsing red as if it were alive. It also seems to produces its own heat."
-            self.bird = bird
-            self.birdDescription = "It's crudely carved to look like a raven."
-            self.note = note
-            self.noteDescription = "Some numbers are written on the small slip of paper."
-            self.note_1 = note_1
-            self.note_2 = note_2
-            self.note_3 = note_3
-            self.note_4 = note_4
-            self.noteRead = "It reads: \"If you must enter, bring a LIGHT SOURCE to keep the creature away. It won't work forever, but it will give you some time. The vault code is %s%s%s%s.\"" % (note_1,note_2,note_3,note_4)
-            self.memo = memo
-            self.memoDescription = "The edges are burnt and the parchment is covered in ash."
-            self.memoRead = "It reads:\n\n\"To whoever is still alive,\n\nBy the time you read this, I will probably be dead. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one of them in order to help look for survivors up North. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with the staff of Garrotxa back in my home town. It is our only hope.\""
-            # "It reads:\n\nTo whoever is still alive,\n\nBy the time you read this, I will probably be dead. It turns out POTATOES, of all things, are the Ozkavosh's greatest WEAKNESS. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one in order to get as many potatoes as I could find. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with a potato. Either that, or get hold of the staff of Garrotxa back in my town."
-        def itemTypes(self):
-            type_count = 0
-            if self.gold:
-                type_count += 1
-            if self.letter:
-                type_count += 1
-            if self.key:
-                type_count += 1
-            if self.keySkeleton:
-                type_count += 1
-            if self.pickaxe:
-                type_count += 1
-            if self.shrubbery:
-                type_count += 1
-            if self.funnelCake:
-                type_count += 1
-            if self.halfFunnelCake:
-                type_count += 1
-            if self.foot:
-                type_count += 1
-            if self.porridge:
-                type_count += 1
-            if self.bowl:
-                type_count += 1
-            if self.lantern:
-                type_count += 1
-            if self.oil:
-                type_count += 1
-            if self.pie:
-                type_count += 1
-            if self.biscuit:
-                type_count += 1
-            if self.hook:
-                type_count += 1
-            if self.staff:
-                type_count += 1
-            if self.ticket:
-                type_count += 1
-            if self.coal:
-                type_count += 1
-            if self.potato:
-                type_count += 1
-            if self.bandage:
-                type_count += 1
-            if self.journal:
-                type_count += 1
-            if self.book:
-                type_count += 1
-            if self.brie:
-                type_count += 1
-            if self.munster:
-                type_count += 1
-            if self.stilton:
-                type_count += 1
-            if self.swiss:
-                type_count += 1
-            if self.wensleydale:
-                type_count += 1
-            if self.potion:
-                type_count += 1
-            if self.flask:
-                type_count += 1
-            if self.stone:
-                type_count += 1
-            if self.bird:
-                type_count += 1
-            if self.note:
-                type_count += 1
-            if self.memo:
-                type_count += 1
-            return type_count
-        def examineInventory(self, option, roomCurrent):
-            # Quantity and Description
-            # Inventory
-            if option == "inventory":
-                if not self.itemTypes():
-                    print("You have nothing.")
-                else:
-                    print("You have:")
-                    if self.bandage == 1:
-                        print("    a bandage")
-                    elif self.bandage > 1:
-                        print("   ",self.bandage,"bandages")
-                    if self.porridge:
-                        print("    a bowl of porridge")
-                    if self.bowl:
-                        print("    a bowl")
-                    if self.pie == 1:
-                        print("    a chicken pot pie")
-                    elif self.pie > 1:
-                        print("   ",self.pie,"chicken pot pies")
-                    if self.stone:
-                        print("    a dragonstone")
-                    if self.flask == 1:
-                        print("    a flask")
-                    elif self.flask > 1:
-                        print("   ",self.flask,"flasks")
-                    if self.funnelCake == 1:
-                        print("    a funnel cake")
-                    elif self.funnelCake > 1:
-                        print("   ",self.funnelCake,"funnel cakes")
-                    if self.gold:
-                        print("   ",self.gold,"gold")
-                    if self.hook == 1:
-                        print("    a grappling hook")
-                    elif self.hook > 1:
-                        print("   ",self.hook,"grappling hooks")
-                    if self.halfFunnelCake == 1:
-                        print("    a half-eaten funnel cake")
-                    elif self.halfFunnelCake > 1:
-                        print("   ",self.halfFunnelCake,"half-eaten funnel cakes")
-                    if self.biscuit == 1:
-                        print("    a hardtack biscuit")
-                    elif self.biscuit > 1:
-                        print("   ",self.biscuit,"hardtack biscuits")
-                    if self.journal == 1:
-                        print("    a journal")
-                    elif self.journal > 1:
-                        print("   ",self.journal,"journals")
-                    if self.key:
-                        print("    a key")
-                    if self.keySkeleton:
-                        print("    the key of Ahm'domosh")
-                    if self.lantern == 1:
-                        print("    a lantern")
-                    elif self.lantern > 1:
-                        print("   ",self.lantern,"lanterns")
-                    if self.letter:
-                        print("    a letter")
-                    if self.foot == 1:
-                        print("    a lucky rabbit foot")
-                    elif self.foot > 1:
-                        print("   ",self.foot,"lucky rabbit feet")
-                    if self.memo:
-                        print("    a memo")
-                    if self.book == 1:
-                        print("    a mysterious book")
-                    elif self.book > 1:
-                        print("   ",self.book,"mysterious books")
-                    if self.note:
-                        print("    a note")
-                    if self.pickaxe == 1:
-                        print("    a pickaxe")
-                    elif self.pickaxe > 1:
-                        print("   ",self.pickaxe,"pickaxes")
-                    if self.coal == 1:
-                        print("    a piece of coal")
-                    elif self.coal > 1:
-                        print("   ",self.coal,"pieces of coal")
-                    if self.potato:
-                        print("    a rotten potato")
-                    if self.potion == 1:
-                        print("    a potion of rejuvination")
-                    elif self.potion > 1:
-                        print("   ",self.potion,"potions of rejuvination")
-                    if self.ticket:
-                        print("    a raffle ticket")
-                    if self.shrubbery == 1:
-                        print("    a shrubbery")
-                    elif self.shrubbery > 1:
-                        print("   ",self.shrubbery,"shrubberies")
-                    if self.brie:
-                        print("    a slice of brie cheese")
-                    if self.munster:
-                        print("    a slice of munster cheese")
-                    if self.stilton:
-                        print("    a slice of stilton cheese")
-                    if self.swiss:
-                        print("    a slice of swiss cheese")
-                    if self.wensleydale:
-                        print("    a slice of wensleydale cheese")
-                    if self.staff:
-                        print("    the staff of Garrotxa")
-                    if self.oil == 1:
-                        print("    a vial of lantern oil")
-                    elif self.oil > 1:
-                        print("   ",self.oil,"vials of lantern oil")
-                    if self.bird:
-                        print("    a wooden bird")
-            # Individual items
-            elif option == "gold" and (self.gold or roomCurrent.gold):
-                print(self.goldDescription)
-            elif option == "letter" and (self.letter or roomCurrent.letter):
-                    print(self.letterDescription)
-            elif option == "key" and (self.key or roomCurrent.key):
-                print(self.keyDescription)
-            elif option == "key of Ahm'domosh" and (self.keySkeleton or roomCurrent.keySkeleton):
-                print(self.keySkeletonDescription)
-            elif option == "pickaxe" and (self.pickaxe or roomCurrent.pickaxe):
-                print(self.pickaxeDescription)
-            elif option == "shrubbery" and (self.shrubbery or roomCurrent.shrubbery):
-                print(self.shrubberyDescription)
-            elif option == "funnelCake" and (self.funnelCake or roomCurrent.funnelCake):
-                print(self.funnelCakeDescription)
-            elif option == "half-eaten funnel cake" and (self.halfFunnelCake or roomCurrent.halfFunnelCake):
-                print(self.halfFunnelCakeDescription)
-            elif option == "lucky rabbit foot" and (self.foot or roomCurrent.foot):
-                print(self.footDescription)
-            elif option == "bowl of porridge" and (self.porridge or roomCurrent.porridge):
-                print(self.porridgeDescription)
-            elif option == "bowl" and (self.bowl or roomCurrent.bowl):
-                print(self.bowlDescription)
-            elif option == "lantern" and (self.lantern or roomCurrent.lantern):
-                print(self.lanternDescription)
-            elif option == "vial of oil lantern" and (self.oil or roomCurrent.oil):
-                print(self.oilDescription)
-            elif option == "chicken pot pie" and (self.pie or roomCurrent.pie):
-                print(self.pieDescription)
-            elif option == "hardtack biscuit" and (self.biscuit or roomCurrent.biscuit):
-                print(self.biscuitDescription)
-            elif option == "grappling hook" and (self.hook or roomCurrent.hook):
-                print(self.hookDescription)
-            elif option == "staff of Garrotxa" and (self.staff or roomCurrent.staff):
-                print(self.staffDescription)
-            elif option == "raffle ticket" and (self.ticket or roomCurrent.ticket):
-                print(self.ticketDescription)
-            elif option == "piece of coal" and (self.coal or roomCurrent.coal):
-                print(self.coalDescription)
-            elif option == "potato" and (self.potato or roomCurrent.potato):
-                print(self.potatoDescription)
-            elif option == "bandage" and (self.bandage or roomCurrent.bandage):
-                print(self.bandageDescription)
-            elif option == "journal" and (self.journal or roomCurrent.journal):
-                print(self.journalDescription)
-            elif option == "book" and (self.book or roomCurrent.book):
-                print(self.bookDescription)
-            elif option == "brie" and (self.brie or roomCurrent.brie):
-                print(self.brieDescription)
-            elif option == "slice of munster cheese" and (self.munster or roomCurrent.munster):
-                print(self.munsterDescription)
-            elif option == "slice of stilton cheese" and (self.stilton or roomCurrent.stilton):
-                print(self.stiltonDescription)
-            elif option == "slice of swiss cheese" and (self.swiss or roomCurrent.swiss):
-                print(self.swissDescription)
-            elif option == "slice of wensleydale cheese" and (self.wensleydale or roomCurrent.wensleydale):
-                print(self.wensleydaleDescription)
-            elif option == "potion or rejuvination" and (self.potion or roomCurrent.potion):
-                print(self.potionDescription)
-            elif option == "flask" and (self.flask or roomCurrent.flask):
-                print(self.flaskDescription)
-            elif option == "dragonstone" and (self.stone or roomCurrent.stone):
-                print(self.stoneDescription)
-            elif option == "wooden bird" and (self.bird or roomCurrent.bird):
-                print(self.birdDescription)
-            elif option == "note" and (self.note or roomCurrent.note):
-                print(self.noteDescription)
-            elif option == "memo" and (self.memo or roomCurrent.memo):
-                print(self.memoDescription)
-            else:
-                if option == "gold":
-                    print("There is no gold here to examine.")
-                else:
-                    print("There is no",option,"here to examine.")
-
+    
     #______Rooms____________________________________________________
     # Room information
     #	 Description
@@ -8835,11 +8445,9 @@ def inGame(debug):
             turn = "turns"
         print("\nOh no! You died%s.\nYou took %s %s this life.\n\nTotal deaths: %s\nTotal turns: %s\n" % (cause,turnCounter,turn, deaths_total,turnCounter_total))
 
-   # Restart the program
+    # Restart the program
     repeat()
-
 # Start game
-# This check prevents the game from starting automatically 
-# when you import it into your test file.
 if __name__ == "__main__":
     menu()
+ 
