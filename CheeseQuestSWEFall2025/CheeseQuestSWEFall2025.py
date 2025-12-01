@@ -537,8 +537,6 @@ LEVER_ANSWER = "BACKWARDS"
 # Continue between playthroughs of a single sitting'
 ## Testing out for duplicate strings here
 turnCounter_total = 0
-turnCounter_total = 0
-turnCounter_total = 0
 deaths_total = 0
 # Ozkavosh spells
 spell_learn = 0
@@ -792,7 +790,7 @@ def repeat():
         inGame(debug)
 # In Game
 def inGame(debug):
-    global deaths_total,turnCounter_total,spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse,playerName
+    global deaths_total,turnCounter_total,spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse,playerName, price
     # Resetable constant/variables
 
     # Vault Answers
@@ -811,25 +809,25 @@ def inGame(debug):
     if same == 1:
         vaultInitial_1 = vaultAnswer_1
         vaultInitial_3 = vaultAnswer_3
-        while (vaultInitial_2 == vaultAnswer_2 or vaultInitial_4 == vaultAnswer_4):
+        while vaultInitial_2 == vaultAnswer_2 or vaultInitial_4 == vaultAnswer_4:
             vaultInitial_2 = random.randint(0,9)
             vaultInitial_4 = random.randint(0,9)
     elif same == 2:
         vaultInitial_2 = vaultAnswer_2
         vaultInitial_4 = vaultAnswer_4
-        while (vaultInitial_1 == vaultAnswer_1 or vaultInitial_3 == vaultAnswer_3):
+        while vaultInitial_1 == vaultAnswer_1 or vaultInitial_3 == vaultAnswer_3:
             vaultInitial_1 = random.randint(0,9)
             vaultInitial_3 = random.randint(0,9)
     elif same == 3:
         vaultInitial_1 = vaultAnswer_1
         vaultInitial_4 = vaultAnswer_4
-        while (vaultInitial_2 == vaultAnswer_2 or vaultInitial_3 == vaultAnswer_3):
+        while vaultInitial_2 == vaultAnswer_2 or vaultInitial_3 == vaultAnswer_3:
             vaultInitial_2 = random.randint(0,9)
             vaultInitial_3 = random.randint(0,9)
     elif same == 4:
         vaultInitial_2 = vaultAnswer_2
         vaultInitial_3 = vaultAnswer_3
-        while (vaultInitial_1 == vaultAnswer_1 or vaultInitial_4 == vaultAnswer_4):
+        while vaultInitial_1 == vaultAnswer_1 or vaultInitial_4 == vaultAnswer_4:
             vaultInitial_1 = random.randint(0,9)
             vaultInitial_4 = random.randint(0,9)
 #_______Player Information______________________________________________________
@@ -837,7 +835,7 @@ def inGame(debug):
     #_______Class Initialization - Objects - Reset
     # Stats
     class Stat(object):
-        # def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = [0], objectiveSecondaryBlock = [0]): 
+        # def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = [0], objectiveSecondaryBlock = [0]):
         # Was changed due to dangerous default arg
         def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = None, objectiveSecondaryBlock = None):
             if objectiveSecondary is None:
@@ -1338,7 +1336,14 @@ def inGame(debug):
 
     # Room
     class Room(object):
-        def __init__(self, name = "name", gold = 0, letter = 0, key = 0, keySkeleton  = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, coal = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, north = False, northBlocked = False, northBlockedReason = False, east = False, eastBlocked = False, eastBlockedReason = False, south = False, southBlocked = False, southBlockedReason = False, west = False, westBlocked = False, westBlockedReason = False, up = False, upBlocked = False, upBlockedReason = False, down = False, downBlocked = False, downBlockedReason = False,  betMade = False, counterAns_1 = 0, counterAns_2 = 0, counterAns_3 = 0, counterAns_4 = 0, counter_1 = 0, counter_2 = 0, counter_3 = 0, counter_4 = 0, characterDead = True, itemFound = False, firstTime = True, isBet = False, isBuy = False, isCrevasse = False, isGive = False, isMine = False, isFill = False, isSell = False):
+        def __init__(self, name = "name", gold = 0, letter = 0, key = 0, keySkeleton  = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, coal = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0,
+                     north: str | bool | None = False, northBlocked: str | bool | None = False, northBlockedReason: str | bool | None = False,
+                     east: str | bool | None = False, eastBlocked: str | bool | None = False, eastBlockedReason: str | bool | None = False,
+                     south: str | bool | None = False, southBlocked: str | bool | None = False, southBlockedReason: str | bool | None = False,
+                     west: str | bool | None = False, westBlocked: str | bool | None = False, westBlockedReason: str | bool | None = False,
+                     up: str | bool | None = False, upBlocked: str | bool | None = False, upBlockedReason: str | bool | None = False,
+                     down: str | bool | None = False, downBlocked: str | bool | None = False, downBlockedReason: str | bool | None = False,
+                     betMade = False, counterAns_1 = 0, counterAns_2 = 0, counterAns_3 = 0, counterAns_4 = 0, counter_1 = 0, counter_2 = 0, counter_3 = 0, counter_4 = 0, characterDead = True, itemFound = False, firstTime = True, isBet = False, isBuy = False, isCrevasse = False, isGive = False, isMine = False, isFill = False, isSell = False):
             # Items
             self.name = name
             self.gold = gold
@@ -1830,7 +1835,7 @@ def inGame(debug):
 
             print("\nFunnel Cakes Galore\n")
             if self.characterDead:
-                
+
                 print("There is a charred body here, lying by a stovetop.")
             else:
                 if invFood.funnelCake <= 0:
@@ -2361,7 +2366,7 @@ def inGame(debug):
             print("\nGate\n\nThe path leads to a%s gate with a large stone wall surrounding the house inside.\nThere is a METAL PLAQUE you can READ just above the gate.\n" % lock)
             print("    North is the entrance.")
             print("    South is the crossroads.")
-    class classField(Room):
+    class ClassField(Room):
         def description(self):
             if self.eastBlocked:
                 blocked = "The surface has no distinguishing features."
@@ -2433,7 +2438,7 @@ def inGame(debug):
                 bookpresent = " with a mysterious book on it"
             else:
                 bookpresent = ""
-            print("\nBlack room\n\nThere are four totems in each direction of the room. Behind each totem is a statue of an animal. In the centre is a pedestal%.\n" % bookpresent)
+            print("\nBlack room\n\nThere are four totems in each direction of the room. Behind each totem is a statue of an animal. In the centre is a pedestal%s.\n" % bookpresent)
             if self.counter_1 == 1:
                 north = "Fox"
             elif self.counter_1 == 2:
@@ -2557,148 +2562,6 @@ def inGame(debug):
 
     #_______Class Initialization - Objects - Before game
     # debug inventory
-    DEBUG_INV = Inventory()
-    inv = Inventory()
-    invGate = Inventory()
-    invShell = Inventory(gold = SHELL_GOLD)
-    invTroll = Inventory()
-    invSpokesperson = Inventory()
-    invFood = Inventory(funnelCake = FUNNELCAKE_LIMIT)
-    #____________ Room Init
-    # Jail
-    roomJailCell = classJailCell()
-    roomJailCorridor = classJailCorridor()
-    roomJailAntechamber = classJailAntechamber()
-    roomJailFoyer = classJailFoyer()
-    roomJailHallway = classJailHallway()
-    roomJailBreakRoom = classJailBreakRoom()
-    roomJailEntrance = classJailEntrance()
-    # Town
-    roomCourtyardNorth = classCourtyardNorth()
-    roomCourtyardSouth = classCourtyardSouth()
-    roomBlacksmith = classBlacksmith()
-    roomAlchemist = classAlchemist()
-    # Carnival
-    roomCarnival = classCarnival()
-    roomCarnivalFood = classCarnivalFood()
-    roomCarnivalShellGame = classCarnivalShellGame()
-    roomCarnivalWheelGame = classCarnivalWheelGame()
-    roomGate = classGate()
-    roomGeneralStore = classGeneralStore()
-    # Outside
-    # Road
-    roomRoadSouth = classRoadSouth()
-    roomRoadMid = classRoadMid()
-    roomRoadNorth = classRoadNorth()
-    roomRoadEast = classRoadEast()
-    roomRoadWest = classRoadWest()
-    roomRoadCorner = classRoadCorner()
-    roomForest = classForest()
-    # Lake
-    roomLake = classLake()
-    # Bridge
-    roomBridge = classBridge()
-    # Temple
-    roomTempleEntrance = classTempleEntrance()
-    roomTempleInside = classTempleInside()
-    roomTempleBasement = classTempleBasement()
-    # Cave
-    roomMountEntrance = classMountEntrance()
-    # 1
-    roomCave_1_m = classCave_1_m()
-    # 2
-    roomCave_2_m = classCave_2_m()
-    roomCave_2_mr = classCave_2_mr()
-    roomCave_2_lm = classCave_2_lm(name = "cavern", north = "roomCave_3_lm_coalmine", east = "roomCave_2_m", west = "roomCave_2_llm")
-    roomCave_2_llm = classCave_2_llm(name = "cavern", north = "roomCave_3_llm_crevasse", east = "roomCave_2_lm")
-    # 3
-    roomCave_3_m_coalmine = classCave_3_m_coalmine()
-    roomCave_3_mr = classCave_3_mr()
-    roomCave_3_mrr_coalmine = classCave_3_mrr_coalmine(name = "cavern", west = "roomCave_3_mr", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_3_lm_coalmine = classCave_3_lm_coalmine(name = "cavern", south = "roomCave_2_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_3_llm_crevasse = classCave_3_llm_crevasse(name = "cavern", north = "roomCave_4_llm", south = "roomCave_2_llm", west = "roomCave__3_lllm_treasure_crevasse", westBlocked = True, westBlockedReason = "The crevasse is too large to walk across.", isCrevasse = True)
-    roomCave__3_lllm_treasure_crevasse = classCave__3_lllm_treasure_crevasse(name = "cavern", east = "roomCave_3_llm_crevasse", eastBlocked = True, eastBlockedReason = "The crevasse is too large to walk across.", isCrevasse = True)
-    # 4
-    roomCave_4_m = classCave_4_m(name = "cavern", north = "roomCave_5_m", east = "roomCave_4_mr", south = "roomCave_3_m_coalmine", west = "roomCave_4_lm")
-    roomCave_4_mr = classCave_4_mr(name = "cavern", south = "roomCave_3_mr", west = "roomCave_4_m")
-    roomCave_4_lm = classCave_4_lm(name = "cavern", north = "roomCave_5_lm_coalmine", east = "roomCave_4_m", west = "roomCave_4_llm")
-    roomCave_4_llm = classCave_4_llm(name = "cavern", north = "roomCave_5_llm", east = "roomCave_4_lm", south = "roomCave_3_llm_crevasse")
-    # 5
-    roomCave_5_m = classCave_5_m(name = "cavern", north = "roomCave_6_m", east = "roomCave_5_mr_coalmine", south = "roomCave_4_m")
-    roomCave_5_mr_coalmine = classCave_5_mr_coalmine(name = "cavern", west = "roomCave_5_m", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_5_lm_coalmine = classCave_5_lm_coalmine(name = "cavern", south = "roomCave_4_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_5_llm = classCave_5_llm(name = "cavern", east = "roomCave_5_lm_coalmine", south = "roomCave_4_llm", west = "roomCave_5_lllm")
-    roomCave_5_lllm = classCave_5_lllm(name = "cavern", north = "roomCave_6_lllm", east = "roomCave_5_llm")
-    # 6
-    roomCave_6_m = classCave_6_m(name = "cavern", east = "roomCave_6_mr", south = "roomCave_5_m")
-    roomCave_6_mr = classCave_6_mr(name = "cavern", north = "roomCave_7_mr", west = "roomCave_6_m")
-    roomCave_6_lm_coalmine = classCave_6_lm_coalmine(name = "cavern", north = "roomCave_7_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_6_llm_coalmine = classCave_6_llm_coalmine(name = "cavern", west = "roomCave_6_lllm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_6_lllm = classCave_6_lllm(name = "cavern", north = "roomCave_7_lllm", east = "roomCave_6_llm_coalmine", south = "roomCave_5_lllm")
-    # 7
-    roomCave_7_m = classCave_7_m(name = "cavern", east = "roomCave_7_mr", west = "roomCave_7_lm")
-    roomCave_7_mr = classCave_7_mr(name = "cavern", north = "roomCave_8_mr_crevasse", south = "roomCave_6_mr", west = "roomCave_7_m")
-    roomCave_7_lm = classCave_7_lm(name = "cavern", east = "roomCave_7_m", south = "roomCave_6_lm_coalmine", west = "roomCave_7_llm")
-    roomCave_7_llm = classCave_7_llm(name = "cavern", north = "roomCave_8_llm_coalmine", east = "roomCave_7_lm", west = "roomCave_7_lllm")
-    roomCave_7_lllm = classCave_7_lllm(name = "cavern", east = "roomCave_7_llm", south = "roomCave_6_lllm")
-    # 8
-    roomCave_8_mr_crevasse = classCave_8_mr_crevasse(name = "cavern", north = "roomCave_9_mr_crevasse", northBlocked = True, northBlockedReason = "The crevasse is too large to walk across.", south = "roomCave_7_mr", isCrevasse = True)
-    roomCave_8_llm_coalmine = classCave_8_llm_coalmine(name = "cavern", south = "roomCave_7_llm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    # 9
-    roomCave_9_mr_crevasse = classCave_9_mr_crevasse(name = "cavern", north = "roomCave__10_mr", south = "roomCave_8_mr_crevasse", southBlocked = True, southBlockedReason = "The crevasse is too large to walk across.",  isCrevasse = True)
-    # 10
-    roomCave__10_m = classCave__10_m(name = "cavern", east = "roomCave__10_mr", west = "roomCave__10_lm")
-    roomCave__10_mr = classCave__10_mr(name = "cavern", east = "roomCave__10_mrr", south = "roomCave_9_mr_crevasse", southBlocked = True, southBlockedReason = "Rubble is blocking the way.", west = "roomCave__10_m", counter_1 = RUBBLE_DURABILITY, isMine = True)
-    roomCave__10_mrr = classCave__10_mrr(name = "cavern", east = "roomCave__10_mrrr", west = "roomCave__10_mr")
-    roomCave__10_mrrr = classCave__10_mrrr(name = "cavern", north = "roomCave__11_mrrr", west = "roomCave__10_mrr")
-    roomCave__10_lm = classCave__10_lm(name = "cavern", north = "roomCave__11_lm", east = "roomCave__10_m")
-    # 11
-    roomCave__11_mrrr = classCave__11_mrrr(name = "cavern", north = "roomDarkness", south = "roomCave__10_mrrr")
-    roomCave__11_lm = classCave__11_lm(name = "cavern", north = "roomDarkness", south = "roomCave__10_lm")
-    # Darkness
-    roomDarkness = classDarkness(name = "darkness")
-    # Lair
-    roomLairMid = classLairMid()
-    roomLairEast = classLairEast()
-    roomLairWest = classLairWest()
-    roomLairHole = classLairHole(name = "lair", north = "roomLairWest", northBlockedReason = "You are carrying too much to fit through the opening.", lantern = 1)
-    # Field
-    roomRoad2South = classRoad2South(name = "road", north = "roomRoad2Mid", south = "roomLairEast")
-    roomRoad2Mid = classRoad2Mid(name = "crossroad", north = "roomHouseGate", east = "roomField", south = "roomRoad2South", west = "roomFarm")
-    roomHouseGate = classHouseGate(name = "road", south = "roomRoad2Mid", north = "roomHouseEntrance", northBlocked = True, northBlockedReason = "The gate is locked.")
-    roomFarm = classFarm(name = "farm", east = "roomRoad2Mid", west = "roomBarn", potato = 1)
-    roomBarn = classBarn(name = "barn", east = "roomFarm", up = "roomBarnUp")
-    roomBarnUp = classBarnUp(name = "barn", down = "roomBarn")
-    roomField = classField()
-    # Shrines
-    roomShrineNorth = classShrineNorth(name = "north shrine", west = "roomField", south = "roomShrineSouth", book = 1)
-    roomShrineSouth = classShrineSouth(name = "south shrine", north = "roomShrineNorth", west = "roomForest")
-    # House
-    roomHouseEntrance = classHouseEntrance()
-    roomHouseFoyer = classHouseFoyer()
-    roomHouseKitchen = classHouseKitchen()
-    roomHousePantry = classHousePantry()
-    roomHouseHallway = classHouseHallway()
-    roomHouseOffice = classHouseOffice()
-    # Mysterious book
-    # Puzzle 1 - Animal Totems
-    roomBookAnimal = classBookAnimal()
-    # Puzzle 2 - Mirror player
-    roomBookMirror = classBookMirror()
-    # Puzzle 3 - Movement
-    roomBook_3_1 = classBook_3_1()
-    roomBook_3_2 = classBook_3_2()
-    roomBook_3_3 = classBook_3_3()
-    roomBook_3_4 = classBook_3_4()
-    roomBook_3_5 = classBook_3_5()
-    roomBook_3_6 = classBook_3_6()
-    roomBook_3_7 = classBook_3_7()
-    roomBook_3_8 = classBook_3_8()
-    roomBook_3_End = classBook_3_End()
-
-    #_______Stat Init
-    stat = Stat()
-    # debug inventory
     DEBUG_INV = Inventory(gold = 100000, pickaxe = 1, lantern = 1, oil = 10000, pie = 30000, coal = 100000, foot = 100, funnelCake = 50, halfFunnelCake = 50, hook = 10, staff = 1, ticket = 1, bandage = 100, journal = 1, book = 1, potato = 1, stone = 1, note = 1, bird = 1, memo = 1, potion = 100, flask = 100, keySkeleton = 1, note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
     #____________ Room Init
     # Jail
@@ -2805,7 +2668,7 @@ def inGame(debug):
     roomFarm = classFarm(name = "farm", east = "roomRoad2Mid", west = "roomBarn", potato = 1)
     roomBarn = classBarn(name = "barn", east = "roomFarm", up = "roomBarnUp")
     roomBarnUp = classBarnUp(name = "barn", down = "roomBarn")
-    roomField = classField(name = "road", east = "roomShrineNorth", eastBlocked = True, eastBlockedReason = "You cannot go East.", west = "roomRoad2Mid")
+    roomField = ClassField(name = "road", east = "roomShrineNorth", eastBlocked = True, eastBlockedReason = "You cannot go East.", west = "roomRoad2Mid")
     # Shrines
     roomShrineNorth = classShrineNorth(name = "north shrine", west = "roomField", south = "roomShrineSouth", book = 1)
     roomShrineSouth = classShrineSouth(name = "south shrine", north = "roomShrineNorth", west = "roomForest")
@@ -3419,7 +3282,7 @@ def inGame(debug):
                         print("The writing on the tablet neatly reads, \"OZH VO'SES SA.\"")
                         if not spell_unlock:
                             spell_unlock = 1
-                    elif option in ("stranger"):
+                    elif option in "stranger":
                         if roomCurrent.characterDead:
                             print("He's dead.")
                         elif roomCurrent.isGive():
@@ -8327,7 +8190,7 @@ def inGame(debug):
                         endGame = True
                     roomCurrent.counter_1 += 1
         elif roomID == "roomJailFoyer":
-            # if jailGuards == False: 
+            # if jailGuards == False:
             # used singleton pattern
              if jailGuards == False:
                 jailGuards = True
@@ -8643,7 +8506,7 @@ def inGame(debug):
                     # If player gives staff: counter_1 = 1 and isGive = False
                     #if roomCurrent.counter_1 == 1 and roomCurrent.isGive == False:
                     #singleton
-                    if roomCurrent.counter_1 == 1 and roomCurrent.isGive is False: 
+                    if roomCurrent.counter_1 == 1 and roomCurrent.isGive is False:
                  # spawn Vesh ()
                         roomCurrent.counter_2 = 1
                     # If player does not give staff: counter_1 = 0 and isGive = True
