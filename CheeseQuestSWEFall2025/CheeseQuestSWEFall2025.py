@@ -511,95 +511,90 @@ playerName = False
 #_______Functions_______________________________________________________________
 
 def demonWords():
-    #global spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse
-    # global variable not being used
-    if not (spell_learn or spell_unlock or spell_persuade or spell_jump or spell_light or spell_heal or spell_feed or spell_kill or spell_killself or spell_oblivion or word_darkness or word_reign or word_stop or word_servant or word_mirror or word_dominion or word_curse):
+    global spell_learn, spell_unlock, spell_persuade, spell_jump, spell_light
+    global spell_heal, spell_feed, spell_kill, spell_killself, spell_oblivion
+    global word_darkness, word_reign, word_stop, word_servant, word_mirror
+    global word_dominion, word_curse
+
+    # Dictionaries describing all words
+    spells = {
+        "Ozh ensh": (spell_learn, "I learn - Translates the meaning and effects of words from Ozkavosh."),
+        "Ozh vo'ses sa": (spell_unlock, "I unlock this - Opens any lock."),
+        "Izh vo'poz": (spell_persuade, "You have no power - Persuades those blocking the way."),
+        "Ozh sol fek": (spell_killself, "My life ends - Kills self."),
+        "Ozh thok alatho": (spell_jump, "I move forward - Crosses large gaps."),
+        "Ozh groth sol": (spell_light, "I open the light - Creates a glowing ball that illuminates your surroundings."),
+        "Eyik vo'hollom": (spell_oblivion, "Behold oblivion - Opens obsidian hemispheres."),
+        "Ozh vo'irush": (spell_heal, "I am without illness - Mends all wounds and illnesses."),
+        "Ozh gluth nith": (spell_feed, "I consume the Earth - Satisfies all hunger."),
+        "Ozh gluth izh sol": (spell_kill, "I consume your soul - Kills your enemies.")
+    }
+
+    words = {
+        "Omoz gloth izh - Darkness welcomes you.": word_darkness,
+        "Izh tal el ozh icha rek'tal - Talk and I will mirror.": word_mirror,
+        "Ahm'domosh - Highest dominion.": word_dominion,
+        "Ozkavosh icha domosh sa nith - Demon-kind shall reign upon this land.": word_reign,
+        "Izh icha vo'fek ozh domosh - You will not stop my reign.": word_stop,
+        "Ahm'fol - Servant of Vesh'arkosh.": word_servant,
+        "Sof izh - Curse you.": word_curse
+    }
+
+    # Unknown versions of non-spells (slight spelling differences preserved)
+    unknown_words = {
+        "Omoz gloth izh": word_darkness,
+        "Izh tal et ozh icha rek'tal": word_mirror,
+        "Ahm'domosh": word_dominion,
+        "Ozkavosh icha domosh sa nith": word_reign,
+        "Izh icha vo'fek ozh domosh": word_stop,
+        "Ahm'fol": word_servant,
+        "Sof izh": word_curse
+    }
+
+    # Check if nothing at all is known
+    all_values = [
+        spell_learn, spell_unlock, spell_persuade, spell_jump, spell_light,
+        spell_heal, spell_feed, spell_kill, spell_killself, spell_oblivion,
+        word_darkness, word_reign, word_stop, word_servant, word_mirror,
+        word_dominion, word_curse
+    ]
+
+    if not any(all_values):
         print("You do not know any words in Ozhkavosh.")
-    else:
-        if spell_learn == 2 or spell_unlock == 2 or spell_persuade == 2 or spell_jump == 2 or spell_light == 2 or spell_oblivion == 2 or spell_heal == 2 or spell_feed == 2 or spell_kill == 2 or spell_killself == 2:
-            print("Spells:")
-            if spell_learn == 2:
-                print("    Ozh ensh")
-                print("\tI learn - Translates the meaning and effects of words from Ozkavosh.")
-            if spell_unlock == 2:
-                print("    Ozh vo'ses sa")
-                print("\tI unlock this - Opens any lock.")
-            if spell_persuade == 2:
-                print("    Izh vo'poz")
-                print("\tYou have no power - Persuades those blocking the way.")
-            if spell_killself == 2:
-                print("    Ozh sol fek")
-                print("\tMy life ends - Kills self.")
-            if spell_jump == 2:
-                print("    Ozh thok alatho")
-                print("\tI move forward - Crosses large gaps.")
-            if spell_light == 2:
-                print("    Ozh groth sol")
-                print("\tI open the light - Creates a glowing ball that illuminates your surroundings.")
-            if spell_oblivion == 2:
-                print("    Eyik vo'hollom")
-                print("\tBehold oblivion - Opens obsidian hemispheres.")
-            if spell_heal == 2:
-                print("    Ozh vo'irush")
-                print("\tI am without illness - Mends all wounds and illnsesses.")
-            if spell_feed == 2:
-                print("    Ozh gluth nith")
-                print("\tI consume the Earth - Satisfies all hunger.")
-            if spell_kill == 2:
-                print("    Ozh gluth izh sol")
-                print("\tI consume your soul - Kills your enemies.")
-        if word_darkness == 2 or word_reign == 2 or word_stop == 2 or word_servant == 2 or word_mirror == 2 or word_dominion == 2 or word_curse == 2:
-            print("Non-spells:")
-            if word_darkness == 2:
-                print("    Omoz gloth izh - Darkness welcomes you.")
-            if word_mirror == 2:
-                print("    Izh tal el ozh icha rek'tal - Talk and I will mirror.")
-            if word_dominion == 2:
-                print("    Ahm'domosh - Highest dominion.")
-            if word_reign == 2:
-                print("    Ozkavosh icha domosh sa nith - Demon-kind shall reign upon this land.")
-            if word_stop == 2:
-                print("    Izh icha vo'fek ozh domosh - You will not stop my reign.")
-            if word_servant == 2:
-                print("    Ahm'fol - Servant of Vesh'arkosh.")
-            if word_curse == 2:
-                print("    Sof izh - Curse you.")
-        if spell_learn == 1 or spell_unlock == 1 or spell_persuade == 1 or spell_jump == 1 or spell_light == 1 or spell_heal == 1 or spell_feed == 1 or spell_kill == 1 or spell_killself == 1 or spell_oblivion == 1 or word_darkness == 1 or word_reign == 1 or word_stop == 1 or word_servant == 1 or word_mirror == 1 or word_dominion == 1 or word_curse == 1:
-            print("Unknown:")
-            if spell_learn == 1:
-                print("    Ozh ensh")
-            if spell_unlock == 1:
-                print("    Ozh vo'ses sa")
-            if spell_persuade == 1:
-                print("    Izh vo'poz")
-            if spell_jump == 1:
-                print("    Ozh thok alatho")
-            if spell_light == 1:
-                print("    Ozh groth sol")
-            if spell_heal == 1:
-                print("    Ozh vo'irush")
-            if spell_feed == 1:
-                print("    Ozh gluth nith")
-            if spell_kill == 1:
-                print("    Ozh gluth izh sol")
-            if spell_killself == 1:
-                print("    Ozh sol fek")
-            if spell_oblivion == 1:
-                print("    Eyik vo'hollom")
-            if word_darkness == 1:
-                print("    Omoz gloth izh")
-            if word_mirror == 1:
-                print("    Izh tal et ozh icha rek'tal")
-            if word_dominion == 1:
-                print("    Ahm'domosh")
-            if word_reign == 1:
-                print("    Ozkavosh icha domosh sa nith")
-            if word_stop == 1:
-                print("    Izh icha vo'fek ozh domosh")
-            if word_servant == 1:
-                print("    Ahm'fol")
-            if word_curse == 1:
-                print("    Sof izh")
+        return
+
+    # Known spells (status = 2)
+    known_spells = {k: v for k, v in spells.items() if v[0] == 2}
+    if known_spells:
+        print("Spells:")
+        for phrase, (status, desc) in known_spells.items():
+            print(f"    {phrase}")
+            print(f"\t{desc}")
+
+    # Known non-spells (status = 2)
+    known_words = {k: v for k, v in words.items() if v == 2}
+    if known_words:
+        print("Non-spells:")
+        for line in known_words.keys():
+            print(f"    {line}")
+
+    # Unknown words (status = 1)
+    unknown_items = {}
+
+    # Unknown spells
+    for phrase, (status, _) in spells.items():
+        if status == 1:
+            unknown_items[phrase] = True
+
+    # Unknown non-spells
+    for phrase, value in unknown_words.items():
+        if value == 1:
+            unknown_items[phrase] = True
+
+    if unknown_items:
+        print("Unknown:")
+        for phrase in unknown_items.keys():
+            print(f"    {phrase}")
 
 def shortcuts():
     print("l - Look")
