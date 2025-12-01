@@ -25,7 +25,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CheeseQuestSWEFall2025.py" />
-    <Compile Include="inventory.py" />
     <Compile Include="test_cheesequest.py">
       <SubType>Code</SubType>
     </Compile>
