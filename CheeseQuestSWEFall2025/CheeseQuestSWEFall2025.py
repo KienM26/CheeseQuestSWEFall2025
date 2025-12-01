@@ -6,6 +6,7 @@
 # Single-player text based adventure game
 # Save the world from the Cheese Mage!
 
+# imports
 import random, os, getpass
 
 # === KEEP THESE VARIABLES (Your game uses them) ===
