@@ -937,7 +937,7 @@ def inGame(debug):
                 print("Alternatively, give the staff of Garrotxa to Eden von Roquefort")
 
 
-    ## good place to start making methods for repeated ass code
+    ## good place to start making methods for repeated code
     
     #______Rooms____________________________________________________
     # Room information
