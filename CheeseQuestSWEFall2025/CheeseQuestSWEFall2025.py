@@ -349,8 +349,9 @@ class Inventory(object):
                 else:
                     print("There is no",option,"here to examine.")
 
-#_______Libraries_______________________________________________________________
-import random,os,getpass
+# Multiple imports for an import name detected, deep source
+# #_______Libraries_______________________________________________________________
+# import random,os,getpass
 playerName = "Hero"
 
 # Resize command line window to appropriate size
@@ -6592,7 +6593,8 @@ def inGame(debug):
                             print("A ball of light appears in the room.")
                         else:
                             print("The ball of light brightens.")
-                        roomCurrent.counter_1
+                        # statement has no effect, deepsource
+                        # roomCurrent.counter_1
                     elif option == "kef los hzo":
                         print("It crumbles into pieces. A pedestal emerges from the floor, with a mysterious book on it.")
                         roomCurrent.characterDead = True
@@ -7938,14 +7940,15 @@ def inGame(debug):
                     roomCurrent.counter_1 += 1
         elif roomID == "roomJailFoyer":
             # if jailGuards == False: 
-            # used singleton pattern
-             if jailGuards == False:
+            # used singleton pattern, deepsource warning
+             if jailGuards is False:
                 jailGuards = True
                 jailGuardCounter = 3
         elif roomID == "roomCourtyardSouth":
 
             #if jailGuards == True:
-                if jailGuards == True:
+            # used singleton pattern, deepsource warning
+                if jailGuards is True:
                     print("You get lost in the crowd, confusing and disorienting the jail guards. They lose interest, probably because they don't get paid enough.")
                 jailGuards = False
         # Creature stops chase at crevasse if visible or outside

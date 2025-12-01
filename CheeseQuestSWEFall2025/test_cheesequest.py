@@ -1,5 +1,5 @@
 import unittest
-# This imports the class from your main game file
+
 from CheeseQuestSWEFall2025 import Inventory
 
 class TestCheeseQuest(unittest.TestCase):
