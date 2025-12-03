@@ -6,6 +6,9 @@
 # Single-player text based adventure game
 # Save the world from the Cheese Mage!
 
+# Sean Reynolds - Updated code to work under PEP 8 Convention Standards
+#                 Removed redundant parentheses
+
 # imports
 import random, os, getpass
 
@@ -14,29 +17,29 @@ VERSION = "1.4.3"
 DATE = "October 17, 2016"
 
 # === ADD THIS LINE (Required for Inventory to work) ===
-playerName = "Hero"
+player_name = "Hero"
 
 # Inventory
 class Inventory(object):
-        def __init__(self, name = "room", gold = 0, letter = 0, key = 0, keySkeleton = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, coal = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, note_1 = 0, note_2 = 0, note_3 = 0, note_4 = 0):
+        def __init__(self, name = "room", gold = 0, letter = 0, key = 0, key_skeleton = 0, pickaxe = 0, shrubbery = 0, funnel_cake = 0, half_funnel_cake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, coal = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, note_1 = 0, note_2 = 0, note_3 = 0, note_4 = 0):
             self.name = name
             self.gold = gold
             self.goldDescription = "The edges are worn down from handling."
             self.letter = letter
             self.letterDescription = "Made out of old parchment, the message on it is written in ink."
-            self.letterRead = "It reads:\n\nTo " + str(playerName) + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
+            self.letterRead = "It reads:\n\nTo " + str(player_name) + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
             self.key = key
             self.keyDescription = "The key to your jail cell."
-            self.keySkeleton = keySkeleton
-            self.keySkeletonDescription = "The head is a skull with glowing purple eyes."
+            self.key_skeleton = key_skeleton
+            self.key_skeleton_description = "The head is a skull with glowing purple eyes."
             self.pickaxe = pickaxe
             self.pickaxeDescription = "A sturdy tool useful for mining."
             self.shrubbery = shrubbery
             self.shrubberyDescription = "It's a very nice shrubbery, and not too expensive."
-            self.funnelCake = funnelCake
-            self.funnelCakeDescription = "It's covered in powdered sugar. Mmmmm... and still warm."
-            self.halfFunnelCake = halfFunnelCake
-            self.halfFunnelCakeDescription = "Ew. You can see the bite marks."
+            self.funnel_cake = funnel_cake
+            self.funnel_cake_description = "It's covered in powdered sugar. Mmmmm... and still warm."
+            self.half_funnel_cake = half_funnel_cake
+            self.half_funnel_cake_description = "Ew. You can see the bite marks."
             self.foot = foot
             self.footDescription = "A prominent symbol of RNGesus, the ancient god of gambling, luck, and salt."
             self.porridge = porridge
@@ -96,7 +99,7 @@ class Inventory(object):
             self.memoDescription = "The edges are burnt and the parchment is covered in ash."
             self.memoRead = "It reads:\n\n\"To whoever is still alive,\n\nBy the time you read this, I will probably be dead. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one of them in order to help look for survivors up North. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with the staff of Garrotxa back in my home town. It is our only hope.\""
             # "It reads:\n\nTo whoever is still alive,\n\nBy the time you read this, I will probably be dead. It turns out POTATOES, of all things, are the Ozkavosh's greatest WEAKNESS. After I learned I could say \"EYIK VO'HOLLOM\" to enter the obisdian hemispheres, I came here from Airedale through one in order to get as many potatoes as I could find. The demons went from farm to farm, burning all the crops down, and got me before I could escape. If you are to save this world from demon-kind, you must vanquish them with a potato. Either that, or get hold of the staff of Garrotxa back in my town."
-        def itemTypes(self):
+        def item_types(self):
             type_count = 0
             if self.gold:
                 type_count += 1
@@ -104,15 +107,15 @@ class Inventory(object):
                 type_count += 1
             if self.key:
                 type_count += 1
-            if self.keySkeleton:
+            if self.key_skeleton:
                 type_count += 1
             if self.pickaxe:
                 type_count += 1
             if self.shrubbery:
                 type_count += 1
-            if self.funnelCake:
+            if self.funnel_cake:
                 type_count += 1
-            if self.halfFunnelCake:
+            if self.half_funnel_cake:
                 type_count += 1
             if self.foot:
                 type_count += 1
@@ -167,11 +170,11 @@ class Inventory(object):
             if self.memo:
                 type_count += 1
             return type_count
-        def examineInventory(self, option, roomCurrent):
+        def examine_inventory(self, option, room_current):
             # Quantity and Description
             # Inventory
             if option == "inventory":
-                if not self.itemTypes():
+                if not self.item_types():
                     print("You have nothing.")
                 else:
                     print("You have:")
@@ -193,20 +196,20 @@ class Inventory(object):
                         print("    a flask")
                     elif self.flask > 1:
                         print("   ",self.flask,"flasks")
-                    if self.funnelCake == 1:
+                    if self.funnel_cake == 1:
                         print("    a funnel cake")
-                    elif self.funnelCake > 1:
-                        print("   ",self.funnelCake,"funnel cakes")
+                    elif self.funnel_cake > 1:
+                        print("   ",self.funnel_cake,"funnel cakes")
                     if self.gold:
                         print("   ",self.gold,"gold")
                     if self.hook == 1:
                         print("    a grappling hook")
                     elif self.hook > 1:
                         print("   ",self.hook,"grappling hooks")
-                    if self.halfFunnelCake == 1:
+                    if self.half_funnel_cake == 1:
                         print("    a half-eaten funnel cake")
-                    elif self.halfFunnelCake > 1:
-                        print("   ",self.halfFunnelCake,"half-eaten funnel cakes")
+                    elif self.half_funnel_cake > 1:
+                        print("   ",self.half_funnel_cake,"half-eaten funnel cakes")
                     if self.biscuit == 1:
                         print("    a hardtack biscuit")
                     elif self.biscuit > 1:
@@ -217,7 +220,7 @@ class Inventory(object):
                         print("   ",self.journal,"journals")
                     if self.key:
                         print("    a key")
-                    if self.keySkeleton:
+                    if self.key_skeleton:
                         print("    the key of Ahm'domosh")
                     if self.lantern == 1:
                         print("    a lantern")
@@ -276,73 +279,73 @@ class Inventory(object):
                     if self.bird:
                         print("    a wooden bird")
             # Individual items
-            elif option == "gold" and (self.gold or roomCurrent.gold):
+            elif option == "gold" and (self.gold or room_current.gold):
                 print(self.goldDescription)
-            elif option == "letter" and (self.letter or roomCurrent.letter):
+            elif option == "letter" and (self.letter or room_current.letter):
                     print(self.letterDescription)
-            elif option == "key" and (self.key or roomCurrent.key):
+            elif option == "key" and (self.key or room_current.key):
                 print(self.keyDescription)
-            elif option == "key of Ahm'domosh" and (self.keySkeleton or roomCurrent.keySkeleton):
-                print(self.keySkeletonDescription)
-            elif option == "pickaxe" and (self.pickaxe or roomCurrent.pickaxe):
+            elif option == "key of Ahm'domosh" and (self.key_skeleton or room_current.key_skeleton):
+                print(self.key_skeleton_description)
+            elif option == "pickaxe" and (self.pickaxe or room_current.pickaxe):
                 print(self.pickaxeDescription)
-            elif option == "shrubbery" and (self.shrubbery or roomCurrent.shrubbery):
+            elif option == "shrubbery" and (self.shrubbery or room_current.shrubbery):
                 print(self.shrubberyDescription)
-            elif option == "funnelCake" and (self.funnelCake or roomCurrent.funnelCake):
-                print(self.funnelCakeDescription)
-            elif option == "half-eaten funnel cake" and (self.halfFunnelCake or roomCurrent.halfFunnelCake):
-                print(self.halfFunnelCakeDescription)
-            elif option == "lucky rabbit foot" and (self.foot or roomCurrent.foot):
+            elif option == "funnelCake" and (self.funnel_cake or room_current.funnel_cake):
+                print(self.funnel_cake_description)
+            elif option == "half-eaten funnel cake" and (self.half_funnel_cake or room_current.half_funnel_cake):
+                print(self.half_funnel_cake_description)
+            elif option == "lucky rabbit foot" and (self.foot or room_current.foot):
                 print(self.footDescription)
-            elif option == "bowl of porridge" and (self.porridge or roomCurrent.porridge):
+            elif option == "bowl of porridge" and (self.porridge or room_current.porridge):
                 print(self.porridgeDescription)
-            elif option == "bowl" and (self.bowl or roomCurrent.bowl):
+            elif option == "bowl" and (self.bowl or room_current.bowl):
                 print(self.bowlDescription)
-            elif option == "lantern" and (self.lantern or roomCurrent.lantern):
+            elif option == "lantern" and (self.lantern or room_current.lantern):
                 print(self.lanternDescription)
-            elif option == "vial of oil lantern" and (self.oil or roomCurrent.oil):
+            elif option == "vial of oil lantern" and (self.oil or room_current.oil):
                 print(self.oilDescription)
-            elif option == "chicken pot pie" and (self.pie or roomCurrent.pie):
+            elif option == "chicken pot pie" and (self.pie or room_current.pie):
                 print(self.pieDescription)
-            elif option == "hardtack biscuit" and (self.biscuit or roomCurrent.biscuit):
+            elif option == "hardtack biscuit" and (self.biscuit or room_current.biscuit):
                 print(self.biscuitDescription)
-            elif option == "grappling hook" and (self.hook or roomCurrent.hook):
+            elif option == "grappling hook" and (self.hook or room_current.hook):
                 print(self.hookDescription)
-            elif option == "staff of Garrotxa" and (self.staff or roomCurrent.staff):
+            elif option == "staff of Garrotxa" and (self.staff or room_current.staff):
                 print(self.staffDescription)
-            elif option == "raffle ticket" and (self.ticket or roomCurrent.ticket):
+            elif option == "raffle ticket" and (self.ticket or room_current.ticket):
                 print(self.ticketDescription)
-            elif option == "piece of coal" and (self.coal or roomCurrent.coal):
+            elif option == "piece of coal" and (self.coal or room_current.coal):
                 print(self.coalDescription)
-            elif option == "potato" and (self.potato or roomCurrent.potato):
+            elif option == "potato" and (self.potato or room_current.potato):
                 print(self.potatoDescription)
-            elif option == "bandage" and (self.bandage or roomCurrent.bandage):
+            elif option == "bandage" and (self.bandage or room_current.bandage):
                 print(self.bandageDescription)
-            elif option == "journal" and (self.journal or roomCurrent.journal):
+            elif option == "journal" and (self.journal or room_current.journal):
                 print(self.journalDescription)
-            elif option == "book" and (self.book or roomCurrent.book):
+            elif option == "book" and (self.book or room_current.book):
                 print(self.bookDescription)
-            elif option == "brie" and (self.brie or roomCurrent.brie):
+            elif option == "brie" and (self.brie or room_current.brie):
                 print(self.brieDescription)
-            elif option == "slice of munster cheese" and (self.munster or roomCurrent.munster):
+            elif option == "slice of munster cheese" and (self.munster or room_current.munster):
                 print(self.munsterDescription)
-            elif option == "slice of stilton cheese" and (self.stilton or roomCurrent.stilton):
+            elif option == "slice of stilton cheese" and (self.stilton or room_current.stilton):
                 print(self.stiltonDescription)
-            elif option == "slice of swiss cheese" and (self.swiss or roomCurrent.swiss):
+            elif option == "slice of swiss cheese" and (self.swiss or room_current.swiss):
                 print(self.swissDescription)
-            elif option == "slice of wensleydale cheese" and (self.wensleydale or roomCurrent.wensleydale):
+            elif option == "slice of wensleydale cheese" and (self.wensleydale or room_current.wensleydale):
                 print(self.wensleydaleDescription)
-            elif option == "potion or rejuvination" and (self.potion or roomCurrent.potion):
+            elif option == "potion or rejuvination" and (self.potion or room_current.potion):
                 print(self.potionDescription)
-            elif option == "flask" and (self.flask or roomCurrent.flask):
+            elif option == "flask" and (self.flask or room_current.flask):
                 print(self.flaskDescription)
-            elif option == "dragonstone" and (self.stone or roomCurrent.stone):
+            elif option == "dragonstone" and (self.stone or room_current.stone):
                 print(self.stoneDescription)
-            elif option == "wooden bird" and (self.bird or roomCurrent.bird):
+            elif option == "wooden bird" and (self.bird or room_current.bird):
                 print(self.birdDescription)
-            elif option == "note" and (self.note or roomCurrent.note):
+            elif option == "note" and (self.note or room_current.note):
                 print(self.noteDescription)
-            elif option == "memo" and (self.memo or roomCurrent.memo):
+            elif option == "memo" and (self.memo or room_current.memo):
                 print(self.memoDescription)
             else:
                 if option == "gold":
@@ -353,7 +356,7 @@ class Inventory(object):
 # Multiple imports for an import name detected, deep source
 # #_______Libraries_______________________________________________________________
 # import random,os,getpass
-playerName = "Hero"
+# playerName = "Hero"
 
 # Resize command line window to appropriate size
 # col is width
@@ -481,9 +484,8 @@ LEVER_ANSWER = "BACKWARDS"
 # Total game counters
 # Continue between playthroughs of a single sitting'
 ## Testing out for duplicate strings here
-turnCounter_total = 0
-turnCounter_total = 0
-turnCounter_total = 0
+# Sean Reynolds - Removed extra turnCounter initializations
+turn_counter_total = 0
 deaths_total = 0
 # Ozkavosh spells
 spell_learn = 0
@@ -505,13 +507,13 @@ word_curse = 0
 spell_oblivion = 0
 
 # Player name
-playerName = False
+# playerName = False
 
 
 
 #_______Functions_______________________________________________________________
 
-def demonWords():
+def demon_words():
     global spell_learn, spell_unlock, spell_persuade, spell_jump, spell_light
     global spell_heal, spell_feed, spell_kill, spell_killself, spell_oblivion
     global word_darkness, word_reign, word_stop, word_servant, word_mirror
@@ -692,12 +694,12 @@ def menu():
         else:
             print("Select 1, 2, 3, or 4.")
     if option == 1:
-        inGame(False)
+        in_game(False)
     elif option == 4:
         print("Okay. Bye!")
     elif option == "debug":
         print("Type !debug to see all the debug commands.")
-        inGame(True)
+        in_game(True)
     else:
         print("Uh oh. You broke the game. :(")
 
@@ -723,55 +725,55 @@ def repeat():
         else:
             print("Select 1, 2, or 3.")
     if option in ("1","play","play again"):
-        inGame(debug)
+        in_game(debug)
     elif option in ("2","return","menu","main menu","return to main menu"):
         menu()
     elif option in ("3","quit","q"):
         print("Okay. Bye!")
     elif debug:
-        inGame(debug)
+        in_game(debug)
 # In Game
-def inGame(debug):
-    global deaths_total,turnCounter_total,spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse,playerName
+def in_game(debug):
+    global deaths_total,turn_counter_total,spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse,player_name
     # Resetable constant/variables
 
     # Vault Answers
-    vaultAnswer_1 = random.randint(0,9)
-    vaultAnswer_2 = random.randint(0,9)
-    vaultAnswer_3 = random.randint(0,9)
-    vaultAnswer_4 = random.randint(0,9)
+    vault_answer_1 = random.randint(0,9)
+    vault_answer_2 = random.randint(0,9)
+    vault_answer_3 = random.randint(0,9)
+    vault_answer_4 = random.randint(0,9)
 
     # Vault Initial
-    vaultInitial_1 = random.randint(0,9)
-    vaultInitial_2 = random.randint(0,9)
-    vaultInitial_3 = random.randint(0,9)
-    vaultInitial_4 = random.randint(0,9)
+    vault_initial_1 = random.randint(0,9)
+    vault_initial_2 = random.randint(0,9)
+    vault_initial_3 = random.randint(0,9)
+    vault_initial_4 = random.randint(0,9)
     same = random.randint(1,4)
     # Two vault values are randomly set to the correct answer already
     if same == 1:
-        vaultInitial_1 = vaultAnswer_1
-        vaultInitial_3 = vaultAnswer_3
-        while (vaultInitial_2 == vaultAnswer_2 or vaultInitial_4 == vaultAnswer_4):
-            vaultInitial_2 = random.randint(0,9)
-            vaultInitial_4 = random.randint(0,9)
+        vault_initial_1 = vault_answer_1
+        vault_initial_3 = vault_answer_3
+        while vault_initial_2 == vault_answer_2 or vault_initial_4 == vault_answer_4:
+            vault_initial_2 = random.randint(0,9)
+            vault_initial_4 = random.randint(0,9)
     elif same == 2:
-        vaultInitial_2 = vaultAnswer_2
-        vaultInitial_4 = vaultAnswer_4
-        while (vaultInitial_1 == vaultAnswer_1 or vaultInitial_3 == vaultAnswer_3):
-            vaultInitial_1 = random.randint(0,9)
-            vaultInitial_3 = random.randint(0,9)
+        vault_initial_2 = vault_answer_2
+        vault_initial_4 = vault_answer_4
+        while vault_initial_1 == vault_answer_1 or vault_initial_3 == vault_answer_3:
+            vault_initial_1 = random.randint(0,9)
+            vault_initial_3 = random.randint(0,9)
     elif same == 3:
-        vaultInitial_1 = vaultAnswer_1
-        vaultInitial_4 = vaultAnswer_4
-        while (vaultInitial_2 == vaultAnswer_2 or vaultInitial_3 == vaultAnswer_3):
-            vaultInitial_2 = random.randint(0,9)
-            vaultInitial_3 = random.randint(0,9)
+        vault_initial_1 = vault_answer_1
+        vault_initial_4 = vault_answer_4
+        while vault_initial_2 == vault_answer_2 or vault_initial_3 == vault_answer_3:
+            vault_initial_2 = random.randint(0,9)
+            vault_initial_3 = random.randint(0,9)
     elif same == 4:
-        vaultInitial_2 = vaultAnswer_2
-        vaultInitial_3 = vaultAnswer_3
-        while (vaultInitial_1 == vaultAnswer_1 or vaultInitial_4 == vaultAnswer_4):
-            vaultInitial_1 = random.randint(0,9)
-            vaultInitial_4 = random.randint(0,9)
+        vault_initial_2 = vault_answer_2
+        vault_initial_3 = vault_answer_3
+        while vault_initial_1 == vault_answer_1 or vault_initial_4 == vault_answer_4:
+            vault_initial_1 = random.randint(0,9)
+            vault_initial_4 = random.randint(0,9)
 #_______Player Information______________________________________________________
 # Information about Player
     #_______Class Initialization - Objects - Reset
@@ -779,19 +781,19 @@ def inGame(debug):
     class Stat(object):
         # def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = [0], objectiveSecondaryBlock = [0]): 
         # Was changed due to dangerous default arg
-        def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objectiveMain = 0, objectiveSecondary = None, objectiveSecondaryBlock = None):
-            if objectiveSecondary is None:
-                objectiveSecondary = [0]
-            if objectiveSecondaryBlock is None:
-                objectiveSecondaryBlock = [0]
+        def __init__(self, hunger = HUNGER_START, health = HEALTH_MAX, shield = 0, objective_main = 0, objective_secondary = None, objective_secondary_block = None):
+            if objective_secondary is None:
+                objective_secondary = [0]
+            if objective_secondary_block is None:
+                objective_secondary_block = [0]
             self.hunger = hunger
             self.health = health
             self.healthmax = HEALTH_MAX
             self.shield = shield
-            self.objectiveMain = objectiveMain
-            self.objectiveSecondary = objectiveSecondary
-            self.objectiveSecondaryBlock = objectiveSecondaryBlock
-        def examineHunger(self):
+            self.objective_main = objective_main
+            self.objective_secondary = objective_secondary
+            self.objective_secondary_block = objective_secondary_block
+        def examine_hunger(self):
             if self.hunger <= 1:
                 print("You are about to die from starvation.")
             elif self.hunger <= 3:
@@ -808,69 +810,69 @@ def inGame(debug):
                 print("You feel satisfied.")
             else:
                 print("\nYou feel full.")
-        def examineHealth(self):
+        def examine_health(self):
             if self.health == 7:
                 print("You are healthy.")
             elif self.health in range(2,7):
                 print("You're bleeding out.")
             elif self.health == 1:
                 print("You are about to die from your wounds.")
-        def lowerHunger(self):
+        def lower_hunger(self):
                 self.hunger -= 1
-        def lowerHealth(self):
+        def lower_health(self):
             if self.shield:
                 print("The effects of the potion of rejuvination protect you from harm.")
             else:
                 self.health -= 1
-        def lowerShield(self):
+        def lower_shield(self):
             if self.shield:
                 self.shield -= 1
                 if self.shield == 1:
                     print("\nYou feel the protective power of the potion of rejuvination dissipate.")
-        def setObjectiveMain(self,option):
-            if option > self.objectiveMain:
-                self.objectiveMain = option
-        def addObjectiveSecondary(self,option):
-            if option not in self.objectiveSecondaryBlock:
-                self.objectiveSecondary.append(option)
-                self.objectiveSecondaryBlock.append(option)
-        def removeObjectiveSecondary(self,option):
-            self.objectiveSecondaryBlock.append(option)
-            if option in self.objectiveSecondary:
-                self.objectiveSecondary.remove(option)
-        def printObjective(self):
+        def set_objective_main(self,option):
+            if option > self.objective_main:
+                self.objective_main = option
+        def add_objective_secondary(self,option):
+            if option not in self.objective_secondary_block:
+                self.remove_objective_secondary.append(option)
+                self.objective_secondary_block.append(option)
+        def remove_objective_secondary(self,option):
+            self.objective_secondary_block.append(option)
+            if option in self.remove_objective_secondary:
+                self.remove_objective_secondary.remove(option)
+        def print_objective(self):
             # Main goal
             print("Main Objective:",end = "\n    - ")
-            if self.objectiveMain == 0:
+            if self.objective_main == 0:
                 print("Escape the jail cell")
-            elif self.objectiveMain == 1:
+            elif self.objective_main == 1:
                 print("Get the staff of Garrotxa from the Temple of Garrotxa")
-            elif self.objectiveMain == 2:
+            elif self.objective_main == 2:
                 print("Go through Mount Magna Mine to reach Eden von Roquefort's house")
-            elif self.objectiveMain == 3:
+            elif self.objective_main == 3:
                 print("Get inside of Eden von Roquefort's house")
-            elif self.objectiveMain == 4:
+            elif self.objective_main == 4:
                 print("Kill Eden von Roquefort")
-            elif self.objectiveMain == 5:
+            elif self.objective_main == 5:
                 print("Kill Vesh'kathal the Deceiver")
             # Immediate problems to solve
             print("\nSecondary Objective:")
-            if 0 in self.objectiveSecondary:
+            if 0 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Have enough food to stay alive")
-            if 1 in self.objectiveSecondary:
+            if 1 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Find enough money to stay alive")
-            if 2 in self.objectiveSecondary:
+            if 2 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Buy a raffle ticket from the Wonderful Wheel of Mystery")
-            if 3 in self.objectiveSecondary:
+            if 3 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Give the raffle ticket to the spokesperson to get reimbursed")
-            if 4 in self.objectiveSecondary:
+            if 4 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Give the shrubbery to the guard at the town gate")
-            if 5 in self.objectiveSecondary:
+            if 5 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Get enough gold/funnel cakes to bypass the troll at the bridge")
                 print("        - ",end="")
@@ -881,55 +883,55 @@ def inGame(debug):
                 print("Complete tasks for people around Airedale")
                 print("        - ",end="")
                 print("Play Sybil's Shell Game at the Carnival")
-            if 6 in self.objectiveSecondary:
+            if 6 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Give the dragonstone to Tim the Enchanter")
-            if 7 in self.objectiveSecondary:
+            if 7 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Give the wooden bird to the stranger at the lake")
-            if 8 in self.objectiveSecondary:
+            if 8 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Learn the spell from the stone tablet at the lake")
-            if 9 in self.objectiveSecondary:
+            if 9 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Open the lockbox at the lake")
-            if 10 in self.objectiveSecondary:
+            if 10 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Unlock the vault door at the Mount Magna Mine entrance")
-            if 11 in self.objectiveSecondary:
+            if 11 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get across the crevasse to reach the treasure chest in Mount Magna Mine")
-            if 12 in self.objectiveSecondary:
+            if 12 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Open the treasure chest in Mount Magna Mine")
-            if 13 in self.objectiveSecondary:
+            if 13 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get through the rubble blocking the Temple of Garrotxa entrance")
-            if 14 in self.objectiveSecondary:
+            if 14 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Solve the ghostly figure's riddle")
-            if 15 in self.objectiveSecondary:
+            if 15 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Get past the black knight")
-            if 16 in self.objectiveSecondary:
+            if 16 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Escape the creature's lair")
-            if 17 in self.objectiveSecondary:
+            if 17 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get into Eden von Roquefort's house without using spells")
-            if 18 in self.objectiveSecondary:
+            if 18 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Go into the obsidian hemisphere")
-            if 19 in self.objectiveSecondary:
+            if 19 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle of the gargoyle")
-            if 20 in self.objectiveSecondary:
+            if 20 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle of the coloured rooms")
-            if 21 in self.objectiveSecondary:
+            if 21 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle to get through the metal door")
-            if 22 in self.objectiveSecondary:
+            if 22 in self.remove_objective_secondary:
                 print("    - ",end="")
                 print("Alternatively, give the staff of Garrotxa to Eden von Roquefort")
 
@@ -944,18 +946,26 @@ def inGame(debug):
     #	 Items Present
 
     # Room
+    # Sean Reynolds - Changed Room __init__ to have all proper variables types in place when called from Initialization
     class Room(object):
-        def __init__(self, name = "name", gold = 0, letter = 0, key = 0, keySkeleton  = 0, pickaxe = 0, shrubbery = 0, funnelCake = 0, halfFunnelCake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, coal = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0, north = False, northBlocked = False, northBlockedReason = False, east = False, eastBlocked = False, eastBlockedReason = False, south = False, southBlocked = False, southBlockedReason = False, west = False, westBlocked = False, westBlockedReason = False, up = False, upBlocked = False, upBlockedReason = False, down = False, downBlocked = False, downBlockedReason = False,  betMade = False, counterAns_1 = 0, counterAns_2 = 0, counterAns_3 = 0, counterAns_4 = 0, counter_1 = 0, counter_2 = 0, counter_3 = 0, counter_4 = 0, characterDead = True, itemFound = False, firstTime = True, isBet = False, isBuy = False, isCrevasse = False, isGive = False, isMine = False, isFill = False, isSell = False):
+        def __init__(self, name = "name", gold = 0, letter = 0, key = 0, key_skeleton  = 0, pickaxe = 0, shrubbery = 0, funnel_cake = 0, half_funnel_cake = 0, foot = 0, porridge = 0, bowl = 0, lantern = 0, oil = 0, pie = 0, biscuit = 0, hook = 0, staff = 0, ticket = 0, coal = 0, potato = 0, bandage = 0, journal = 0, book = 0, brie = 0, munster = 0, stilton = 0, swiss = 0, wensleydale = 0, potion = 0, flask = 0, stone = 0, bird = 0, note = 0, memo = 0,
+                     north: str | bool | None = False, north_blocked: bool = False, north_blocked_reason: str | bool | None = False,
+                     east: str | bool | None = False, east_blocked: bool = False, east_blocked_reason: str | bool | None = False,
+                     south: str | bool | None = False, south_blocked: bool = False, south_blocked_reason: str | bool | None= False,
+                     west: str | bool | None = False, west_blocked: bool = False, west_blocked_reason: str | bool | None = False,
+                     up: str | bool | None = False, up_blocked: bool = False, up_blocked_reason: str | bool | None = False,
+                     down: str | bool | None = False, down_blocked: bool = False, down_blocked_reason: str | bool | None = False,
+                     bet_made = False, counter_ans_1 = 0, counter_ans_2 = 0, counter_ans_3 = 0, counter_ans_4 = 0, counter_1 = 0, counter_2 = 0, counter_3 = 0, counter_4 = 0, character_dead = True, item_found = False, first_time = True, is_bet = False, is_buy = False, is_crevasse = False, is_give = False, is_mine = False, is_fill = False, is_sell = False):
             # Items
             self.name = name
             self.gold = gold
             self.letter = letter
             self.key = key
-            self.keySkeleton = keySkeleton
+            self.key_skeleton = key_skeleton
             self.pickaxe = pickaxe
             self.shrubbery = shrubbery
-            self.funnelCake = funnelCake
-            self.halfFunnelCake = halfFunnelCake
+            self.funnel_cake = funnel_cake
+            self.half_funnel_cake = half_funnel_cake
             self.foot = foot
             self.porridge = porridge
             self.bowl = bowl
@@ -984,55 +994,55 @@ def inGame(debug):
             self.memo = memo
             # Check Adjacent Rooms
             self.north = north
-            self.northBlocked = northBlocked
-            self.northBlockedReason = northBlockedReason
+            self.north_blocked = north_blocked
+            self.north_blocked_reason = north_blocked_reason
             self.east = east
-            self.eastBlocked = eastBlocked
-            self.eastBlockedReason = eastBlockedReason
+            self.east_blocked = east_blocked
+            self.east_blocked_reason = east_blocked_reason
             self.south = south
-            self.southBlocked = southBlocked
-            self.southBlockedReason = southBlockedReason
+            self.south_blocked = south_blocked
+            self.south_blocked_reason = south_blocked_reason
             self.west = west
-            self.westBlocked = westBlocked
-            self.westBlockedReason = westBlockedReason
+            self.west_blocked = west_blocked
+            self.west_blocked_reason = west_blocked_reason
             self.up = up
-            self.upBlocked = upBlocked
-            self.upBlockedReason = upBlockedReason
+            self.up_blocked = up_blocked
+            self.up_blocked_reason = up_blocked_reason
             self.down = down
-            self.downBlocked = downBlocked
-            self.downBlockedReason = downBlockedReason
+            self.down_blocked = down_blocked
+            self.down_blocked_reason = down_blocked_reason
             # Check if bet made
             # Applies only to betting rooms
-            self.betMade = betMade
+            self.bet_made = bet_made
             # Room specific integer values
             # roomJailCorridor vault code
             # roomCarnival raffle return duration
             # roomCave coalmines coal amount
-            self.counterAns_1 = counterAns_1
-            self.counterAns_2 = counterAns_2
-            self.counterAns_3 = counterAns_3
-            self.counterAns_4 = counterAns_4
+            self.counter_ans_1 = counter_ans_1
+            self.counter_ans_2 = counter_ans_2
+            self.counter_ans_3 = counter_ans_3
+            self.counter_ans_4 = counter_ans_4
             self.counter_1 = counter_1
             self.counter_2 = counter_2
             self.counter_3 = counter_3
             self.counter_4 = counter_4
             # Troll dead
             # Applies only to roomBridge
-            self.characterDead = characterDead
+            self.character_dead = character_dead
             # Item found
             # If action is done in room, item appears. If action is done again, more items do not appear.
-            self.itemFound = itemFound
+            self.item_found = item_found
             # First time
             # Only applies to first time entering a room
-            self.firstTime = firstTime
+            self.first_time = first_time
             # Room Type
-            self.isBet = isBet
-            self.isBuy = isBuy
-            self.isCrevasse = isCrevasse
-            self.isGive = isGive
-            self.isMine = isMine
-            self.isFill = isFill
-            self.isSell = isSell
+            self.is_bet = is_bet
+            self.is_buy = is_buy
+            self.is_crevasse = is_crevasse
+            self.is_give = is_give
+            self.is_mine = is_mine
+            self.is_fill = is_fill
+            self.is_sell = is_sell
         # Description
         def description(self):
             print("\nRoom Name\n\nDescription placeholder.\n")
@@ -1041,7 +1051,7 @@ def inGame(debug):
             print("East is east room.")
             print("South is south room.")
             print("West is west room.")
-        def itemTypes(self):
+        def item_types(self):
             type_count = 0
             if self.gold:
                 type_count += 1
@@ -1049,15 +1059,15 @@ def inGame(debug):
                 type_count += 1
             if self.key:
                 type_count += 1
-            if self.keySkeleton:
+            if self.key_skeleton:
                 type_count += 1
             if self.pickaxe:
                 type_count += 1
             if self.shrubbery:
                 type_count += 1
-            if self.funnelCake:
+            if self.funnel_cake:
                 type_count += 1
-            if self.halfFunnelCake:
+            if self.half_funnel_cake:
                 type_count += 1
             if self.foot:
                 type_count += 1
@@ -1112,10 +1122,10 @@ def inGame(debug):
             if self.memo:
                 type_count += 1
             return type_count
-        def itemsPresent(self):
+        def items_present(self):
             # Items Present
-            if self.itemTypes():
-                if self.itemTypes() > 1:
+            if self.item_types():
+                if self.item_types() > 1:
                     print("\nThere are some items here:")
                 else:
                     print("\nThere is an item here:")
@@ -1137,20 +1147,20 @@ def inGame(debug):
                 print("    a flask")
             elif self.flask > 1:
                 print("   ",self.flask,"flasks")
-            if self.funnelCake == 1:
+            if self.funnel_cake == 1:
                 print("    a funnel cake")
-            elif self.funnelCake > 1:
-                print("   ",self.funnelCake,"funnel cakes")
+            elif self.funnel_cake > 1:
+                print("   ",self.funnel_cake,"funnel cakes")
             if self.gold:
                 print("   ",self.gold,"gold")
             if self.hook == 1:
                 print("    a grappling hook")
             elif self.hook > 1:
                 print("   ",self.hook,"grappling hooks")
-            if self.halfFunnelCake == 1:
+            if self.half_funnel_cake == 1:
                 print("    a half-eaten funnel cake")
-            elif self.halfFunnelCake > 1:
-                print("   ",self.halfFunnelCake,"half-eaten funnel cakes")
+            elif self.half_funnel_cake > 1:
+                print("   ",self.half_funnel_cake,"half-eaten funnel cakes")
             if self.biscuit == 1:
                 print("    a hardtack biscuit")
             elif self.biscuit > 1:
@@ -1161,7 +1171,7 @@ def inGame(debug):
                 print("   ",self.journal,"journals")
             if self.key:
                 print("    a key")
-            if self.keySkeleton:
+            if self.key_skeleton:
                 print("    the key of Ahm'domosh")
             if self.lantern == 1:
                 print("    a lantern")
@@ -1223,14 +1233,14 @@ def inGame(debug):
     #Very good place to use a method again lol
     #_______Jail____________________________________________________________________
     # Cell
-    class classJailCell(Room):
+    class ClassJailCell(Room):
         # Description
         def description(self):
             print("\nJail Cell\n\nThere are stone walls enclosed around you.\nThere is a solid metal door with a small slit at eye-level peering into the corridor.\nThere is a HAYSTACK here.\n")
             # Adjacent Rooms
             print("    East is the corridor.")
     # Corridor
-    class classJailCorridor(Room):
+    class ClassJailCorridor(Room):
         # Description
         def description(self):
             print("\nCorridor\n\nJail cells line the the hallway on both sides.\n")
@@ -1238,13 +1248,13 @@ def inGame(debug):
             print("    North is the antechamber.")
             print("    West is is your jail cell.")
     # Antechamber
-    class classJailAntechamber(Room):
+    class ClassJailAntechamber(Room):
         def description(self):
             print("\nAntechamber\n\nThe stone walls are close together, leaving just enough room for you to stand in.\n")
             print("    Down is the foyer.")
             print("    South is the corridor.")
     # Foyer
-    class classJailFoyer(Room):
+    class ClassJailFoyer(Room):
         # Description
         def description(self):
             print("\nFoyer\n\nThe place is rather cozy and well-lit. Definitely a contrast from all those years in your cell.\n")
@@ -1253,7 +1263,7 @@ def inGame(debug):
             print("    East is the hallway.")
             print("    West is outside.")
     # Hallway
-    class classJailHallway(Room):
+    class ClassJailHallway(Room):
         # Description
         def description(self):
             print("\nHallway\n\nLight from outside pears in from the Northern windows. This is the first time you've felt sunlight in ages.\n")
@@ -1261,7 +1271,7 @@ def inGame(debug):
             print("    East to the break room.")
             print("    West is inside the jail.")
     # Break Room
-    class classJailBreakRoom(Room):
+    class ClassJailBreakRoom(Room):
         # Description
         def description(self):
             print("\nBreak Room\n\nThere's some comfortable chairs and tables scattered around the room.\n")
@@ -1269,35 +1279,35 @@ def inGame(debug):
             print("    West is the hallway.")
             print("    South is the washroom.")
     # Entrance
-    class classJailEntrance(Room):
+    class ClassJailEntrance(Room):
         # Description
         def description(self):
-            if self.firstTime:
-                firsttime = "Finally, outside! This is the first time you've felt sunlight in ages. "
+            if self.first_time:
+                first_time = "Finally, outside! This is the first time you've felt sunlight in ages. "
             else:
-                firsttime = ""
-            print("\nJail Entrance\n\n%sA wall surrounds the prison from all sides, with a gate leading north.\n" % (firsttime))
+                first_time = ""
+            print("\nJail Entrance\n\n%sA wall surrounds the prison from all sides, with a gate leading north.\n" % first_time)
             # Adjacent Rooms
             print("    East is the foyer.")
             print("    West is the courtyard.")
     #_______Town____________________________________________________________________
     # Courtyard
-    class classCourtyardNorth(Room):
+    class ClassCourtyardNorth(Room):
         # Description
         def description(self):
-            if self.firstTime:
-                firsttime = "A young urchin boy rings a bell, yelling \"Come one, come all, to the WONDERFUL WHEEL OF MYSTERY! Short on cash? Want to get rich quick? Spin the wheel and test your luck! Only at the AIREDALE CARNIVAL!\""
-            elif roomCarnivalWheelGame.characterDead:
-                firsttime = ""
+            if self.first_time:
+                first_time = "A young urchin boy rings a bell, yelling \"Come one, come all, to the WONDERFUL WHEEL OF MYSTERY! Short on cash? Want to get rich quick? Spin the wheel and test your luck! Only at the AIREDALE CARNIVAL!\""
+            elif room_carnival_wheel_game.character_dead:
+                first_time = ""
             else:
-                firsttime = "A young urchin boy rings a bell, yelling \"The WONDERFUL WHEEL OF MYSTERY will be announcing the winner soon! Get your TICKET while you can!\""
-            print("\nNorth Courtyard\n\nA crowd of people fill the streets.\nVarious buildings surround the courtyard from every angle.\n" + firsttime + "\n")
+                first_time = "A young urchin boy rings a bell, yelling \"The WONDERFUL WHEEL OF MYSTERY will be announcing the winner soon! Get your TICKET while you can!\""
+            print("\nNorth Courtyard\n\nA crowd of people fill the streets.\nVarious buildings surround the courtyard from every angle.\n" + first_time + "\n")
             # Adjacent Rooms
             print("    North is the town gate.")
             print("    East is the general store.")
             print("    West is the carnival grounds.")
             print("    South is the south courtyard.")
-    class classCourtyardSouth(Room):
+    class ClassCourtyardSouth(Room):
         # Description
         def description(self):
             print("\nSouth Courtyard\n\nA large elegant fountain rests in the centre, surrounded by busy people minding their own business.\n")
@@ -1307,21 +1317,21 @@ def inGame(debug):
             print("    West is the blacksmith.")
             print("    South is the alchemist's hut.")
     # Blacksmith
-    class classBlacksmith(Room):
+    class ClassBlacksmith(Room):
         # Description
         def description(self):
             print("\nBlacksmith\n")
-            if self.characterDead:
+            if self.character_dead:
                 print("There is a charred body here.\nAn open furnace lights up the place and several tools lay on an adjacent table.")
             else:
                 print("A man in an apron rests at stand near the entrance.\nBehind him, an open furnace lights up the place and several of his tools lay on an adjacent table.")
-                if self.firstTime:
+                if self.first_time:
                     print("\"You new here mate? Don't recognize the face. Buy anything here you'd like. Ever since the incident at the MOUNT MAGNA MINE, I've been running low on COAL to keep my furnace going. However, if you've got the guts to go up there, I'd be willing to buy any off from you.\"")
                 else:
                     print("\"Y'here to buy anything? If not, I'd be willin' to buy any COAL off you. In times like these, I could always use some more fuel for my fire.\"")
                 print("\nGoods available to buy:\n    Pickaxe (%s gold)\n    Grappling Hook (%s gold)" % (PRICE_BUY_PICKAXE,PRICE_BUY_HOOK))
                 print("\nGoods available to sell:\n    Coal (%s gold)" % PRICE_SELL_COAL)
-            if self.isBuy:
+            if self.is_buy:
                 print("\nYou have",inv.gold,"gold.")
                 if inv.coal > 1:
                     print("You have",inv.coal,"pieces of coal.")
@@ -1330,353 +1340,353 @@ def inGame(debug):
             # Adjacent Rooms
             print("\n    East is the courtyard.")
     # Alchemist
-    class classAlchemist(Room):
+    class ClassAlchemist(Room):
         def description(self):
             print("\nAlchemist's Hut\n")
-            if self.characterDead:
+            if self.character_dead:
                 dead = "The dead body of Tim the Enchanter is here."
             else:
                 dead = "An old man, wearing black robes and a leather cap with goat horns wanders around from shelf to shelf, examining various strange ingredients."
-            if self.firstTime:
-                firsttime = "\"Sorry, the shop is closed. I ran out of crushed dragonstone powder, a very rare and expensive ingredient necessary for all my potions. If you could find me a DRAGONSTONE, I would be willing to buy it off from you, and I'll be able to start up my business again. How does %s gold sound? Oh, I almost forgot to introduce myself. I'm Tim. Tim the Enchanter.\"" % PRICE_SELL_STONE
+            if self.first_time:
+                first_time = "\"Sorry, the shop is closed. I ran out of crushed dragonstone powder, a very rare and expensive ingredient necessary for all my potions. If you could find me a DRAGONSTONE, I would be willing to buy it off from you, and I'll be able to start up my business again. How does %s gold sound? Oh, I almost forgot to introduce myself. I'm Tim. Tim the Enchanter.\"" % PRICE_SELL_STONE
             else:
-                if self.isBuy:
-                    firsttime = "\"Come on in. The fire's roaring. Business has been going great since you got me that dragonstone. What can I get for you?\""
+                if self.is_buy:
+                    first_time = "\"Come on in. The fire's roaring. Business has been going great since you got me that dragonstone. What can I get for you?\""
                 else:
-                    firsttime = "\"Hello again. I'm still empty on crushed dragonstone powder so I won't be able to make any potions. If you have a dragonstone, the offer is still on.\""
-            if self.isBuy:
+                    first_time = "\"Hello again. I'm still empty on crushed dragonstone powder so I won't be able to make any potions. If you have a dragonstone, the offer is still on.\""
+            if self.is_buy:
                 buy = "filled with a bubbling, red liquid, rests above hot coals."
             else:
                 buy = "rests above an fire, filled only with water."
-            print("A large, cast-iron cauldron " + buy + "\n" + dead + " \n" + firsttime)
-            if self.isBuy: # and self.isFill:
+            print("A large, cast-iron cauldron " + buy + "\n" + dead + " \n" + first_time)
+            if self.is_buy: # and self.isFill:
                 outofstock = ""
             else:
                 outofstock = " [OUT OF STOCK]"
-            if not self.characterDead:
+            if not self.character_dead:
                 print("\nGoods available to buy:\n    Potion of rejuvination (%s gold)%s" % (PRICE_BUY_POTION,outofstock))
                 print("\nGoods available to fill:\n    Flask (%s gold)%s" % (PRICE_REFILL_POTION,outofstock))
-            if self.isSell:
+            if self.is_sell:
                 print("\nGoods available to sell:\n    Dragonstone (%s gold)" % PRICE_SELL_STONE)
-            if self.isBuy:
+            if self.is_buy:
                 print("\nYou have",inv.gold,"gold.")
             print("\n    North is the courtyard.")
     # Town Gate
-    class classGate(Room):
+    class ClassGate(Room):
         # Description
         def description(self):
-            if self.northBlocked:
-                if self.firstTime:
-                    firsttime = "\"Hey you there!\" says one of the guards as he approachs you. He looks around cautiously before lowering his voice.\n\"I recognize you! You were locked up years ago, you rat! I'd call for more guards to take you back to your cell, but I need something. You're a good thief and I'm sure you have a good eye.\nA while back, I lost a SHRUBBERY somewhere in this town.\nRetrieve it for me: one that looks nice and not too expensive, and I'll let you through the gate.\""
+            if self.north_blocked:
+                if self.first_time:
+                    first_time = "\"Hey you there!\" says one of the guards as he approachs you. He looks around cautiously before lowering his voice.\n\"I recognize you! You were locked up years ago, you rat! I'd call for more guards to take you back to your cell, but I need something. You're a good thief and I'm sure you have a good eye.\nA while back, I lost a SHRUBBERY somewhere in this town.\nRetrieve it for me: one that looks nice and not too expensive, and I'll let you through the gate.\""
                 else:
-                    firsttime = "\"Don't think you can get pass the gate until I get that SHRUBBERY. Try any funny business and I'll send you back to your cell.\""
+                    first_time = "\"Don't think you can get pass the gate until I get that SHRUBBERY. Try any funny business and I'll send you back to your cell.\""
             else:
-                firsttime = "He recognizes you and opens it."
-            print("\nTown Gate\n\nA guard stands at the gate.", firsttime)
+                first_time = "He recognizes you and opens it."
+            print("\nTown Gate\n\nA guard stands at the gate.", first_time)
             # Adjacent Rooms
             print("\n    North is a pathway.")
             print("    South is the courtyard.")
     # General Store
-    class classGeneralStore(Room):
+    class ClassGeneralStore(Room):
         # Description
         def description(self):
             print("\nGeneral Store\n")
-            if self.characterDead:
+            if self.character_dead:
                 print("There is a charred body on the floor.")
             else:
-                if self.firstTime:
+                if self.first_time:
                     welcome = "Welcome to my shop, little human. I have goods. You have money. We make deal."
                 else:
                     welcome = "I see you have returned little human. Welcome back."
                 print("The shopkeeper welcomes you in the his store. \"%s\"" % welcome)
                 print("\nGoods available to buy:\n    Lucky Rabbit Foot (%s gold)\n    Lantern (%s gold)\n    Vial of Lantern Oil (%s gold)\n    Bandage (%s gold)" % (PRICE_BUY_FOOT,PRICE_BUY_LANTERN,PRICE_BUY_OIL,PRICE_BUY_BANDAGE))
-            if self.isBuy:
+            if self.is_buy:
                 print("\nYou have",inv.gold,"gold.")
             # Adjacent Rooms
             print("\n    West is the courtyard.")
     # Carnival
-    class classCarnival(Room):
+    class ClassCarnival(Room):
         # Description
         def description(self):
-            if self.southBlocked:
-                sClosed = "Closed: Out of Business"
+            if self.south_blocked:
+                s_closed = "Closed: Out of Business"
             else:
-                sClosed = "Sybil\'s Shell Game"
-            if self.westBlocked:
-                wClosed = "FRAUD"
+                s_closed = "Sybil\'s Shell Game"
+            if self.west_blocked:
+                w_closed = "FRAUD"
             else:
-                wClosed = "Mystery"
+                w_closed = "Mystery"
             print("\nCarnival Grounds\n\nFestival lights are strung above, with colourful banners swaying in the wind.\nA large party of adults and children alike fill the carnival grounds, bustling about from tent to tent.")
-            if self.isGive:
+            if self.is_give:
                 print("The spokesperson is sitting outside at a table with two guards.\nA crowd of people surround her, GIVING her their raffle tickets.")
             print('\n    North is a tent labelled, "Funnel Cakes Galore."')
             print("    East is the courtyard.")
-            print('    West is a tent labelled, "The Wonderful Wheel of %s."' % wClosed)
-            print('    South is a tent labelled, "%s."' % sClosed)
+            print('    West is a tent labelled, "The Wonderful Wheel of %s."' % w_closed)
+            print('    South is a tent labelled, "%s."' % s_closed)
     # Carnival Shell Game
-    class classCarnivalShellGame(Room):
+    class ClassCarnivalShellGame(Room):
         def description(self):
             print("\nSybil\'s Shell Game")
-            if self.isBet:
+            if self.is_bet:
                 print("\nInside the tent is an old woman hunched at a small, fragile wooden table.")
-                if self.betMade:
+                if self.bet_made:
                     print("\nShe is waiting for you to chose a shell.")
                 else:
                     print('With only one eye, she turns to you and begins to chant.\n"Hear ye, hear ye! BET if you wish some GOLD out of glee! Test your LUCK with a guess from these shells three! Double your money if you win, you shall see!"')
-            elif not self.characterDead:
+            elif not self.character_dead:
                 print("\nSybil is packing her stuff to leave the carnival.")
             else:
                 print("\n    Inside the tent is a charred body on the ground, behind a fragile wooden table.")
-            if self.isBet:
+            if self.is_bet:
                 print("\nYou have",inv.gold,"gold.")
             print("\n    North is the carnival grounds.")
     # Carnival Food
-    class classCarnivalFood(Room):
+    class ClassCarnivalFood(Room):
         # Description
         def description(self):
 
             print("\nFunnel Cakes Galore\n")
-            if self.characterDead:
+            if self.character_dead:
                 
                 print("There is a charred body here, lying by a stovetop.")
             else:
-                if invFood.funnelCake <= 0:
-                    menu = "\nGoods available to buy:\n    Chicken pot pie (%i gold)" % (PRICE_BUY_PIE)
+                if inv_food.funnel_cake <= 0:
+                    menu = "\nGoods available to buy:\n    Chicken pot pie (%i gold)" % PRICE_BUY_PIE
                 else:
                     menu = "\nGoods available to buy:\n    Funnel cake (%i gold)\n    Chicken pot pie (%i gold)" % (PRICE_BUY_FUNNELCAKE,PRICE_BUY_PIE)
                 print("\nInside the tent is an older overweight vendor at a stovetop, cooking up funnel cakes.")
-                if self.firstTime:
+                if self.first_time:
                     print('\n"Funnel cakes! Get your funnel cakes here!" he shouts with joy. "Enjoying the carnival so far? What better way to brighten your day with some freshly fried funnel cakes at Funnel Cakes Galore! Oh, we also sell pies here too, but no one these days are looking to buy pies at a carnival.')
                 else:
-                    if invFood.funnelCake > 0:
-                        if invFood.funnelCake < FUNNELCAKE_LIMIT / 2:
+                    if inv_food.funnel_cake > 0:
+                        if inv_food.funnel_cake < FUNNELCAKE_LIMIT / 2:
                             print("\n\"Oh look, it's you again. You seem to be really liking those funnel cakes. You know, I only have so much batter for today. I didn't really expect you to buy so many.\"")
-                        elif invFood.funnelCake < FUNNELCAKE_LIMIT:
+                        elif inv_food.funnel_cake < FUNNELCAKE_LIMIT:
                             print("\n\"You're here to buy more funnel cakes? They're delicious, I know!\"")
                         else:
                             print("\n\"Good seeing you again. Change your mind of buying some mighty fine funnel cakes?\"")
                     else:
                         print("\n\"I'm all out of funnel cake batter. You can still buy some pies if you want.\"")
             print(menu)
-            if self.isBuy:
+            if self.is_buy:
                 print("\nYou have",inv.gold,"gold.")
             print("\n    South is the carnival grounds.")
-    class classCarnivalWheelGame(Room):
+    class ClassCarnivalWheelGame(Room):
         # Description
         def description(self):
             print("\nWonderful Wheel of Mystery\n\nInside the tent is a large elevated platform.\nDisplayed in the centre is a large wheel with various numbers on it.")
-            if self.characterDead:
+            if self.character_dead:
                 print("The rest of the place is empty.")
             else:
-                if self.firstTime:
-                    firsttime = "Get your tickets here. Only %s gold each. Winner gets 100,000 gold and their own personal yacht. We'll be drawing today's winner in just a couple of minutes! Last chance to get your tickets!" % PRICE_BUY_TICKET
+                if self.first_time:
+                    first_time = "Get your tickets here. Only %s gold each. Winner gets 100,000 gold and their own personal yacht. We'll be drawing today's winner in just a couple of minutes! Last chance to get your tickets!" % PRICE_BUY_TICKET
                 else:
-                    firsttime = "Last chance to get your tickets. Today's winner will be announced soon!"
-                print("A large crowd of people are all gathered around it, waving bags of gold in their hands. A man with a top hat, is collecting gold from the people nearest to him as he hands out raffle tickets in return. \"%s\"" % firsttime)
+                    first_time = "Last chance to get your tickets. Today's winner will be announced soon!"
+                print("A large crowd of people are all gathered around it, waving bags of gold in their hands. A man with a top hat, is collecting gold from the people nearest to him as he hands out raffle tickets in return. \"%s\"" % first_time)
                 print("\nGoods available to buy:\n    Raffle ticket (%i gold)" % PRICE_BUY_TICKET)
-            if self.isBuy:
+            if self.is_buy:
                 print("\nYou have",inv.gold,"gold.")
             print("\n    East is the carnival grounds.")
 
     #_______Outside____________________________________________________________________
     # Road
-    class classRoadSouth(Room):
+    class ClassRoadSouth(Room):
         def description(self):
             print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.")
             print("\n    North is a crossroads.")
             print("    South is the town gate.")
-    class classRoadMid(Room):
+    class ClassRoadMid(Room):
         def description(self):
-            if self.itemFound:
-                northD = "Mount Magna."
-                eastD = "Temple of Garrotxa."
-                westD = "Lake Laguiole."
+            if self.item_found:
+                north_d = "Mount Magna."
+                east_d = "Temple of Garrotxa."
+                west_d = "Lake Laguiole."
             else:
-                northD = "a road."
-                eastD = "a road."
-                westD = "a road."
+                north_d = "a road."
+                east_d = "a road."
+                west_d = "a road."
             print("\nCrossroads\n\nFour paths meet here. There is a SIGN you can READ here.")
-            print("\n    North is",northD)
-            print("    East is",eastD)
-            print("    West is",westD)
+            print("\n    North is",north_d)
+            print("    East is",east_d)
+            print("    West is",west_d)
             print("    South is the town of Airedale.")
-    class classRoadNorth(Room):
+    class ClassRoadNorth(Room):
         def description(self):
             print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.")
             print("\n    North is Mount Magna.")
             print("    South is a crossroads.")
-    class classRoadEast(Room):
+    class ClassRoadEast(Room):
         def description(self):
             print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.")
             print("\n    East is is a bridge.")
             print("    West is a crossroads.")
-    class classRoadWest(Room):
+    class ClassRoadWest(Room):
         def description(self):
             print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.")
             print("\n    East is a crossroads.")
             print("    West is a lake.")
-    class classRoadCorner(Room):
+    class ClassRoadCorner(Room):
         def description(self):
-            if not self.characterDead and self.counter_1:
-                blackknight = " A knight, outfitted in black platemetal armour and equipped with a large broadsword stands in the way. He stands quietly."
+            if not self.character_dead and self.counter_1:
+                black_knight = " A knight, outfitted in black platemetal armour and equipped with a large broadsword stands in the way. He stands quietly."
             else:
-                blackknight = ""
-            print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.%s" % blackknight)
+                black_knight = ""
+            print("\nRoad\n\nThe gravel path extends out into the forest. Pine trees hug the path closely on both ends.%s" % black_knight)
             print("\n    North is a temple.")
             print("    East is an opening in the forest.")
             print("    West is a bridge.")
-    class classForest(Room):
+    class ClassForest(Room):
         def description(self):
-            if self.eastBlocked:
+            if self.east_blocked:
                 blocked = " The surface has no distinguishing features."
             else:
                 blocked = " An opening leads inside."
             print("\nForest\n\nIn the middle of the foliage is a large obsidian hemisphere.%s\n" % blocked)
             print("    West is a road.")
-            if not self.eastBlocked:
+            if not self.east_blocked:
                 print("    East is inside the obsidian hemisphere.")
     # Lake
-    class classLake(Room):
+    class ClassLake(Room):
         def description(self):
-            if self.firstTime:
-                firsttime = "A stranger lies by the shoreline.\n\"Hey you there! I lost my precious WOODEN BIRD in the MOUNT MAGNA MINE before it was locked down. If you could somehow get in there and GIVE me my bird back, I will surely make it worth your while. Please, I beg of you!\""
-            elif self.characterDead:
-                firsttime = "A dead body lies by the shoreline."
-            elif not self.isGive:
-                firsttime = "A stranger lies by the shoreline, happy to have his wooden bird back."
+            if self.first_time:
+                first_time = "A stranger lies by the shoreline.\n\"Hey you there! I lost my precious WOODEN BIRD in the MOUNT MAGNA MINE before it was locked down. If you could somehow get in there and GIVE me my bird back, I will surely make it worth your while. Please, I beg of you!\""
+            elif self.character_dead:
+                first_time = "A dead body lies by the shoreline."
+            elif not self.is_give:
+                first_time = "A stranger lies by the shoreline, happy to have his wooden bird back."
             else:
-                firsttime = "A stranger lies by the shoreline. \"Are you back with my WOODEN BIRD from MOUNT MAGNA? I'll make it worth your while.\""
-            print("\nLake Laguiole\n\nThe sun shimmers off the lake's surface.\nThere is a LOCKBOX here.\nThere is a STONE TABLET you can READ here.\n" + firsttime)
+                first_time = "A stranger lies by the shoreline. \"Are you back with my WOODEN BIRD from MOUNT MAGNA? I'll make it worth your while.\""
+            print("\nLake Laguiole\n\nThe sun shimmers off the lake's surface.\nThere is a LOCKBOX here.\nThere is a STONE TABLET you can READ here.\n" + first_time)
             print("\n    East is the crossroads.")
     # Woods
-    class classShrineSouth(Room):
+    class ClassShrineSouth(Room):
         def description(self):
-            if self.firstTime and roomShrineNorth.firstTime:
-                firsttime = " A voice echoes within the chamber, \"Omoz... gloth... izh...\""
+            if self.first_time and room_shrine_north.first_time:
+                first_time = " A voice echoes within the chamber, \"Omoz... gloth... izh...\""
             else:
-                firsttime = ""
-            print("\nSouth Shrine\n\nSteps lead down to a circular pit, shallowly filled with water.\nAround the edges of the room, floating candles dimly light the area.\nAlong the North wall is a MYSTICAL PORTAL." + firsttime + "\n")
+                first_time = ""
+            print("\nSouth Shrine\n\nSteps lead down to a circular pit, shallowly filled with water.\nAround the edges of the room, floating candles dimly light the area.\nAlong the North wall is a MYSTICAL PORTAL." + first_time + "\n")
             print("    North is through the portal.")
             print("    West is outside.")
     # Bridge
-    class classBridge(Room):
+    class ClassBridge(Room):
         def description(self):
             print("\nBridge\n\nThe wooden bridge stretches across a river.",end = " ")
-            if self.firstTime:
-                firsttime = "He notices you, and says \"Bridge is home of Ugg. Ugg want funnel cakes. Ugg need gold to buy funnel cakes. Ugg no let you pass unless you GIVE Ugg GOLD or FUNNEL CAKES.\nUgg need %s gold to be happy.\nIf you give Ugg funnel cakes, that will be like giving Ugg %s gold each because it take a lot of work for Ugg to go buy funnel cakes.\"" % (TROLL_GOAL - invTroll.gold,TROLL_FUNNELCAKE_MULTIPLIER)
+            if self.first_time:
+                first_time = "He notices you, and says \"Bridge is home of Ugg. Ugg want funnel cakes. Ugg need gold to buy funnel cakes. Ugg no let you pass unless you GIVE Ugg GOLD or FUNNEL CAKES.\nUgg need %s gold to be happy.\nIf you give Ugg funnel cakes, that will be like giving Ugg %s gold each because it take a lot of work for Ugg to go buy funnel cakes.\"" % (TROLL_GOAL - inv_troll.gold,TROLL_FUNNELCAKE_MULTIPLIER)
             else:
-                firsttime = "He reminds you, \"Ugg need %s GOLD before you can pass. You can GIVE Ugg FUNNEL CAKES too, which count as %s gold each.\"" % (TROLL_GOAL - invTroll.gold,TROLL_FUNNELCAKE_MULTIPLIER)
-            if self.eastBlocked:
-                print("There is a troll standing on it, blocking the way. %s" % firsttime)
-            elif not self.characterDead:
+                first_time = "He reminds you, \"Ugg need %s GOLD before you can pass. You can GIVE Ugg FUNNEL CAKES too, which count as %s gold each.\"" % (TROLL_GOAL - inv_troll.gold,TROLL_FUNNELCAKE_MULTIPLIER)
+            if self.east_blocked:
+                print("There is a troll standing on it, blocking the way. %s" % first_time)
+            elif not self.character_dead:
                 print("The troll is happily sitting under the bridge, excited to see how many funnel cakes he can buy.")
             else:
                 print("The body of the troll lays on the bridge, leaving some room to step over and across the other side.")
-            if self.eastBlocked:
+            if self.east_blocked:
                 print("\nYou have",inv.gold,"gold.")
-                if inv.funnelCake > 1:
-                    print("You have",inv.funnelCake,"funnel cakes.")
-                elif inv.funnelCake:
-                    print("You have",inv.funnelCake,"funnel cake.")
+                if inv.funnel_cake > 1:
+                    print("You have",inv.funnel_cake,"funnel cakes.")
+                elif inv.funnel_cake:
+                    print("You have",inv.funnel_cake,"funnel cake.")
             print("\n    East is the crossroads.")
             print("    West is a road.")
 
     # Temple
-    class classTempleEntrance(Room):
+    class ClassTempleEntrance(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 rubble = ", blocked by RUBBLE"
             else:
                 rubble = ""
             print("\nTemple Entrance\n\nWhite marble pillars support the temple roof, which is embellished with gold.\nA large stairway leads up towards the doorway entering the temple.\nA hedge surrounds the temple from the back and sides.\n")
             print("    North is inside the temple%s." % rubble)
             print("    South is a road.")
-    class classTempleInside(Room):
+    class ClassTempleInside(Room):
         def description(self):
             print("\nTemple\n\nA velvet carpet extends from the entrance to a pedestal in the center of the room.\nAt the back is a large statue of the goddess, Garrotxa, overlooking the room.\nThree MURALS you can READ with embroided text are laid out, spanning across the West, North, and East walls.\n")
             print("    Down is the antechamber.")
             print("    South is outside.")
-    class classTempleBasement(Room):
+    class ClassTempleBasement(Room):
         def description(self):
             if self.staff:
                 staffpresent = "A gem-encrusted staff rests on a stand atop it."
             else:
                 staffpresent = "An empty stand sits on top of it."
-            if not self.characterDead:
-                if self.firstTime:
-                    firsttime = "A ghostly figure stands in the way.\nIt says, \"The staff of Garrotxa stands before you. Only those who can answer my riddle are worthy to take it.\"\nIt pauses to speak again.\"%s\"" % self.counter_1
+            if not self.character_dead:
+                if self.first_time:
+                    first_time = "A ghostly figure stands in the way.\nIt says, \"The staff of Garrotxa stands before you. Only those who can answer my riddle are worthy to take it.\"\nIt pauses to speak again.\"%s\"" % self.counter_1
                 else:
-                    firsttime = "A ghostly figure stands in the way.\nIt repeats the riddle, \"%s\"" % self.counter_1
+                    first_time = "A ghostly figure stands in the way.\nIt repeats the riddle, \"%s\"" % self.counter_1
             else:
-                firsttime = ""
-            print("\nInner Sanctum\n\nTorches line the walls of a stone hallway.\nAt the end sits a pedestal. " + staffpresent + "\n" + firsttime)
+                first_time = ""
+            print("\nInner Sanctum\n\nTorches line the walls of a stone hallway.\nAt the end sits a pedestal. " + staffpresent + "\n" + first_time)
             print("\n    Up is the ground floor.")
 
     #_______The Cavern______________________________________________________________
     # Entrance
     # debug cave names
-    class classMountEntrance(Room):
+    class ClassMountEntrance(Room):
         def description(self):
             print("\nCoal Mine Entrance\n\nMount Magna towers above, casting a shadow onto the land below.\nThere is a DEAD BODY here.\nThere is a SIGN you can READ here.\nThere is a vault door North, with a combination lock.\nFour large dials, each set to a number from 0 to 9 are displayed on the vault.\n\nThe first dial reads %i.\nThe second dial reads %i.\nThe third dial reads %i.\nThe fourth dial reads %i.\n" % (self.counter_1, self.counter_2, self.counter_3, self.counter_4))
             print("    North is inside the mine.")
             print("    South is the crossroads.")
     # 1
-    class classCave_1_m(Room):
+    class ClassCave1M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    South is outside.")
     # 2
-    class classCave_2_m(Room):
+    class ClassCave2M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_2_mr(Room):
+    class ClassCave2Mr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    West is an opening.")
-    class classCave_2_lm(Room):
+    class ClassCave2Lm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\n")
             print("    North is an opening.")
             print("    East is an opening.")
             print("    West is an opening.")
-    class classCave_2_llm(Room):
+    class ClassCave2Llm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\nThere is a DEAD BODY here.")
             print("\n    North is an opening.")
             print("    East is an opening.")
     # 3
-    class classCave_3_m_coalmine(Room):
+    class ClassCave3MCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veinss lined along the cavern wall.")
             print("\n    North is an opening.")
-    class classCave_3_mr(Room):
+    class ClassCave3Mr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    South is an opening.")
-    class classCave_3_mrr_coalmine(Room):
+    class ClassCave3MrrCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    West is an opening.")
-    class classCave_3_lm_coalmine(Room):
+    class ClassCave3LmCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    South is an opening.")
-    class classCave_3_llm_crevasse(Room):
+    class ClassCave3LlmCrevasse(Room):
         def description(self):
-            if self.westBlocked:
+            if self.west_blocked:
                 hook = ""
             else:
                 hook = " with a grappling hook spanning across it"
@@ -1684,13 +1694,13 @@ def inGame(debug):
             print("\n    North is an opening.")
             print("    West is a crevasse%s." % hook)
             print("    South is an opening.")
-    class classCave__3_lllm_treasure_crevasse(Room):
+    class ClassCave3LllmTreasureCrevasse(Room):
         def description(self):
-            if self.eastBlocked:
+            if self.east_blocked:
                 hook = ""
             else:
                 hook = " with a grappling hook spanning across it"
-            if self.itemFound:
+            if self.item_found:
                 chest = "n open"
             else:
                 if self.counter_1:
@@ -1700,129 +1710,129 @@ def inGame(debug):
             print("\nCavern\n\nCold stone surrounds you in every direction.\nThere is a%s TREASURE CHEST here." % chest)
             print("\n    East is a crevasse%s." % hook)
     # 4
-    class classCave_4_m(Room):
+    class ClassCave4M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_4_mr(Room):
+    class ClassCave4Mr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\nThere is some strange TEXT on written on one of the walls.\n")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_4_lm(Room):
+    class ClassCave4Lm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\n")
             print("    North is an opening.")
             print("    East is an opening.")
             print("    West is an opening.")
-    class classCave_4_llm(Room):
+    class ClassCave4Llm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    South is an opening.")
     # 5
-    class classCave_5_m(Room):
+    class ClassCave5M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    South is an opening.")
-    class classCave_5_mr_coalmine(Room):
+    class ClassCave5MrCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    West is an opening.")
-    class classCave_5_lm_coalmine(Room):
+    class ClassCave5LmCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    South is an opening.")
-    class classCave_5_llm(Room):
+    class ClassCave5Llm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_5_lllm(Room):
+    class ClassCave5Lllm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
     # 6
-    class classCave_6_m(Room):
+    class ClassCave6M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\nThere is a DEAD BODY here.")
             print("\n    South is an opening.")
             print("    East is an opening.")
-    class classCave_6_mr(Room):
+    class ClassCave6Mr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    West is an opening.")
-    class classCave_6_lm_coalmine(Room):
+    class ClassCave6LmCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    North is an opening.")
-    class classCave_6_llm_coalmine(Room):
+    class ClassCave6LlmCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
                 print("There are COAL veins lined along the cavern wall.")
             print("\n    West is an opening.")
-    class classCave_6_lllm(Room):
+    class ClassCave6Lllm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.\nThere is a DEAD BODY here.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    South is an opening.")
     # 7
-    class classCave_7_m(Room):
+    class ClassCave7M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
-    class classCave_7_mr(Room):
+    class ClassCave7Mr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_7_lm(Room):
+    class ClassCave7Lm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
             print("    South is an opening.")
-    class classCave_7_llm(Room):
+    class ClassCave7Llm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
             print("    West is an opening.")
-    class classCave_7_lllm(Room):
+    class ClassCave7Lllm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    South is an opening.")
     # 8
-    class classCave_8_mr_crevasse(Room):
+    class ClassCave8MrCrevasse(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 hook = ""
             else:
                 hook = " with a grappling hook spanning across it"
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is a crevasse%s." % hook)
             print("    South is an opening.")
-    class classCave_8_llm_coalmine(Room):
+    class ClassCave8LlmCoalmine(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             if self.counter_1:
@@ -1831,25 +1841,25 @@ def inGame(debug):
     # 9
     # Creature cannot naturally spawn here.
     # If creature chase, then creature retreats (cannot pass crevasse)
-    class classCave_9_mr_crevasse(Room):
+    class ClassCave9MrCrevasse(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 rubble = "The tunnel has collapsed North.\n"
             else:
                 rubble = "\n"
-            if self.southBlocked:
+            if self.south_blocked:
                 hook = ""
             else:
                 hook = " with a grappling hook spanning across it"
             print("\nCavern\n\nCold stone surrounds you in every direction.",rubble)
-            if not self.northBlocked:
+            if not self.north_blocked:
                 print("    North is an opening.")
             print("    South is a crevasse%s." % hook)
     # 10
     # Chase rooms after crossing crevasse
-    class classCave__10_mr(Room):
+    class ClassCave10Mr(Room):
         def description(self):
-            if self.southBlocked:
+            if self.south_blocked:
                 rubble = ", blocked by RUBBLE"
             else:
                 rubble = ""
@@ -1857,149 +1867,149 @@ def inGame(debug):
             print("\n    East is an opening.")
             print("    West is an opening.")
             print("    South is an opening%s." % rubble)
-    class classCave__10_mrr(Room):
+    class ClassCave10Mrr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
-    class classCave__10_m(Room):
+    class ClassCave10M(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    East is an opening.")
             print("    West is an opening.")
-    class classCave__10_mrrr(Room):
+    class ClassCave10Mrrr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    West is an opening.")
-    class classCave__10_lm(Room):
+    class ClassCave10Lm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    East is an opening.")
     # 11
-    class classCave__11_lm(Room):
+    class ClassCave11Lm(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    South is an opening.")
-    class classCave__11_mrrr(Room):
+    class ClassCave11Mrrr(Room):
         def description(self):
             print("\nCavern\n\nCold stone surrounds you in every direction.")
             print("\n    North is an opening.")
             print("    South is an opening.")
     # Darkness
-    class classDarkness(Room):
+    class ClassDarkness(Room):
         def description(self):
             print("\nDarkness\n\nYou feel nothing.")
     # Lair
     # Have lots of stuff to examine
     #   Shrine to Vesh'kathal
     #   markings on wall?
-    class classLairMid(Room): # body here with lantern oil, biscuits
+    class ClassLairMid(Room): # body here with lantern oil, biscuits
         def description(self):
             print("\nLair\n\nAn obsidian fountain sits in the centre, spewing a mysterious purple fluid.\nFour gargoyle statues from the corners of the room look inward towards the fountain, perched upon stone pedestals.\nYour BACKPACK and the CREATURE are visible within the rubble.\nThere is a DEAD BODY here.") # contains biscuits to prevent starve (hunger set low after waking up)
             print("\n    East is a doorway.") # leads to exit
             print("    West is a doorway.") # leads to drop puzzle and supplies in more bodies (include bandage for escape hit, pick for mining rock, more food for after escape)
             print("South is an opening, blocked by RUBBLE.")
-    class classLairEast(Room):
+    class ClassLairEast(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 rubble = ", blocked by RUBBLE. Light from the outside peers through the cracks"
             else:
                 rubble = ""
-            if self.firstTime:
+            if self.first_time:
                 eyes = "closed"
             else:
                 eyes = "open"
             print("\nLair\n\nStrange TEXT is etched across the walls. A single gargoyle statue is perched on a pedestal. Its eyes are %s." % eyes)
             print("\n    North is an opening%s." % rubble)
             print("    West is a doorway.")
-    class classLairWest(Room): # body here with bandages, lantern
+    class ClassLairWest(Room): # body here with bandages, lantern
         def description(self):
             print("\nLair\n\nA skeleton lies on an elongated table, stained with old blood.")
             print("\n    East is a doorway.")
             print("    South is a small opening.")
-    class classLairHole(Room): # get pickaxe here, only if carrying 1 thing in travel both ways
+    class ClassLairHole(Room): # get pickaxe here, only if carrying 1 thing in travel both ways
         def description(self):
             print("\nLair\n\nCold stone surrounds you in every direction. The space is extremely cramped.\nThere is a DEAD BODY here.\n")
             print("    North is a small opening.")
     # Fermiere
-    class classRoad2South(Room):
+    class ClassRoad2South(Room):
         def description(self):
             print("\nRoad\n\nThe dirt path extends out on the field. The shadow of Mount Magna towers from the south.\n")
             print("    North is a crossroads.")
             print("    South is inside the mine.")
-    class classRoad2Mid(Room):
+    class ClassRoad2Mid(Room):
         def description(self):
-            if self.itemFound:
-                northD = "the House of Roquefort."
-                westD = "Fermiere Farm."
-                southD = "Mount Magna."
+            if self.item_found:
+                north_d = "the House of Roquefort."
+                west_d = "Fermiere Farm."
+                south_d = "Mount Magna."
             else:
-                northD = "a road."
-                westD = "a road."
-                southD = "a road."
+                north_d = "a road."
+                west_d = "a road."
+                south_d = "a road."
             print("\nCrossroads\n\nThe paths meet here. There is a SIGN you can READ here.\n")
-            print("    North is",northD)
+            print("    North is",north_d)
             print("    East is a field.")
-            print("    West is",westD)
-            print("    South is",southD)
-    class classFarm(Room): # Get potato
+            print("    West is",west_d)
+            print("    South is",south_d)
+    class ClassFarm(Room): # Get potato
         def description(self):
             print("\nFarm\n\nThe entire field is barren and the soil is mixed with ash and dead crops.\n")
             print("    East is a crossroads.")
             print("    West is a barn.")
-    class classBarn(Room):
+    class ClassBarn(Room):
         def description(self):
             print("\nBarn\n\nThe entire interior is empty as as the walls are all burnt.\nThe roof is entirely removed, and part of the second floor, allowing the sun to light up the area.\nThere is some WRITING on a wall you can READ.\n")
             print("    Up is the second floor.")
             print("    East is a farm.")
-    class classBarnUp(Room):
+    class ClassBarnUp(Room):
         def description(self):
             print("\nBarn\n\nSeveral stacks of hay are lined across the wall.\nA table and chair stand at the far end.\nThere is a DEAD BODY here.\n")
             print("    Down is the ground floor.")
-    class classHouseGate(Room):
+    class ClassHouseGate(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 lock = " locked"
             else:
                 lock = "n unlocked"
             print("\nGate\n\nThe path leads to a%s gate with a large stone wall surrounding the house inside.\nThere is a METAL PLAQUE you can READ just above the gate.\n" % lock)
             print("    North is the entrance.")
             print("    South is the crossroads.")
-    class classField(Room):
+    class ClassField(Room):
         def description(self):
-            if self.eastBlocked:
+            if self.east_blocked:
                 blocked = "The surface has no distinguishing features."
             else:
                 blocked = "An opening leads inside."
             print("\nRoad\n\nIn the middle of the field is large obsidian hemisphere. %s\n" % blocked)
-            if not self.eastBlocked:
+            if not self.east_blocked:
                 print("    East is inside the obsidian hemisphere.")
             print("    West is the crossroads.")
-    class classShrineNorth(Room):
+    class ClassShrineNorth(Room):
         def description(self):
-            if self.firstTime and roomShrineSouth.firstTime:
-                firsttime = " A pedestal emerges from the water as a voice echoes within the chamber, \"Omoz... gloth... izh...\""
+            if self.first_time and room_shrine_south.first_time:
+                first_time = " A pedestal emerges from the water as a voice echoes within the chamber, \"Omoz... gloth... izh...\""
             else:
                 if self.book:
                     bookpresent = " with a mysterious book"
                 else:
                     bookpresent = ""
-                firsttime = " A pedestal is here%s." % bookpresent
-            print("\nNorth Shrine\n\nSteps lead down to a circular pit, shallowly filled with water.\nAround the edges of the room, floating candles dimly light the area.\nAlong the South wall is a MYSTICAL PORTAL." + firsttime + "\n")
+                first_time = " A pedestal is here%s." % bookpresent
+            print("\nNorth Shrine\n\nSteps lead down to a circular pit, shallowly filled with water.\nAround the edges of the room, floating candles dimly light the area.\nAlong the South wall is a MYSTICAL PORTAL." + first_time + "\n")
             print("    West is outside.")
             print("    South is through the portal.")
     # House
-    class classHouseEntrance(Room):
+    class ClassHouseEntrance(Room):
         def description(self):
             print("\nEntrance\n\nStairs lead up to a tall door bordered by cobblestones.\n")
             print("    North is inside the house.")
             print("    South is the gate.")
-    class classHouseFoyer(Room):
+    class ClassHouseFoyer(Room):
         def description(self):
-            if self.northBlocked:
+            if self.north_blocked:
                 lock = " locked"
             else:
                 lock = "n unlocked"
@@ -2007,40 +2017,40 @@ def inGame(debug):
             print("    North is the hallway.")
             print("    East is the pantry.")
             print("    West is the kitchen.")
-    class classHouseKitchen(Room):
+    class ClassHouseKitchen(Room):
         def description(self):
             print("\nKitchen\n\nSeveral complicated gadgets sit on the countertops.\nThere is a LEVER here that can be set in a forward or backwards position.\nIt is currently set to the %s position.\n" % self.counter_1)
             print("    East is the foyer.")
-    class classHousePantry(Room):
+    class ClassHousePantry(Room):
         def description(self):
             print("\nPantry\n\nThere are several cabinets containing various cheeses.\nOn the wall is a DIAL with 3 settings: blue, red, and green.\nIt is currently set to %s.\n" % self.counter_1)
             print("    West is the foyer.")
-    class classHouseHallway(Room): # East and West blocked
+    class ClassHouseHallway(Room): # East and West blocked
         def description(self):
             print("\nHallway\n\nThe velvet carpet extends out in the hallway.\n")
             print("    North is the office.")
             print("    East is the library.")
             print("    West is the bedroom.")
             print("    South is the foyer.")
-    class classHouseOffice(Room): # End game
+    class ClassHouseOffice(Room): # End game
         def description(self):
-            if self.firstTime: ##continue revamp
-                firsttime = "The door locks behind you. \"The assassin has overcome my final defense, and now he's come to murder me. Tell me, what would a lowly rat from the prisons of Airedale want in killing me? Are you an agent of the Ozkavosh?\"\nAn old bearded man wearing tattered rags, sits at the desk at the far end of the room, facing the North wall. He gets up from his chair and turns around to see you.\n\"What did they offer you for your nefarious task? Untold riches? Rule over Airedale? They will not hold their end of the deal! GIVE me the staff and together we can rid the world of demon-kind.\"\nEden Von Roquefort walks towards you with open hands. \"It is not too late top stop what you are doing.\""
+            if self.first_time: ##continue revamp
+                first_time = "The door locks behind you. \"The assassin has overcome my final defense, and now he's come to murder me. Tell me, what would a lowly rat from the prisons of Airedale want in killing me? Are you an agent of the Ozkavosh?\"\nAn old bearded man wearing tattered rags, sits at the desk at the far end of the room, facing the North wall. He gets up from his chair and turns around to see you.\n\"What did they offer you for your nefarious task? Untold riches? Rule over Airedale? They will not hold their end of the deal! GIVE me the staff and together we can rid the world of demon-kind.\"\nEden Von Roquefort walks towards you with open hands. \"It is not too late top stop what you are doing.\""
                 # firsttime = "The door locks behind you. \"The assassin has overcome my final defense, and now he's come to murder me. Tell me, what would a lowly rat from the prisons of Airedale want in killing me?\" An old bearded man wearing tattered rags, sits at the desk at the far end of the room, facing the North wall. He gets up from his chair and turns around to see you. \"So you are the one sent to kill me? Not what I expected. Then again, appearances don't mean much in times like these. It took me a while to figure out what was going on. You are an agent of the Ozkavosh, here to kill me like they've done the rest of this land. A vesh'raheen would not do, so they would need someone with a history of breaking and entering to reach me. What better choice than a criminal from the Airedale prisons? It is not too late to stop what you are doing.\" Eden Von Roquefort walks towards you with open hands. \"Give me the staff, and together we can rid the world of demon-kind.\""
-            elif self.characterDead:
-                firsttime = "There is a desk at the far back of the room. The body of Eden Von Roquefort lays on the floor."
+            elif self.character_dead:
+                first_time = "There is a desk at the far back of the room. The body of Eden Von Roquefort lays on the floor."
             else:
-                firsttime = "There is a desk at the far back of the room. Eden Von Roquefort is here."
-            print("\nOffice\n\n" + firsttime + "\n")
+                first_time = "There is a desk at the far back of the room. Eden Von Roquefort is here."
+            print("\nOffice\n\n" + first_time + "\n")
             print("    South is the hallway.")
     # Mysterious book
-    class classBookAnimal(Room):
+    class ClassBookAnimal(Room):
         def description (self):
             if self.book:
                 bookpresent = " with a mysterious book on it"
             else:
                 bookpresent = ""
-            print("\nBlack room\n\nThere are four totems in each direction of the room. Behind each totem is a statue of an animal. In the centre is a pedestal%.\n" % bookpresent)
+            print("\nBlack room\n\nThere are four totems in each direction of the room. Behind each totem is a statue of an animal. In the centre is a pedestal%s.\n" % bookpresent)
             if self.counter_1 == 1:
                 north = "Fox"
             elif self.counter_1 == 2:
@@ -2077,7 +2087,7 @@ def inGame(debug):
             print("    East totem animal:",east)
             print("    West totem animal:",west)
             print("    South totem animal:",south)
-    class classBookMirror(Room):
+    class ClassBookMirror(Room):
         def description (self):
             if self.book:
                 bookpresent = " with a mysterious book on it"
@@ -2087,72 +2097,72 @@ def inGame(debug):
                 light = " A ball of light floats in the room."
             else:
                 light = ""
-            if self.itemFound:
-                itemfound = " There is a pedestal here%s." % bookpresent
+            if self.item_found:
+                item_found = " There is a pedestal here%s." % bookpresent
             else:
-                itemfound = ""
-            if self.characterDead:
+                item_found = ""
+            if self.character_dead:
                 gargoyle = "pile of stone dust is spread across the floor"
             else:
                 gargoyle = "gargoyle statue sits in the centre"
-            print("\nBlack room\n\nA %s.\nOn the wall behind it is some TEXT.\n%s%s" % (gargoyle,itemfound,light))
-    class classBook_3_1(Room):
+            print("\nBlack room\n\nA %s.\nOn the wall behind it is some TEXT.\n%s%s" % (gargoyle,item_found,light))
+    class ClassBook31(Room):
         def description (self):
             print("\nRed room\n\nThere is a statue of a tortoise here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_2(Room):
+    class ClassBook32(Room):
         def description (self):
             print("\nGreen room\n\nThere is a statue of a vulture here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_3(Room):
+    class ClassBook33(Room):
         def description (self):
             print("\nPurple room\n\nThere is a statue of a goat here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_4(Room):
+    class ClassBook34(Room):
         def description (self):
             print("\nOrange room\n\nThere is a statue of a cow here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_5(Room):
+    class ClassBook35(Room):
         def description (self):
             print("\nYellow room\n\nThere is a statue of a wolf here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_6(Room):
+    class ClassBook36(Room):
         def description (self):
             print("\nBlue room\n\nThere is a statue of a boar here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_7(Room):
+    class ClassBook37(Room):
         def description (self):
             print("\nWhite room\n\nThere is a statue of a bear here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_8(Room):
+    class ClassBook38(Room):
         def description(self):
             print("\nGrey room\n\nThere is a statue of a snake here.\n")
             print("    North is a doorway.")
             print("    East is a doorway.")
             print("    West is a doorway.")
             print("    South is a doorway.")
-    class classBook_3_End(Room):
+    class ClassBook3End(Room):
         def description (self):
             if self.book:
                 bookpresent = " with a mysterious book on it"
@@ -2165,158 +2175,158 @@ def inGame(debug):
     #_______Class Initialization - Objects - Before game
     # Sean Reynolds (PyC) - Removed Duplicate Initiailizations
     # debug inventory
-    DEBUG_INV = Inventory(gold = 100000, pickaxe = 1, lantern = 1, oil = 10000, pie = 30000, coal = 100000, foot = 100, funnelCake = 50, halfFunnelCake = 50, hook = 10, staff = 1, ticket = 1, bandage = 100, journal = 1, book = 1, potato = 1, stone = 1, note = 1, bird = 1, memo = 1, potion = 100, flask = 100, keySkeleton = 1, note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
+    debug_inv = Inventory(gold = 100000, pickaxe = 1, lantern = 1, oil = 10000, pie = 30000, coal = 100000, foot = 100, funnel_cake = 50, half_funnel_cake = 50, hook = 10, staff = 1, ticket = 1, bandage = 100, journal = 1, book = 1, potato = 1, stone = 1, note = 1, bird = 1, memo = 1, potion = 100, flask = 100, key_skeleton = 1, note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
     #____________ Room Init
     # Jail
-    roomJailCell = classJailCell(name = "jail cell", porridge = 1, east = "roomJailCorridor", eastBlocked = True, eastBlockedReason = "The cell door is locked.")
-    roomJailCorridor = classJailCorridor(name = "corridor", north = "roomJailAntechamber", west = "roomJailCell", westBlocked = False, westBlockedReason = "The cell door is locked.")
-    roomJailAntechamber = classJailAntechamber(name = "antechamber", south = "roomJailCorridor", down = "roomJailFoyer")
-    roomJailFoyer = classJailFoyer(name = "foyer", east = "roomJailHallway", west = "roomJailEntrance", up = "roomJailAntechamber")
-    roomJailHallway = classJailHallway(name = "hallway", east = "roomJailBreakRoom", west = "roomJailFoyer")
-    roomJailBreakRoom = classJailBreakRoom()
-    roomJailEntrance = classJailEntrance(name = "jail entrance", east = "roomJailFoyer", west = "roomCourtyardSouth", shrubbery = 1)
+    room_jail_cell = ClassJailCell(name = "jail cell", porridge = 1, east = "roomJailCorridor", east_blocked = True, east_blocked_reason = "The cell door is locked.")
+    room_jail_corridor = ClassJailCorridor(name = "corridor", north = "roomJailAntechamber", west = "roomJailCell", west_blocked = False, west_blocked_reason = "The cell door is locked.")
+    room_jail_antechamber = ClassJailAntechamber(name = "antechamber", south = "roomJailCorridor", down = "roomJailFoyer")
+    room_jail_foyer = ClassJailFoyer(name = "foyer", east = "roomJailHallway", west = "roomJailEntrance", up = "roomJailAntechamber")
+    room_jail_hallway = ClassJailHallway(name = "hallway", east = "roomJailBreakRoom", west = "roomJailFoyer")
+    room_jail_break_room = ClassJailBreakRoom()
+    room_jail_entrance = ClassJailEntrance(name = "jail entrance", east = "roomJailFoyer", west = "roomCourtyardSouth", shrubbery = 1)
     # Town
-    roomCourtyardNorth = classCourtyardNorth(name = "north courtyard", north = "roomGate", east = "roomGeneralStore", south = "roomCourtyardSouth", west = "roomCarnival", characterDead = False)
-    roomCourtyardSouth = classCourtyardSouth(name = "south courtyard", gold = LOOT_S_GOLD, north = "roomCourtyardNorth", east = "roomJailEntrance", west = "roomBlacksmith", south = "roomAlchemist", characterDead = False)
-    roomBlacksmith = classBlacksmith(name = "blacksmith", east = "roomCourtyardSouth", characterDead = False, isBuy = True, isSell = True)
-    roomAlchemist = classAlchemist(name = "alchemist's hut", north = "roomCourtyardSouth", characterDead = False, isSell = True)
+    room_courtyard_north = ClassCourtyardNorth(name = "north courtyard", north = "roomGate", east = "roomGeneralStore", south = "roomCourtyardSouth", west = "roomCarnival", character_dead = False)
+    room_courtyard_south = ClassCourtyardSouth(name = "south courtyard", gold = LOOT_S_GOLD, north = "roomCourtyardNorth", east = "roomJailEntrance", west = "roomBlacksmith", south = "roomAlchemist", character_dead = False)
+    room_blacksmith = ClassBlacksmith(name = "blacksmith", east = "roomCourtyardSouth", character_dead = False, is_buy = True, is_sell = True)
+    room_alchemist = ClassAlchemist(name = "alchemist's hut", north = "roomCourtyardSouth", character_dead = False, is_sell = True)
     # Carnival
-    roomCarnival = classCarnival(name = "carnival", halfFunnelCake = 1, north = "roomCarnivalFood", east = "roomCourtyardNorth", south = "roomCarnivalShellGame", southBlockedReason = "The tent is closed.", west = "roomCarnivalWheelGame", westBlockedReason = "The tent is closed.", characterDead = False)
-    roomCarnivalFood = classCarnivalFood(name = "funnel cakes galore", south = "roomCarnival", characterDead = False, isBuy = True)
-    roomCarnivalShellGame = classCarnivalShellGame(name = "sybil\'s shell game", north = "roomCarnival", characterDead = False, isBet = True)
-    roomCarnivalWheelGame = classCarnivalWheelGame(east = "roomCarnival", characterDead = False, isBuy = True)
-    roomGate = classGate(name = "town gate", gold = LOOT_GATE_GOLD, north = "roomRoadMid", northBlocked = True, northBlockedReason = "The guard prevents you from leaving the town.", south = "roomCourtyardNorth", characterDead = False, isGive = True)
-    roomGeneralStore = classGeneralStore(name = "general store", west = "roomCourtyardNorth", characterDead = False, isBuy = True)
+    room_carnival = ClassCarnival(name = "carnival", half_funnel_cake = 1, north = "roomCarnivalFood", east = "roomCourtyardNorth", south = "roomCarnivalShellGame", south_blocked_reason = "The tent is closed.", west = "roomCarnivalWheelGame", west_blocked_reason = "The tent is closed.", character_dead = False)
+    room_carnival_food = ClassCarnivalFood(name = "funnel cakes galore", south = "roomCarnival", character_dead = False, is_buy = True)
+    room_carnival_shell_game = ClassCarnivalShellGame(name = "sybil\'s shell game", north = "roomCarnival", character_dead = False, is_bet = True)
+    room_carnival_wheel_game = ClassCarnivalWheelGame(east = "roomCarnival", character_dead = False, is_buy = True)
+    room_gate = ClassGate(name = "town gate", gold = LOOT_GATE_GOLD, north = "roomRoadMid", north_blocked = True, north_blocked_reason = "The guard prevents you from leaving the town.", south = "roomCourtyardNorth", character_dead = False, is_give = True)
+    room_general_store = ClassGeneralStore(name = "general store", west = "roomCourtyardNorth", character_dead = False, is_buy = True)
     # Outside
     # Road
-    roomRoadSouth = classRoadSouth(name = "road", north = "roomRoadMid", eastBlocked = True, eastBlockedReason = "The foliage is too thick to traverse.", westBlocked = True, westBlockedReason = "The foliage is too thick to traverse.", south = "roomGate")
-    roomRoadMid = classRoadMid(name = "crossroads", north = "roomMountEntrance", east = "roomBridge", south = "roomGate", west = "roomLake")
-    roomRoadNorth = classRoadNorth(name = "road", north = "roomMountEntrance", eastBlocked = True, eastBlockedReason = "The foliage is too thick to traverse.", south = "roomRoadMid", westBlocked = True, westBlockedReason = "The foliage is too thick to traverse.")
-    roomRoadEast = classRoadEast(name = "road", northBlocked = True, northBlockedReason = "The foliage is too thick to traverse.", east = "roomBridge", west = "roomRoadMid", southBlocked = True, southBlockedReason = "The foliage is too thick to traverse.")
-    roomRoadWest = classRoadWest(name = "road", northBlocked = True, northBlockedReason = "The foliage is too thick to traverse.", east = "roomRoadMid", west = "roomLake", southBlocked = True, southBlockedReason = "The foliage is too thick to traverse.")
-    roomRoadCorner = classRoadCorner(name = "road", north = "roomTempleEntrance", east = "roomForest", west = "roomBridge", westBlockedReason = "The black knight stands in the way. He declares, \"None shall pass.\"", southBlocked = True, southBlockedReason = "The foliage is too thick to traverse.")
-    roomForest = classForest(name = "forest", northBlocked = True, northBlockedReason = "The foliage is too thick to traverse.", east = "roomShrineSouth", eastBlocked = True, eastBlockedReason = "The foliage is too thick to traverse.", west = "roomRoadCorner", southBlocked = True, southBlockedReason = "The foliage is too thick to traverse.")
+    room_road_south = ClassRoadSouth(name = "road", north = "roomRoadMid", east_blocked = True, east_blocked_reason = "The foliage is too thick to traverse.", west_blocked = True, west_blocked_reason = "The foliage is too thick to traverse.", south = "roomGate")
+    room_road_mid = ClassRoadMid(name = "crossroads", north = "roomMountEntrance", east = "roomBridge", south = "roomGate", west = "roomLake")
+    room_road_north = ClassRoadNorth(name = "road", north = "roomMountEntrance", east_blocked = True, east_blocked_reason = "The foliage is too thick to traverse.", south = "roomRoadMid", west_blocked = True, west_blocked_reason = "The foliage is too thick to traverse.")
+    room_road_east = ClassRoadEast(name = "road", north_blocked = True, north_blocked_reason = "The foliage is too thick to traverse.", east = "roomBridge", west = "roomRoadMid", south_blocked = True, south_blocked_reason = "The foliage is too thick to traverse.")
+    room_road_west = ClassRoadWest(name = "road", north_blocked = True, north_blocked_reason = "The foliage is too thick to traverse.", east = "roomRoadMid", west = "roomLake", south_blocked = True, south_blocked_reason = "The foliage is too thick to traverse.")
+    room_road_corner = ClassRoadCorner(name = "road", north = "roomTempleEntrance", east = "roomForest", west = "roomBridge", west_blocked_reason = "The black knight stands in the way. He declares, \"None shall pass.\"", south_blocked = True, south_blocked_reason = "The foliage is too thick to traverse.")
+    room_forest = ClassForest(name = "forest", north_blocked = True, north_blocked_reason = "The foliage is too thick to traverse.", east = "roomShrineSouth", east_blocked = True, east_blocked_reason = "The foliage is too thick to traverse.", west = "roomRoadCorner", south_blocked = True, south_blocked_reason = "The foliage is too thick to traverse.")
     # Lake
-    roomLake = classLake(name = "lake laguiole", northBlocked = True, northBlockedReason = "The foliage is too thick to traverse.", east = "roomRoadMid", southBlocked = True, southBlockedReason = "The foliage is too thick to traverse.", westBlocked = True, westBlockedReason = "The foliage is too thick to traverse.", characterDead = False, isGive = True)
+    room_lake = ClassLake(name = "lake laguiole", north_blocked = True, north_blocked_reason = "The foliage is too thick to traverse.", east = "roomRoadMid", south_blocked = True, south_blocked_reason = "The foliage is too thick to traverse.", west_blocked = True, west_blocked_reason = "The foliage is too thick to traverse.", character_dead = False, is_give = True)
     # Bridge
-    roomBridge = classBridge(name = "bridge", east = "roomRoadCorner", eastBlocked = True, eastBlockedReason = "The troll is stopping you from crossing.", west = "roomRoadMid", characterDead = False, isGive = True)
+    room_bridge = ClassBridge(name = "bridge", east = "roomRoadCorner", east_blocked = True, east_blocked_reason = "The troll is stopping you from crossing.", west = "roomRoadMid", character_dead = False, is_give = True)
     # Temple
-    roomTempleEntrance = classTempleEntrance(name = "temple entrance", north = "roomTempleInside", northBlocked = True, northBlockedReason = "Rubble is blocking the way.", south = "roomRoadCorner", counter_1 = RUBBLE_DURABILITY, isMine = True)
-    roomTempleInside = classTempleInside(name = "temple", south = "roomTempleEntrance", down = "roomTempleBasement")
-    roomTempleBasement = classTempleBasement(name = "inner sanctum", up = "roomTempleInside", characterDead = False, staff = 1)
+    room_temple_entrance = ClassTempleEntrance(name = "temple entrance", north = "roomTempleInside", north_blocked = True, north_blocked_reason = "Rubble is blocking the way.", south = "roomRoadCorner", counter_1 = RUBBLE_DURABILITY, is_mine = True)
+    room_temple_inside = ClassTempleInside(name = "temple", south = "roomTempleEntrance", down = "roomTempleBasement")
+    room_temple_basement = ClassTempleBasement(name = "inner sanctum", up = "roomTempleInside", character_dead = False, staff = 1)
     # Cave
-    roomMountEntrance = classMountEntrance(name = "coal mine entrance", north = "roomCave_1_m", northBlocked = True, northBlockedReason = "The vault door is locked.", eastBlocked = True, eastBlockedReason = "The foliage is too thick to traverse.", south = "roomRoadMid", westBlocked = True, westBlockedReason = "The foliage is too thick to traverse.", counterAns_1 = vaultAnswer_1, counterAns_2 = vaultAnswer_2, counterAns_3 = vaultAnswer_3, counterAns_4 = vaultAnswer_4, counter_1 = vaultInitial_1, counter_2 = vaultInitial_2, counter_3 = vaultInitial_3, counter_4 = vaultInitial_4)
+    room_mount_entrance = ClassMountEntrance(name = "coal mine entrance", north = "roomCave_1_m", north_blocked = True, north_blocked_reason = "The vault door is locked.", east_blocked = True, east_blocked_reason = "The foliage is too thick to traverse.", south = "roomRoadMid", west_blocked = True, west_blocked_reason = "The foliage is too thick to traverse.", counter_ans_1 = vault_answer_1, counter_ans_2 = vault_answer_2, counter_ans_3 = vault_answer_3, counter_ans_4 = vault_answer_4, counter_1 = vault_initial_1, counter_2 = vault_initial_2, counter_3 = vault_initial_3, counter_4 = vault_initial_4)
     # 1
-    roomCave_1_m = classCave_1_m(name = "cavern", north = "roomCave_2_m", south = "roomMountEntrance")
+    room_cave_1_m = ClassCave1M(name = "cavern", north = "roomCave_2_m", south = "roomMountEntrance")
     # 2
-    roomCave_2_m = classCave_2_m(name = "cavern", east = "roomCave_2_mr", south = "roomCave_1_m", west = "roomCave_2_lm")
-    roomCave_2_mr = classCave_2_mr(name = "cavern", north = "roomCave_3_mr", west = "roomCave_2_m", bird = 1)
-    roomCave_2_lm = classCave_2_lm(name = "cavern", north = "roomCave_3_lm_coalmine", east = "roomCave_2_m", west = "roomCave_2_llm")
-    roomCave_2_llm = classCave_2_llm(name = "cavern", north = "roomCave_3_llm_crevasse", east = "roomCave_2_lm")
+    room_cave_2_m = ClassCave2M(name = "cavern", east = "roomCave_2_mr", south = "roomCave_1_m", west = "roomCave_2_lm")
+    room_cave_2_mr = ClassCave2Mr(name = "cavern", north = "roomCave_3_mr", west = "roomCave_2_m", bird = 1)
+    room_cave_2_lm = ClassCave2Lm(name = "cavern", north = "roomCave_3_lm_coalmine", east = "roomCave_2_m", west = "roomCave_2_llm")
+    room_cave_2_llm = ClassCave2Llm(name = "cavern", north = "roomCave_3_llm_crevasse", east = "roomCave_2_lm")
     # 3
-    roomCave_3_m_coalmine = classCave_3_m_coalmine(name = "cavern", north = "roomCave_4_m", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_3_mr = classCave_3_mr(name = "cavern", north = "roomCave_4_mr", east = "roomCave_3_mrr_coalmine", south = "roomCave_2_mr", counter_1 = random.randint(COAL_MIN,COAL_MAX))
-    roomCave_3_mrr_coalmine = classCave_3_mrr_coalmine(name = "cavern", west = "roomCave_3_mr", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_3_lm_coalmine = classCave_3_lm_coalmine(name = "cavern", south = "roomCave_2_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_3_llm_crevasse = classCave_3_llm_crevasse(name = "cavern", north = "roomCave_4_llm", south = "roomCave_2_llm", west = "roomCave__3_lllm_treasure_crevasse", westBlocked = True, westBlockedReason = "The crevasse is too large to walk across.", isCrevasse = True)
-    roomCave__3_lllm_treasure_crevasse = classCave__3_lllm_treasure_crevasse(name = "cavern", east = "roomCave_3_llm_crevasse", eastBlocked = True, eastBlockedReason = "The crevasse is too large to walk across.", isCrevasse = True)
+    room_cave_3_m_coalmine = ClassCave3MCoalmine(name = "cavern", north = "roomCave_4_m", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_3_mr = ClassCave3Mr(name = "cavern", north = "roomCave_4_mr", east = "roomCave_3_mrr_coalmine", south = "roomCave_2_mr", counter_1 = random.randint(COAL_MIN,COAL_MAX))
+    room_cave_3_mrr_coalmine = ClassCave3MrrCoalmine(name = "cavern", west = "roomCave_3_mr", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_3_lm_coalmine = ClassCave3LmCoalmine(name = "cavern", south = "roomCave_2_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_3_llm_crevasse = ClassCave3LlmCrevasse(name = "cavern", north = "roomCave_4_llm", south = "roomCave_2_llm", west = "roomCave__3_lllm_treasure_crevasse", west_blocked = True, west_blocked_reason = "The crevasse is too large to walk across.", is_crevasse = True)
+    room_cave_3_lllm_treasure_crevasse = ClassCave3LllmTreasureCrevasse(name = "cavern", east = "roomCave_3_llm_crevasse", east_blocked = True, east_blocked_reason = "The crevasse is too large to walk across.", is_crevasse = True)
     # 4
-    roomCave_4_m = classCave_4_m(name = "cavern", north = "roomCave_5_m", east = "roomCave_4_mr", south = "roomCave_3_m_coalmine", west = "roomCave_4_lm")
-    roomCave_4_mr = classCave_4_mr(name = "cavern", south = "roomCave_3_mr", west = "roomCave_4_m")
-    roomCave_4_lm = classCave_4_lm(name = "cavern", north = "roomCave_5_lm_coalmine", east = "roomCave_4_m", west = "roomCave_4_llm")
-    roomCave_4_llm = classCave_4_llm(name = "cavern", north = "roomCave_5_llm", east = "roomCave_4_lm", south = "roomCave_3_llm_crevasse")
+    room_cave_4_m = ClassCave4M(name = "cavern", north = "roomCave_5_m", east = "roomCave_4_mr", south = "roomCave_3_m_coalmine", west = "roomCave_4_lm")
+    room_cave_4_mr = ClassCave4Mr(name = "cavern", south = "roomCave_3_mr", west = "roomCave_4_m")
+    room_cave_4_lm = ClassCave4Lm(name = "cavern", north = "roomCave_5_lm_coalmine", east = "roomCave_4_m", west = "roomCave_4_llm")
+    room_cave_4_llm = ClassCave4Llm(name = "cavern", north = "roomCave_5_llm", east = "roomCave_4_lm", south = "roomCave_3_llm_crevasse")
     # 5
-    roomCave_5_m = classCave_5_m(name = "cavern", north = "roomCave_6_m", east = "roomCave_5_mr_coalmine", south = "roomCave_4_m")
-    roomCave_5_mr_coalmine = classCave_5_mr_coalmine(name = "cavern", west = "roomCave_5_m", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_5_lm_coalmine = classCave_5_lm_coalmine(name = "cavern", south = "roomCave_4_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_5_llm = classCave_5_llm(name = "cavern", east = "roomCave_5_lm_coalmine", south = "roomCave_4_llm", west = "roomCave_5_lllm")
-    roomCave_5_lllm = classCave_5_lllm(name = "cavern", north = "roomCave_6_lllm", east = "roomCave_5_llm")
+    room_cave_5_m = ClassCave5M(name = "cavern", north = "roomCave_6_m", east = "roomCave_5_mr_coalmine", south = "roomCave_4_m")
+    room_cave_5_mr_coalmine = ClassCave5MrCoalmine(name = "cavern", west = "roomCave_5_m", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_5_lm_coalmine = ClassCave5LmCoalmine(name = "cavern", south = "roomCave_4_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_5_llm = ClassCave5Llm(name = "cavern", east = "roomCave_5_lm_coalmine", south = "roomCave_4_llm", west = "roomCave_5_lllm")
+    room_cave_5_lllm = ClassCave5Lllm(name = "cavern", north = "roomCave_6_lllm", east = "roomCave_5_llm")
     # 6
-    roomCave_6_m = classCave_6_m(name = "cavern", east = "roomCave_6_mr", south = "roomCave_5_m")
-    roomCave_6_mr = classCave_6_mr(name = "cavern", north = "roomCave_7_mr", west = "roomCave_6_m")
-    roomCave_6_lm_coalmine = classCave_6_lm_coalmine(name = "cavern", north = "roomCave_7_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_6_llm_coalmine = classCave_6_llm_coalmine(name = "cavern", west = "roomCave_6_lllm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
-    roomCave_6_lllm = classCave_6_lllm(name = "cavern", north = "roomCave_7_lllm", east = "roomCave_6_llm_coalmine", south = "roomCave_5_lllm")
+    room_cave_6_m = ClassCave6M(name = "cavern", east = "roomCave_6_mr", south = "roomCave_5_m")
+    room_cave_6_mr = ClassCave6Mr(name = "cavern", north = "roomCave_7_mr", west = "roomCave_6_m")
+    room_cave_6_lm_coalmine = ClassCave6LmCoalmine(name = "cavern", north = "roomCave_7_lm", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_6_llm_coalmine = ClassCave6LlmCoalmine(name = "cavern", west = "roomCave_6_lllm", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
+    room_cave_6_lllm = ClassCave6Lllm(name = "cavern", north = "roomCave_7_lllm", east = "roomCave_6_llm_coalmine", south = "roomCave_5_lllm")
     # 7
-    roomCave_7_m = classCave_7_m(name = "cavern", east = "roomCave_7_mr", west = "roomCave_7_lm")
-    roomCave_7_mr = classCave_7_mr(name = "cavern", north = "roomCave_8_mr_crevasse", south = "roomCave_6_mr", west = "roomCave_7_m")
-    roomCave_7_lm = classCave_7_lm(name = "cavern", east = "roomCave_7_m", south = "roomCave_6_lm_coalmine", west = "roomCave_7_llm")
-    roomCave_7_llm = classCave_7_llm(name = "cavern", north = "roomCave_8_llm_coalmine", east = "roomCave_7_lm", west = "roomCave_7_lllm")
-    roomCave_7_lllm = classCave_7_lllm(name = "cavern", east = "roomCave_7_llm", south = "roomCave_6_lllm")
+    room_cave_7_m = ClassCave7M(name = "cavern", east = "roomCave_7_mr", west = "roomCave_7_lm")
+    room_cave_7_mr = ClassCave7Mr(name = "cavern", north = "roomCave_8_mr_crevasse", south = "roomCave_6_mr", west = "roomCave_7_m")
+    room_cave_7_lm = ClassCave7Lm(name = "cavern", east = "roomCave_7_m", south = "roomCave_6_lm_coalmine", west = "roomCave_7_llm")
+    room_cave_7_llm = ClassCave7Llm(name = "cavern", north = "roomCave_8_llm_coalmine", east = "roomCave_7_lm", west = "roomCave_7_lllm")
+    room_cave_7_lllm = ClassCave7Lllm(name = "cavern", east = "roomCave_7_llm", south = "roomCave_6_lllm")
     # 8
-    roomCave_8_mr_crevasse = classCave_8_mr_crevasse(name = "cavern", north = "roomCave_9_mr_crevasse", northBlocked = True, northBlockedReason = "The crevasse is too large to walk across.", south = "roomCave_7_mr", isCrevasse = True)
-    roomCave_8_llm_coalmine = classCave_8_llm_coalmine(name = "cavern", south = "roomCave_7_llm", counter_1 = random.randint(COAL_MIN,COAL_MAX), isMine = True)
+    room_cave_8_mr_crevasse = ClassCave8MrCrevasse(name = "cavern", north = "roomCave_9_mr_crevasse", north_blocked = True, north_blocked_reason = "The crevasse is too large to walk across.", south = "roomCave_7_mr", is_crevasse = True)
+    room_cave_8_llm_coalmine = ClassCave8LlmCoalmine(name = "cavern", south = "roomCave_7_llm", counter_1 = random.randint(COAL_MIN,COAL_MAX), is_mine = True)
     # 9
-    roomCave_9_mr_crevasse = classCave_9_mr_crevasse(name = "cavern", north = "roomCave__10_mr", south = "roomCave_8_mr_crevasse", southBlocked = True, southBlockedReason = "The crevasse is too large to walk across.",  isCrevasse = True)
+    room_cave_9_mr_crevasse = ClassCave9MrCrevasse(name = "cavern", north = "roomCave__10_mr", south = "roomCave_8_mr_crevasse", south_blocked = True, south_blocked_reason = "The crevasse is too large to walk across.",  is_crevasse = True)
     # 10
-    roomCave__10_m = classCave__10_m(name = "cavern", east = "roomCave__10_mr", west = "roomCave__10_lm")
-    roomCave__10_mr = classCave__10_mr(name = "cavern", east = "roomCave__10_mrr", south = "roomCave_9_mr_crevasse", southBlocked = True, southBlockedReason = "Rubble is blocking the way.", west = "roomCave__10_m", counter_1 = RUBBLE_DURABILITY, isMine = True)
-    roomCave__10_mrr = classCave__10_mrr(name = "cavern", east = "roomCave__10_mrrr", west = "roomCave__10_mr")
-    roomCave__10_mrrr = classCave__10_mrrr(name = "cavern", north = "roomCave__11_mrrr", west = "roomCave__10_mrr")
-    roomCave__10_lm = classCave__10_lm(name = "cavern", north = "roomCave__11_lm", east = "roomCave__10_m")
+    room_cave__10_m = ClassCave10M(name = "cavern", east = "roomCave__10_mr", west = "roomCave__10_lm")
+    room_cave__10_mr = ClassCave10Mr(name = "cavern", east = "roomCave__10_mrr", south = "roomCave_9_mr_crevasse", south_blocked = True, south_blocked_reason = "Rubble is blocking the way.", west = "roomCave__10_m", counter_1 = RUBBLE_DURABILITY, is_mine = True)
+    room_cave__10_mrr = ClassCave10Mrr(name = "cavern", east = "roomCave__10_mrrr", west = "roomCave__10_mr")
+    room_cave__10_mrrr = ClassCave10Mrrr(name = "cavern", north = "roomCave__11_mrrr", west = "roomCave__10_mrr")
+    room_cave__10_lm = ClassCave10Lm(name = "cavern", north = "roomCave__11_lm", east = "roomCave__10_m")
     # 11
-    roomCave__11_mrrr = classCave__11_mrrr(name = "cavern", north = "roomDarkness", south = "roomCave__10_mrrr")
-    roomCave__11_lm = classCave__11_lm(name = "cavern", north = "roomDarkness", south = "roomCave__10_lm")
+    room_cave__11_mrrr = ClassCave11Mrrr(name = "cavern", north = "roomDarkness", south = "roomCave__10_mrrr")
+    room_cave__11_lm = ClassCave11Lm(name = "cavern", north = "roomDarkness", south = "roomCave__10_lm")
     # Darkness
-    roomDarkness = classDarkness(name = "darkness")
+    room_darkness = ClassDarkness(name = "darkness")
     # Lair
-    roomLairMid = classLairMid(name = "lair", east = "roomLairEast", west = "roomLairWest", southBlocked = True, southBlockedReason = "Rubble is blocking the way.", counter_1 = 5, isMine = True)
-    roomLairEast = classLairEast(name = "lair", north = "roomRoad2South", northBlocked = True, northBlockedReason = "Rubble is blocking the way.", west = "roomLairMid", counter_1 = RUBBLE_DURABILITY, isMine = True)
-    roomLairWest = classLairWest(name = "lair", east = "roomLairMid", south = "roomLairHole", southBlockedReason = "You are carrying too much to fit through the opening.", gold = LOOT_WEST_GOLD, biscuit = LOOT_WEST_BISCUIT)
-    roomLairHole = classLairHole(name = "lair", north = "roomLairWest", northBlockedReason = "You are carrying too much to fit through the opening.", lantern = 1)
+    room_lair_mid = ClassLairMid(name = "lair", east = "roomLairEast", west = "roomLairWest", south_blocked = True, south_blocked_reason = "Rubble is blocking the way.", counter_1 = 5, is_mine = True)
+    room_lair_east = ClassLairEast(name = "lair", north = "roomRoad2South", north_blocked = True, north_blocked_reason = "Rubble is blocking the way.", west = "roomLairMid", counter_1 = RUBBLE_DURABILITY, is_mine = True)
+    room_lair_west = ClassLairWest(name = "lair", east = "roomLairMid", south = "roomLairHole", south_blocked_reason = "You are carrying too much to fit through the opening.", gold = LOOT_WEST_GOLD, biscuit = LOOT_WEST_BISCUIT)
+    room_lair_hole = ClassLairHole(name = "lair", north = "roomLairWest", north_blocked_reason = "You are carrying too much to fit through the opening.", lantern = 1)
     # Field
-    roomRoad2South = classRoad2South(name = "road", north = "roomRoad2Mid", south = "roomLairEast")
-    roomRoad2Mid = classRoad2Mid(name = "crossroad", north = "roomHouseGate", east = "roomField", south = "roomRoad2South", west = "roomFarm")
-    roomHouseGate = classHouseGate(name = "road", south = "roomRoad2Mid", north = "roomHouseEntrance", northBlocked = True, northBlockedReason = "The gate is locked.")
-    roomFarm = classFarm(name = "farm", east = "roomRoad2Mid", west = "roomBarn", potato = 1)
-    roomBarn = classBarn(name = "barn", east = "roomFarm", up = "roomBarnUp")
-    roomBarnUp = classBarnUp(name = "barn", down = "roomBarn")
-    roomField = classField(name = "road", east = "roomShrineNorth", eastBlocked = True, eastBlockedReason = "You cannot go East.", west = "roomRoad2Mid")
+    room_road_2_south = ClassRoad2South(name = "road", north = "roomRoad2Mid", south = "roomLairEast")
+    room_road_2_mid = ClassRoad2Mid(name = "crossroad", north = "roomHouseGate", east = "roomField", south = "roomRoad2South", west = "roomFarm")
+    room_house_gate = ClassHouseGate(name = "road", south = "roomRoad2Mid", north = "roomHouseEntrance", north_blocked = True, north_blocked_reason = "The gate is locked.")
+    room_farm = ClassFarm(name = "farm", east = "roomRoad2Mid", west = "roomBarn", potato = 1)
+    room_barn = ClassBarn(name = "barn", east = "roomFarm", up = "roomBarnUp")
+    room_barn_up = ClassBarnUp(name = "barn", down = "roomBarn")
+    room_field = ClassField(name = "road", east = "roomShrineNorth", east_blocked = True, east_blocked_reason = "You cannot go East.", west = "roomRoad2Mid")
     # Shrines
-    roomShrineNorth = classShrineNorth(name = "north shrine", west = "roomField", south = "roomShrineSouth", book = 1)
-    roomShrineSouth = classShrineSouth(name = "south shrine", north = "roomShrineNorth", west = "roomForest")
+    room_shrine_north = ClassShrineNorth(name = "north shrine", west = "roomField", south = "roomShrineSouth", book = 1)
+    room_shrine_south = ClassShrineSouth(name = "south shrine", north = "roomShrineNorth", west = "roomForest")
     # House
-    roomHouseEntrance = classHouseEntrance(name = "entrance", north = "roomHouseFoyer", northBlocked = True, northBlockedReason = "The door is locked.", south = "roomHouseGate")
-    roomHouseFoyer = classHouseFoyer(name = "foyer", north = "roomHouseHallway", northBlocked = True, northBlockedReason = "The door is locked.", east = "roomHousePantry", south = "roomHouseEntrance", west = "roomHouseKitchen")
-    roomHouseKitchen = classHouseKitchen(name = "kitchen", east = "roomHouseFoyer", counter_1 = LEVER_START)
-    roomHousePantry = classHousePantry(name = "pantry", west = "roomHouseFoyer", brie = 1, munster = 1, stilton = 1, swiss = 1, wensleydale = 1, counter_1 = DIAL_START)
-    roomHouseHallway = classHouseHallway(name = "hallway", north = "roomHouseOffice", eastBlocked = True, eastBlockedReason = "The door is locked.", south = "roomHouseFoyer", westBlocked = True, westBlockedReason = "The door is locked.")
-    roomHouseOffice = classHouseOffice(name = "office", south = "roomHouseHallway", southBlocked = True, southBlockedReason = "The door is locked.", characterDead = False, isGive = True)
+    room_house_entrance = ClassHouseEntrance(name = "entrance", north = "roomHouseFoyer", north_blocked = True, north_blocked_reason = "The door is locked.", south = "roomHouseGate")
+    room_house_foyer = ClassHouseFoyer(name = "foyer", north = "roomHouseHallway", north_blocked = True, north_blocked_reason = "The door is locked.", east = "roomHousePantry", south = "roomHouseEntrance", west = "roomHouseKitchen")
+    room_house_kitchen = ClassHouseKitchen(name = "kitchen", east = "roomHouseFoyer", counter_1 = LEVER_START)
+    room_house_pantry = ClassHousePantry(name = "pantry", west = "roomHouseFoyer", brie = 1, munster = 1, stilton = 1, swiss = 1, wensleydale = 1, counter_1 = DIAL_START)
+    room_house_hallway = ClassHouseHallway(name = "hallway", north = "roomHouseOffice", east_blocked = True, east_blocked_reason = "The door is locked.", south = "roomHouseFoyer", west_blocked = True, west_blocked_reason = "The door is locked.")
+    room_house_office = ClassHouseOffice(name = "office", south = "roomHouseHallway", south_blocked = True, south_blocked_reason = "The door is locked.", character_dead = False, is_give = True)
     # Mysterious book
     # Puzzle 1 - Animal Totems
-    roomBookAnimal = classBookAnimal(name = "black room")
+    room_book_animal = ClassBookAnimal(name = "black room")
     # Puzzle 2 - Mirror player
-    roomBookMirror = classBookMirror(name = "black room", characterDead = False)
+    room_book_mirror = ClassBookMirror(name = "black room", character_dead = False)
     # Puzzle 3 - Movement
-    roomBook_3_1 = classBook_3_1(name = "red room", north = "roomBook_3_5", east = "roomBook_3_3", south = "roomBook_3_4", west = "roomBook_3_2")
-    roomBook_3_2 = classBook_3_2(name = "green room", north = "roomBook_3_3", east = "roomBook_3_1", south = "roomBook_3_5", west = "roomBook_3_3")
-    roomBook_3_3 = classBook_3_3(name = "purple room", north = "roomBook_3_8", east = "roomBook_3_2", south = "roomBook_3_4", west = "roomBook_3_1")
-    roomBook_3_4 = classBook_3_4(name = "orange room", north = "roomBook_3_1", east = "roomBook_3_5", south = "roomBook_3_7", west = "roomBook_3_6")
-    roomBook_3_5 = classBook_3_5(name = "yellow room", north = "roomBook_3_2",  east = "roomBook_3_6", south = "roomBook_3_1", west = "roomBook_3_4")
-    roomBook_3_6 = classBook_3_6(name = "blue room", north = "roomBook_3_7", east = "roomBook_3_4", south = "roomBook_3_8", west = "roomBook_3_5")
-    roomBook_3_7 = classBook_3_7(name = "white room", north = "roomBook_3_4", east = "roomBook_3_8", south = "roomBook_3_6", west = "roomBook_3_End")
-    roomBook_3_8 = classBook_3_8(name = "grey room", north = "roomBook_3_6", east = "roomBook_3_End", south = "roomBook_3_3", west = "roomBook_3_7")
-    roomBook_3_End = classBook_3_End(name = "black room", east = "roomBook_3_7", west = "roomBook_3_8", keySkeleton = 1, book = 1)
+    room_book_3_1 = ClassBook31(name = "red room", north = "roomBook_3_5", east = "roomBook_3_3", south = "roomBook_3_4", west = "roomBook_3_2")
+    room_book_3_2 = ClassBook32(name = "green room", north = "roomBook_3_3", east = "roomBook_3_1", south = "roomBook_3_5", west = "roomBook_3_3")
+    room_book_3_3 = ClassBook33(name = "purple room", north = "roomBook_3_8", east = "roomBook_3_2", south = "roomBook_3_4", west = "roomBook_3_1")
+    room_book_3_4 = ClassBook34(name = "orange room", north = "roomBook_3_1", east = "roomBook_3_5", south = "roomBook_3_7", west = "roomBook_3_6")
+    room_book_3_5 = ClassBook35(name = "yellow room", north = "roomBook_3_2",  east = "roomBook_3_6", south = "roomBook_3_1", west = "roomBook_3_4")
+    room_book_3_6 = ClassBook36(name = "blue room", north = "roomBook_3_7", east = "roomBook_3_4", south = "roomBook_3_8", west = "roomBook_3_5")
+    room_book_3_7 = ClassBook37(name = "white room", north = "roomBook_3_4", east = "roomBook_3_8", south = "roomBook_3_6", west = "roomBook_3_End")
+    room_book_3_8 = ClassBook38(name = "grey room", north = "roomBook_3_6", east = "roomBook_3_End", south = "roomBook_3_3", west = "roomBook_3_7")
+    room_book_3_end = ClassBook3End(name = "black room", east = "roomBook_3_7", west = "roomBook_3_8", key_skeleton = 1, book = 1)
 
     #_______Stat Init
     stat = Stat()
 
     #_______Inventory init
-    if playerName:
+    if player_name:
         inv = Inventory(key = 1,porridge = 1,letter = 1)
-        roomJailCell.porridge = 0
+        room_jail_cell.porridge = 0
     else:
-        inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
+        inv = Inventory(note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
     # roomBridge troll
-    invTroll = Inventory()
+    inv_troll = Inventory()
     # roomGate guard
-    invGate = Inventory()
+    inv_gate = Inventory()
     # roomCarnivalShellGame
-    invShell = Inventory(gold = SHELL_GOLD)
+    inv_shell = Inventory(gold = SHELL_GOLD)
     # roomCarnival
-    invSpokesperson = Inventory()
+    inv_spokesperson = Inventory()
     # roomCarnivalFood
-    invFood = Inventory(funnelCake = FUNNELCAKE_LIMIT)
+    inv_food = Inventory(funnel_cake = FUNNELCAKE_LIMIT)
 
 
 #_______Variables Init
@@ -2334,85 +2344,85 @@ def inGame(debug):
     elif riddle == 4:
         riddle = "The more there is of me, the less you see. What am I?"
         riddle_answer = ["darkness","dark","the dark","the darkness","blackness","fog","the fog"]
-    roomTempleBasement.counterAns_1 = riddle_answer
-    roomTempleBasement.counter_1 = riddle
+    room_temple_basement.counter_ans_1 = riddle_answer
+    room_temple_basement.counter_1 = riddle
 
-    endGame = False
-    changeRoom = False
+    end_game = False
+    change_room = False
     # Starting room
     # Default: roomJailCell
     if debug:
-        roomID = "roomTempleInside"
-        roomCurrent = roomTempleInside
+        room_id = "roomTempleInside"
+        room_current = room_temple_inside
     else:
-        roomID = "roomJailCell"
-        roomCurrent = roomJailCell
+        room_id = "roomJailCell"
+        room_current = room_jail_cell
     direction = False
-    justEntered = False
-    askName = False
-    jailGuards = False
-    jailGuardCounter = 3
-    creatureRoam = False
-    creatureChase = 0
-    creatureRoamCounter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
-    creatureChaseCounter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
-    creatureLairChase = False
-    creatureLairChaseCounter = LAIR_CHASE_DURATION
+    just_entered = False
+    ask_name = False
+    jail_guards = False
+    jail_guard_counter = 3
+    creature_roam = False
+    creature_chase = 0
+    creature_roam_counter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
+    creature_chase_counter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
+    creature_lair_chase = False
+    creature_lair_chase_counter = LAIR_CHASE_DURATION
     silenced = False
     # End Game
     win = False
     # Does not count as turn
-    notTurn = True
+    not_turn = True
     # Counters
-    turnCounter = 0
-    guardCounter = 0
-    lightCounter = 0
-    oilCounter = 0
+    turn_counter = 0
+    guard_counter = 0
+    light_counter = 0
+    oil_counter = 0
     # Default first option to prevent "again" crash on first turn
     option_last = "invalid"
 #_______Start of Game text____________________________________________________________
 # Current room information
-    roomCurrent.description()
-    roomCurrent.itemsPresent()
-    if inv.itemTypes():
+    room_current.description()
+    room_current.items_present()
+    if inv.item_types():
         print()
-        inv.examineInventory("inventory",roomCurrent)
+        inv.examine_inventory("inventory",room_current)
 # Hunger
-    stat.lowerShield()
+    stat.lower_shield()
     if stat.hunger <= 0:
-        endGame = True
+        end_game = True
     elif stat.hunger <= 15:
         print()
-        stat.examineHunger()
+        stat.examine_hunger()
 # Health
     if stat.health in range(1,stat.healthmax):
-        stat.lowerHealth()
+        stat.lower_health()
         print()
-        stat.examineHealth()
+        stat.examine_health()
     if stat.health <= 0:
-        endGame = True
+        end_game = True
 # Oil warning
-    if inv.lantern > 0 or roomCurrent.lantern > 0:
-        if oilCounter in range(3,5):
+    if inv.lantern > 0 or room_current.lantern > 0:
+        if oil_counter in range(3,5):
             print("\nYour lantern flickers.")
-        elif oilCounter == 2:
+        elif oil_counter == 2:
             print("\nYour lantern is about to run out of oil.")
-        elif oilCounter == 1:
+        elif oil_counter == 1:
             print("\nYour lantern has ran out of oil.")
 
 #_______End Game_________________________________________________________________
 # Loops until the game ends
 # Game loop start
-    while not endGame:
+    while not end_game:
 #_______User input______________________________________________________________
         option = input("\n\n\n\n> ").lower()
         if option not in ("again","do it again","do again","g"):
             option_last = option
 #_______Start of turn___________________________________________________________
         # Set last room
-        roomID_Last = roomID
-        roomCurrent_Last = roomCurrent
-        notTurn = False
+        room_id_last = room_id
+        room_current_last = room_current
+        not_turn = False
         message = False
 #_______Free Space Decisions____________________________________________________
 # Can be made in free space
@@ -2423,7 +2433,7 @@ def inGame(debug):
             option = option_last
         #Quit game
         if option in ("quit","quit game","end game","die","kill self","suicide", "commit suicide","end my life","end my suffering","throw in the towel","give up","give up on life","exit game"):
-            endGame = True
+            end_game = True
         # debug commands
         elif option == "!debug" and debug:
             print("!stat - Prints player stats")
@@ -2435,95 +2445,95 @@ def inGame(debug):
             print("!inv - Gives debug inventory")
             print("!spells - Prints status of all Ozkavosh spells and words")
             print("!learn - Learns all Ozkavosh spells and words")
-            notTurn = True
+            not_turn = True
         elif option == "!stat" and debug:
-            print("Name:",playerName)
+            print("Name:",player_name)
             print("Hunger:",stat.hunger)
             print("Health:",stat.health)
-            print("oilCounter:",oilCounter)
-            print("inv.itemTypes():",inv.itemTypes())
-            print("turnCounter:",turnCounter)
-            notTurn = True
+            print("oilCounter:",oil_counter)
+            print("inv.item_types():",inv.item_types())
+            print("turnCounter:",turn_counter)
+            not_turn = True
         elif option == "!turn" and debug:
-            print("The turncounter is %s." % turnCounter)
-            notTurn = True
+            print("The turncounter is %s." % turn_counter)
+            not_turn = True
         elif option == "!unblock" and debug:
-            if roomCurrent.northBlocked:
-                roomCurrent.northBlocked = False
-            elif roomCurrent.eastBlocked:
+            if room_current.north_blocked:
+                room_current.north_blocked = False
+            elif room_current.east_blocked:
                 print("East is now unblocked.")
-                roomCurrent.eastBlocked = False
-            elif roomCurrent.southBlocked:
+                room_current.east_blocked = False
+            elif room_current.south_blocked:
                 print("South is now unblocked.")
-                roomCurrent.southBlocked = False
-            elif roomCurrent.westBlocked:
+                room_current.south_blocked = False
+            elif room_current.west_blocked:
                 print("west is now unblocked.")
-                roomCurrent.westBlocked = False
-            notTurn = True
+                room_current.west_blocked = False
+            not_turn = True
 
         elif option == "!block" and debug:
-            if roomCurrent.northBlockedReason and roomCurrent.north:
-                roomCurrent.northBlocked = True
+            if room_current.north_blocked_reason and room_current.north:
+                room_current.north_blocked = True
                 print("North is now blocked.")
-            if roomCurrent.eastBlockedReason and roomCurrent.east:
-                roomCurrent.eastBlocked = True
+            if room_current.east_blocked_reason and room_current.east:
+                room_current.east_blocked = True
                 print("East is now blocked.")
-            if roomCurrent.southBlockedReason and roomCurrent.south:
-                roomCurrent.southBlocked = True
+            if room_current.south_blocked_reason and room_current.south:
+                room_current.south_blocked = True
                 print("South is now blocked.")
-            if roomCurrent.westBlockedReason and roomCurrent.west:
-                roomCurrent.westBlocked = True
+            if room_current.west_blocked_reason and room_current.west:
+                room_current.west_blocked = True
                 print("West is now blocked.")
-            notTurn = True
+            not_turn = True
 
         elif option == "!characterdead" and debug:
-            roomCurrent.characterDead = True
+            room_current.character_dead = True
             print("characterDead is True")
-            notTurn = True
+            not_turn = True
         elif option == "!oilcounter" and debug:
-            print(oilCounter)
-            notTurn = True
+            print(oil_counter)
+            not_turn = True
         elif option in ("!health","!hp") and debug:
             print("Health:",stat.health)
-            notTurn = True
+            not_turn = True
         elif option in ("!hunger","!h") and debug:
             print("Hunger:",stat.hunger)
-            notTurn = True
+            not_turn = True
         elif option == "!name" and debug:
-            print("Name:",playerName)
-            notTurn = True
+            print("Name:",player_name)
+            not_turn = True
         elif option == "!room" and debug:
-            print("roomID:",roomID)
-            print("roomID_Last:",roomID_Last)
-            print("North room:",roomCurrent.north)
-            print("	North room blocked:",roomCurrent.northBlocked)
-            print("	North room blocked reason:",roomCurrent.northBlockedReason)
-            print("East room:",roomCurrent.east)
-            print("	East room blocked:",roomCurrent.eastBlocked)
-            print("	East room blocked reason:",roomCurrent.eastBlockedReason)
-            print("South room:",roomCurrent.south)
-            print("	South room blocked:",roomCurrent.southBlocked)
-            print("	South room blocked reason:",roomCurrent.southBlockedReason)
-            print("West room:",roomCurrent.west)
-            print("	West room blocked:",roomCurrent.westBlocked)
-            print("	West room blocked reason:",roomCurrent.westBlockedReason)
-            print("counter_1:",roomCurrent.counter_1)
-            print("counter_2:",roomCurrent.counter_2)
-            print("counter_3:",roomCurrent.counter_3)
-            print("counter_4:",roomCurrent.counter_4)
-            print("isBuy:",roomCurrent.isBuy)
-            print("isBet:",roomCurrent.isBet)
-            print("isCrevasse:",roomCurrent.isCrevasse)
-            print("isGive:",roomCurrent.isGive)
-            print("isMine:",roomCurrent.isMine)
-            print("isSell:",roomCurrent.isSell)
-            print("itemFound:",roomCurrent.itemFound)
-            print("characterDead:",roomCurrent.characterDead)
-            print("creatureRoam:",creatureRoam)
-            print("	creatureRoamCounter:",creatureRoamCounter)
-            print("creatureChase:",creatureChase)
-            print("	creatureChaseCounter:",creatureChaseCounter)
-            notTurn = True
+            print("roomID:",room_id)
+            print("roomID_Last:",room_id_last)
+            print("North room:",room_current.north)
+            print("	North room blocked:",room_current.north_blocked)
+            print("	North room blocked reason:",room_current.north_blocked_reason)
+            print("East room:",room_current.east)
+            print("	East room blocked:",room_current.east_blocked)
+            print("	East room blocked reason:",room_current.east_blocked_reason)
+            print("South room:",room_current.south)
+            print("	South room blocked:",room_current.south_blocked)
+            print("	South room blocked reason:",room_current.south_blocked_reason)
+            print("West room:",room_current.west)
+            print("	West room blocked:",room_current.west_blocked)
+            print("	West room blocked reason:",room_current.west_blocked_reason)
+            print("counter_1:",room_current.counter_1)
+            print("counter_2:",room_current.counter_2)
+            print("counter_3:",room_current.counter_3)
+            print("counter_4:",room_current.counter_4)
+            print("isBuy:",room_current.is_buy)
+            print("isBet:",room_current.is_bet)
+            print("isCrevasse:",room_current.is_crevasse)
+            print("isGive:",room_current.is_give)
+            print("isMine:",room_current.is_mine)
+            print("isSell:",room_current.is_sell)
+            print("itemFound:",room_current.item_found)
+            print("characterDead:",room_current.character_dead)
+            print("creatureRoam:",creature_roam)
+            print("	creatureRoamCounter:",creature_roam_counter)
+            print("creatureChase:",creature_chase)
+            print("	creatureChaseCounter:",creature_chase_counter)
+            not_turn = True
         elif option == "!silence" and debug:
             if silenced:
                 silenced = False
@@ -2531,13 +2541,13 @@ def inGame(debug):
             else:
                 silenced = True
                 print("Silenced: True")
-            notTurn = True
+            not_turn = True
         elif option == "!inv" and debug:
-            inv = DEBUG_INV
+            inv = debug_inv
             stat.health = HEALTH_MAX
             stat.hunger = HUNGER_DEBUG
             print("Debug inventory given.")
-            notTurn = True
+            not_turn = True
         elif option == "!spells" and debug:
             print("spell_learn is:",spell_learn)
             print("spell_unlock is:",spell_unlock)
@@ -2555,7 +2565,7 @@ def inGame(debug):
             print("word_mirror is:",word_mirror)
             print("word_dominion is:",word_dominion)
             print("word_curse is:",word_curse)
-            notTurn = True
+            not_turn = True
         elif option == "!learn" and debug:
             print("All Ozkavosh spells and words learned.")
             spell_learn = 2
@@ -2575,7 +2585,7 @@ def inGame(debug):
             word_dominion = 2
             word_curse = 2
             spell_oblivion = 2
-            notTurn = True
+            not_turn = True
         # Examine
         # Inventory
         # Objects in inventory
@@ -2598,172 +2608,172 @@ def inGame(debug):
             if option == "":
                 print("Examine what?")
                 option = False
-                notTurn = True
+                not_turn = True
             # Shortcut help
             if option in ("commands","shortcut","shortcuts","help"):
                 print("\nShortcut commands:")
                 shortcuts()
                 option = False
-                notTurn = True
+                not_turn = True
             # Examine room
             elif option in ("look","l"):
-                roomCurrent.description()
-                roomCurrent.itemsPresent()
+                room_current.description()
+                room_current.items_present()
                 option = False
-                notTurn = True
+                not_turn = True
             # Examine spells
             elif option in ("spells","spellbook","words","demon words","ozkavosh","ozkavosh words"):
-                demonWords()
+                demon_words()
                 option = False
-                notTurn = True
+                not_turn = True
             if option:
                 # Stats
                 if option in ("hunger","h"):
-                    stat.examineHunger()
+                    stat.examine_hunger()
                     print("You need to eat something in",stat.hunger,"turns.")
-                    notTurn = True
+                    not_turn = True
                 elif option in ("health","hp"):
-                    stat.examineHealth()
+                    stat.examine_health()
                    # if stat.health != HEALTH_MAX:
                         #print("You need to heal your wounds in",stat.health,"turns.")
                     if stat.health < HEALTH_MAX:
                          print(f"You need to heal your wounds in {stat.health} turns.")
-                    notTurn = True
+                    not_turn = True
                 elif option in ("stat","stats","self"):
-                    stat.examineHunger()
-                    stat.examineHealth()
+                    stat.examine_hunger()
+                    stat.examine_health()
                     print("You need to eat something in",stat.hunger,"turns.")
                     if stat.health != HEALTH_MAX:
                         print("You need to heal your wounds in",stat.health,"turns.")
                 elif option in ("o","objective","current objective"):
-                    stat.printObjective()
-                    notTurn = True
+                    stat.print_objective()
+                    not_turn = True
                 # Spells
                 elif option in ("spells","spell","spellbook","words","word","demon words","ozkavosh","ozkavosh words"):
-                    demonWords()
+                    demon_words()
                 # Inventory
                 elif option in ("inventory","inv","i"):
                     option = "inventory"
-                    inv.examineInventory(option, roomCurrent)
-                    notTurn = True
+                    inv.examine_inventory(option, room_current)
+                    not_turn = True
                 elif option .endswith("gold"):
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("letter"):
                     option = "letter"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("key","key of ahm'domosh")):
-                    if inv.keySkeleton or roomCurrent.keySkeleton:
+                    if inv.key_skeleton or room_current.key_skeleton:
                         option = "key of Ahm'domosh"
                     else:
                         option = "key"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("pickaxe","pick","pickaxes","picks")):
                     option = "pickaxe"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("shrubbery","shrub")):
                     option = "shrubbery"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("half-eaten cake","half cake","half-eaten funnel cake","half eaten funnel cake","half funnel cake","half-eaten cakes","half cakes","half-eaten funnel cakes","half eaten funnel cakes","half funnel cakes")):
                     option = "half-eaten funnel cake"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("cake","cakes")):
-                    if (inv.halfFunnelCake or roomCurrent.halfFunnelCake) and not inv.funnelCake and not roomCurrent.funnelCake:
+                    if (inv.half_funnel_cake or room_current.half_funnel_cake) and not inv.funnel_cake and not room_current.funnel_cake:
                         option = "half-eaten funnel cake"
                     else:
                         option = "funnel cake"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("foot","rabbit","feet","foots")):
                     option = "lucky rabbit foot"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("bowl","porridge")):
-                    if option.endswith("bowl") and (inv.bowl or roomCurrent.bowl) and not inv.porridge and not roomCurrent.porridge:
+                    if option.endswith("bowl") and (inv.bowl or room_current.bowl) and not inv.porridge and not room_current.porridge:
                         option = "bowl"
                     else:
                         option = "bowl of porridge"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("lantern","lanterns")):
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("oil","vial","vials")):
                     option = "vial of lantern oil"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("pies","pie")):
                     option = "chicken pot pie"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("biscuit","biscuits","hardtack")):
                     option = "hardtack biscuit"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("hook","hooks")):
                     option = "grappling hook"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("staff of garrotxa","staff")):
                     option = "staff of Garrotxa"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("ticket","raffle")):
                     option = "raffle ticket"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("coal"):
                     option = "piece of coal"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("potato"):
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("bandages","bandage")):
                     option = "bandage"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("journals","journal")):
                     option = "journal"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("book"):
                     option = "book"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("brie","brie cheese")):
                     option = "slice of brie cheese"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("munster","munster cheese")):
                     option = "slice of munster cheese"
-                    inv.examineInventory(option, roomCurrent)
-                elif option.endswith(("stilton""stilton cheese")):
+                    inv.examine_inventory(option, room_current)
+                elif option.endswith(("stilton","stilton cheese")):
                     option = "slice of stilton cheese"
-                    inv.examineInventory(option, roomCurrent)
-                elif option.endswith(("swiss""swiss cheese")):
+                    inv.examine_inventory(option, room_current)
+                elif option.endswith(("swiss","swiss cheese")):
                     option = "slice of swiss cheese"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("wensleydale","wensleydale cheese")):
                     option = "slice of wensleydale cheese"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("potion","rejuvination")):
                     option = "potion of rejuvination"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith(("flask","flasks")):
                     option = "flask"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("stone"):
                     option = "dragonstone"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("bird"):
                     option = "wooden bird"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("note"):
                     option = "note"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 elif option.endswith("memo"):
                     option = "memo"
-                    inv.examineInventory(option, roomCurrent)
+                    inv.examine_inventory(option, room_current)
                 # Room
-                elif option in ("room","surroundings","place","area",roomCurrent.name):
-                    roomCurrent.description()
-                    roomCurrent.itemsPresent()
+                elif option in ("room","surroundings","place","area",room_current.name):
+                    room_current.description()
+                    room_current.items_present()
                 # Objects in rooms
                 # Jail
-                elif roomID == "roomJailCell":
+                elif room_id == "roomJailCell":
                     if option in ("walls","stone walls","wall","stone wall","stone"):
                         print("12 tally marks have been etched in, representing all the years you've been here.")
                     elif option in ("haystack","hay","stack"):
                         print("A fairly comfortable place to sleep.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.gold += 8
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.gold += 8
                             print("You find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     elif option in ("solid metal door","solid door","metal door","door"):
                         print("It's made of cold steel. There is a small slit in it.")
                     elif option in ("slit","small slit","through slit","through small slit"):
@@ -2771,36 +2781,36 @@ def inGame(debug):
                         #if not roomCurrent.counter_1 and not playerName:
                            # roomCurrent.counter_1 = 1
                            # removed due to satement has no effect
-                    elif askName:
+                    elif ask_name:
                         if option in ("woman","her","stranger"):
                             print("She is wearing white robes, covering her face and body.")
                         elif option in ("portal","mystical portal"):
                             print("It's elliptical with a glowing purple border. Through the other side you can see stone walls.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Courtyard North
-                elif roomID == "roomCourtyardNorth":
+                elif room_id == "roomCourtyardNorth":
                     if option in ("crowd","people"):
                         print("Some look pretty excited for the carnival.")
                     if option in ("building","buildings"):
                         print("Stone walls. Wooden roofs. They all look pretty similar.")
-                    if option in ("urchin boy","boy","young urchin boy","young boy") and not roomCarnivalWheelGame.characterDead:
+                    if option in ("urchin boy","boy","young urchin boy","young boy") and not room_carnival_wheel_game.character_dead:
                         print("He's wearing dirty, ragged clothing.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Courtyard South
-                elif roomID == "roomCourtyardSouth":
+                elif room_id == "roomCourtyardSouth":
                     if option in ("large elegant fountain","large fountain","elegant fountain","fountain"):
                         print("It's large... and elegant.")
                     elif option in ("crowd","busy people","people"):
                         print("You feel creepy examining everyone around you, making you quickly stop.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Carnival
-                elif roomID == "roomCarnival":
+                elif room_id == "roomCarnival":
                     if option in ("tents","tent"):
                         print("The tents are striped in a variety of colours.")
                     elif option in ("lights","light","lighting"):
@@ -2811,9 +2821,9 @@ def inGame(debug):
                         print("The crowd is noisy and generally excited.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Shell Game
-                elif roomID == "roomCarnivalShellGame":
+                elif room_id == "roomCarnivalShellGame":
                     if option in ("sybil","her","woman","old woman"):
                         print("Sybil is hunched at the table. She has only one eye, and a lot of missing teeth. Her ragged clothing makes her look homeless.")
                     elif option in ("table","wooden table"):
@@ -2822,53 +2832,53 @@ def inGame(debug):
                         print("They are conch shells.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Funnel Cakes Galore
-                elif roomID == "roomCarnivalFood":
+                elif room_id == "roomCarnivalFood":
                     if option in ("older overweight vendor","overweight vendor","vendor","him","man"):
                         print("The vendor looks happy to see you. His apron is grease-stained, and his sleeves are rolled up.")
                     elif option in ("stove","stovetop"):
                         print("It's made of cast iron.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Road Mid
-                elif roomID == "roomRoadMid":
+                elif room_id == "roomRoadMid":
                     if option in ("sign","the sign"):
                         print("The sign reads: \"North: Mount Magna, East: Temple of Garrotxa, West: Lake Laguiole, South: Town of Airedale\"")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Mount Entrance
-                elif roomID == "roomMountEntrance":
+                elif room_id == "roomMountEntrance":
                     if option in ("sign","the sign"):
                         print("It reads: \"Mount Magna coal mine is CLOSED. Dangerous CREATURE inside.\"")
                     elif option in ("a body","body","the body","dead body","a dead body","the dead body"):
                         print("It looks like a miner covered in claw marks.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.coal += LOOT_ENTRANCE_COAL
-                            roomCurrent.note += LOOT_ENTRANCE_NOTE
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.coal += LOOT_ENTRANCE_COAL
+                            room_current.note += LOOT_ENTRANCE_NOTE
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     elif option in ("vault","vault door"):
-                        if roomCurrent.northBlocked:
+                        if room_current.north_blocked:
                             print("It is locked.")
                         else:
                             print("It is unlocked.")
-                        print("The first dial reads %s." % roomCurrent.counter_1)
-                        print("The second dial reads %s." % roomCurrent.counter_2)
-                        print("The third dial reads %s." % roomCurrent.counter_3)
-                        print("The fourth dial reads %s." % roomCurrent.counter_4)
+                        print("The first dial reads %s." % room_current.counter_1)
+                        print("The second dial reads %s." % room_current.counter_2)
+                        print("The third dial reads %s." % room_current.counter_3)
+                        print("The fourth dial reads %s." % room_current.counter_4)
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Bridge
-                elif roomID == "roomBridge":
+                elif room_id == "roomBridge":
                     if option in ("troll","ugg","the troll"):
-                        if roomCurrent.characterDead:
+                        if room_current.character_dead:
                             print("It's completely charred.")
-                        elif roomCurrent.eastBlocked:
+                        elif room_current.east_blocked:
                             print("He's licking his lips and rubbing his belly. No doubt thinking about funnel cakes.")
                         else:
                             print("He's excited to see how many funnel cakes he can buy.")
@@ -2878,40 +2888,40 @@ def inGame(debug):
                         print("The stream is flowing north to south.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Lake
-                elif roomID == "roomLake":
+                elif room_id == "roomLake":
                     if option in ("writing","tablet","stone tablet"):
                         print("The writing on the tablet neatly reads, \"OZH VO'SES SA.\"")
                         if not spell_unlock:
                             spell_unlock = 1
-                    elif option in ("stranger"):
-                        if roomCurrent.characterDead:
+                    elif option in "stranger":
+                        if room_current.character_dead:
                             print("He's dead.")
-                        elif roomCurrent.isGive():
+                        elif room_current.is_give():
                             print("He looks sad.")
                         else:
                             print("He looks happy to have his bird statue back.")
                     elif option in ("lockbox","box"):
-                        if not roomCurrent.counter_1:
+                        if not room_current.counter_1:
                             print("It's locked.")
-                        elif roomCurrent.counter_2:
+                        elif room_current.counter_2:
                             print("It's open.")
                         else:
                             print("It's unlocked, but closed.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Forest, Field
-                elif roomID in ("roomForest","roomField"):
+                elif room_id in ("roomForest","roomField"):
                     if option in ("hemisphere","obsidian","obsidian hemisphere"):
                         print("It looks strangely out of place.")
                     else:
                         print("You cannot examine that.")
                 # Temple Inside
-                elif roomID == "roomTempleInside":
+                elif room_id == "roomTempleInside":
                     if option in ("figure","ghost","ghostly figure"):
-                        if not roomCurrent.characterDead:
+                        if not room_current.character_dead:
                             print("It looks like a cow, wrapped in white robes.")
                         else:
                             print("The figure is gone.")
@@ -2936,71 +2946,71 @@ def inGame(debug):
                         print("Fifty years later after the War of Gods, lesser demons, known as vesh'raheen, began to attack the Garrotxian temples across Kashkaval. They would tear apart the bodies of those who visited the temples with their massive claws, and then escape to the safety of the Underworld. Many speculated that one of the demon lords was still alive and planning to make a return, although nothing came to fruition. All the cities and towns were threatened by the vesh'raheen, except the small town of Airedale, making people believe a one of the prophets of Garrotxa was alive as well, but in hiding. This conjecture created both great hope and fear, giving birth to the Third Age.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # roomRoadCorner
-                elif roomID == "roomRoadCorner":
-                    if option in ("black knight","knight") and not roomCurrent.characterDead and roomCurrent.counter_1:
+                elif room_id == "roomRoadCorner":
+                    if option in ("black knight","knight") and not room_current.character_dead and room_current.counter_1:
                         print("He is standing upright with his arms resting on his broadsword. Sunlight reflects off his black armor.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Cavern
-                elif roomID == "roomCave_2_llm":
+                elif room_id == "roomCave_2_llm":
                     if option in ("a body","body","the body","dead body","a dead body","the dead body"):
                         print("The man has several claw marks on his back and arms. The face is mangled and unrecognizable.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
+                        if not room_current.item_found:
+                            room_current.item_found = True
 
-                            roomCurrent.journal += LOOT_B_JOURNAL
-                            roomCurrent.gold += LOOT_B_GOLD
+                            room_current.journal += LOOT_B_JOURNAL
+                            room_current.gold += LOOT_B_GOLD
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomCave__3_lllm_treasure_crevasse":
+                        not_turn = True
+                elif room_id == "roomCave__3_lllm_treasure_crevasse":
                     if option in ("chest","treasure chest"):
-                        if roomCurrent.itemFound:
+                        if room_current.item_found:
                             print("It is open.")
                         else:
                             print("It is closed.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomCave_4_mr":
+                        not_turn = True
+                elif room_id == "roomCave_4_mr":
                     if option in ("text","strange text","wall","walls"):
                         print("Written in blood, you can see the words, \"OZH SOL FEK.\"")
                         if not spell_killself:
                             spell_killself = 1
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomCave_6_lllm":
+                        not_turn = True
+                elif room_id == "roomCave_6_lllm":
                     if option in ("a body","body","the body","dead body","a dead body","the dead body","corpse"):
                         print("The man is missing an arm and has claw marks on his chest.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.gold += LOOT_A_GOLD
-                            roomCurrent.oil += LOOT_A_OIL
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.gold += LOOT_A_GOLD
+                            room_current.oil += LOOT_A_OIL
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomCave_6_m":
+                        not_turn = True
+                elif room_id == "roomCave_6_m":
                     if option in ("a body","body","the body","dead body","a dead body","the dead body","corpse"):
                         print("The corpse is rotted away, being here for at least a couple months.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.pickaxe += LOOT_C_PICKAXE
-                            roomCurrent.oil += LOOT_C_OIL
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.pickaxe += LOOT_C_PICKAXE
+                            room_current.oil += LOOT_C_OIL
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Lair
-                elif roomID == "roomLairWest":
+                elif room_id == "roomLairWest":
                     if option in ("skeleton","the skeleton"):
                         print("The ribs are all broken, although the rest seems intact. It is spattered in old blood.")
                     elif option in ("table","the table"):
@@ -3011,42 +3021,42 @@ def inGame(debug):
                         print("Just big enough for you to squeeze through, although probably not much else. You can see a DEAD BODY on the other side.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomLairHole":
+                        not_turn = True
+                elif room_id == "roomLairHole":
                     if option in ("a body","body","the body","dead body","a dead body","the dead body","corpse"):
                         print("The man appears completely unscathed and has perhaps starved to death.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.oil += LOOT_HOLE_OIL
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.oil += LOOT_HOLE_OIL
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomLairMid":
+                        not_turn = True
+                elif room_id == "roomLairMid":
                     if option in ("backpack","the backpack", "my backpack","creature","the creature"):
-                        if roomCurrent.counter_3 and roomCurrent.counter_2:
-                            roomCurrent.pickaxe += 1
-                            roomCurrent.staff += 1
+                        if room_current.counter_3 and room_current.counter_2:
+                            room_current.pickaxe += 1
+                            room_current.staff += 1
                             inside = "The staff and your pickaxe are the only items within armsreach, although trying to take them may WAKE UP the creature, which lays unconcious in the way."
-                        elif roomCurrent.counter_3:
-                            roomCurrent.pickaxe += 1
+                        elif room_current.counter_3:
+                            room_current.pickaxe += 1
                             inside = "Your pickaxe is the only item within armsreach, although trying to take it may WAKE UP the creature, which lays unconcious in the way."
-                        elif roomCurrent.counter_2:
-                            roomCurrent.staff += 1
+                        elif room_current.counter_2:
+                            room_current.staff += 1
                             inside = "The staff is the only item within armsreach, although trying to take it may WAKE UP the creature, which lays unconcious in the way."
                         else:
                             inside = "Nothing in the backpack is within armsreach. The creature lays unconcious in the way."
                         print("Your backpack is somewhat visible within a gap in the rubble.",inside)
-                        roomCurrent.itemsPresent()
+                        room_current.items_present()
                     elif option in ("a body","body","the body","dead body","a dead body","the dead body","corpse"):
                         print("The man's head has been removed, and claw marks cover the rest of his body.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.bandage += LOOT_MID_BANDAGE
-                            roomCurrent.biscuit += LOOT_MID_BISCUIT
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.bandage += LOOT_MID_BANDAGE
+                            room_current.biscuit += LOOT_MID_BISCUIT
                             print("You search the body and find some supplies.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                     elif option in ("statue","gargoyle","gargoyle statue","pedestal","stone pedestal"):
                         print("It's made out of stone.")
                     elif option in ("statues","gargoyles","gargoyle statues","pedestals","stone pedestals"):
@@ -3057,8 +3067,8 @@ def inGame(debug):
                         print("You don't want to know what it is.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomLairEast":
+                        not_turn = True
+                elif room_id == "roomLairEast":
                     if option in ("strange text","text"):
                         print("While it is difficult to make to make the text out, it reads, \"OZH THOK ALATHO.\"")
                         if not spell_jump:
@@ -3069,8 +3079,8 @@ def inGame(debug):
                         print("Through the cracks, you can see a grassy field on the other end.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomShrineNorth":
+                        not_turn = True
+                elif room_id == "roomShrineNorth":
                     if option in ("candles","floating candles"):
                         print("Definitely magical.")
                     elif option in ("pedestal","the pedestal","wall","walls"):
@@ -3081,57 +3091,57 @@ def inGame(debug):
                         print("The spookiest water you've ever seen.")
 
                 # Field
-                elif roomID == "roomRoad2Mid":
+                elif room_id == "roomRoad2Mid":
                     if option in ("sign","the sign"):
                         print("It reads: \"North: House of Roquefort, West: Fermiere Farm, South: Mount Magna\"")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomFarm":
+                        not_turn = True
+                elif room_id == "roomFarm":
                     if option in ("field","barren field","soil","ash"):
                         print("The soil is mixed with ash and dead crops.")
                     elif option in ("dead crops","crops"):
                         print("Well, they're certainly not alive.")
                     else:
                         print("You cannot examine that.")
-                elif roomID == "roomBarn":
+                elif room_id == "roomBarn":
                     if option in ("wall","writing"):
                         print("Burnt into the barn wall reads, \"OZH GROTH SOL.\"")
                         if not spell_light:
                             spell_light = 1
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomBarnUp":
+                        not_turn = True
+                elif room_id == "roomBarnUp":
                     if option in ("a body","body","the body","dead body","a dead body","the dead body"):
                         print("Most of it is burnt to a crisp.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
+                        if not room_current.item_found:
+                            room_current.item_found = True
                             print("You search the body and find a memo.")
-                            roomCurrent.memo += 1
-                            roomCurrent.itemsPresent()
+                            room_current.memo += 1
+                            room_current.items_present()
                             # inv.letterRead = "It reads:\n\nTo whoever is still alive,\n\nBy the time you read this, I will probably be dead. Within the last two weeks, the Ozhkavosh have invaded most of Kashkaval. My greatest fears have come true. Vesh'kathal is alive and has returned to the Overworld. I thought keeping away from the cities of Finn and Fermiere would be a good idea, but the demon lord himself, disguised as my very own son, found me here, tricked me into letting him into the barn, and burnt the whole damn farmland to the ground. I would have travelled down to Airedale, but there's no way I'm crossing that cursed mountain. If you are still alive and well, Airedale may be your last safe haven from the Ozhkavosh. Don't make the same mistake I did."
                     elif option in ("haystacks","hay","stacks of hay","haystack","stack of hay"):
                         print("Most of them are burnt.")
-                    elif option in ("table"):
+                    elif option in "table":
                         print("It is covered in ash.")
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
+                        if not room_current.item_found:
+                            room_current.item_found = True
                             print("You search the body and find a memo.")
-                            roomCurrent.memo += 1
-                            roomCurrent.itemsPresent()
+                            room_current.memo += 1
+                            room_current.items_present()
                     elif option in ("chair","wall","walls"):
                         print("It's made of wood.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # Mysterious book
-                elif roomID == "roomBookMirror":
-                    if option in ("statue","gargoyle","gargoyle statue") and not roomCurrent.characterDead:
+                elif room_id == "roomBookMirror":
+                    if option in ("statue","gargoyle","gargoyle statue") and not room_current.character_dead:
                         print("It's made out of stone.")
-                    elif option in ("pile","stone","dust","pile of stone dust","stone dust","pile of dust") and roomCurrent.characterDead:
+                    elif option in ("pile","stone","dust","pile of stone dust","stone dust","pile of dust") and room_current.character_dead:
                         print("Rest in piece Mr. Gargoyle. You will be missed.")
-                    elif option == "pedestal" and roomCurrent.itemFound:
+                    elif option == "pedestal" and room_current.item_found:
                         print("It's made out of obsidian.")
                     elif option in ("text","wall","writing"):
                         print("Very faintly, you can see, \"IZH TAL ET OZH ICHA REK'TAL.\"")
@@ -3139,15 +3149,15 @@ def inGame(debug):
                             word_mirror = 1
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID.startswith("roomBook_3") and not roomID == "roomBook_3_End":
+                        not_turn = True
+                elif room_id.startswith("roomBook_3") and not room_id == "roomBook_3_End":
                     if option.endswith("statue") or option.startswith("statue"):
                         print("It's made out of obsidian.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 # House
-                elif roomID == "roomHouseGate":
+                elif room_id == "roomHouseGate":
                     if option == "gate":
                         print("Made out of heavy, metal bars.")
                     elif option in ("metal plaque","plaque"):
@@ -3156,8 +3166,8 @@ def inGame(debug):
                         print("It enclosed the entire house.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomHouseFoyer":
+                        not_turn = True
+                elif room_id == "roomHouseFoyer":
                     if option in ("chandilier","glass chandilier","large glass chandilier"):
                         print("It looks as heavy as it is expensive.")
                     elif option in ("carpet","velvet carpet","velvet"):
@@ -3170,34 +3180,34 @@ def inGame(debug):
                         print("Reminds you of your jail cell.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomHouseKitchen":
+                        not_turn = True
+                elif room_id == "roomHouseKitchen":
                     if option in ("gadget","complicated gadget","gadgets","complicated gadgets"):
                         print("Made out of metal, you do not recognize any of them or understand what they're for.")
                     elif option in ("lever","the lever"):
-                        print("It is currently set to the",roomCurrent.counter_1,"position.")
+                        print("It is currently set to the",room_current.counter_1,"position.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomHousePantry":
+                        not_turn = True
+                elif room_id == "roomHousePantry":
                     if option in ("cabinet","cabinets","cheese","cheeses"):
                         print("You feel your arteries getting clogged just looking at it all.")
-                    elif option in ("wall"):
+                    elif option in "wall":
                         print("Out of all the things you choose to examine, you choose to examine the wall. How odd.")
-                    elif option in ("dial"):
-                        print("It is currently set to" + roomCurrent.counter_1 + ".")
+                    elif option in "dial":
+                        print("It is currently set to" + room_current.counter_1 + ".")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
-                elif roomID == "roomHouseHallway":
+                        not_turn = True
+                elif room_id == "roomHouseHallway":
                     if option in ("carpet","velvet carpet","velvet"):
                         print("With how nice it looks, you feel oddly guilty about standing on it with your dirty shoes.")
                     else:
                         print("You cannot examine that.")
-                        notTurn = True
+                        not_turn = True
                 else:
                     print("You cannot examine that.")
-                    notTurn = True
+                    not_turn = True
 
         # Read
         elif option.startswith("read"):
@@ -3207,7 +3217,7 @@ def inGame(debug):
                     print(inv.letterRead)
                 else:
                     print("You do not have a letter to read.")
-                    notTurn = True
+                    not_turn = True
             elif option in ("journal","the journal","1","2","3","4","5","6","journal 1","journal 2","journal 3","journal 4","journal 5","journal 6","journal entry 1","journal entry 2","journal entry 3","journal entry 4","journal entry 5","journal entry 6", ):
                 if inv.journal:
                     # Journal Reading interface
@@ -3240,50 +3250,50 @@ def inGame(debug):
                             print("Choose 1-6.")
                 else:
                     print("You do not have a journal to read.")
-                    notTurn = True
+                    not_turn = True
             elif option.endswith("book"):
                 if inv.book:
                     print("As you stare into the open book, the symbols on the pages consume your mind.")
 
-                    if roomID == "roomBookMirror":
+                    if room_id == "roomBookMirror":
                         # From Mirror puzzle to Movement Puzzle
-                        roomID = "roomBook_3_1"
-                        roomCurrent = roomBook_3_1
-                        inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
-                    elif roomID.startswith("roomBook_3"):
+                        room_id = "roomBook_3_1"
+                        room_current = room_book_3_1
+                        inv = Inventory(note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
+                    elif room_id.startswith("roomBook_3"):
                         # From Movement puzzle to outside
-                        roomID = roomID_Outside
-                        roomCurrent = roomCurrent_Outside
-                        if inv.keySkeleton:
-                            inv_Outside.keySkeleton = 1
+                        room_id = room_id_outside
+                        room_current = room_current_outside
+                        if inv.key_skeleton:
+                            inv_outside.key_skeleton = 1
                         else:
-                            inv_Outside.keySkeleton = 0
+                            inv_outside.key_skeleton = 0
                         if inv.book:
-                            inv_Outside.book = 1
-                        inv = inv_Outside
-                        if roomID_Outside.startswith("roomHouse"):
+                            inv_outside.book = 1
+                        inv = inv_outside
+                        if room_id_outside.startswith("roomHouse"):
                             silenced = True
                             print("You feel the strange force take over you again.")
                     else:
                         # From outside to inside
-                        roomID_Outside = roomID
-                        roomCurrent_Outside = roomCurrent
-                        inv_Outside = inv
-                        if roomBook_3_End.firstTime: # If puzzle has not been completed
-                            roomID = "roomBookMirror"
-                            roomCurrent = roomBookMirror
+                        room_id_outside = room_id
+                        room_current_outside = room_current
+                        inv_outside = inv
+                        if room_book_3_end.first_time: # If puzzle has not been completed
+                            room_id = "roomBookMirror"
+                            room_current = room_book_mirror
                         else:
-                            roomID = "roomBook_3_End"
-                            roomCurrent = roomBook_3_End
-                        inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
-                        if inv_Outside.keySkeleton:
-                            inv.keySkeleton = 1
-                        if roomBook_3_End.itemFound:
+                            room_id = "roomBook_3_End"
+                            room_current = room_book_3_end
+                        inv = Inventory(note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
+                        if inv_outside.key_skeleton:
+                            inv.key_skeleton = 1
+                        if room_book_3_end.item_found:
                             inv.book = 1
                         silenced = False
                         print("You feel the strange force leave your body.")
-                    roomCurrent.description()
-                    roomCurrent.itemsPresent()
+                    room_current.description()
+                    room_current.items_present()
             elif option.endswith("note"):
                 if inv.note:
                     print(inv.noteRead)
@@ -3293,27 +3303,27 @@ def inGame(debug):
                     if not spell_oblivion:
                         spell_oblivion = 2
             elif option in ("sign", "the sign"):
-                if roomID == "roomMountEntrance":
+                if room_id == "roomMountEntrance":
                     print("It reads: \"Mount Magna coal mine is CLOSED. Dangerous CREATURE inside.\"")
-                elif roomID == "roomRoadMid":
+                elif room_id == "roomRoadMid":
                     print("The sign reads: \"North: Mount Magna, East: Temple of Garrotxa, West: Lake Laguiole, South: Town of Airedale\"")
-                    roomCurrent.itemFound = True
-                elif roomID == "roomCourtyardNorth":
+                    room_current.item_found = True
+                elif room_id == "roomCourtyardNorth":
                     print("The sign reads: \"Come one, come all, to the Wonderful Wheel of Mystery! Want to get rich quick? Spin the wheel test your luck! Only at the Airedale Carnival!\"")
-                elif roomID == "roomRoad2Mid":
+                elif room_id == "roomRoad2Mid":
                     print("It reads: \"North: House of Roquefort, West: Fermiere Farm, South: Mount Magna\"")
-                    roomCurrent.itemFound = True
+                    room_current.item_found = True
                 else:
                     print("There is no sign here.")
-            elif roomID == "roomLake":
+            elif room_id == "roomLake":
                 if option in ("writing","tablet","stone tablet"):
                     print("The writing on the tablet neatly reads, \"OZH VO'SES SA.\"")
                     if not spell_unlock:
                         spell_unlock = 1
                 else:
                     print("You cannot read that.")
-                    notTurn = True
-            elif roomID == "roomTempleInside":
+                    not_turn = True
+            elif room_id == "roomTempleInside":
                 if option in ("mural","murals","text"):
                     print("Read which one? There is a West, North, and East mural.")
                 elif option in ("west mural","west text", "west wall"):
@@ -3327,48 +3337,48 @@ def inGame(debug):
                     print("Fifty years later after the War of Gods, lesser demons, known as vesh'raheen, began to attack the Garrotxian temples across Kashkaval. They would tear apart the bodies of those who visited the temples with their massive claws, and then escape to the safety of the Underworld. Many speculated that one of the demon lords was still alive and planning to make a return, although nothing came to fruition. All the cities and towns were threatened by the vesh'raheen, except the small town of Airedale, making people believe a one of the prophets of Garrotxa was alive as well, but in hiding. This conjecture created both great hope and fear, giving birth to the Third Age.")
                 else:
                     print("You cannot read that.")
-                    notTurn = True
-            elif roomID == "roomCave_4_mr":
+                    not_turn = True
+            elif room_id == "roomCave_4_mr":
                 if option in ("text","strange text","wall","walls"):
                     print("Written in blood, you can see the words, \"OZH SOL FEK.\"")
                     if not spell_killself:
                         spell_killself = 1
                 else:
                     print("You cannot read that.")
-                    notTurn = True
-            elif roomID == "roomLairEast":
+                    not_turn = True
+            elif room_id == "roomLairEast":
                 if option in ("strange text","text","wall"):
                     print("While it is difficult to make to make the text out, it reads, \"OZH THOK ALATHO.\"")
                     if not spell_jump:
                         spell_jump = 1
                 else:
                     print("You cannot read that.")
-                    notTurn = True
-            elif roomID == "roomBarn":
+                    not_turn = True
+            elif room_id == "roomBarn":
                     if option in ("wall","writing"):
                         print("Burnt into the barn wall reads, \"Ozh groth sol.\"")
                         if not spell_light:
                             spell_light = 1
                     else:
                         print("You cannot read that.")
-                        notTurn = True
-            elif roomID == "roomBookMirror":
+                        not_turn = True
+            elif room_id == "roomBookMirror":
                 if option in ("text","wall","writing"):
                         print("Very faintly, you can see, \"Izh tal et ozh icha rek'tal.\"")
                         if not word_mirror:
                             word_mirror = 1
                 else:
                     print("You cannot read that.")
-                    notTurn = True
-            elif roomID == "roomHouseGate":
+                    not_turn = True
+            elif room_id == "roomHouseGate":
                 if option in ("metal plaque","plaque"):
                     print("It reads: \"Property of Eden Von Roquefort\"")
                 else:
                     print("You cannot read that.")
-                    notTurn = True
+                    not_turn = True
             else:
                 print("You cannot read that.")
-                notTurn = True
+                not_turn = True
         # Walk, Move, Go
         elif option in ("north","n","east","e","south","s","west","w","up","u","down","d") or option.startswith("walk") or option.startswith("move") or option.startswith("go"):
             if option.startswith("walk") or option.startswith("move"):
@@ -3376,67 +3386,67 @@ def inGame(debug):
             elif option.startswith("go"):
                 option = option[3:]
             # Sets walk direction
-            directionBlocked = False
+            direction_blocked = False
             if option in ("north","n"):
                 direction = "North"
-                if roomID == "roomLairHole":
-                    if inv.itemTypes() > 1:
-                        roomCurrent.northBlocked = True
+                if room_id == "roomLairHole":
+                    if inv.item_types() > 1:
+                        room_current.north_blocked = True
                     else:
-                        roomCurrent.northBlocked = False
-                if roomCurrent.north and not roomCurrent.northBlocked:
-                    roomID = roomCurrent.north
-                    changeRoom = True
-                elif roomCurrent.northBlocked:
-                    directionBlocked = True
+                        room_current.north_blocked = False
+                if room_current.north and not room_current.north_blocked:
+                    room_id = room_current.north
+                    change_room = True
+                elif room_current.north_blocked:
+                    direction_blocked = True
             elif option in ("east","e"):
                 direction = "East"
-                if roomCurrent.east and not roomCurrent.eastBlocked:
-                    roomID = roomCurrent.east
-                    changeRoom = True
-                elif roomCurrent.eastBlocked:
-                    directionBlocked = True
+                if room_current.east and not room_current.east_blocked:
+                    room_id = room_current.east
+                    change_room = True
+                elif room_current.east_blocked:
+                    direction_blocked = True
             elif option in ("south","s"):
                 direction = "South"
-                if roomID == "roomLairWest":
-                    if inv.itemTypes() > 1:
-                        roomCurrent.southBlocked = True
+                if room_id == "roomLairWest":
+                    if inv.item_types() > 1:
+                        room_current.south_blocked = True
                     else:
-                        roomCurrent.southBlocked = False
-                if roomCurrent.south and not roomCurrent.southBlocked:
-                    roomID = roomCurrent.south
-                    changeRoom = True
-                elif roomCurrent.southBlocked:
-                    directionBlocked = True
+                        room_current.south_blocked = False
+                if room_current.south and not room_current.south_blocked:
+                    room_id = room_current.south
+                    change_room = True
+                elif room_current.south_blocked:
+                    direction_blocked = True
             elif option in ("west","w"):
                 direction = "West"
-                if roomCurrent.west and not roomCurrent.westBlocked:
-                    roomID = roomCurrent.west
-                    changeRoom = True
-                elif roomCurrent.westBlocked:
-                    directionBlocked = True
+                if room_current.west and not room_current.west_blocked:
+                    room_id = room_current.west
+                    change_room = True
+                elif room_current.west_blocked:
+                    direction_blocked = True
             elif option in ("up","u"):
                 direction = "up"
-                if roomCurrent.up and not roomCurrent.upBlocked:
-                    roomID = roomCurrent.up
-                    changeRoom = True
-                elif roomCurrent.upBlocked:
-                    directionBlocked = True
+                if room_current.up and not room_current.up_blocked:
+                    room_id = room_current.up
+                    change_room = True
+                elif room_current.up_blocked:
+                    direction_blocked = True
             elif option in ("down","d"):
                 direction = "down"
-                if roomCurrent.down and not roomCurrent.downBlocked:
-                    roomID = roomCurrent.down
-                    changeRoom = True
-                elif roomCurrent.downBlocked:
-                    directionBlocked = True
+                if room_current.down and not room_current.down_blocked:
+                    room_id = room_current.down
+                    change_room = True
+                elif room_current.down_blocked:
+                    direction_blocked = True
             elif option == "":
                 print("Go where?")
             else:
                 print("You cannot go there.")
-                notTurn = True
-            if not changeRoom and direction in ("North","East","South","West","up","down") and not directionBlocked:
+                not_turn = True
+            if not change_room and direction in ("North","East","South","West","up","down") and not direction_blocked:
                 print("You cannot go %s." % direction)
-                notTurn = True
+                not_turn = True
         # Use, Mine, Unlock
         # Mine pickaxe to get coal if in mine
         # Unlock doors
@@ -3453,49 +3463,49 @@ def inGame(debug):
                 option = option[4:]
                 if option == "":
                     print("Use what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     use = True
             elif option.startswith("unlock"):
                 option = option[7:]
                 if option == "":
                     print("Unlock what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     unlock = True
             elif option.startswith("mine"):
                 option = option[5:]
                 if option == "":
                     print("Mine what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     mine = True
             elif option.startswith("throw"):
                 option = option[6:]
                 if option == "":
                     print("Throw what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     throw = True
             elif option.startswith("light"):
                 option = option[6:]
                 if option == "":
                     print("Light what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     light = True
             elif option.startswith("fire"):
                 option = option[5:]
                 if option == "":
                     print("Fire what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     fire = True
             elif option.startswith("shoot"):
                 option = option[6:]
                 if option == "":
                     print("Shoot what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     shoot = True
             elif option.startswith("heal"):
@@ -3503,48 +3513,48 @@ def inGame(debug):
                 heal = True
             # Use/unlock key to unlock roomJailCell
             if (use and option.startswith("key")) or unlock:
-                if roomID == "roomJailCell" and roomJailCell.eastBlocked:
-                    if inv.key or inv.keySkeleton:
-                        roomJailCell.eastBlocked = False
+                if room_id == "roomJailCell" and room_jail_cell.east_blocked:
+                    if inv.key or inv.key_skeleton:
+                        room_jail_cell.east_blocked = False
                         print("You unlock the cell door.")
                         print("You can now go East.")
-                        if not roomCurrent.counter_1 and not playerName:
-                            roomJailCorridor.letter += 1
-                            roomCurrent.counterAns_1 = 1
+                        if not room_current.counter_1 and not player_name:
+                            room_jail_corridor.letter += 1
+                            room_current.counter_ans_1 = 1
                     else:
                         print("You cannot unlock the cell door without a key.")
-                        notTurn = True
-                elif roomID == "roomHouseEntrance" and roomHouseEntrance.northBlocked:
-                    if inv.keySkeleton:
-                        roomHouseEntrance.northBlocked = False
+                        not_turn = True
+                elif room_id == "roomHouseEntrance" and room_house_entrance.north_blocked:
+                    if inv.key_skeleton:
+                        room_house_entrance.north_blocked = False
                         print("You unlock the house door. The key of Ahm'domosh disintegrates, returing to the Underworld.")
-                        inv.keySkeleton -= 1
+                        inv.key_skeleton -= 1
                     elif inv.key:
                         print("You cannot unlock the house door with your jail cell key.")
-                        notTurn = True
+                        not_turn = True
                     else:
                         print("You cannot unlock the house door with a key.")
-                elif roomID == "roomHouseGate" and roomHouseGate.northBlocked:
-                    if inv.keySkeleton:
-                        roomHouseGate.northBlocked = False
+                elif room_id == "roomHouseGate" and room_house_gate.north_blocked:
+                    if inv.key_skeleton:
+                        room_house_gate.north_blocked = False
                         print("You unlock the gate with the key of Ahm'domosh.")
                     elif inv.key:
                         print("You cannot unlock the gate with your jail cell key.")
-                        notTurn = True
+                        not_turn = True
                     else:
                         print("You cannot unlock the gate without a key.")
-                        notTurn = True
-                elif roomID == "roomLake" and not roomCurrent.counter_1:
-                    if inv.keySkeleton:
-                        roomCurrent.counter_1 = 1
+                        not_turn = True
+                elif room_id == "roomLake" and not room_current.counter_1:
+                    if inv.key_skeleton:
+                        room_current.counter_1 = 1
                         print("You unlock the lockbox with the key of Ahm'domosh.")
                     elif inv.key:
                         print("You cannot unlock the lockbox with your jail cell key.")
-                        notTurn = True
+                        not_turn = True
                     else:
                         print("You cannot unlock the lockbox without a key.")
-                        notTurn = True
-                elif roomID == "roomHouseHallway":
+                        not_turn = True
+                elif room_id == "roomHouseHallway":
                     print("You do not have a key.")
                 else:
                     print("There is nothing here to unlock.")
@@ -3557,63 +3567,63 @@ def inGame(debug):
                         print("You apply a bandage to your wound to stop the bleeding.")
                     else:
                         print("You are not injured.")
-                        notTurn = True
+                        not_turn = True
                 else:
                     print("You do not have any bandages.")
-                    notTurn = True
+                    not_turn = True
             # Use oil to light lantern
             elif (use and (option.startswith("oil") or option.startswith("vial") or option.endswith("oil"))) or (light and option.startswith("lantern")):
                 if inv.oil:
                     if inv.lantern:
-                        if oilCounter == 0:
+                        if oil_counter == 0:
                             print("You fill your lantern with a vial of oil, and light it. It starts to burn.")
                         else:
                             print("You top up your lantern with a vial of oil. It continues to burn.")
-                        oilCounter += OIL_DURATION
+                        oil_counter += OIL_DURATION
                         inv.oil -= 1
                     else:
                         print("You do not have a lantern.")
-                        notTurn = True
+                        not_turn = True
                 else:
                     print("You do not have any vials of lantern oil.")
-                    notTurn = True
+                    not_turn = True
             # Use/Throw grappling hook to get across crevasse
             elif (use or throw) and option.startswith("grappling hook") or option.startswith("hook"):
                 if inv.hook:
-                    if roomCurrent.isCrevasse:
-                        if roomCurrent.northBlocked or roomCurrent.eastBlocked or roomCurrent.westBlocked or roomCurrent.southBlocked:
-                            roomCurrent.northBlocked = False
-                            roomCurrent.eastBlocked = False
-                            roomCurrent.westBlocked = False
-                            roomCurrent.southBlocked = False
+                    if room_current.is_crevasse:
+                        if room_current.north_blocked or room_current.east_blocked or room_current.west_blocked or room_current.south_blocked:
+                            room_current.north_blocked = False
+                            room_current.east_blocked = False
+                            room_current.west_blocked = False
+                            room_current.south_blocked = False
                             print("You throw the grappling hook across the crevasse, which catches on a stalagmite on the other end. You tie the rope on a stalagmite on your end, opening a way across.")
                             inv.hook -= 1
-                            roomCurrent.hook += 1
-                            roomCurrent.itemsPresent()
+                            room_current.hook += 1
+                            room_current.items_present()
                         else:
                             print("You can already cross the crevasse.")
-                            notTurn = True
+                            not_turn = True
                     else:
                         print("You cannot throw a grappling hook here.")
-                        notTurn = True
+                        not_turn = True
                 else:
                     print("You do not have a grappling hook.")
-                    notTurn = True
+                    not_turn = True
             # Use/Mine with pickaxe
             elif (use or mine) and option in ("pickaxe","pick","vein","veins","coal","coal vein","coal veins","rubble","rocks","rock"):
                 if inv.pickaxe:
-                    if roomCurrent.isMine:
-                        if ((use and option in ("pickaxe","pick")) or (mine and option in ("vein","veins","coal","coal vein","coal veins"))) and roomID.endswith("coalmine"): # coal
+                    if room_current.is_mine:
+                        if ((use and option in ("pickaxe","pick")) or (mine and option in ("vein","veins","coal","coal vein","coal veins"))) and room_id.endswith("coalmine"): # coal
                             if random.randint(1,100) > PICKAXE_BREAK_CHANCE:
-                                roomCurrent.counter_1 -= 1
+                                room_current.counter_1 -= 1
                                 inv.coal += 1
                                 print("You mine away at the coal vein and get a piece of coal.")
                                 if inv.coal > 1:
                                     print("You have",inv.coal,"pieces of coal.")
                                 else:
                                     print("You have 1 piece of coal.")
-                                if not roomCurrent.counter_1:
-                                    roomCurrent.isMine = False
+                                if not room_current.counter_1:
+                                    room_current.is_mine = False
                                     print("There is no more coal left.")
                             else:
                                 inv.pickaxe -= 1
@@ -3625,120 +3635,120 @@ def inGame(debug):
                                 else:
                                     print("You have no spare pickaxe.")
                         elif (use and option in ("pickaxe","pick")) or (mine and option in ("rubble","rocks","rock")): # rubble
-                            roomCurrent.counter_1 -= 1
+                            room_current.counter_1 -= 1
                             print("You mine away at the rubble, breaking apart some of the rock.")
-                            if not roomCurrent.counter_1:
-                                roomCurrent.isMine = False
-                                roomCurrent.northBlocked = False
+                            if not room_current.counter_1:
+                                room_current.is_mine = False
+                                room_current.north_blocked = False
                                 print("The opening is now large enough to go through.")
                                 print("You can now go North.")
                         elif mine:
                             print("You cannot mine that.")
-                            notTurn = True
+                            not_turn = True
                         elif use:
                             print("You cannot use that.")
-                            notTurn = True
+                            not_turn = True
                     else:
                         print("You cannot mine anything here.")
-                        notTurn = True
+                        not_turn = True
                 elif mine:
                     print("You cannot mine anything without a pickaxe.")
-                    notTurn = True
+                    not_turn = True
                 else:
                     print("You cannot use that.")
-                    notTurn = True
+                    not_turn = True
             # Use staff on characters in room
             elif (use or fire or shoot) and option.startswith("the staff") or option.startswith("staff"):
                 if inv.staff:
-                    if not roomCurrent.characterDead or roomID == "roomHouseOffice" or roomID.startswith("roomLair") or (roomID.startswith("roomCave") and creatureChaseCounter in [1,2]) or (roomID.startswith("roomJail") and jailGuardCounter in [1,2]):
-                        roomCurrent.characterDead = True
+                    if not room_current.character_dead or room_id == "roomHouseOffice" or room_id.startswith("roomLair") or (room_id.startswith("roomCave") and creature_chase_counter in [1,2]) or (room_id.startswith("roomJail") and jail_guard_counter in [1,2]):
+                        room_current.character_dead = True
                         print("A bolt of lightning fires out from the staff, striking ",end = "")
-                        if roomID == "roomCarnivalShellGame":
+                        if room_id == "roomCarnivalShellGame":
                             print("the old woman. As she topples over, all her gold is spilled across the ground.")
-                            roomCurrent.isBet = False
-                            roomCurrent.gold += invShell.gold
-                            invShell.gold = 0
-                            roomCurrent.itemsPresent()
-                        elif roomID.startswith("roomJail"):
+                            room_current.is_bet = False
+                            room_current.gold += inv_shell.gold
+                            inv_shell.gold = 0
+                            room_current.items_present()
+                        elif room_id.startswith("roomJail"):
                             print("a jail guard. The rest surround you and take you down.")
-                            endGame = True
-                        elif roomID == "roomCarnivalWheelGame":
+                            end_game = True
+                        elif room_id == "roomCarnivalWheelGame":
                             print("the man. The crowd goes into panic as guards enter the tent and overwhelm you.")
-                            endGame = True
-                        elif roomID == "roomCarnivalFood":
+                            end_game = True
+                        elif room_id == "roomCarnivalFood":
                             print("the vendor. He falls over, leaving his supply of food behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.funnelCake += invFood.funnelCake
-                            invFood.funnelCakes = 0
-                            roomCurrent.pie += 10
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomBridge":
+                            room_current.is_buy = False
+                            room_current.funnel_cake += inv_food.funnel_cake
+                            inv_food.funnel_cakes = 0
+                            room_current.pie += 10
+                            room_current.items_present()
+                        elif room_id == "roomBridge":
                             print("the troll. It falls over, dropping the funnel cakes in its hands.")
-                            roomCurrent.eastBlocked = False
-                            roomCurrent.funnelCake += 1
-                            roomCurrent.halfFunnelCake += 3
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomGeneralStore":
+                            room_current.east_blocked = False
+                            room_current.funnel_cake += 1
+                            room_current.half_funnel_cake += 3
+                            room_current.items_present()
+                        elif room_id == "roomGeneralStore":
                             print("the shopkeeper, leaving his store supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isSell = False
-                            roomCurrent.oil += 5
-                            roomCurrent.foot += 5
-                            roomCurrent.lantern += 1
-                            roomCurrent.bandage += 5
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomBlacksmith":
+                            room_current.is_buy = False
+                            room_current.is_sell = False
+                            room_current.oil += 5
+                            room_current.foot += 5
+                            room_current.lantern += 1
+                            room_current.bandage += 5
+                            room_current.items_present()
+                        elif room_id == "roomBlacksmith":
                             print("the blacksmith, leaving his supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isSell = False
-                            roomCurrent.pickaxe += 2
-                            roomCurrent.hook += 3
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomAlchemist":
+                            room_current.is_buy = False
+                            room_current.is_sell = False
+                            room_current.pickaxe += 2
+                            room_current.hook += 3
+                            room_current.items_present()
+                        elif room_id == "roomAlchemist":
                             print("Tim the Enchanter, leaving his supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isFill = False
-                            roomCurrent.isSell = False
-                            roomCurrent.potion += 3
-                            roomCurrent.flask += 4
-                            roomCurrent.itemsPresent()
-                        elif roomID in ("roomCarnival","roomCourtyardNorth","roomCourtyardSouth"):
+                            room_current.is_buy = False
+                            room_current.is_fill = False
+                            room_current.is_sell = False
+                            room_current.potion += 3
+                            room_current.flask += 4
+                            room_current.items_present()
+                        elif room_id in ("roomCarnival","roomCourtyardNorth","roomCourtyardSouth"):
                             print("a random civilian. The loud noise alerts the town guards, who catch up to you and kill you.")
-                            endGame = True
-                        elif roomID == "roomGate":
+                            end_game = True
+                        elif room_id == "roomGate":
                             print("the gate guard. Another nearby guard one draws his sword and impales you.")
-                            endGame = True
-                        elif roomID == "roomRoadCorner" and roomRoadCorner.counter_1:
+                            end_game = True
+                        elif room_id == "roomRoadCorner" and room_road_corner.counter_1:
                             print("the black knight. He shouts, \"IZH VO'POZ!\" before his body vaporizes into nothing.")
                             if not spell_persuade:
                                 spell_persuade = 1
-                            roomRoadCorner.westBlocked = False
-                        elif roomID == "roomHouseOffice":
-                            roomCurrent.counter_2 += 1
-                            if roomCurrent.counter_2 == 1:
+                            room_road_corner.west_blocked = False
+                        elif room_id == "roomHouseOffice":
+                            room_current.counter_2 += 1
+                            if room_current.counter_2 == 1:
                                 print("Eden Von Roquefort. His dead body flies back and crashes on the desk.")
-                            elif roomCurrent.counter_2 == 2:
+                            elif room_current.counter_2 == 2:
                                 print("Vesh'kathal. She resists the shock and charges towards you, knocking the staff out of your hand and onto the floor. The holy staff merely touching her arm causes her scales to burn, making her to topple over in pain.")
                                 inv.staff -= 1
-                                roomCurrent.staff += 1
-                                roomCurrent.itemsPresent()
+                                room_current.staff += 1
+                                room_current.items_present()
                             else:
                                 print("Vesh'kathal. She is severly weaked, but manages to stay alive.")
-                        elif roomID.startswith("roomCave"):
+                        elif room_id.startswith("roomCave"):
                             print("the creature, which resists the shock. It only gets angrier.")
-                        elif roomID.startswith("roomLair"):
+                        elif room_id.startswith("roomLair"):
                             print("the creature, which resists the shock. It only gets angrier.")
-                            if not creatureLairChase:
-                                creatureLairChase = True
-                        elif roomID == "roomLake":
+                            if not room_lair_chase:
+                                room_lair_chase = True
+                        elif room_id == "roomLake":
                             print("the stranger, leaving his supplies behind.")
-                            roomCurrent.pie += 1
-                            roomCurrent.itemsPresent()
+                            room_current.pie += 1
+                            room_current.items_present()
                     else:
                         print("There's no one else here.")
                 else:
                     print("You do not have the staff of Garrotxa.")
-                    notTurn = True
+                    not_turn = True
             else:
                 if use:
                     print("You cannot use that.")
@@ -3752,7 +3762,7 @@ def inGame(debug):
                     print("You cannot light that.")
                 elif heal:
                     print("You cannot heal that.")
-                notTurn = True
+                not_turn = True
         # Turn, set
         # Unlock vault in roomCorridor
         elif option.startswith("turn") or option.startswith("rotate") or option.startswith("set") or option.startswith("change") or option.startswith("push") or option.startswith("pull"):
@@ -3760,52 +3770,52 @@ def inGame(debug):
                 option = option[5:]
                 if option == "":
                     print("Turn what?")
-                    notTurn = True
-                elif roomID not in ("roomMountEntrance","roomHousePantry"):
+                    not_turn = True
+                elif room_id not in ("roomMountEntrance","roomHousePantry"):
                     print("You cannot turn that.")
-                    notTurn = True
+                    not_turn = True
             elif option.startswith("rotate"):
                 option = option[7:]
                 if option == "":
                     print("Rotate what?")
-                    notTurn = True
-                elif roomID not in ("roomMountEntrance","roomHousePantry"):
+                    not_turn = True
+                elif room_id not in ("roomMountEntrance","roomHousePantry"):
                     print("You cannot rotate that.")
-                    notTurn = True
+                    not_turn = True
             elif option.startswith("set"):
                 option = option[4:]
                 if option == "":
                     print("Set what?")
-                    notTurn = True
-                elif roomID not in ("roomMountEntrance","roomHousePantry","roomHouseKitchen"):
+                    not_turn = True
+                elif room_id not in ("roomMountEntrance","roomHousePantry","roomHouseKitchen"):
                     print("You cannot set that.")
-                    notTurn = True
+                    not_turn = True
             elif option.startswith("change"):
                 option = option[7:]
                 if option == "":
                     print("Change what?")
-                    notTurn = True
-                elif roomID not in ("roomMountEntrance","roomHousePantry","roomHouseKitchen"):
+                    not_turn = True
+                elif room_id not in ("roomMountEntrance","roomHousePantry","roomHouseKitchen"):
                     print("You cannot change that.")
-                    notTurn = True
+                    not_turn = True
             elif option.startswith("push"):
                 option = option[5:]
                 if option == "":
                     print("Push what?")
-                    notTurn = True
-                elif roomID not in ("roomHousePantry","roomHouseKitchen"):
+                    not_turn = True
+                elif room_id not in ("roomHousePantry","roomHouseKitchen"):
                     print("You cannot push that.")
-                    notTurn = True
+                    not_turn = True
             elif option.startswith("pull"):
                 option = option[5:]
                 if option == "":
                     print("Pull what?")
-                    notTurn = True
-                elif roomID not in ("roomHousePantry","roomHouseKitchen"):
+                    not_turn = True
+                elif room_id not in ("roomHousePantry","roomHouseKitchen"):
                     print("You cannot pull that.")
-                    notTurn = True
+                    not_turn = True
             if option != "":
-                if roomID == "roomMountEntrance":
+                if room_id == "roomMountEntrance":
                     # Set numbers in vault in roomMountEntrance
                     change_vault_1 = False
                     change_vault_2 = False
@@ -3838,58 +3848,58 @@ def inGame(debug):
                     if option == "":
                         if change_vault_1:
                             print("Change first dial to what?")
-                            notTurn = True
+                            not_turn = True
                         elif change_vault_2:
                             print("Change second dial to what?")
-                            notTurn = True
+                            not_turn = True
                         elif change_vault_3:
                             print("Change third dial to what?")
-                            notTurn = True
+                            not_turn = True
                         elif change_vault_4:
                             print("Change fourth dial to what?")
-                            notTurn = True
+                            not_turn = True
                     elif option.isdigit():
                         option = int(option)
                         if option in range(10):
                             if change_vault_1:
-                                if roomCurrent.counter_1 == option:
+                                if room_current.counter_1 == option:
                                     print("The first dial is already set to %s." % option)
                                 else:
-                                    roomCurrent.counter_1 = option
+                                    room_current.counter_1 = option
                                     print("You set first dial to %i." % option)
                             elif change_vault_2:
-                                if roomCurrent.counter_2 == option:
+                                if room_current.counter_2 == option:
                                     print("The second dial is already set to %s." % option)
                                 else:
-                                    roomCurrent.counter_2 = option
+                                    room_current.counter_2 = option
                                     print("You set the second dial to %i." % option)
                             elif change_vault_3:
-                                if roomCurrent.counter_3 == option:
+                                if room_current.counter_3 == option:
                                     print("The third dial is already set to %s." % option)
                                 else:
-                                    roomCurrent.counter_3 = option
+                                    room_current.counter_3 = option
                                     print("You set the third dial to %i." % option)
                             elif change_vault_4:
-                                if roomCurrent.counter_4 == option:
+                                if room_current.counter_4 == option:
                                     print("The fourth dial is already set to %s." % option)
                                 else:
-                                    roomCurrent.counter_4 = option
+                                    room_current.counter_4 = option
                                     print("You set the fourth dial to %i." % option)
-                            print("\nThe first dial reads %s." % roomCurrent.counter_1)
-                            print("The second dial reads %s." % roomCurrent.counter_2)
-                            print("The third dial reads %s." % roomCurrent.counter_3)
-                            print("The fourth dial reads %s." % roomCurrent.counter_4)
+                            print("\nThe first dial reads %s." % room_current.counter_1)
+                            print("The second dial reads %s." % room_current.counter_2)
+                            print("The third dial reads %s." % room_current.counter_3)
+                            print("The fourth dial reads %s." % room_current.counter_4)
                         else:
                             print("You cannot do that.")
-                            notTurn = True
+                            not_turn = True
                     else:
                         print("You cannot do that.")
-                        notTurn = True
-                    if (roomCurrent.counter_1, roomCurrent.counter_2, roomCurrent.counter_3, roomCurrent.counter_4) == (roomCurrent.counterAns_1, roomCurrent.counterAns_2, roomCurrent.counterAns_3, roomCurrent.counterAns_4) and roomCurrent.northBlocked:
+                        not_turn = True
+                    if (room_current.counter_1, room_current.counter_2, room_current.counter_3, room_current.counter_4) == (room_current.counter_ans_1, room_current.counter_ans_2, room_current.counter_ans_3, room_current.counter_ans_4) and room_current.north_blocked:
                         print("\nYou hear a loud clunk, as the vault door creaks open.")
                         print("You can now to North.")
-                        roomCurrent.northBlocked = False
-                elif roomID == "roomHousePantry":
+                        room_current.north_blocked = False
+                elif room_id == "roomHousePantry":
                     change_dial = False
                     if option.startswith("dial to"):
                         option = option[8:]
@@ -3897,18 +3907,18 @@ def inGame(debug):
                         option = option[5:]
                     if option == "":
                         print("Change dial to what?")
-                        notTurn = True
+                        not_turn = True
                     elif option == "green":
-                        if not roomCurrent.counter_1 == "GREEN":
-                            roomCurrent.counter_1 = "GREEN"
+                        if not room_current.counter_1 == "GREEN":
+                            room_current.counter_1 = "GREEN"
                             change_dial = True
                     elif option == "red":
-                        if not roomCurrent.counter_1 == "RED":
-                            roomCurrent.counter_1 = "RED"
+                        if not room_current.counter_1 == "RED":
+                            room_current.counter_1 = "RED"
                             change_dial = True
                     elif option == "blue":
-                        if not roomCurrent.counter_1 == "BLUE":
-                            roomCurrent.counter_1 = "BLUE"
+                        if not room_current.counter_1 == "BLUE":
+                            room_current.counter_1 = "BLUE"
                             change_dial = True
                     else:
                         print("You cannot change the dial to" + option + ".")
@@ -3917,10 +3927,10 @@ def inGame(debug):
                             print("You set the dial to " + option + ".")
                         else:
                             print("The dial is already set to " + option + ".")
-                if roomHousePantry.counter_1 == DIAL_ANSWER and roomHouseKitchen.counter_1 == LEVER_ANSWER and roomHouseFoyer.northBlocked:
+                if room_house_pantry.counter_1 == DIAL_ANSWER and room_house_kitchen.counter_1 == LEVER_ANSWER and room_house_foyer.north_blocked:
                     print("You hear a loud metalic clunk echo from the foyer.")
-                    roomHouseFoyer.northBlocked = False
-                elif roomID == "roomHouseKitchen":
+                    room_house_foyer.north_blocked = False
+                elif room_id == "roomHouseKitchen":
                     if option.startswith("lever to"):
                         option = option[9:]
                     elif option.startswith("lever"):
@@ -3928,94 +3938,94 @@ def inGame(debug):
 
                     if option == "":
                         print("Change lever to what?")
-                        notTurn = True
+                        not_turn = True
                     elif option in ("forward","forwards"):
-                        if roomCurrent.counter_1 == "FORWARD":
+                        if room_current.counter_1 == "FORWARD":
                             print("The lever is already set to the forward position.")
                         else:
-                            roomCurrent.counter_1 = "FORWARD"
+                            room_current.counter_1 = "FORWARD"
                             print("You set the lever to the forward position.")
                     elif option in ("backward","back","backwards"):
-                        if roomCurrent.counter_1 == "BACKWARDS":
+                        if room_current.counter_1 == "BACKWARDS":
                             print("The lever is already set to the backwards position.")
                         else:
-                            roomCurrent.counter_1 = "BACKWARDS"
+                            room_current.counter_1 = "BACKWARDS"
                             print("You set the lever to the backwards position.")
 
                     else:
                         print("You cannot change the lever to " + option + ".")
-                    if roomHousePantry.counter_1 == DIAL_ANSWER and roomHouseKitchen.counter_1 == LEVER_ANSWER and roomHouseFoyer.northBlocked:
+                    if room_house_pantry.counter_1 == DIAL_ANSWER and room_house_kitchen.counter_1 == LEVER_ANSWER and room_house_foyer.north_blocked:
                         print("You hear a loud metalic clunk echo from the foyer.")
-                        roomHouseFoyer.northBlocked = False
+                        room_house_foyer.north_blocked = False
 
 
         # Open
         # Treasure chest in roomCave__3_lllm_treasure_crevasse
         elif option.startswith("open"):
             option = option[5:]
-            if roomID == "roomCave__3_lllm_treasure_crevasse":
+            if room_id == "roomCave__3_lllm_treasure_crevasse":
                 if option in ("chest","treasure chest","the chest","the treasure chest"):
-                    if roomCurrent.counter_1:##continue ##
-                        if not roomCurrent.itemFound:
-                            roomCurrent.itemFound = True
-                            roomCurrent.gold += CHEST_REWARD
-                            roomCurrent.stone += 1
+                    if room_current.counter_1:##continue ##
+                        if not room_current.item_found:
+                            room_current.item_found = True
+                            room_current.gold += CHEST_REWARD
+                            room_current.stone += 1
                             print("The rusted hinges of the chest break as the heavy lid of the chest swings back. You find something inside.")
-                            roomCurrent.itemsPresent()
+                            room_current.items_present()
                         else:
                             print("The treasure chest is already open.")
-                            notTurn = True
+                            not_turn = True
                     else:
                         print("The chest is locked.")
                 else:
                     print("You cannot open that.")
-                    notTurn = True
-            elif roomID == "roomLake":
+                    not_turn = True
+            elif room_id == "roomLake":
                 if option in ("lockbox","box"):
-                    if not roomCurrent.counter_1: # not unlocked (locked)
+                    if not room_current.counter_1: # not unlocked (locked)
                         print("You cannot open the lockbox. It is locked.")
                     else: # unlocked
-                        if roomCurrent.counter_2 == 1: # open
+                        if room_current.counter_2 == 1: # open
                             print("It is already open.")
                         else:
-                            roomCurrent.counter_2 = 1 # is now open
-                            if roomCurrent.itemFound:
+                            room_current.counter_2 = 1 # is now open
+                            if room_current.item_found:
                                 print("You open the lockbox.")
                             else:
                                 print("You open the lockbox and find some gold inside.")
-                                roomCurrent.gold += LAKE_GOLD_REWARD
-                                roomCurrent.itemFound = True
-                                roomCurrent.itemsPresent()
+                                room_current.gold += LAKE_GOLD_REWARD
+                                room_current.item_found = True
+                                room_current.items_present()
                 else:
                     print("You cannot open that.")
-                    notTurn = True
+                    not_turn = True
 
             else:
                 print("You cannot open that.")
-                notTurn = True
+                not_turn = True
         # Close
         # Treasure chest in roomCave__3_lllm_treasure_crevasse
         elif option.startswith("close"):
             option = option[6:]
-            if roomID == "roomCave__3_lllm_treasure_crevasse":
+            if room_id == "roomCave__3_lllm_treasure_crevasse":
                 if option in ("chest","treasure chest","the chest","the treasure chest"):
-                    if not roomCurrent.itemFound:
+                    if not room_current.item_found:
                         print("The treasure chest is already closed.")
-                        notTurn = True
+                        not_turn = True
                     else:
                         print("The rusted hinges of the chest are broken, making it unable to close.")
                 else:
                     print("You cannot close that.")
-                    notTurn = True
-            elif roomID == "roomLake":
-                if not roomCurrent.counter_2:
+                    not_turn = True
+            elif room_id == "roomLake":
+                if not room_current.counter_2:
                     print("It is already closed.")
                 else:
-                    roomCurrent.counter_2 = 0
+                    room_current.counter_2 = 0
                     print("You close the lockbox.")
             else:
                 print("You cannot close that.")
-                notTurn = True
+                not_turn = True
         # Eat
         # Eat food to regain hunger
         elif option.startswith("eat"):
@@ -4023,113 +4033,113 @@ def inGame(debug):
                 print("You are too full to eat anything.")
             else:
                 option = option[4:]
-                foodEmpty = False
+                food_empty = False
                 if option in ("cake","cakes","funnel cake","funnel cakes"):
-                    foodName = "funnel cake"
-                    if inv.funnelCake:
-                        inv.funnelCake -= 1
+                    food_name = "funnel cake"
+                    if inv.funnel_cake:
+                        inv.funnel_cake -= 1
                         stat.hunger += HUNGER_FUNNELCAKE
-                    elif inv.halfFunnelCake:
-                        inv.halfFunnelCake -= 1
+                    elif inv.half_funnel_cake:
+                        inv.half_funnel_cake -= 1
                         stat.hunger += HUNGER_HALFFUNNELCAKE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("half-eaten cake","half cake","half-eaten funnel cake","half eaten funnel cake","half funnel cake","half-eaten cakes","half cakes","half-eaten funnel cakes","half eaten funnel cakes","half funnel cakes"):
-                    foodName = "half-eaten funnel cake"
-                    if inv.halfFunnelCake:
-                        inv.halfFunnelCake -= 1
+                    food_name = "half-eaten funnel cake"
+                    if inv.half_funnel_cake:
+                        inv.half_funnel_cake -= 1
                         stat.hunger += HUNGER_HALFFUNNELCAKE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("porridge","bowl of porridge"):
-                    foodName = "bowl of porridge"
+                    food_name = "bowl of porridge"
                     if inv.porridge:
                         inv.porridge -= 1
                         inv.bowl += 1
                         stat.hunger += HUNGER_PORRIDGE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("bowl","porridge bowl"):
-                    foodName = "bowl"
+                    food_name = "bowl"
                     if not (inv.bowl or inv.porridge):
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("pie","pies","chicken","chicken pot","chicken pot pie"):
-                    foodName = "chicken pot pie"
+                    food_name = "chicken pot pie"
                     if inv.pie:
                         inv.pie -= 1
                         stat.hunger += HUNGER_PIE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("hardtack biscuit","hardtack biscuits","biscuit","biscuits","hardtack"):
-                    foodName = "hardtack biscuit"
+                    food_name = "hardtack biscuit"
                     if inv.biscuit:
                         inv.biscuit -= 1
                         stat.hunger += HUNGER_BISCUIT
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("potato","rotten potato"):
-                    foodName = "potato"
+                    food_name = "potato"
                     if not inv.potato:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("brie","slice of brie","slice of brie cheese", "brie cheese"):
-                    foodName = "slice of brie cheese"
+                    food_name = "slice of brie cheese"
                     if inv.brie:
                         inv.brie -= 1
                         stat.hunger += HUNGER_CHEESE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("munster","slice of munster","slice of munster cheese","munster cheese"):
-                    foodName = "slice of munster cheese"
+                    food_name = "slice of munster cheese"
                     if inv.munster:
                         inv.munster -= 1
                         stat.hunger += HUNGER_CHEESE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("stilton","slice of stilton","slice of stilton cheese","stilton cheese"):
-                    foodName = "slice of stilton cheese"
+                    food_name = "slice of stilton cheese"
                     if inv.stilton:
                         inv.stilton -= 1
                         stat.hunger += HUNGER_CHEESE
                     else:
-                        foodEmpty = True
+                        food_empty = True
                 elif option in ("swiss","slice of swiss","slice of swiss cheese","swiss cheese"):
-                    foodName = "slice of swiss cheese"
+                    food_name = "slice of swiss cheese"
                     if inv.swiss:
                         inv.swiss -= 1
                         stat.hunger += HUNGER_CHEESE
                 elif option in ("wensleydale","slice of wensleydale","slice of wensleydale cheese","wensleydale cheese"):
-                    foodName = "slice of wensleydale cheese"
+                    food_name = "slice of wensleydale cheese"
                     if inv.wensleydale:
                         inv.wensleydale -= 1
                         stat.hunger += HUNGER_CHEESE
                 elif option in ("potion","potion of rejuvination","potions","potions of rejuvination"):
-                    foodName = "potion of rejuvination"
+                    food_name = "potion of rejuvination"
                     if not inv.potion:
-                        foodEmpty = True
+                        food_empty = True
                 elif option == "":
-                    foodName = "null"
+                    food_name = "null"
                 else:
-                    foodName = "invalid"
-                if foodEmpty:
-                    print("You have no " + foodName + " to eat.")
-                    notTurn = True
-                elif foodName in ("potato","rotten potato"):
+                    food_name = "invalid"
+                if food_empty:
+                    print("You have no " + food_name + " to eat.")
+                    not_turn = True
+                elif food_name in ("potato","rotten potato"):
                     print("You eat the rotten potato and quickly feel sick to your stomach. You thought the five second rule was a thing? What about the 5 month rule?")
-                    endGame = True
-                elif foodName == "potion of rejuvination":
+                    end_game = True
+                elif food_name == "potion of rejuvination":
                     print("While the potion may be rather thick, you can't eat a liquid. Well, I guess you could, much the chewing motions would be be kind of a waste of energy.")
-                    notTurn = True
-                elif foodName == "bowl":
+                    not_turn = True
+                elif food_name == "bowl":
                     print("Despite how hungry you may be, you can't actually eat the bowl itself, considering it's made out of metal.")
-                    notTurn = True
-                elif foodName == "null":
+                    not_turn = True
+                elif food_name == "null":
                     print("Eat what?")
-                    notTurn = True
-                elif foodName == "invalid":
+                    not_turn = True
+                elif food_name == "invalid":
                     print("You cannot eat that.")
-                    notTurn = True
-                elif foodName not in ("null","nomessage"):
-                    print("You eat a " + foodName + ".")
+                    not_turn = True
+                elif food_name not in ("null","nomessage"):
+                    print("You eat a " + food_name + ".")
         # Drink
         # Potion
         elif option.startswith("drink"):
@@ -4137,9 +4147,9 @@ def inGame(debug):
                 print("You are too full to drink anything.")
             else:
                 option = option[6:]
-                drinkEmpty = False
+                drink_empty = False
                 if option in ("potion","potion of rejuvination"):
-                    drinkName = "potion of rejuvination"
+                    drink_name = "potion of rejuvination"
                     if inv.potion:
                         inv.potion -= 1
                         inv.flask += 1
@@ -4147,29 +4157,29 @@ def inGame(debug):
                         stat.health = HEALTH_MAX
                         stat.shield += HUNGER_POTION
                     else:
-                        drinkEmpty = True
-                elif option in ("fluid","mysterious fluid","purple fluid","mysterious purple fluid") and roomID == "roomLairMid":
+                        drink_empty = True
+                elif option in ("fluid","mysterious fluid","purple fluid","mysterious purple fluid") and room_id == "roomLairMid":
                     print("So you wake up after after being chased by a creature and find yourself in a pretty creepy place with a strange-looking fountain and you think to yourself, \"Oh geez, you know what I should do? Drink this mysterious purple fluid and see what happens. Surely nothing bad. Obviously this is how I escape. Oh wait, that's a terrible idea.\" You reconsider your live decisions.")
-                    drinkName = "nomessage"
+                    drink_name = "nomessage"
                 elif option == "":
-                    drinkName = "null"
+                    drink_name = "null"
                 else:
-                    drinkName = "invalid"
-                if drinkEmpty:
-                    print("You have no " + drinkName + " to drink.")
-                    notTurn = True
-                elif drinkName == "invalid":
+                    drink_name = "invalid"
+                if drink_empty:
+                    print("You have no " + drink_name + " to drink.")
+                    not_turn = True
+                elif drink_name == "invalid":
                     print("You cannot drink that.")
-                    notTurn = True
-                elif drinkName == "null":
+                    not_turn = True
+                elif drink_name == "null":
                     print("Drink what?")
-                    notTurn = True
-                elif drinkName not in ("null","nomessage"):
-                    if drinkName == "potion of rejuvination":
-                        shieldMessage = "You feel an aura of energy surround you, PROTECTING you from HARM."
+                    not_turn = True
+                elif drink_name not in ("null","nomessage"):
+                    if drink_name == "potion of rejuvination":
+                        shield_message = "You feel an aura of energy surround you, PROTECTING you from HARM."
                     else:
-                        shieldMessage = ""
-                    print("You drink a " + drinkName + ".",shieldMessage)
+                        shield_message = ""
+                    print("You drink a " + drink_name + ".",shield_message)
 
         # Fill/Refill
         # Exchange flask for potion
@@ -4178,97 +4188,97 @@ def inGame(debug):
                 option = option[5:]
             else:
                 option = option[7:]
-            if roomCurrent.isFill:
+            if room_current.is_fill:
                 if option == "":
                     print("Fill what?")
-                    notTurn = True
+                    not_turn = True
                 else:
-                    fillFlask = False
+                    fill_flask = False
                     if option in ("flask","empty flask"):
                         fill_count = 1
-                        fillFlask = True
+                        fill_flask = True
                     elif option in ("flasks","empty flasks","all flasks","every flask"):
                         fill_count = inv.flask
-                        fillFlask = True
+                        fill_flask = True
                     elif option.endswith("flask"):
                         fill_count = option[:len(option) - len("flask") - 1]
-                        fillFlask = True
+                        fill_flask = True
                     elif option.endswith("flasks"):
                         fill_count = option[:len(option) - len("flasks") - 1]
-                        fillFlask = True
+                        fill_flask = True
                     elif option.endswith("empty flask"):
                         fill_count = option[:len(option) - len("empty flask") - 1]
-                        fillFlask = True
+                        fill_flask = True
                     elif option.endswith("empty flasks"):
                         fill_count = option[:len(option) - len("empty flasks") - 1]
-                        fillFlask = True
-                    if fillFlask:
-                        if fillFlask:
-                            itemFillName = "flask"
-                            itemsFillName = "flasks"
-                            itemReturnName = "potion of rejuvination"
-                            itemsReturnName = "potions of rejuvination"
-                            invItemFill = inv.flask
-                            invItemReturn = inv.potion
-                    itemInStore = False
-                    if roomID == "roomAlchemist":
-                        shopKeeperName = "Tim the Enchanter"
-                        if fillFlask:
-                            itemInStore = True
-                    if itemInStore:
-                        fillItemCountOkay = False
+                        fill_flask = True
+                    if fill_flask:
+                        if fill_flask:
+                            item_fill_name = "flask"
+                            items_fill_name = "flasks"
+                            item_return_name = "potion of rejuvination"
+                            items_return_name = "potions of rejuvination"
+                            inv_item_fill = inv.flask
+                            inv_item_return = inv.potion
+                    item_in_store = False
+                    if room_id == "roomAlchemist":
+                        shop_keeper_name = "Tim the Enchanter"
+                        if fill_flask:
+                            item_in_store = True
+                    if item_in_store:
+                        fill_item_count_okay = False
                         try:
                             fill_count = float(fill_count)
                             if float(fill_count) % 1 == 0 and fill_count > 0:
-                                fillItemCountOkay = True
+                                fill_item_count_okay = True
                                 fill_count = int(fill_count)
                             else:
                                 if fill_count:
-                                    print("You cannot fill",fill_count,"%s." % itemsFillName)
-                                    notTurn = True
+                                    print("You cannot fill",fill_count,"%s." % items_fill_name)
+                                    not_turn = True
                         except ValueError:
-                            print("You cannot fill \"" + fill_count + "\" %s." % itemsFillName)
-                        if fillItemCountOkay:
+                            print("You cannot fill \"" + fill_count + "\" %s." % items_fill_name)
+                        if fill_item_count_okay:
                             if inv.flask >= fill_count:
                                 if inv.gold >= fill_count * price:
                                     if fill_count > 1:
-                                        print("You give",shopKeeperName,fill_count * price,"gold and",fill_count,itemsFillName,"to fill. He gives you",fill_count,"potions of rejuvination in return.")
+                                        print("You give",shop_keeper_name,fill_count * price,"gold and",fill_count,items_fill_name,"to fill. He gives you",fill_count,"potions of rejuvination in return.")
                                     elif fill_count == 1:
-                                        print("You give",shopKeeperName,fill_count * price,"gold and a",itemFillName,"to fill. He gives you a potion of rejuvination in return.")
-                                    if fillFlask:
+                                        print("You give",shop_keeper_name,fill_count * price,"gold and a",item_fill_name,"to fill. He gives you a potion of rejuvination in return.")
+                                    if fill_flask:
                                         inv.potion += fill_count
                                         inv.flask -= fill_count
-                                        invItemFill -= fill_count
-                                        invItemReturn += fill_count
+                                        inv_item_fill -= fill_count
+                                        inv_item_return += fill_count
                                         inv.gold -= fill_count * price
-                                    if invItemReturn:
-                                        if invItemReturn == 1:
-                                            print("You have",invItemReturn,itemReturnName,"and",inv.gold,"gold.")
+                                    if inv_item_return:
+                                        if inv_item_return == 1:
+                                            print("You have",inv_item_return,item_return_name,"and",inv.gold,"gold.")
                                         else:
-                                            print("You have",invItemReturn,itemsReturnName,"and",inv.gold,"gold.")
-                                    if invItemFill:
-                                        if invItemFill == 1:
-                                            print("You have",invItemFill,itemFillName + ".")
+                                            print("You have",inv_item_return,items_return_name,"and",inv.gold,"gold.")
+                                    if inv_item_fill:
+                                        if inv_item_fill == 1:
+                                            print("You have",inv_item_fill,item_fill_name + ".")
                                         else:
-                                            print("You have",invItemFill,itemsFillName + ".")
+                                            print("You have",inv_item_fill,items_fill_name + ".")
                                     print("You have",inv.gold,"gold.")
                                 else:
                                     if fill_count > 1:
-                                        print("You do not have enough gold to fill",fill_count,"%s." % itemsName)
+                                        print("You do not have enough gold to fill",fill_count,"%s." % items_name)
                                     else:
-                                        print("You do not have enough gold to fill a %s." % itemName)
+                                        print("You do not have enough gold to fill a %s." % item_name)
                             else:
                                 if fill_count > 1:
                                     print("You do not have",fill_count,"flasks to fill.")
-                                    notTurn = True
+                                    not_turn = True
                                 else:
                                     print("You do not have any flasks to fill.")
-                                    notTurn = True
+                                    not_turn = True
 
             else:
                 # If not isFill
                 print("You cannot fill anything here.")
-                notTurn = True
+                not_turn = True
         # Take, Get
         # Move items from room to inventory
         elif option.startswith(("take","get","pick up","grab","obtain","acquire")):
@@ -4284,194 +4294,194 @@ def inGame(debug):
                 option = option[7:]
             elif option.startswith("acquire"):
                 option = option[8:]
-            itemName = False
-            itemsName = False
-            invItem = False
-            roomItem = False
+            item_name = False
+            items_name = False
+            inv_item = False
+            room_item = False
             take_count = 0
             # All/Everything
-            if option in ("all","everything") and roomCurrent.itemTypes():
-                if roomID == "roomTempleBasement" and not roomCurrent.characterDead and roomCurrent.staff:
+            if option in ("all","everything") and room_current.item_types():
+                if room_id == "roomTempleBasement" and not room_current.character_dead and room_current.staff:
                     print("\"You are not worthy to take the staff!\" The figure zaps you with a bolt of electricity.")
-                    stat.lowerHealth()
-                elif roomID == "roomLairMid" and roomCurrent.counter_2 and not creatureLairChase and roomCurrent.staff and roomCurrent.pickaxe:
-                    creatureLairChase = True
-                    creatureLairChaseCounter -= 1 # To make it balanced with taking them individually
-                    roomCurrent.counter_2 = 0
-                    roomCurrent.counter_1 = 0
-                    inv.staff += roomCurrent.staff
-                    inv.pickaxe += roomCurrent.pickaxe
-                    roomCurrent.staff = 0
-                    roomCurrent.pickaxe = 0
+                    stat.lower_health()
+                elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and room_current.staff and room_current.pickaxe:
+                    room_lair_chase = True
+                    creature_lair_chase_counter -= 1 # To make it balanced with taking them individually
+                    room_current.counter_2 = 0
+                    room_current.counter_1 = 0
+                    inv.staff += room_current.staff
+                    inv.pickaxe += room_current.pickaxe
+                    room_current.staff = 0
+                    room_current.pickaxe = 0
                     print("Your arm brushes up against the creature as you take the staff and pickaxe, awakening it.")
-                    if oilCounter or lightCounter:
-                        if oilCounter:
+                    if oil_counter or light_counter:
+                        if oil_counter:
                             source = "your lantern"
                         else:
                             source = "the ball of light"
                         print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                elif roomID == "roomLairMid" and roomCurrent.counter_2 and not creatureLairChase and roomCurrent.staff:
-                    creatureLairChase = True
-                    roomCurrent.counter_2 = 0
-                    inv.staff += roomCurrent.staff
-                    roomCurrent.staff = 0
+                elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and room_current.staff:
+                    room_lair_chase = True
+                    room_current.counter_2 = 0
+                    inv.staff += room_current.staff
+                    room_current.staff = 0
                     print("Your arm brushes up against the creature as you take the staff, awakening it.")
-                    if oilCounter or lightCounter:
-                        if oilCounter:
+                    if oil_counter or light_counter:
+                        if oil_counter:
                             source = "your lantern"
                         else:
                             source = "the ball of light"
                         print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                elif roomID == "roomLairMid" and roomCurrent.counter_1 and not creatureLairChase and roomCurrent.pickaxe:
-                    creatureLairChase = True
-                    roomCurrent.counter_1 = 0
-                    inv.pickaxe += roomCurrent.pickaxe
-                    roomCurrent.pickaxe = 0
+                elif room_id == "roomLairMid" and room_current.counter_1 and not room_lair_chase and room_current.pickaxe:
+                    room_lair_chase = True
+                    room_current.counter_1 = 0
+                    inv.pickaxe += room_current.pickaxe
+                    room_current.pickaxe = 0
                     print("Your arm brushes up against the creature as you take the pickaxe, awakening it.")
-                    if oilCounter or lightCounter:
-                        if oilCounter:
+                    if oil_counter or light_counter:
+                        if oil_counter:
                             source = "your lantern"
                         else:
                             source = "the ball of light"
                         print("Luckily, the light from %s blinds it, giving you some extra time." % source)
                 else:
-                    inv.gold += roomCurrent.gold
-                    inv.letter += roomCurrent.letter
-                    inv.key += roomCurrent.key
-                    inv.keySkeleton += roomCurrent.keySkeleton
-                    inv.pickaxe += roomCurrent.pickaxe
-                    inv.shrubbery += roomCurrent.shrubbery
-                    inv.funnelCake += roomCurrent.funnelCake
-                    inv.halfFunnelCake += roomCurrent.halfFunnelCake
-                    inv.foot += roomCurrent.foot
-                    inv.porridge += roomCurrent.porridge
-                    inv.bowl += roomCurrent.bowl
-                    inv.lantern += roomCurrent.lantern
-                    inv.oil += roomCurrent.oil
-                    inv.pie += roomCurrent.pie
-                    inv.biscuit += roomCurrent.biscuit
-                    inv.hook += roomCurrent.hook
-                    inv.staff += roomCurrent.staff
-                    inv.ticket += roomCurrent.ticket
-                    inv.coal += roomCurrent.coal
-                    inv.potato += roomCurrent.potato
-                    inv.bandage += roomCurrent.bandage
-                    inv.journal += roomCurrent.journal
-                    inv.book += roomCurrent.book
-                    inv.brie += roomCurrent.brie
-                    inv.munster += roomCurrent.munster
-                    inv.stilton += roomCurrent.stilton
-                    inv.swiss += roomCurrent.swiss
-                    inv.wensleydale += roomCurrent.wensleydale
-                    inv.potion += roomCurrent.potion
-                    inv.flask += roomCurrent.flask
-                    inv.stone += roomCurrent.stone
-                    inv.bird += roomCurrent.bird
-                    inv.note += roomCurrent.note
-                    roomCurrent.gold = 0
-                    roomCurrent.letter = 0
-                    roomCurrent.key = 0
-                    roomCurrent.keySkeleton = 0
-                    roomCurrent.pickaxe = 0
-                    roomCurrent.shrubbery = 0
-                    roomCurrent.funnelCake = 0
-                    roomCurrent.halfFunnelCake = 0
-                    roomCurrent.foot = 0
-                    roomCurrent.porridge = 0
-                    roomCurrent.bowl = 0
-                    roomCurrent.lantern = 0
-                    roomCurrent.oil = 0
-                    roomCurrent.pie = 0
-                    roomCurrent.biscuit = 0
-                    roomCurrent.hook = 0
-                    roomCurrent.staff = 0
-                    roomCurrent.ticket = 0
-                    roomCurrent.coal = 0
-                    roomCurrent.potato = 0
-                    roomCurrent.bandage = 0
-                    roomCurrent.journal = 0
-                    roomCurrent.book = 0
-                    roomCurrent.brie = 0
-                    roomCurrent.munster = 0
-                    roomCurrent.stilton = 0
-                    roomCurrent.swiss = 0
-                    roomCurrent.wensleydale = 0
-                    roomCurrent.potion = 0
-                    roomCurrent.flask = 0
-                    roomCurrent.stone = 0
-                    roomCurrent.bird = 0
-                    roomCurrent.note = 0
-                    roomCurrent.memo = 0
+                    inv.gold += room_current.gold
+                    inv.letter += room_current.letter
+                    inv.key += room_current.key
+                    inv.key_skeleton += room_current.key_skeleton
+                    inv.pickaxe += room_current.pickaxe
+                    inv.shrubbery += room_current.shrubbery
+                    inv.funnel_cake += room_current.funnel_cake
+                    inv.half_funnel_cake += room_current.half_funnel_cake
+                    inv.foot += room_current.foot
+                    inv.porridge += room_current.porridge
+                    inv.bowl += room_current.bowl
+                    inv.lantern += room_current.lantern
+                    inv.oil += room_current.oil
+                    inv.pie += room_current.pie
+                    inv.biscuit += room_current.biscuit
+                    inv.hook += room_current.hook
+                    inv.staff += room_current.staff
+                    inv.ticket += room_current.ticket
+                    inv.coal += room_current.coal
+                    inv.potato += room_current.potato
+                    inv.bandage += room_current.bandage
+                    inv.journal += room_current.journal
+                    inv.book += room_current.book
+                    inv.brie += room_current.brie
+                    inv.munster += room_current.munster
+                    inv.stilton += room_current.stilton
+                    inv.swiss += room_current.swiss
+                    inv.wensleydale += room_current.wensleydale
+                    inv.potion += room_current.potion
+                    inv.flask += room_current.flask
+                    inv.stone += room_current.stone
+                    inv.bird += room_current.bird
+                    inv.note += room_current.note
+                    room_current.gold = 0
+                    room_current.letter = 0
+                    room_current.key = 0
+                    room_current.key_skeleton = 0
+                    room_current.pickaxe = 0
+                    room_current.shrubbery = 0
+                    room_current.funnel_cake = 0
+                    room_current.half_funnel_cake = 0
+                    room_current.foot = 0
+                    room_current.porridge = 0
+                    room_current.bowl = 0
+                    room_current.lantern = 0
+                    room_current.oil = 0
+                    room_current.pie = 0
+                    room_current.biscuit = 0
+                    room_current.hook = 0
+                    room_current.staff = 0
+                    room_current.ticket = 0
+                    room_current.coal = 0
+                    room_current.potato = 0
+                    room_current.bandage = 0
+                    room_current.journal = 0
+                    room_current.book = 0
+                    room_current.brie = 0
+                    room_current.munster = 0
+                    room_current.stilton = 0
+                    room_current.swiss = 0
+                    room_current.wensleydale = 0
+                    room_current.potion = 0
+                    room_current.flask = 0
+                    room_current.stone = 0
+                    room_current.bird = 0
+                    room_current.note = 0
+                    room_current.memo = 0
                     print("You take everything.")
-                itemName = "everything"
-                itemsName = "everything"
+                item_name = "everything"
+                items_name = "everything"
                 take_count = "all"
             # Gold # continue add quantities like in buy and sell
-            elif "gold" in option and roomCurrent.gold:
-                itemName = "gold"
-                itemsName = "gold"
-                invItem = inv.gold
-                roomItem = roomCurrent.gold
-                if option == itemName:
-                    take_count = roomCurrent.gold
+            elif "gold" in option and room_current.gold:
+                item_name = "gold"
+                items_name = "gold"
+                inv_item = inv.gold
+                room_item = room_current.gold
+                if option == item_name:
+                    take_count = room_current.gold
                 elif option.endswith("gold"):
                     take_count = option[:len(option) - len("gold") - 1]
             # Letter
-            elif "letter" in option and roomCurrent.letter:
-                itemName = "letter"
-                itemsName = "letters"
-                invItem = inv.letter
-                roomItem = roomCurrent.letter
-                if option == itemName:
+            elif "letter" in option and room_current.letter:
+                item_name = "letter"
+                items_name = "letters"
+                inv_item = inv.letter
+                room_item = room_current.letter
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
+                elif option == items_name:
+                    take_count = room_item
                 elif option.endswith("letter"):
                     take_count = option[:len(option) - len("letter") - 1]
                 elif option.endswith("letters"):
                     take_count = option[:len(option) - len("letters") - 1]
             # Skeleton key
-            elif "key of ahm'domosh" in option and roomCurrent.keySkeleton:
-                itemName = "key of Ahm'domosh"
-                itemsName = "keys of Ahm'domosh"
-                invItem = inv.keySkeleton
-                roomItem = roomCurrent.keySkeleton
-                if option == itemName.lower():
+            elif "key of ahm'domosh" in option and room_current.key_skeleton:
+                item_name = "key of Ahm'domosh"
+                items_name = "keys of Ahm'domosh"
+                inv_item = inv.key_skeleton
+                room_item = room_current.key_skeleton
+                if option == item_name.lower():
                     take_count = 1
-                elif option == itemsName.lower():
-                    take_count = roomItem
+                elif option == items_name.lower():
+                    take_count = room_item
                 elif option.endswith("key of ahm'domosh"):
                     take_count = option[:len(option) - len("key of ahm'domosh") - 1]
                 elif option.endswith("keys of ahm'domosh"):
                     take_count = option[:len(option) - len("keys of ahm'domosh") - 1]
             # Key
-            elif "key" in option and (roomCurrent.key or roomCurrent.keySkeleton):
-                itemName = "key"
-                itemsName = "keys"
-                if roomCurrent.key:
-                    invItem = inv.key
-                    roomItem = roomCurrent.key
-                elif roomCurrent.keySkeleton:
-                    invItem = inv.keySkeleton
-                    roomItem = roomCurrent.keySkeleton
-                if option == itemName:
+            elif "key" in option and (room_current.key or room_current.key_skeleton):
+                item_name = "key"
+                items_name = "keys"
+                if room_current.key:
+                    inv_item = inv.key
+                    room_item = room_current.key
+                elif room_current.key_skeleton:
+                    inv_item = inv.key_skeleton
+                    room_item = room_current.key_skeleton
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
+                elif option == items_name:
+                    take_count = room_item
                 elif option.endswith("key"):
                     take_count = option[:len(option) - len("key") - 1]
                 elif option.endswith("keys"):
                     take_count = option[:len(option) - len("keys") - 1]
             # Pickaxe
-            elif "pick" in option and roomCurrent.pickaxe:
-                itemName = "pickaxe"
-                itemsName = "pickaxes"
-                invItem = inv.pickaxe
-                roomItem = roomCurrent.pickaxe
-                if option in (itemName,"pick"):
+            elif "pick" in option and room_current.pickaxe:
+                item_name = "pickaxe"
+                items_name = "pickaxes"
+                inv_item = inv.pickaxe
+                room_item = room_current.pickaxe
+                if option in (item_name,"pick"):
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
+                elif option == items_name:
+                    take_count = room_item
                 elif option.endswith("pick"):
                     take_count = option[:len(option) - len("pick") - 1]
                 elif option.endswith("picks"):
@@ -4481,25 +4491,25 @@ def inGame(debug):
                 elif option.endswith("pickaxes"):
                     take_count = option[:len(option) - len("pickaxes") - 1]
             # shrubbery
-            elif ("shrubbery" in option) or ("shrubberies" in option) and roomCurrent.shrubbery:
-                itemName = "shrubbery"
-                itemsName = "shrubberies"
-                invItem = inv.shrubbery
-                roomItem = roomCurrent.shrubbery
-                if option == itemName:
+            elif ("shrubbery" in option) or ("shrubberies" in option) and room_current.shrubbery:
+                item_name = "shrubbery"
+                items_name = "shrubberies"
+                inv_item = inv.shrubbery
+                room_item = room_current.shrubbery
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
+                elif option == items_name:
+                    take_count = room_item
                 elif option.endswith("shrubbery"):
                     take_count = option[:len(option) - len("shrubbery") - 1]
                 elif option.endswith("shrubberies"):
                     take_count = option[:len(option) - len("shrubberies") - 1]
             # Half-eaten funnel cake
-            elif ("cake" in option) and ("half" in option) and roomCurrent.halfFunnelCake:
-                itemName = "half-eaten funnel cake"
-                itemsName = "half-eaten funnel cakes"
-                invItem = inv.halfFunnelCake
-                roomItem = roomCurrent.halfFunnelCake
+            elif ("cake" in option) and ("half" in option) and room_current.half_funnel_cake:
+                item_name = "half-eaten funnel cake"
+                items_name = "half-eaten funnel cakes"
+                inv_item = inv.half_funnel_cake
+                room_item = room_current.half_funnel_cake
                 if option.endswith("half-eaten funnel cake"):
                     take_count = option[:len(option) - len("half-eaten funnel cake") - 1]
                 if option.endswith("half eaten funnel cake"):
@@ -4526,21 +4536,21 @@ def inGame(debug):
                     take_count = option[:len(option) - len("half cakes") - 1]
             # Funnel cake and Half-eaten funnel cake
             # If half-eaten cake is in room and cake not in room, treat half-eaten cake as cake
-            elif "cake" in option and (roomCurrent.funnelCake or roomCurrent.halfFunnelCake):
-                if roomCurrent.halfFunnelCake and not roomCurrent.funnelCake:
-                    itemName = "half-eaten funnel cake"
-                    itemsName = "half-eaten funnel cakes"
-                    invItem = inv.halfFunnelCake
-                    roomItem = roomCurrent.halfFunnelCake
+            elif "cake" in option and (room_current.funnel_cake or room_current.half_funnel_cake):
+                if room_current.half_funnel_cake and not room_current.funnel_cake:
+                    item_name = "half-eaten funnel cake"
+                    items_name = "half-eaten funnel cakes"
+                    inv_item = inv.half_funnel_cake
+                    room_item = room_current.half_funnel_cake
                 else:
-                    itemName = "funnel cake"
-                    itemsName = "funnel cakes"
-                    invItem = inv.funnelCake
-                    roomItem = roomCurrent.funnelCake
-                if option in (itemName,"cake","funnel cake"):
+                    item_name = "funnel cake"
+                    items_name = "funnel cakes"
+                    inv_item = inv.funnel_cake
+                    room_item = room_current.funnel_cake
+                if option in (item_name,"cake","funnel cake"):
                     take_count = 1
-                elif option in (itemsName,"cakes","funnel cakes"):
-                    take_count = roomItem
+                elif option in (items_name,"cakes","funnel cakes"):
+                    take_count = room_item
                 elif option.endswith("funnel cake"):
                     take_count = option[:len(option) - len("funnel cake") - 1]
                 elif option.endswith("funnel cakes"):
@@ -4550,19 +4560,19 @@ def inGame(debug):
                 elif option.endswith("cakes"):
                     take_count = option[:len(option) - len("cakes") - 1]
             # Lucky rabbit foot
-            elif ("foot" in option) or ("feet" in option) and roomCurrent.foot:
-                itemName = "lucky rabbit foot"
-                itemsName = "lucky rabbit feet"
-                invItem = inv.foot
-                roomItem = roomCurrent.foot
-                if option in (itemName,"foot","rabbit foot","lucky foot"):
+            elif ("foot" in option) or ("feet" in option) and room_current.foot:
+                item_name = "lucky rabbit foot"
+                items_name = "lucky rabbit feet"
+                inv_item = inv.foot
+                room_item = room_current.foot
+                if option in (item_name,"foot","rabbit foot","lucky foot"):
                     take_count = 1
-                elif option in (itemsName,"feet","rabbit feet","lucky feet"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"feet","rabbit feet","lucky feet"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith(("rabbit foot","rabbit feet")):
                     take_count = option[:len(option) - len("rabbit foot") - 1]
                 elif option.endswith(("lucky foot","lucky feet")):
@@ -4570,56 +4580,56 @@ def inGame(debug):
                 elif option.endswith(("foot","feet")):
                     take_count = option[:len(option) - len("foot") - 1]
             # Porridge (bowl of porridge)
-            elif "porridge" in option and roomCurrent.porridge:
-                itemName = "bowl of porridge"
-                itemsName = "bowls of porridge"
-                invItem = inv.porridge
-                roomItem = roomCurrent.porridge
-                if option == itemName:
+            elif "porridge" in option and room_current.porridge:
+                item_name = "bowl of porridge"
+                items_name = "bowls of porridge"
+                inv_item = inv.porridge
+                room_item = room_current.porridge
+                if option == item_name:
                     take_count = 1
-                elif option in (itemsName,"porridge"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"porridge"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("porridge"):
                     take_count = option[:len(option) - len("porridge") - 1]
             # Bowl
-            elif "bowl" in option and (roomCurrent.bowl or roomCurrent.porridge):
-                if roomCurrent.porridge and not roomCurrent.bowl:
-                    itemName = "bowl of porridge"
-                    itemsName = "bowls of porridge"
-                    invItem = inv.porridge
-                    roomItem = roomCurrent.porridge
+            elif "bowl" in option and (room_current.bowl or room_current.porridge):
+                if room_current.porridge and not room_current.bowl:
+                    item_name = "bowl of porridge"
+                    items_name = "bowls of porridge"
+                    inv_item = inv.porridge
+                    room_item = room_current.porridge
                 else:
-                    itemName = "bowl"
-                    itemsName = "bowls"
-                    invItem = inv.bowl
-                    roomItem = roomCurrent.bowl
-                if option in (itemName,"bowl"):
+                    item_name = "bowl"
+                    items_name = "bowls"
+                    inv_item = inv.bowl
+                    room_item = room_current.bowl
+                if option in (item_name,"bowl"):
                     take_count = 1
-                elif option in (itemsName,"bowls"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"bowls"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
 
             # Vial of lantern oil
-            elif ("oil" in option) or ("vial" in option) and roomCurrent.oil:
-                itemName = "vial of lantern oil"
-                itemsName = "vials of lantern oil"
-                invItem = inv.oil
-                roomItem = roomCurrent.oil
-                if option in (itemName,"vial"):
+            elif ("oil" in option) or ("vial" in option) and room_current.oil:
+                item_name = "vial of lantern oil"
+                items_name = "vials of lantern oil"
+                inv_item = inv.oil
+                room_item = room_current.oil
+                if option in (item_name,"vial"):
                     take_count = 1
-                elif option in (itemsName,"oil","vials","lantern oil"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"oil","vials","lantern oil"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("vial"):
                     take_count = option[:len(option) - len("vial") - 1]
                 elif option.endswith("vials"):
@@ -4629,34 +4639,34 @@ def inGame(debug):
                 elif option.endswith("oil"):
                     take_count = option[:len(option) - len("oil") - 1]
             # Lantern
-            elif "lantern" in option and roomCurrent.lantern:
-                itemName = "lantern"
-                itemsName = "lanterns"
-                invItem = inv.lantern
-                roomItem = roomCurrent.lantern
-                if option == itemName:
+            elif "lantern" in option and room_current.lantern:
+                item_name = "lantern"
+                items_name = "lanterns"
+                inv_item = inv.lantern
+                room_item = room_current.lantern
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
 
             # Hardtack biscuit
-            elif ("biscuit" in option) or ("hardtack" in option) and roomCurrent.biscuit:
-                itemName = "hardtack biscuit"
-                itemsName = "hardtack biscuit"
-                invItem = inv.biscuit
-                roomItem = roomCurrent.biscuit
-                if option in (itemName,"biscuit"):
+            elif ("biscuit" in option) or ("hardtack" in option) and room_current.biscuit:
+                item_name = "hardtack biscuit"
+                items_name = "hardtack biscuit"
+                inv_item = inv.biscuit
+                room_item = room_current.biscuit
+                if option in (item_name,"biscuit"):
                     take_count = 1
-                elif option in (itemsName,"biscuits"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"biscuits"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("biscuit"):
                     take_count = option[:len(option) - len("biscuit") - 1]
                 elif option.endswith("biscuits"):
@@ -4664,336 +4674,336 @@ def inGame(debug):
                 elif option.endswith("hardtack"):
                     take_count = option[:len(option) - len("hardtack") - 1]
             # Coil of hook
-            elif "hook" in option and roomCurrent.hook:
-                itemName = "grappling hook"
-                itemsName = "grappling hooks"
-                invItem = inv.hook
-                roomItem = roomCurrent.hook
-                if option in (itemName,"hook"):
+            elif "hook" in option and room_current.hook:
+                item_name = "grappling hook"
+                items_name = "grappling hooks"
+                inv_item = inv.hook
+                room_item = room_current.hook
+                if option in (item_name,"hook"):
                     take_count = 1
-                elif option in (itemsName,"hooks"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"hooks"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("hook"):
                     take_count = option[:len(option) - len("hook") - 1]
                 elif option.endswith("hooks"):
                     take_count = option[:len(option) - len("hooks") - 1]
             # The staff of Garrotxa
-            elif ("staff" in option) or ("staves" in option) and roomCurrent.staff:
-                itemName = "staff of Garrotxa"
-                itemsName = "staves of Garrotxa"
-                invItem = inv.staff
-                roomItem = roomCurrent.staff
-                if option in (itemName.lower(),"staff"):
+            elif ("staff" in option) or ("staves" in option) and room_current.staff:
+                item_name = "staff of Garrotxa"
+                items_name = "staves of Garrotxa"
+                inv_item = inv.staff
+                room_item = room_current.staff
+                if option in (item_name.lower(),"staff"):
                     take_count = 1
-                elif option in (itemsName.lower(),"staves"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName.lower()) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName.lower()) - 1]
+                elif option in (items_name.lower(),"staves"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name.lower()) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name.lower()) - 1]
                 elif option.endswith("staff"):
                     take_count = option[:len(option) - len("staff") - 1]
                 elif option.endswith("staves"):
                     take_count = option[:len(option) - len("staves") - 1]
             # Raffle ticket
-            elif "ticket" in option and roomCurrent.ticket:
-                itemName = "raffle ticket"
-                itemsName = "raffle tickets"
-                invItem = inv.ticket
-                roomItem = roomCurrent.ticket
-                if option in (itemName,"ticket"):
+            elif "ticket" in option and room_current.ticket:
+                item_name = "raffle ticket"
+                items_name = "raffle tickets"
+                inv_item = inv.ticket
+                room_item = room_current.ticket
+                if option in (item_name,"ticket"):
                     take_count = 1
-                elif option in (itemsName,"tickets"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"tickets"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("ticket"):
                     take_count = option[:len(option) - len("ticket") - 1]
                 elif option.endswith("tickets"):
                     take_count = option[:len(option) - len("tickets") - 1]
             # Piece of coal
-            elif "coal" in option and roomCurrent.coal:
-                itemName = "piece of coal"
-                itemsName = "pieces of coal"
-                invItem = inv.coal
-                roomItem = roomCurrent.coal
-                if option == itemName:
+            elif "coal" in option and room_current.coal:
+                item_name = "piece of coal"
+                items_name = "pieces of coal"
+                inv_item = inv.coal
+                room_item = room_current.coal
+                if option == item_name:
                     take_count = 1
-                elif option in (itemsName,"coal"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"coal"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("coal"):
                     take_count = option[:len(option) - len("coal") - 1]
             # Potato
-            elif "potato" in option and roomCurrent.potato:
-                itemName = "rotten potato"
-                itemsName = "rotten potatoes"
-                invItem = inv.potato
-                roomItem = roomCurrent.potato
-                if option in (itemName,"potato"):
+            elif "potato" in option and room_current.potato:
+                item_name = "rotten potato"
+                items_name = "rotten potatoes"
+                inv_item = inv.potato
+                room_item = room_current.potato
+                if option in (item_name,"potato"):
                     take_count = 1
-                elif option in (itemsName,"potatoes"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"potatoes"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("potato"):
                     take_count = option[:len(option) - len("potato") - 1]
                 elif option.endswith("potatoes"):
                     take_count = option[:len(option) - len("potatoes") - 1]
 
             # Bandage
-            elif "bandage" in option and roomCurrent.bandage:
-                itemName = "bandage"
-                itemsName = "bandages"
-                invItem = inv.bandage
-                roomItem = roomCurrent.bandage
-                if option == itemName:
+            elif "bandage" in option and room_current.bandage:
+                item_name = "bandage"
+                items_name = "bandages"
+                inv_item = inv.bandage
+                room_item = room_current.bandage
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
             # Journal
-            elif "journal" in option and roomCurrent.journal:
-                itemName = "journal"
-                itemsName = "journals"
-                invItem = inv.journal
-                roomItem = roomCurrent.journal
-                if option == itemName:
+            elif "journal" in option and room_current.journal:
+                item_name = "journal"
+                items_name = "journals"
+                inv_item = inv.journal
+                room_item = room_current.journal
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
             # Mysterious book
-            elif "book" in option and roomCurrent.book:
-                itemName = "mysterious book"
-                itemsName = "mysterious books"
-                invItem = inv.book
-                roomItem = roomCurrent.book
-                if option in (itemName,"book"):
+            elif "book" in option and room_current.book:
+                item_name = "mysterious book"
+                items_name = "mysterious books"
+                inv_item = inv.book
+                room_item = room_current.book
+                if option in (item_name,"book"):
                     take_count = 1
-                elif option in (itemsName,"books"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
-                elif option.endswith(itemsName):
+                elif option in (items_name,"books"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
+                elif option.endswith(items_name):
                     take_count = option[:len("book") - len("book") - 1]
-                elif option.endswith(itemsName):
+                elif option.endswith(items_name):
                     take_count = option[:len("books") - len("books") - 1]
              # Cheeses
-            elif "brie" in option and roomCurrent.brie:
-                itemName = "slice of brie cheese"
-                itemsName = "slices of brie cheese"
-                invItem = inv.brie
-                roomItem = roomCurrent.brie
-                if option == itemName:
+            elif "brie" in option and room_current.brie:
+                item_name = "slice of brie cheese"
+                items_name = "slices of brie cheese"
+                inv_item = inv.brie
+                room_item = room_current.brie
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("brie"):
                     take_count = option[:len(option) - len("brie") - 1]
                 elif option.endswith("brie cheese"):
                     take_count = option[:len(option) - len("brie cheese") - 1]
-            elif "munster" in option and roomCurrent.munster:
-                itemName = "slice of munster cheese"
-                itemsName = "slices of munster cheese"
-                invItem = inv.munster
-                roomItem = roomCurrent.munster
-                if option == itemName:
+            elif "munster" in option and room_current.munster:
+                item_name = "slice of munster cheese"
+                items_name = "slices of munster cheese"
+                inv_item = inv.munster
+                room_item = room_current.munster
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("munster"):
                     take_count = option[:len(option) - len("munster") - 1]
                 elif option.endswith("munster cheese"):
                     take_count = option[:len(option) - len("munster cheese") - 1]
-            elif "stilton" in option and roomCurrent.brie:
-                itemName = "slice of stilton cheese"
-                itemsName = "slices of stilton cheese"
-                invItem = inv.stilton
-                roomItem = roomCurrent.stilton
-                if option == itemName:
+            elif "stilton" in option and room_current.brie:
+                item_name = "slice of stilton cheese"
+                items_name = "slices of stilton cheese"
+                inv_item = inv.stilton
+                room_item = room_current.stilton
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("stilton"):
                     take_count = option[:len(option) - len("stilton") - 1]
                 elif option.endswith("stilton cheese"):
                     take_count = option[:len(option) - len("stilton cheese") - 1]
-            elif "swiss" in option and roomCurrent.brie:
-                itemName = "slice of swiss cheese"
-                itemsName = "slices of swiss cheese"
-                invItem = inv.swiss
-                roomItem = roomCurrent.swiss
-                if option == itemName:
+            elif "swiss" in option and room_current.brie:
+                item_name = "slice of swiss cheese"
+                items_name = "slices of swiss cheese"
+                inv_item = inv.swiss
+                room_item = room_current.swiss
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("swiss"):
                     take_count = option[:len(option) - len("swiss") - 1]
                 elif option.endswith("swiss cheese"):
                     take_count = option[:len(option) - len("swiss cheese") - 1]
-            elif "wensleydale" in option and roomCurrent.brie:
-                itemName = "slice of wensleydale cheese"
-                itemsName = "slices of wensleydale cheese"
-                invItem = inv.wensleydale
-                roomItem = roomCurrent.wensleydale
-                if option == itemName:
+            elif "wensleydale" in option and room_current.brie:
+                item_name = "slice of wensleydale cheese"
+                items_name = "slices of wensleydale cheese"
+                inv_item = inv.wensleydale
+                room_item = room_current.wensleydale
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("wensleydale"):
                     take_count = option[:len(option) - len("wensleydale") - 1]
                 elif option.endswith("wensleydale cheese"):
                     take_count = option[:len(option) - len("wensleydale cheese") - 1]
             # Potion
-            elif "potion" in option and roomCurrent.potion:
-                itemName = "potion of rejuvination"
-                itemsName = "potions of rejuvination"
-                invItem = inv.potion
-                roomItem = roomCurrent.potion
-                if option in (itemName,"potion"):
+            elif "potion" in option and room_current.potion:
+                item_name = "potion of rejuvination"
+                items_name = "potions of rejuvination"
+                inv_item = inv.potion
+                room_item = room_current.potion
+                if option in (item_name,"potion"):
                     take_count = 1
-                elif option in (itemsName,"potions"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"potions"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("potion"):
                     take_count = option[:len(option) - len("potion") - 1]
                 elif option.endswith("potions"):
                     take_count = option[:len(option) - len("potions") - 1]
             # Flask
-            elif "flask" in option and roomCurrent.flask:
-                itemName = "flask"
-                itemsName = "flasks"
-                invItem = inv.flask
-                roomItem = roomCurrent.flask
-                if option == itemName:
+            elif "flask" in option and room_current.flask:
+                item_name = "flask"
+                items_name = "flasks"
+                inv_item = inv.flask
+                room_item = room_current.flask
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
             # Dragonstone
-            elif "stone" in option and roomCurrent.stone:
-                itemName = "dragonstone"
-                itemsName = "dragonstones"
-                invItem = inv.stone
-                roomItem = roomCurrent.stone
-                if option in (itemName,"stone"):
+            elif "stone" in option and room_current.stone:
+                item_name = "dragonstone"
+                items_name = "dragonstones"
+                inv_item = inv.stone
+                room_item = room_current.stone
+                if option in (item_name,"stone"):
                     take_count = 1
-                elif option in (itemsName,"stones"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"stones"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("stone"):
                     take_count = option[:len(option) - len("stone") - 1]
                 elif option.endswith("stones"):
                     take_count = option[:len(option) - len("stones") - 1]
             # Wooden bird
-            elif "bird" in option and roomCurrent.bird:
-                itemName = "wooden bird"
-                itemsName = "wooden birds"
-                invItem = inv.bird
-                roomItem = roomCurrent.bird
-                if option in (itemName,"bird"):
+            elif "bird" in option and room_current.bird:
+                item_name = "wooden bird"
+                items_name = "wooden birds"
+                inv_item = inv.bird
+                room_item = room_current.bird
+                if option in (item_name,"bird"):
                     take_count = 1
-                elif option in (itemsName,"birds"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"birds"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("bird"):
                     take_count = option[:len(option) - len("bird") - 1]
                 elif option.endswith("birds"):
                     take_count = option[:len(option) - len("birds") - 1]
             # Note
-            elif "note" in option and roomCurrent.note:
-                itemName = "note"
-                itemsName = "notes"
-                invItem = inv.note
-                roomItem = roomCurrent.note
-                if option == itemName:
+            elif "note" in option and room_current.note:
+                item_name = "note"
+                items_name = "notes"
+                inv_item = inv.note
+                room_item = room_current.note
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
             # Memo
-            elif "memo" in option and roomCurrent.memo:
-                itemName = "memo"
-                itemsName = "memos"
-                invItem = inv.memo
-                roomItem = roomCurrent.memo
-                if option == itemName:
+            elif "memo" in option and room_current.memo:
+                item_name = "memo"
+                items_name = "memos"
+                inv_item = inv.memo
+                room_item = room_current.memo
+                if option == item_name:
                     take_count = 1
-                elif option == itemsName:
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
             # Chicken pot pie
-            elif "pie" in option and roomCurrent.pie:
-                itemName = "chicken pot pie"
-                itemsName = "chicken pot pies"
-                invItem = inv.pie
-                roomItem = roomCurrent.pie
-                if option in (itemName,"chicken pie","pot pie","pie"):
+            elif "pie" in option and room_current.pie:
+                item_name = "chicken pot pie"
+                items_name = "chicken pot pies"
+                inv_item = inv.pie
+                room_item = room_current.pie
+                if option in (item_name,"chicken pie","pot pie","pie"):
                     take_count = 1
-                elif option in (itemsName,"chicken pies","pot pies","pies"):
-                    take_count = roomItem
-                elif option.endswith(itemName):
-                    take_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    take_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"chicken pies","pot pies","pies"):
+                    take_count = room_item
+                elif option.endswith(item_name):
+                    take_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    take_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("pot pie"):
                     take_count = option[:len(option) - len("pot pie") - 1]
                 elif option.endswith("chicken pie"):
@@ -5008,178 +5018,178 @@ def inGame(debug):
                     take_count = option[:len(option) - len("pies") - 1]
             elif option == "":
                 print("Take what?")
-                notTurn = True
+                not_turn = True
             else:
                 if option in ("all","everything"):
                     print("You cannot take anything here.")
                 else:
                     print("There is no %s here to take." % option)
-                notTurn = True
-            if itemName:
-                takeCountOkay = False
+                not_turn = True
+            if item_name:
+                take_count_okay = False
                 try:
                     take_count = float(take_count)
-                    if take_count % 1 == 0 and take_count > 0 and take_count <= roomItem:
+                    if take_count % 1 == 0 and take_count > 0 and take_count <= room_item:
                          take_count = int(take_count)
-                         takeCountOkay = True
+                         take_count_okay = True
                     else:
-                        print("You cannot take",take_count,"%s." % itemsName)
-                        notTurn = True
+                        print("You cannot take",take_count,"%s." % items_name)
+                        not_turn = True
                 except ValueError:
                     if take_count in ("all","every"):
-                        take_count = roomItem
-                        takeCountOkay = True
+                        take_count = room_item
+                        take_count_okay = True
                     elif take_count in ("a","the","only 1","only one"):
                         take_count = 1
-                        takeCountOkay = True
+                        take_count_okay = True
                     else:
-                        print("You cannot take \"" + take_count + "\" %s." % itemsName)
-                        notTurn = True
-                if takeCountOkay and not itemName == "everything":
+                        print("You cannot take \"" + take_count + "\" %s." % items_name)
+                        not_turn = True
+                if take_count_okay and not item_name == "everything":
                     # Once takeCountOkay, take events go here
-                    if roomID == "roomTempleBasement" and not roomCurrent.characterDead and itemName == "staff of Garrotxa":
+                    if room_id == "roomTempleBasement" and not room_current.character_dead and item_name == "staff of Garrotxa":
                         print("\"You are not worthy to take the staff!\" The figure zaps you with a bolt of electricity.")
-                        stat.lowerHealth()
-                        itemName = ""
-                    elif roomID == "roomLairMid" and roomCurrent.counter_2 and not creatureLairChase and itemName == "staff of Garrotxa":
-                        creatureLairChase = True
-                        roomCurrent.counter_2 = 0
-                        inv.staff += roomCurrent.staff
-                        roomCurrent.staff = 0
+                        stat.lower_health()
+                        item_name = ""
+                    elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and item_name == "staff of Garrotxa":
+                        room_lair_chase = True
+                        room_current.counter_2 = 0
+                        inv.staff += room_current.staff
+                        room_current.staff = 0
                         print("Your arm brushes up against the creature as you take the staff, awakening it.")
-                        if oilCounter or lightCounter:
-                            if oilCounter:
+                        if oil_counter or light_counter:
+                            if oil_counter:
                                 source = "your lantern"
                             else:
                                 source = "the ball of light"
                             print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                    elif roomID == "roomLairMid" and roomCurrent.counter_1 and not creatureLairChase and itemName == "pickaxe":
-                        creatureLairChase = True
-                        roomCurrent.counter_1 = 0
-                        inv.pickaxe += roomCurrent.pickaxe
-                        roomCurrent.pickaxe = 0
+                    elif room_id == "roomLairMid" and room_current.counter_1 and not room_lair_chase and item_name == "pickaxe":
+                        room_lair_chase = True
+                        room_current.counter_1 = 0
+                        inv.pickaxe += room_current.pickaxe
+                        room_current.pickaxe = 0
                         print("Your arm brushes up against the creature as you take the pickaxe, awakening it.")
-                        if oilCounter or lightCounter:
-                            if oilCounter:
+                        if oil_counter or light_counter:
+                            if oil_counter:
                                 source = "your lantern"
                             else:
                                 source = "the ball of light"
                             print("Luckily, the light from %s blinds it, giving you some extra time." % source)
                         else:
                             print("Unfortunately, the lack of light allows the creature to quickly recover.")
-                            roomCurrent.counter_1 += 1
+                            room_current.counter_1 += 1
                     elif take_count > 1:
-                        print("You take %s %s." % (take_count,itemsName))
-                    elif roomItem > 1:
-                        print("You take a %s." % itemName)
+                        print("You take %s %s." % (take_count,items_name))
+                    elif room_item > 1:
+                        print("You take a %s." % item_name)
                     else:
-                        print("You take the %s." % itemName)
-                    invItem += take_count
-                    roomItem -= take_count
-                    if itemName == "gold":
-                        inv.gold = invItem
-                        roomCurrent.gold = roomItem
-                    elif itemName == "letter":
-                        inv.letter = invItem
-                        roomCurrent.letter = roomItem
-                    elif itemName == "key":
-                        inv.key = invItem
-                        roomCurrent.key = roomItem
-                    elif itemName == "key of Ahm'domosh":
-                        inv.keySkeleton = invItem
-                        roomCurrent.keySkeleton = roomItem
-                    elif itemName == "pickaxe":
-                        inv.pickaxe = invItem
-                        roomCurrent.pickaxe = roomItem
-                    elif itemName == "shrubbery":
-                        inv.shrubbery = invItem
-                        roomCurrent.shrubbery = roomItem
-                    elif itemName == "funnel cake":
-                        inv.funnelCake = invItem
-                        roomCurrent.funnelCake = roomItem
-                    elif itemName == "half-eaten funnel cake":
-                        inv.halfFunnelCake = invItem
-                        roomCurrent.halfFunnelCake = roomItem
-                    elif itemName == "lucky rabbit foot":
-                        inv.foot = invItem
-                        roomCurrent.foot = roomItem
-                    elif itemName == "bowl of porridge":
-                        inv.porridge = invItem
-                        roomCurrent.porridge = roomItem
-                    elif itemName == "bowl":
-                        inv.bowl = invItem
-                        roomCurrent.bowl = roomItem
-                    elif itemName == "lantern":
-                        inv.lantern = invItem
-                        roomCurrent.lantern = roomItem
-                    elif itemName == "vial of lantern oil":
-                        inv.oil = invItem
-                        roomCurrent.oil = roomItem
-                    elif itemName == "chicken pot pie":
-                        inv.pie = invItem
-                        roomCurrent.pie = roomItem
-                    elif itemName == "hardtack biscuit":
-                        inv.biscuit = invItem
-                        roomCurrent.biscuit = roomItem
-                    elif itemName == "grappling hook":
-                        inv.hook = invItem
-                        roomCurrent.hook = roomItem
-                    elif itemName == "staff of Garrotxa":
-                        inv.staff = invItem
-                        roomCurrent.staff = roomItem
-                    elif itemName == "raffle ticket":
-                        inv.ticket = invItem
-                        roomCurrent.ticket = roomItem
-                    elif itemName == "piece of coal":
-                        inv.coal = invItem
-                        roomCurrent.coal = roomItem
-                    elif itemName == "rotten potato":
-                        inv.potato = invItem
-                        roomCurrent.potato = roomItem
-                    elif itemName == "bandage":
-                        inv.bandage = invItem
-                        roomCurrent.bandage = roomItem
-                    elif itemName == "journal":
-                        inv.journal = invItem
-                        roomCurrent.journal = roomItem
-                    elif itemName == "mysterious book":
-                        inv.book = invItem
-                        roomCurrent.book = roomItem
-                    elif itemName == "slice of brie cheese":
-                        inv.brie = invItem
-                        roomCurrent.brie = roomItem
-                    elif itemName == "slice of munster cheese":
-                        inv.munster = invItem
-                        roomCurrent.munster = roomItem
-                    elif itemName == "slice of stilton cheese":
-                        inv.stilton = invItem
-                        roomCurrent.stilton = roomItem
-                    elif itemName == "slice of swiss cheese":
-                        inv.swiss = invItem
-                        roomCurrent.swiss = roomItem
-                    elif itemName == "slice of wensleydale cheese":
-                        inv.wensleydale = invItem
-                        roomCurrent.wensleydale = roomItem
-                    elif itemName == "potion of rejuvination":
-                        inv.potion = invItem
-                        roomCurrent.potion = roomItem
-                    elif itemName == "flask":
-                        inv.flask = invItem
-                        roomCurrent.flask = roomItem
-                    elif itemName == "dragonstone":
-                        inv.stone = invItem
-                        roomCurrent.stone = roomItem
-                    elif itemName == "wooden bird":
-                        inv.bird = invItem
-                        roomCurrent.bird = roomItem
-                    elif itemName == "note":
-                        inv.note = invItem
-                        roomCurrent.note = roomItem
-                    elif itemName == "memo":
-                        inv.memo = invItem
-                        roomCurrent.memo = roomItem
-                if invItem > 1 and not invItem == take_count:
-                    print("You have",invItem,"%s." % itemsName)
+                        print("You take the %s." % item_name)
+                    inv_item += take_count
+                    room_item -= take_count
+                    if item_name == "gold":
+                        inv.gold = inv_item
+                        room_current.gold = room_item
+                    elif item_name == "letter":
+                        inv.letter = inv_item
+                        room_current.letter = room_item
+                    elif item_name == "key":
+                        inv.key = inv_item
+                        room_current.key = room_item
+                    elif item_name == "key of Ahm'domosh":
+                        inv.key_skeleton = inv_item
+                        room_current.key_skeleton = room_item
+                    elif item_name == "pickaxe":
+                        inv.pickaxe = inv_item
+                        room_current.pickaxe = room_item
+                    elif item_name == "shrubbery":
+                        inv.shrubbery = inv_item
+                        room_current.shrubbery = room_item
+                    elif item_name == "funnel cake":
+                        inv.funnel_cake = inv_item
+                        room_current.funnel_cake = room_item
+                    elif item_name == "half-eaten funnel cake":
+                        inv.half_funnel_cake = inv_item
+                        room_current.half_funnel_cake = room_item
+                    elif item_name == "lucky rabbit foot":
+                        inv.foot = inv_item
+                        room_current.foot = room_item
+                    elif item_name == "bowl of porridge":
+                        inv.porridge = inv_item
+                        room_current.porridge = room_item
+                    elif item_name == "bowl":
+                        inv.bowl = inv_item
+                        room_current.bowl = room_item
+                    elif item_name == "lantern":
+                        inv.lantern = inv_item
+                        room_current.lantern = room_item
+                    elif item_name == "vial of lantern oil":
+                        inv.oil = inv_item
+                        room_current.oil = room_item
+                    elif item_name == "chicken pot pie":
+                        inv.pie = inv_item
+                        room_current.pie = room_item
+                    elif item_name == "hardtack biscuit":
+                        inv.biscuit = inv_item
+                        room_current.biscuit = room_item
+                    elif item_name == "grappling hook":
+                        inv.hook = inv_item
+                        room_current.hook = room_item
+                    elif item_name == "staff of Garrotxa":
+                        inv.staff = inv_item
+                        room_current.staff = room_item
+                    elif item_name == "raffle ticket":
+                        inv.ticket = inv_item
+                        room_current.ticket = room_item
+                    elif item_name == "piece of coal":
+                        inv.coal = inv_item
+                        room_current.coal = room_item
+                    elif item_name == "rotten potato":
+                        inv.potato = inv_item
+                        room_current.potato = room_item
+                    elif item_name == "bandage":
+                        inv.bandage = inv_item
+                        room_current.bandage = room_item
+                    elif item_name == "journal":
+                        inv.journal = inv_item
+                        room_current.journal = room_item
+                    elif item_name == "mysterious book":
+                        inv.book = inv_item
+                        room_current.book = room_item
+                    elif item_name == "slice of brie cheese":
+                        inv.brie = inv_item
+                        room_current.brie = room_item
+                    elif item_name == "slice of munster cheese":
+                        inv.munster = inv_item
+                        room_current.munster = room_item
+                    elif item_name == "slice of stilton cheese":
+                        inv.stilton = inv_item
+                        room_current.stilton = room_item
+                    elif item_name == "slice of swiss cheese":
+                        inv.swiss = inv_item
+                        room_current.swiss = room_item
+                    elif item_name == "slice of wensleydale cheese":
+                        inv.wensleydale = inv_item
+                        room_current.wensleydale = room_item
+                    elif item_name == "potion of rejuvination":
+                        inv.potion = inv_item
+                        room_current.potion = room_item
+                    elif item_name == "flask":
+                        inv.flask = inv_item
+                        room_current.flask = room_item
+                    elif item_name == "dragonstone":
+                        inv.stone = inv_item
+                        room_current.stone = room_item
+                    elif item_name == "wooden bird":
+                        inv.bird = inv_item
+                        room_current.bird = room_item
+                    elif item_name == "note":
+                        inv.note = inv_item
+                        room_current.note = room_item
+                    elif item_name == "memo":
+                        inv.memo = inv_item
+                        room_current.memo = room_item
+                if inv_item > 1 and not inv_item == take_count:
+                    print("You have",inv_item,"%s." % items_name)
         # Drop
         elif option.startswith(("drop","discard","remove")):
             if option.startswith("drop"):
@@ -5188,117 +5198,117 @@ def inGame(debug):
                 option = option[8:]
             elif option.startswith("remove"):
                 option = option[7:]
-            itemName = False
-            itemsName = False
-            roomItem = False
-            invItem = False
+            item_name = False
+            items_name = False
+            room_item = False
+            inv_item = False
             drop_count = 0
             # All/Everything
-            if option in ("all","everything") and inv.itemTypes():
-                roomCurrent.gold += inv.gold
-                roomCurrent.letter += inv.letter
-                roomCurrent.key += inv.key
-                roomCurrent.keySkeleton += inv.keySkeleton
-                roomCurrent.pickaxe += inv.pickaxe
-                roomCurrent.shrubbery += inv.shrubbery
-                roomCurrent.funnelCake += inv.funnelCake
-                roomCurrent.halfFunnelCake += inv.halfFunnelCake
-                roomCurrent.foot += inv.foot
-                roomCurrent.porridge += inv.porridge
-                roomCurrent.bowl += inv.bowl
-                roomCurrent.lantern += inv.lantern
-                roomCurrent.oil += inv.oil
-                roomCurrent.pie += inv.pie
-                roomCurrent.biscuit += inv.biscuit
-                roomCurrent.hook += inv.hook
-                roomCurrent.staff += inv.staff
-                roomCurrent.ticket += inv.ticket
-                roomCurrent.coal += inv.coal
-                roomCurrent.potato += inv.potato
-                roomCurrent.bandage += inv.bandage
-                roomCurrent.journal += inv.journal
-                roomCurrent.book += inv.book
-                roomCurrent.brie += inv.brie
-                roomCurrent.munster += inv.munster
-                roomCurrent.stilton += inv.stilton
-                roomCurrent.swiss += inv.swiss
-                roomCurrent.wensleydale += inv.wensleydale
-                roomCurrent.potion += inv.potion
-                roomCurrent.flask += inv.flask
-                roomCurrent.stone += inv.stone
-                roomCurrent.bird += inv.bird
-                roomCurrent.memo += inv.memo
-                inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
+            if option in ("all","everything") and inv.item_types():
+                room_current.gold += inv.gold
+                room_current.letter += inv.letter
+                room_current.key += inv.key
+                room_current.key_skeleton += inv.key_skeleton
+                room_current.pickaxe += inv.pickaxe
+                room_current.shrubbery += inv.shrubbery
+                room_current.funnel_cake += inv.funnel_cake
+                room_current.half_funnel_cake += inv.half_funnel_cake
+                room_current.foot += inv.foot
+                room_current.porridge += inv.porridge
+                room_current.bowl += inv.bowl
+                room_current.lantern += inv.lantern
+                room_current.oil += inv.oil
+                room_current.pie += inv.pie
+                room_current.biscuit += inv.biscuit
+                room_current.hook += inv.hook
+                room_current.staff += inv.staff
+                room_current.ticket += inv.ticket
+                room_current.coal += inv.coal
+                room_current.potato += inv.potato
+                room_current.bandage += inv.bandage
+                room_current.journal += inv.journal
+                room_current.book += inv.book
+                room_current.brie += inv.brie
+                room_current.munster += inv.munster
+                room_current.stilton += inv.stilton
+                room_current.swiss += inv.swiss
+                room_current.wensleydale += inv.wensleydale
+                room_current.potion += inv.potion
+                room_current.flask += inv.flask
+                room_current.stone += inv.stone
+                room_current.bird += inv.bird
+                room_current.memo += inv.memo
+                inv = Inventory(note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
                 print("You drop everything.")
-                itemName = "everything"
-                itemsName = "everything"
+                item_name = "everything"
+                items_name = "everything"
                 drop_count = "all"
             # Gold # continue add quantities like in buy and sell
             elif "gold" in option and inv.gold:
-                itemName = "gold"
-                itemsName = "gold"
-                roomItem = roomCurrent.gold
-                invItem = inv.gold
-                if option == itemName:
+                item_name = "gold"
+                items_name = "gold"
+                room_item = room_current.gold
+                inv_item = inv.gold
+                if option == item_name:
                     drop_count = inv.gold
                 elif option.endswith("gold"):
                     drop_count = option[:len(option) - len("gold") - 1]
             # Letter
             elif "letter" in option and inv.letter:
-                itemName = "letter"
-                itemsName = "letters"
-                roomItem = roomCurrent.letter
-                invItem = inv.letter
-                if option == itemName:
+                item_name = "letter"
+                items_name = "letters"
+                room_item = room_current.letter
+                inv_item = inv.letter
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
+                elif option == items_name:
+                    drop_count = inv_item
                 elif option.endswith("letter"):
                     drop_count = option[:len(option) - len("letter") - 1]
                 elif option.endswith("letters"):
                     drop_count = option[:len(option) - len("letters") - 1]
             # Skeleton key
-            elif "key of ahm'domosh" in option and inv.keySkeleton:
-                itemName = "key of Ahm'domosh"
-                itemsName = "keys of Ahm'domosh"
-                roomItem = roomCurrent.keySkeleton
-                invItem = inv.keySkeleton
-                if option == itemName.lower():
+            elif "key of ahm'domosh" in option and inv.key_skeleton:
+                item_name = "key of Ahm'domosh"
+                items_name = "keys of Ahm'domosh"
+                room_item = room_current.key_skeleton
+                inv_item = inv.key_skeleton
+                if option == item_name.lower():
                     drop_count = 1
-                elif option == itemsName.lower():
-                    drop_count = invItem
+                elif option == items_name.lower():
+                    drop_count = inv_item
                 elif option.endswith("key of ahm'domosh"):
                     drop_count = option[:len(option) - len("key of ahm'domosh") - 1]
                 elif option.endswith("keys of ahm'domosh"):
                     drop_count = option[:len(option) - len("keys of ahm'domosh") - 1]
             # Key
-            elif "key" in option and (inv.key or inv.keySkeleton):
-                itemName = "key"
-                itemsName = "keys"
+            elif "key" in option and (inv.key or inv.key_skeleton):
+                item_name = "key"
+                items_name = "keys"
                 if inv.key:
-                    roomItem = roomCurrent.key
-                    invItem = inv.key
-                elif inv.keySkeleton:
-                    roomItem = roomCurrent.keySkeleton
-                    invItem = inv.keySkeleton
-                if option == itemName:
+                    room_item = room_current.key
+                    inv_item = inv.key
+                elif inv.key_skeleton:
+                    room_item = room_current.key_Skeleton
+                    inv_item = inv.key_skeleton
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
+                elif option == items_name:
+                    drop_count = inv_item
                 elif option.endswith("key"):
                     drop_count = option[:len(option) - len("key") - 1]
                 elif option.endswith("keys"):
                     drop_count = option[:len(option) - len("keys") - 1]
             # Pickaxe
             elif "pick" in option and inv.pickaxe:
-                itemName = "pickaxe"
-                itemsName = "pickaxes"
-                roomItem = roomCurrent.pickaxe
-                invItem = inv.pickaxe
-                if option in (itemName,"pick"):
+                item_name = "pickaxe"
+                items_name = "pickaxes"
+                room_item = room_current.pickaxe
+                inv_item = inv.pickaxe
+                if option in (item_name,"pick"):
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
+                elif option == items_name:
+                    drop_count = inv_item
                 elif option.endswith("pick"):
                     drop_count = option[:len(option) - len("pick") - 1]
                 elif option.endswith("picks"):
@@ -5309,24 +5319,24 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("pickaxes") - 1]
             # shrubbery
             elif ("shrubbery" in option) or ("shrubberies" in option) and inv.shrubbery:
-                itemName = "shrubbery"
-                itemsName = "shrubberies"
-                roomItem = roomCurrent.shrubbery
-                invItem = inv.shrubbery
-                if option == itemName:
+                item_name = "shrubbery"
+                items_name = "shrubberies"
+                room_item = room_current.shrubbery
+                inv_item = inv.shrubbery
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
+                elif option == items_name:
+                    drop_count = inv_item
                 elif option.endswith("shrubbery"):
                     drop_count = option[:len(option) - len("shrubbery") - 1]
                 elif option.endswith("shrubberies"):
                     drop_count = option[:len(option) - len("shrubberies") - 1]
             # Half-eaten funnel cake
-            elif ("cake" in option) and ("half" in option) and inv.halfFunnelCake:
-                itemName = "half-eaten funnel cake"
-                itemsName = "half-eaten funnel cakes"
-                roomItem = roomCurrent.halfFunnelCake
-                invItem = inv.halfFunnelCake
+            elif ("cake" in option) and ("half" in option) and inv.half_funnel_cake:
+                item_name = "half-eaten funnel cake"
+                items_name = "half-eaten funnel cakes"
+                room_item = room_current.half_funnel_cake
+                inv_item = inv.half_funnel_cake
                 if option.endswith("half-eaten funnel cake"):
                     drop_count = option[:len(option) - len("half-eaten funnel cake") - 1]
                 if option.endswith("half eaten funnel cake"):
@@ -5353,21 +5363,21 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("half cakes") - 1]
             # Funnel cake and Half-eaten funnel cake
             # If half-eaten cake is in room and cake not in inv, treat half-eaten cake as cake
-            elif "cake" in option and (inv.funnelCake or inv.halfFunnelCake):
-                if inv.halfFunnelCake and not inv.funnelCake:
-                    itemName = "half-eaten funnel cake"
-                    itemsName = "half-eaten funnel cakes"
-                    roomItem = roomCurrent.halfFunnelCake
-                    invItem = inv.halfFunnelCake
+            elif "cake" in option and (inv.funnel_cake or inv.half_funnel_cake):
+                if inv.half_funnel_cake and not inv.funnel_cake:
+                    item_name = "half-eaten funnel cake"
+                    items_name = "half-eaten funnel cakes"
+                    room_item = room_current.half_funnel_cake
+                    inv_item = inv.half_funnel_cake
                 else:
-                    itemName = "funnel cake"
-                    itemsName = "funnel cakes"
-                    roomItem = roomCurrent.funnelCake
-                    invItem = inv.funnelCake
-                if option in (itemName,"cake","funnel cake"):
+                    item_name = "funnel cake"
+                    items_name = "funnel cakes"
+                    room_item = room_current.funnel_cake
+                    inv_item = inv.funnel_cake
+                if option in (item_name,"cake","funnel cake"):
                     drop_count = 1
-                elif option in (itemsName,"cakes","funnel cakes"):
-                    drop_count = invItem
+                elif option in (items_name,"cakes","funnel cakes"):
+                    drop_count = inv_item
                 elif option.endswith("funnel cake"):
                     drop_count = option[:len(option) - len("funnel cake") - 1]
                 elif option.endswith("funnel cakes"):
@@ -5378,18 +5388,18 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("cakes") - 1]
             # Lucky rabbit foot
             elif ("foot" in option) or ("feet" in option) and inv.foot:
-                itemName = "lucky rabbit foot"
-                itemsName = "lucky rabbit feet"
-                roomItem = roomCurrent.foot
-                invItem = inv.foot
-                if option in (itemName,"foot","rabbit foot","lucky foot"):
+                item_name = "lucky rabbit foot"
+                items_name = "lucky rabbit feet"
+                room_item = room_current.foot
+                inv_item = inv.foot
+                if option in (item_name,"foot","rabbit foot","lucky foot"):
                     drop_count = 1
-                elif option in (itemsName,"feet","rabbit feet","lucky feet"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"feet","rabbit feet","lucky feet"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith(("rabbit foot","rabbit feet")):
                     drop_count = option[:len(option) - len("rabbit foot") - 1]
                 elif option.endswith(("lucky foot","lucky feet")):
@@ -5398,68 +5408,68 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("foot") - 1]
             # Porridge (bowl of porridge)
             elif "porridge" in option and inv.porridge:
-                itemName = "bowl of porridge"
-                itemsName = "bowls of porridge"
-                roomItem = roomCurrent.porridge
-                invItem = inv.porridge
-                if option == itemName:
+                item_name = "bowl of porridge"
+                items_name = "bowls of porridge"
+                room_item = room_current.porridge
+                inv_item = inv.porridge
+                if option == item_name:
                     drop_count = 1
-                elif option in (itemsName,"porridge"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"porridge"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("porridge"):
                     drop_count = option[:len(option) - len("porridge") - 1]
             # Bowl
             elif "bowl" in option and (inv.bowl or inv.porridge):
                 if inv.porridge and not inv.bowl:
-                    itemName = "bowl of porridge"
-                    itemsName = "bowls of porridge"
-                    roomItem = roomCurrent.porridge
-                    invItem = inv.porridge
+                    item_name = "bowl of porridge"
+                    items_name = "bowls of porridge"
+                    room_item = room_current.porridge
+                    inv_item = inv.porridge
                 else:
-                    itemName = "bowl"
-                    itemsName = "bowls"
-                    roomItem = roomCurrent.bowl
-                    invItem = inv.bowl
-                if option in (itemName,"bowl"):
+                    item_name = "bowl"
+                    items_name = "bowls"
+                    room_item = room_current.bowl
+                    inv_item = inv.bowl
+                if option in (item_name,"bowl"):
                     drop_count = 1
-                elif option in (itemsName,"bowls"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"bowls"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Lantern
             elif "lantern" in option and inv.lantern:
-                itemName = "lantern"
-                itemsName = "lanterns"
-                roomItem = roomCurrent.lantern
-                invItem = inv.lantern
-                if option == itemName:
+                item_name = "lantern"
+                items_name = "lanterns"
+                room_item = room_current.lantern
+                inv_item = inv.lantern
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Vial of lantern oil
             elif ("oil" in option) or ("vial" in option) and inv.oil:
-                itemName = "vial of lantern oil"
-                itemsName = "vials of lantern oil"
-                roomItem = roomCurrent.oil
-                invItem = inv.oil
-                if option in (itemName,"vial"):
+                item_name = "vial of lantern oil"
+                items_name = "vials of lantern oil"
+                room_item = room_current.oil
+                inv_item = inv.oil
+                if option in (item_name,"vial"):
                     drop_count = 1
-                elif option in (itemsName,"oil","vials","lantern oil"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"oil","vials","lantern oil"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("vial"):
                     drop_count = option[:len(option) - len("vial") - 1]
                 elif option.endswith("vials"):
@@ -5470,18 +5480,18 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("oil") - 1]
             # Hardtack biscuit
             elif ("biscuit" in option) or ("hardtack" in option) and inv.biscuit:
-                itemName = "hardtack biscuit"
-                itemsName = "hardtack biscuit"
-                roomItem = roomCurrent.biscuit
-                invItem = inv.biscuit
-                if option == itemName:
+                item_name = "hardtack biscuit"
+                items_name = "hardtack biscuit"
+                room_item = room_current.biscuit
+                inv_item = inv.biscuit
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("biscuit"):
                     drop_count = option[:len(option) - len("biscuit") - 1]
                 elif option.endswith("biscuits"):
@@ -5490,334 +5500,334 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("hardtack") - 1]
             # Coil of hook
             elif "hook" in option and inv.hook:
-                itemName = "grappling hook"
-                itemsName = "grappling hooks"
-                roomItem = roomCurrent.hook
-                invItem = inv.hook
-                if option in (itemName,"hook"):
+                item_name = "grappling hook"
+                items_name = "grappling hooks"
+                room_item = room_current.hook
+                inv_item = inv.hook
+                if option in (item_name,"hook"):
                     drop_count = 1
-                elif option in (itemsName,"hooks"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"hooks"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("hook"):
                     drop_count = option[:len(option) - len("hook") - 1]
                 elif option.endswith("hooks"):
                     drop_count = option[:len(option) - len("hooks") - 1]
             # The staff of Garrotxa
             elif ("staff" in option) or ("staves" in option) and inv.staff:
-                itemName = "staff of Garrotxa"
-                itemsName = "staves of Garrotxa"
-                roomItem = roomCurrent.staff
-                invItem = inv.staff
-                if option in (itemName.lower(),"staff"):
+                item_name = "staff of Garrotxa"
+                items_name = "staves of Garrotxa"
+                room_item = room_current.staff
+                inv_item = inv.staff
+                if option in (item_name.lower(),"staff"):
                     drop_count = 1
-                elif option in (itemsName.lower(),"staves"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName.lower()) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName.lower()) - 1]
+                elif option in (items_name.lower(),"staves"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name.lower()) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name.lower()) - 1]
                 elif option.endswith("staff"):
                     drop_count = option[:len(option) - len("staff") - 1]
                 elif option.endswith("staves"):
                     drop_count = option[:len(option) - len("staves") - 1]
             # Raffle ticket
             elif "ticket" in option and inv.ticket:
-                itemName = "raffle ticket"
-                itemsName = "raffle tickets"
-                roomItem = roomCurrent.ticket
-                invItem = inv.ticket
-                if option in (itemName,"ticket"):
+                item_name = "raffle ticket"
+                items_name = "raffle tickets"
+                room_item = room_current.ticket
+                inv_item = inv.ticket
+                if option in (item_name,"ticket"):
                     drop_count = 1
-                elif option in (itemsName,"tickets"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"tickets"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("ticket"):
                     drop_count = option[:len(option) - len("ticket") - 1]
                 elif option.endswith("tickets"):
                     drop_count = option[:len(option) - len("tickets") - 1]
             # Piece of coal
             elif "coal" in option and inv.coal:
-                itemName = "piece of coal"
-                itemsName = "pieces of coal"
-                roomItem = roomCurrent.coal
-                invItem = inv.coal
-                if option == itemName:
+                item_name = "piece of coal"
+                items_name = "pieces of coal"
+                room_item = room_current.coal
+                inv_item = inv.coal
+                if option == item_name:
                     drop_count = 1
-                elif option in (itemsName,"coal"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"coal"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("coal"):
                     drop_count = option[:len(option) - len("coal") - 1]
             # Potato
             elif "potato" in option and inv.potato:
-                itemName = "rotten potato"
-                itemsName = "rotten potatoes"
-                roomItem = roomCurrent.potato
-                invItem = inv.potato
-                if option in (itemName,"potato"):
+                item_name = "rotten potato"
+                items_name = "rotten potatoes"
+                room_item = room_current.potato
+                inv_item = inv.potato
+                if option in (item_name,"potato"):
                     drop_count = 1
-                elif option in (itemsName,"potatoes"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"potatoes"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("potato"):
                     drop_count = option[:len(option) - len("potato") - 1]
                 elif option.endswith("potatoes"):
                     drop_count = option[:len(option) - len("potatoes") - 1]
             # Bandage
             elif "bandage" in option and inv.bandage:
-                itemName = "bandage"
-                itemsName = "bandages"
-                roomItem = roomCurrent.bandage
-                invItem = inv.bandage
-                if option == itemName:
+                item_name = "bandage"
+                items_name = "bandages"
+                room_item = room_current.bandage
+                inv_item = inv.bandage
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Journal
             elif "journal" in option and inv.journal:
-                itemName = "journal"
-                itemsName = "journals"
-                roomItem = roomCurrent.journal
-                invItem = inv.journal
-                if option == itemName:
+                item_name = "journal"
+                items_name = "journals"
+                room_item = room_current.journal
+                inv_item = inv.journal
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Mysterious book
             elif "book" in option and inv.book:
-                itemName = "mysterious book"
-                itemsName = "mysterious books"
-                roomItem = roomCurrent.book
-                invItem = roomCurrent.book
-                if option in (itemName,"book"):
+                item_name = "mysterious book"
+                items_name = "mysterious books"
+                room_item = room_current.book
+                inv_item = room_current.book
+                if option in (item_name,"book"):
                     drop_count = 1
-                elif option in (itemsName,"books"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"books"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("book"):
                     drop_count = option[:len(option) - len("book") - 1]
                 elif option.endswith("books"):
                     drop_count = option[:len(option) - len("books") - 1]
              # Cheeses
             elif "brie" in option and inv.brie:
-                itemName = "slice of brie cheese"
-                itemsName = "slices of brie cheese"
-                roomItem = roomCurrent.brie
-                invItem = inv.brie
-                if option == itemName:
+                item_name = "slice of brie cheese"
+                items_name = "slices of brie cheese"
+                room_item = room_current.brie
+                inv_item = inv.brie
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("brie"):
                     drop_count = option[:len(option) - len("brie") - 1]
                 elif option.endswith("brie cheese"):
                     drop_count = option[:len(option) - len("brie cheese") - 1]
             elif "munster" in option and inv.munster:
-                itemName = "slice of munster cheese"
-                itemsName = "slices of munster cheese"
-                roomItem = roomCurrent.munster
-                invItem = inv.munster
-                if option == itemName:
+                item_name = "slice of munster cheese"
+                items_name = "slices of munster cheese"
+                room_item = room_current.munster
+                inv_item = inv.munster
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("munster"):
                     drop_count = option[:len(option) - len("munster") - 1]
                 elif option.endswith("munster cheese"):
                     drop_count = option[:len(option) - len("munster cheese") - 1]
             elif "stilton" in option and inv.brie:
-                itemName = "slice of stilton cheese"
-                itemsName = "slices of stilton cheese"
-                roomItem = roomCurrent.stilton
-                invItem = inv.stilton
-                if option == itemName:
+                item_name = "slice of stilton cheese"
+                items_name = "slices of stilton cheese"
+                room_item = room_current.stilton
+                inv_item = inv.stilton
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("stilton"):
                     drop_count = option[:len(option) - len("stilton") - 1]
                 elif option.endswith("stilton cheese"):
                     drop_count = option[:len(option) - len("stilton cheese") - 1]
             elif "swiss" in option and inv.brie:
-                itemName = "slice of swiss cheese"
-                itemsName = "slices of swiss cheese"
-                roomItem = roomCurrent.swiss
-                invItem = inv.swiss
-                if option == itemName:
+                item_name = "slice of swiss cheese"
+                items_name = "slices of swiss cheese"
+                room_item = room_current.swiss
+                inv_item = inv.swiss
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("swiss"):
                     drop_count = option[:len(option) - len("swiss") - 1]
                 elif option.endswith("swiss cheese"):
                     drop_count = option[:len(option) - len("swiss cheese") - 1]
             elif "wensleydale" in option and inv.brie:
-                itemName = "slice of wensleydale cheese"
-                itemsName = "slices of wensleydale cheese"
-                roomItem = roomCurrent.wensleydale
-                invItem = inv.wensleydale
-                if option == itemName:
+                item_name = "slice of wensleydale cheese"
+                items_name = "slices of wensleydale cheese"
+                room_item = room_current.wensleydale
+                inv_item = inv.wensleydale
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("wensleydale"):
                     drop_count = option[:len(option) - len("wensleydale") - 1]
                 elif option.endswith("wensleydale cheese"):
                     drop_count = option[:len(option) - len("wensleydale cheese") - 1]
             # Potion
             elif "potion" in option and inv.potion:
-                itemName = "potion of rejuvination"
-                itemsName = "potions of rejuvination"
-                roomItem = roomCurrent.potion
-                invItem = inv.potion
-                if option in (itemName,"potion"):
+                item_name = "potion of rejuvination"
+                items_name = "potions of rejuvination"
+                room_item = room_current.potion
+                inv_item = inv.potion
+                if option in (item_name,"potion"):
                     drop_count = 1
-                elif option in (itemsName,"potions"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"potions"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("potion"):
                     drop_count = option[:len(option) - len("potion") - 1]
                 elif option.endswith("potions"):
                     drop_count = option[:len(option) - len("potions") - 1]
             # Flask
             elif "flask" in option and inv.flask:
-                itemName = "flask"
-                itemsName = "flasks"
-                roomItem = roomCurrent.flask
-                invItem = inv.flask
-                if option == itemName:
+                item_name = "flask"
+                items_name = "flasks"
+                room_item = room_current.flask
+                inv_item = inv.flask
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Dragonstone
             elif "stone" in option and inv.stone:
-                itemName = "dragonstone"
-                itemsName = "dragonstones"
-                roomItem = roomCurrent.stone
-                invItem = inv.stone
-                if option in (itemName,"stone"):
+                item_name = "dragonstone"
+                items_name = "dragonstones"
+                room_item = room_current.stone
+                inv_item = inv.stone
+                if option in (item_name,"stone"):
                     drop_count = 1
-                elif option in (itemsName,"stones"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"stones"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("stone"):
                     drop_count = option[:len(option) - len("stone") - 1]
                 elif option.endswith("stones"):
                     drop_count = option[:len(option) - len("stones") - 1]
             # Wooden bird
             elif "bird" in option and inv.bird:
-                itemName = "wooden bird"
-                itemsName = "wooden birds"
-                roomItem = roomCurrent.bird
-                invItem = inv.bird
-                if option in (itemName,"bird"):
+                item_name = "wooden bird"
+                items_name = "wooden birds"
+                room_item = room_current.bird
+                inv_item = inv.bird
+                if option in (item_name,"bird"):
                     drop_count = 1
-                elif option in (itemsName,"birds"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"birds"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("bird"):
                     drop_count = option[:len(option) - len("bird") - 1]
                 elif option.endswith("birds"):
                     drop_count = option[:len(option) - len("birds") - 1]
             # Note
             elif "note" in option and inv.note:
-                itemName = "note"
-                itemsName = "notes"
-                roomItem = roomCurrent.note
-                invItem = inv.note
-                if option == itemName:
+                item_name = "note"
+                items_name = "notes"
+                room_item = room_current.note
+                inv_item = inv.note
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Memo
             elif "memo" in option and inv.memo:
-                itemName = "memo"
-                itemsName = "memos"
-                roomItem = roomCurrent.memo
-                invItem = inv.note
-                if option == itemName:
+                item_name = "memo"
+                items_name = "memos"
+                room_item = room_current.memo
+                inv_item = inv.note
+                if option == item_name:
                     drop_count = 1
-                elif option == itemsName:
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option == items_name:
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
             # Chicken pot pie
             elif "pie" in option and inv.pie:
-                itemName = "chicken pot pie"
-                itemsName = "chicken pot pies"
-                roomItem = roomCurrent.pie
-                invItem = inv.pie
-                if option in (itemName,"chicken pie","pot pie","pie"):
+                item_name = "chicken pot pie"
+                items_name = "chicken pot pies"
+                room_item = room_current.pie
+                inv_item = inv.pie
+                if option in (item_name,"chicken pie","pot pie","pie"):
                     drop_count = 1
-                elif option in (itemsName,"chicken pies","pot pies","pies"):
-                    drop_count = invItem
-                elif option.endswith(itemName):
-                    drop_count = option[:len(option) - len(itemName) - 1]
-                elif option.endswith(itemsName):
-                    drop_count = option[:len(option) - len(itemsName) - 1]
+                elif option in (items_name,"chicken pies","pot pies","pies"):
+                    drop_count = inv_item
+                elif option.endswith(item_name):
+                    drop_count = option[:len(option) - len(item_name) - 1]
+                elif option.endswith(items_name):
+                    drop_count = option[:len(option) - len(items_name) - 1]
                 elif option.endswith("pot pie"):
                     drop_count = option[:len(option) - len("pot pie") - 1]
                 elif option.endswith("chicken pie"):
@@ -5832,158 +5842,158 @@ def inGame(debug):
                     drop_count = option[:len(option) - len("pies") - 1]
             elif option == "":
                 print("Drop what?")
-                notTurn = True
+                not_turn = True
             else:
                 if option in ("all","everything"):
                     print("You have nothing to drop.")
                 else:
                     print("You have no %s to drop." % option)
-                notTurn = True
-            if itemName:
-                dropCountOkay = False
+                not_turn = True
+            if item_name:
+                drop_count_okay = False
                 try:
                     drop_count = float(drop_count)
-                    if drop_count % 1 == 0 and drop_count > 0 and drop_count <= invItem:
+                    if drop_count % 1 == 0 and drop_count > 0 and drop_count <= inv_item:
                          drop_count = int(drop_count)
-                         dropCountOkay = True
+                         drop_count_okay = True
                     else:
-                        print("You cannot drop",drop_count,"%s." % itemsName)
-                        notTurn = True
+                        print("You cannot drop",drop_count,"%s." % items_name)
+                        not_turn = True
                 except ValueError:
                     if drop_count in ("all","every"):
-                        drop_count = invItem
-                        dropCountOkay = True
+                        drop_count = inv_item
+                        drop_count_okay = True
                     elif drop_count in ("a","the","only 1","only one"):
                         drop_count = 1
-                        dropCountOkay = True
+                        drop_count_okay = True
                     else:
-                        print("You cannot drop \"" + drop_count + "\" %s." % itemsName)
-                        notTurn = True
-                if dropCountOkay and not itemName == "everything":
+                        print("You cannot drop \"" + drop_count + "\" %s." % items_name)
+                        not_turn = True
+                if drop_count_okay and not item_name == "everything":
                     if drop_count > 1:
-                        print("You drop %s %s." % (drop_count,itemsName))
-                    elif invItem > 1:
-                        print("You drop a %s." % itemName)
+                        print("You drop %s %s." % (drop_count,items_name))
+                    elif inv_item > 1:
+                        print("You drop a %s." % item_name)
                     else:
-                        print("You drop the %s." % itemName)
-                    roomItem += drop_count
-                    invItem -= drop_count
-                    if itemName == "gold":
-                        roomCurrent.gold = roomItem
-                        inv.gold = invItem
-                    elif itemName == "letter":
-                        roomCurrent.letter = roomItem
-                        inv.letter = invItem
-                    elif itemName == "key":
-                        roomCurrent.key = roomItem
-                        inv.key = invItem
-                    elif itemName == "key of Ahm'domosh":
-                        roomCurrent.keySkeleton = roomItem
-                        inv.keySkeleton = invItem
-                    elif itemName == "pickaxe":
-                        roomCurrent.pickaxe = roomItem
-                        inv.pickaxe = invItem
-                    elif itemName == "shrubbery":
-                        roomCurrent.shrubbery = roomItem
-                        inv.shrubbery = invItem
-                    elif itemName == "funnel cake":
-                        roomCurrent.funnelCake = roomItem
-                        inv.funnelCake = invItem
-                    elif itemName == "half-eaten funnel cake":
-                        roomCurrent.halfFunnelCake = roomItem
-                        inv.halfFunnelCake = invItem
-                    elif itemName == "lucky rabbit foot":
-                        roomCurrent.foot = roomItem
-                        inv.foot = invItem
-                    elif itemName == "bowl of porridge":
-                        roomCurrent.porridge = roomItem
-                        inv.porridge = invItem
-                    elif itemName == "bowl":
-                        roomCurrent.bowl = roomItem
-                        inv.bowl = invItem
-                    elif itemName == "lantern":
-                        roomCurrent.lantern = roomItem
-                        inv.lantern = invItem
-                    elif itemName == "vial of lantern oil":
-                        roomCurrent.oil = roomItem
-                        inv.oil = invItem
-                    elif itemName == "chicken pot pie":
-                        roomCurrent.pie = roomItem
-                        inv.pie = invItem
-                    elif itemName == "hardtack biscuit":
-                        roomCurrent.biscuit = roomItem
-                        inv.biscuit = invItem
-                    elif itemName == "grappling hook":
-                        roomCurrent.hook = roomItem
-                        inv.hook = invItem
-                    elif itemName == "staff of Garrotxa":
-                        roomCurrent.staff = roomItem
-                        inv.staff = invItem
-                    elif itemName == "raffle ticket":
-                        roomCurrent.ticket = roomItem
-                        inv.ticket = invItem
-                    elif itemName == "piece of coal":
-                        roomCurrent.coal = roomItem
-                        inv.coal = invItem
-                    elif itemName == "rotten potato":
-                        roomCurrent.potato = roomItem
-                        inv.potato = invItem
-                    elif itemName == "bandage":
-                        roomCurrent.bandage = roomItem
-                        inv.bandage = invItem
-                    elif itemName == "journal":
-                        roomCurrent.journal = roomItem
-                        inv.journal = invItem
-                    elif itemName == "mysterious book":
-                        roomCurrent.book = roomItem
-                        inv.book = invItem
-                    elif itemName == "slice of brie cheese":
-                        roomCurrent.brie = roomItem
-                        inv.brie = invItem
-                    elif itemName == "slice of munster cheese":
-                        roomCurrent.munster = roomItem
-                        inv.munster = invItem
-                    elif itemName == "slice of stilton cheese":
-                        roomCurrent.stilton = roomItem
-                        inv.stilton = invItem
-                    elif itemName == "slice of swiss cheese":
-                        roomCurrent.swiss = roomItem
-                        inv.swiss = invItem
-                    elif itemName == "slice of wensleydale cheese":
-                        roomCurrent.wensleydale = roomItem
-                        inv.wensleydale = invItem
-                    elif itemName == "potion of rejuvination":
-                        roomCurrent.potion = roomItem
-                        inv.potion = invItem
-                    elif itemName == "flask":
-                        roomCurrent.flask = roomItem
-                        inv.flask = invItem
-                    elif itemName == "dragonstone":
-                        roomCurrent.stone = roomItem
-                        inv.stone = invItem
-                    elif itemName == "wooden bird":
-                        roomCurrent.bird = roomItem
-                        inv.bird = invItem
-                    elif itemName == "note":
-                        roomCurrent.note = roomItem
-                        inv.note = invItem
-                    elif itemName == "memo":
-                        roomCurrent.memo = roomItem
-                        inv.memo = invItem
+                        print("You drop the %s." % item_name)
+                    room_item += drop_count
+                    inv_item -= drop_count
+                    if item_name == "gold":
+                        room_current.gold = room_item
+                        inv.gold = inv_item
+                    elif item_name == "letter":
+                        room_current.letter = room_item
+                        inv.letter = inv_item
+                    elif item_name == "key":
+                        room_current.key = room_item
+                        inv.key = inv_item
+                    elif item_name == "key of Ahm'domosh":
+                        room_current.key_skeleton = room_item
+                        inv.key_skeleton = inv_item
+                    elif item_name == "pickaxe":
+                        room_current.pickaxe = room_item
+                        inv.pickaxe = inv_item
+                    elif item_name == "shrubbery":
+                        room_current.shrubbery = room_item
+                        inv.shrubbery = inv_item
+                    elif item_name == "funnel cake":
+                        room_current.funnel_cake = room_item
+                        inv.funnel_cake = inv_item
+                    elif item_name == "half-eaten funnel cake":
+                        room_current.half_funnel_cake = room_item
+                        inv.half_funnel_cake = inv_item
+                    elif item_name == "lucky rabbit foot":
+                        room_current.foot = room_item
+                        inv.foot = inv_item
+                    elif item_name == "bowl of porridge":
+                        room_current.porridge = room_item
+                        inv.porridge = inv_item
+                    elif item_name == "bowl":
+                        room_current.bowl = room_item
+                        inv.bowl = inv_item
+                    elif item_name == "lantern":
+                        room_current.lantern = room_item
+                        inv.lantern = inv_item
+                    elif item_name == "vial of lantern oil":
+                        room_current.oil = room_item
+                        inv.oil = inv_item
+                    elif item_name == "chicken pot pie":
+                        room_current.pie = room_item
+                        inv.pie = inv_item
+                    elif item_name == "hardtack biscuit":
+                        room_current.biscuit = room_item
+                        inv.biscuit = inv_item
+                    elif item_name == "grappling hook":
+                        room_current.hook = room_item
+                        inv.hook = inv_item
+                    elif item_name == "staff of Garrotxa":
+                        room_current.staff = room_item
+                        inv.staff = inv_item
+                    elif item_name == "raffle ticket":
+                        room_current.ticket = room_item
+                        inv.ticket = inv_item
+                    elif item_name == "piece of coal":
+                        room_current.coal = room_item
+                        inv.coal = inv_item
+                    elif item_name == "rotten potato":
+                        room_current.potato = room_item
+                        inv.potato = inv_item
+                    elif item_name == "bandage":
+                        room_current.bandage = room_item
+                        inv.bandage = inv_item
+                    elif item_name == "journal":
+                        room_current.journal = room_item
+                        inv.journal = inv_item
+                    elif item_name == "mysterious book":
+                        room_current.book = room_item
+                        inv.book = inv_item
+                    elif item_name == "slice of brie cheese":
+                        room_current.brie = room_item
+                        inv.brie = inv_item
+                    elif item_name == "slice of munster cheese":
+                        room_current.munster = room_item
+                        inv.munster = inv_item
+                    elif item_name == "slice of stilton cheese":
+                        room_current.stilton = room_item
+                        inv.stilton = inv_item
+                    elif item_name == "slice of swiss cheese":
+                        room_current.swiss = room_item
+                        inv.swiss = inv_item
+                    elif item_name == "slice of wensleydale cheese":
+                        room_current.wensleydale = room_item
+                        inv.wensleydale = inv_item
+                    elif item_name == "potion of rejuvination":
+                        room_current.potion = room_item
+                        inv.potion = inv_item
+                    elif item_name == "flask":
+                        room_current.flask = room_item
+                        inv.flask = inv_item
+                    elif item_name == "dragonstone":
+                        room_current.stone = room_item
+                        inv.stone = inv_item
+                    elif item_name == "wooden bird":
+                        room_current.bird = room_item
+                        inv.bird = inv_item
+                    elif item_name == "note":
+                        room_current.note = room_item
+                        inv.note = inv_item
+                    elif item_name == "memo":
+                        room_current.memo = room_item
+                        inv.memo = inv_item
         # Hurt, Punch, Kick
         elif option.startswith("punch") or option.startswith("kick"):
             hurt = False
             if option.startswith("punch"):
                 if option == "punch":
                     print("Punch what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     option = option[6:]
                     hurt = "punch"
             elif option.startswith("kick"):
                 if option == "kick":
                     print("Kick what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     option = option[5:]
                     hurt = "kick"
@@ -5991,46 +6001,46 @@ def inGame(debug):
                 if option in ("self","myself","me"):
                     if hurt == "punch":
                         print("You punch yourself.")
-                        stat.lowerHealth()
+                        stat.lower_health()
                     else:
                         print("You try to kick yourself, however that would work, and quickly get frustrated. You end up kicking the back of one of your calves with your other foot, causing you to fall over and hit your head.")
-                        stat.lowerHealth()
-                elif roomID == "roomCarnivalFood":
+                        stat.lower_health()
+                elif room_id == "roomCarnivalFood":
                     if option in ("vendor","man","the vendor","the man"):
                         print("You %s the vendor.\n\nHe panicly shouts, \"Help, I'm being attacked!\" Town guards enter the tent and beat you to death." % hurt)
-                        endGame = True
+                        end_game = True
                     else:
                         print("You can't %s that." % hurt)
-                elif roomID == "roomCarnivalShellGame":
+                elif room_id == "roomCarnivalShellGame":
                     if option in ("sybil","woman","old woman"):
                         print("You %s Sybil.\n\nShe falls over on her back and yells, \"Azara Telkathena!\" Green lightning shoots out from her hands, frying you to death." % hurt)
-                        endGame = True
+                        end_game = True
                     else:
                         print("You can't %s that." % hurt)
-                elif roomID == "roomGeneralStore":
+                elif room_id == "roomGeneralStore":
                     if option in ("shopkeeper","man","the shopkeeper","the man"):
                         print("You %s the shopkeeper. \n\n\"What do you think you're doing?\" He grabs your arm and breaks it. \"That'll teach you a lesson.\"")
-                        endGame = True
+                        end_game = True
                 # add interactions with all rooms with people
-                elif roomID == "roomBridge":
+                elif room_id == "roomBridge":
                     if option in ("troll","the troll","ugg"):
-                        if roomCurrent.characterDead:
+                        if room_current.character_dead:
                             print("You %s the troll's charred remains. Your hand gets covered in ash.")
                         else:
                             print("You %s the troll. He gets angry and punches you back." % hurt)
-                            stat.lowerHealth()
+                            stat.lower_health()
                     else:
                         print("You can't %s that." % hurt)
-                elif roomID == "roomTempleInside":
+                elif room_id == "roomTempleInside":
                     if option in ("ghostly figure","ghost","figure"):
-                        if roomCurrent.characterDead:
+                        if room_current.character_dead:
                             print("There's no %s here to %s." % (option,hurt))
                         else:
                             print("You %s the ghostly figure, going right through it. \"Do not think you can defeat me with mere physical attacks.\" It zaps you, cutting open a wound in your chest." % hurt)
-                            stat.lowerHealth()
+                            stat.lower_health()
                 else:
                     print("You cannot",hurt,"that.")
-                    notTurn = True
+                    not_turn = True
         # Say, Yell, Shout, Scream
         elif option.startswith("say") or option.startswith("yell") or option.startswith("shout") or option.startswith("scream"):
             spell = False
@@ -6051,7 +6061,7 @@ def inGame(debug):
                 elif option.startswith("scream"):
                     option = option[7:].upper()
                 option = option.strip("\"").strip("\'")
-                if askName:
+                if ask_name:
                     mynameis = False
                     iam = False
                     im = False
@@ -6074,10 +6084,10 @@ def inGame(debug):
                         option = "I'm " + option2
                     else:
                         option = option2
-                    playerName = option2
+                    player_name = option2
                 if option == "":
                     print("Say what?")
-                    notTurn = True
+                    not_turn = True
                 elif say:
                     print("You say, \"%s.\"" % option)
                     option = option.lower()
@@ -6088,30 +6098,30 @@ def inGame(debug):
                 if option in ("raan mir tah", "laas yah nir", "mid vur shaan", "feim zii gron", "gol hah dov", "od ah viing", "lok vah koor", "ven gaar nos", "zun haal viik", "faas ru maar", "mul qah diiv", "joor zah frul", "gaan lah haas", "yol toor shul", "fo krah diin", "liz slen nus", "kaan drem ov", "krii lun aus", "rii vaaz zol", "tiid klo ul", "strun bah qo", "dur neh viir", "zul mey gut", "fus ro dah", "wuld nah kest", "zii los dii du", "slen tiid vo", "nahl dal vus", "diil qoth zaam", "ven mul riik", "riik lo sah"):
                     print("You promptly remind yourself this is not Skyrim.")
                 # Room dependent
-                elif roomID == "roomTempleBasement":
-                    if not roomCurrent.characterDead:
+                elif room_id == "roomTempleBasement":
+                    if not room_current.character_dead:
                         if stat.health < stat.healthmax:
                             heal = "Your wounds are magically healed. "
                         else:
                             heal = ""
-                        if option in roomCurrent.counterAns_1:
+                        if option in room_current.counter_ans_1:
                             print("\"Good. You have proven yourself worthy. The staff is yours.\" %sThe figure fades away." % heal)
                             stat.health = stat.healthmax
-                            roomCurrent.characterDead = True
+                            room_current.character_dead = True
                             # Roquefort message
-                            roomTempleEntrance.firstTime = True
+                            room_temple_entrance.first_time = True
                             # Black knight spawn
-                            roomRoadCorner.counter_1 = 1
-                            roomRoadCorner.characterDead = False
-                            roomRoadCorner.westBlocked = True
+                            room_road_corner.counter_1 = 1
+                            room_road_corner.character_dead = False
+                            room_road_corner.west_blocked = True
                         else:
                             if option.startswith("ozh ensh") or option in ("ozh vo'ses sa", "izh vo'poz", "ozh groth sol", "ozh vo'irush", "ozh gluth nith", "ozh gluth izh sol"):
                                 print("\"You dare speak that devilish tongue in this sacred temple? Think again, Ozkavosh fiend.\" The figure zaps you with a bolt of electricity.")
                                 option = ""
-                                endGame = True
+                                end_game = True
                             else:
                                 print("\"Incorrect.\" The figure zaps you with a bolt of electricity.")
-                                stat.lowerHealth()
+                                stat.lower_health()
                 # Spells
                 if option.startswith("ozh ensh") or option in ("ozh vo'ses sa","izh vo'poz","ozh thok alatho","ozh groth sol","ozh vo'irush","ozh gluth nith","ozh gluth izh sol","ozh sol fek"):
                     spell = True
@@ -6216,93 +6226,93 @@ def inGame(debug):
                 # Unlock (I unhide this)
                 # roomLake after saving stranger
                 elif option == "ozh vo'ses sa":
-                    if roomID in ("roomJailCell","roomMountEntrance","roomHouseGate","roomHouseEntrance") and (roomCurrent.northBlocked or roomCurrent.eastBlocked or roomCurrent.southBlocked or roomCurrent.westBlocked) or (roomID in ("roomLake","roomCave__3_lllm_treasure_crevasse") and not roomCurrent.counter_1):
+                    if room_id in ("roomJailCell","roomMountEntrance","roomHouseGate","roomHouseEntrance") and (room_current.north_blocked or room_current.east_blocked or room_current.south_blocked or room_current.west_blocked) or (room_id in ("roomLake","roomCave__3_lllm_treasure_crevasse") and not room_current.counter_1):
                         print("You feel a surge of energy emit from the utterance of your words into the lock, unlocking it.")
-                        if roomID in ("roomLake","roomCave__3_lllm_treasure_crevasse"):
-                            roomCurrent.counter_1 = 1
+                        if room_id in ("roomLake","roomCave__3_lllm_treasure_crevasse"):
+                            room_current.counter_1 = 1
                             valid = True
                             spell_unlock = 2
                         else:
                             valid = True
-                            if roomCurrent.northBlocked and roomCurrent.north:
+                            if room_current.north_blocked and room_current.north:
                                 print("You can now go North.")
-                                roomCurrent.northBlocked = False
-                            if roomCurrent.eastBlocked and roomCurrent.east:
+                                room_current.north_blocked = False
+                            if room_current.east_blocked and room_current.east:
                                 print("You can now go East.")
-                                roomCurrent.eastBlocked = False
-                            if roomCurrent.westBlocked and roomCurrent.west:
+                                room_current.east_blocked = False
+                            if room_current.west_blocked and room_current.west:
                                 print("You can now go West.")
-                                roomCurrent.southBlocked = False
-                            if roomCurrent.southBlocked and roomCurrent.south:
+                                room_current.south_blocked = False
+                            if room_current.south_blocked and room_current.south:
                                 print("You can now go South.")
-                                roomCurrent.westBlocked = False
-                            if roomID == "roomJailCell":
-                                if not roomCurrent.counter_1 and not playerName:
-                                    roomJailCorridor.letter += 1
-                                    roomCurrent.counterAns_1 = 1
-                                if not playerName:
-                                    playerName = "the hero of Kashkaval"
-                                inv.letterRead = "It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
+                                room_current.west_blocked = False
+                            if room_id == "roomJailCell":
+                                if not room_current.counter_1 and not player_name:
+                                    room_jail_corridor.letter += 1
+                                    room_current.counter_ans_1 = 1
+                                if not player_name:
+                                    player_name = "the hero of Kashkaval"
+                                inv.letterRead = "It reads:\n\nTo " + player_name + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
                 # Oblivion - Open hemispheres
                 # roomBarn letter
-                elif option == "eyik vo'hollom" and roomID in ("roomForest","roomField") and roomCurrent.eastBlocked:
-                    roomForest.eastBlocked = False
-                    roomField.eastBlocked = False
+                elif option == "eyik vo'hollom" and room_id in ("roomForest","roomField") and room_current.east_blocked:
+                    room_forest.east_blocked = False
+                    room_field.east_blocked = False
                     print("You hear strange whispers in every direction around you. Suddenly, the hemisphere begins to hum and an opening appears, leading inside.")
                     print("You can no go East.")
                 # Persuade (You have no power)
                 # roomRoadCorner after defeating black knight
                 elif option == "izh vo'poz":
-                    if roomID in ("roomGate","roomBridge","roomTempleInside","roomRoadCorner"):
+                    if room_id in ("roomGate","roomBridge","roomTempleInside","roomRoadCorner"):
                         # roomGate
-                        if roomID == "roomGate" and roomCurrent.northBlocked:
+                        if room_id == "roomGate" and room_current.north_blocked:
                             print("You feel a surge of energy emit from the utterance of your words towards the guard.")
                             print("The guard is convinced you gave him his shrubbery and lets you through the gate.")
-                            roomGate.northBlocked = False
-                            roomGate.isGive = False
+                            room_gate.north_blocked = False
+                            room_gate.is_give = False
                             valid = True
                         # roomBridge
-                        elif roomID == "roomBridge" and roomCurrent.eastBlocked:
+                        elif room_id == "roomBridge" and room_current.east_blocked:
                             print("You feel a surge of energy emit from the utterance of your words towards the troll.")
                             print('The troll is convinced you gave him all the funnel cakes in the world and goes back under the bridge.')
-                            roomBridge.eastBlocked = False
+                            room_bridge.east_blocked = False
                             valid = True
                         # roomTempleInside
-                        elif roomID == "roomTempleInside" and not roomCurrent.characterDead:
+                        elif room_id == "roomTempleInside" and not room_current.character_dead:
                             print("You feel a surge of energy emit from the utterance of your words towards the ghostly figure.")
                             valid = True
                         # roomRoadCorner
-                        elif roomID == "roomRoadCorner" and not roomCurrent.characterDead:
+                        elif room_id == "roomRoadCorner" and not room_current.character_dead:
                             print("You feel a surge of energy emit from the utterance of your words towards the ghostly figure.")
                             print("The black knights say, \"One shall pass.\" before walking off into the forest.")
-                            roomCurrent.characterDead = True
+                            room_current.character_dead = True
                             valid = True
                         if valid:
                             spell_persuade = 2
                 # Jump (I move forward)
                 # roomLairEast
                 elif option == "ozh thok alatho":
-                    if roomID.endswith("crevasse"):
+                    if room_id.endswith("crevasse"):
                         # roomCave_3_llm_crevasse
-                        if roomID == "roomCave_3_llm_crevasse":
+                        if room_id == "roomCave_3_llm_crevasse":
                             direction = "West"
-                            roomID = roomCurrent.west
-                            changeRoom = True
+                            room_id = room_current.west
+                            change_room = True
                             valid = True
-                        elif roomID == "roomCave__3_lllm_treasure_crevasse":
+                        elif room_id == "roomCave__3_lllm_treasure_crevasse":
                             direction = "East"
-                            roomID = roomCurrent.east
-                            changeRoom = True
+                            room_id = room_current.east
+                            change_room = True
                             valid = True
-                        elif roomID == "roomCave_8_mr_crevasse":
+                        elif room_id == "roomCave_8_mr_crevasse":
                             direction = "north"
-                            roomID = roomCurrent.north
-                            changeRoom = True
+                            room_id = room_current.north
+                            change_room = True
                             valid = True
-                        elif roomID == "roomCave_9_mr_crevasse":
+                        elif room_id == "roomCave_9_mr_crevasse":
                             direction = "south"
-                            roomID = roomCurrent.south
-                            changeRoom = True
+                            room_id = room_current.south
+                            change_room = True
                             valid = True
                         if valid:
                             spell_persuade = 2
@@ -6310,12 +6320,12 @@ def inGame(debug):
                 # Light (I open light)
                 # Obtained from Barn
                 elif option == "ozh groth sol":
-                    if lightCounter < LIGHT_DURATION:
-                        if lightCounter:
+                    if light_counter < LIGHT_DURATION:
+                        if light_counter:
                             print("You feel a surge of energy emit from the utterance of your words as the ball of light brightens.")
                         else:
                             print("You feel a surge of energy emit from the utterance of your words as a ball of light appears in front of you.")
-                        lightCounter = LIGHT_DURATION
+                        light_counter = LIGHT_DURATION
                     valid = True
                     spell_light = 2
                 # Heal (I without illness)
@@ -6336,115 +6346,115 @@ def inGame(debug):
                 # Kill (I eat your soul)
                 # From losing the game at the end (implicit)
                 elif option == "ozh gluth izh sol":
-                    if not roomCurrent.characterDead or roomID.startswith("roomLair") or (roomID.startswith("roomCave") and creatureChaseCounter in [1,2]) or (roomID.startswith("roomJail") and jailGuardCounter in [1,2]):
-                        roomCurrent.characterDead = True
+                    if not room_current.character_dead or room_id.startswith("roomLair") or (room_id.startswith("roomCave") and creature_chase_counter in [1,2]) or (room_id.startswith("roomJail") and jail_guard_counter in [1,2]):
+                        room_current.character_dead = True
                         print("You feel a surge of energy emit from the utterance of your words, consuming the soul of ", end = "")
                         valid = True
                         spell_kill = 2
-                        if roomID == "roomCarnivalShellGame":
+                        if room_id == "roomCarnivalShellGame":
                             print("the old woman. As she topples over, all her gold is spilled across the ground.")
-                            roomCurrent.isBet = False
-                            roomCurrent.gold += invShell.gold
-                            invShell.gold = 0
-                            roomCurrent.itemsPresent()
-                        elif roomID.startswith("roomJail"):
+                            room_current.is_bet = False
+                            room_current.gold += inv_shell.gold
+                            inv_shell.gold = 0
+                            room_current.items_present()
+                        elif room_id.startswith("roomJail"):
                             print("a jail guard. The rest surround you and take you down.")
-                            endGame = True
-                        elif roomID == "roomCarnivalWheelGame":
+                            end_game = True
+                        elif room_id == "roomCarnivalWheelGame":
                             print("the man. The crowd goes into panic as guards enter the tent and overwhelm you.")
-                            endGame = True
-                        elif roomID == "roomCarnivalFood":
+                            end_game = True
+                        elif room_id == "roomCarnivalFood":
                             print("the vendor. He falls over, leaving his supply of food behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.funnelCake += invFood.funnelCake
-                            invFood.funnelCakes = 0
-                            roomCurrent.pie += 10
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomBridge":
+                            room_current.is_buy = False
+                            room_current.funnel_cake += inv_food.funnel_cake
+                            inv_food.funnel_cakes = 0
+                            room_current.pie += 10
+                            room_current.items_present()
+                        elif room_id == "roomBridge":
                             print("the troll. It falls over, dropping the funnel cakes in its hands.")
-                            roomCurrent.eastBlocked = False
-                            roomCurrent.funnelCake += 1
-                            roomCurrent.halfFunnelCake += 3
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomGeneralStore":
+                            room_current.east_blocked = False
+                            room_current.funnel_cake += 1
+                            room_current.half_funnel_cake += 3
+                            room_current.items_present()
+                        elif room_id == "roomGeneralStore":
                             print("the shopkeeper, leaving his store supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isSell = False
-                            roomCurrent.oil += 5
-                            roomCurrent.foot += 5
-                            roomCurrent.lantern += 1
-                            roomCurrent.bandage += 5
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomBlacksmith":
+                            room_current.is_buy = False
+                            room_current.is_sell = False
+                            room_current.oil += 5
+                            room_current.foot += 5
+                            room_current.lantern += 1
+                            room_current.bandage += 5
+                            room_current.items_present()
+                        elif room_id == "roomBlacksmith":
                             print("the blacksmith, leaving his supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isSell = False
-                            roomCurrent.pickaxe += 2
-                            roomCurrent.hook += 3
-                            roomCurrent.itemsPresent()
-                        elif roomID == "roomAlchemist":
+                            room_current.is_buy = False
+                            room_current.is_sell = False
+                            room_current.pickaxe += 2
+                            room_current.hook += 3
+                            room_current.items_present()
+                        elif room_id == "roomAlchemist":
                             print("Tim the Enchanter, leaving his supplies behind.")
-                            roomCurrent.isBuy = False
-                            roomCurrent.isFill = False
-                            roomCurrent.isSell = False
-                            roomCurrent.potion += 3
-                            roomCurrent.flask += 4
-                            roomCurrent.itemsPresent()
-                        elif roomID in ("roomCarnival","roomCourtyardNorth","roomCourtyardSouth"):
+                            room_current.is_buy = False
+                            room_current.is_fill = False
+                            room_current.is_sell = False
+                            room_current.potion += 3
+                            room_current.flask += 4
+                            room_current.items_present()
+                        elif room_id in ("roomCarnival","roomCourtyardNorth","roomCourtyardSouth"):
                             print("a random civilian. The loud noise alerts the town guards, who catch up to you and kill you.")
-                            endGame = True
-                        elif roomID == "roomGate":
+                            end_game = True
+                        elif room_id == "roomGate":
                             print("the gate guard. Another nearby guard one draws his sword and impales you.")
-                            endGame = True
-                        elif roomID == "roomRoadCorner" and roomRoadCorner.counter_1:
+                            end_game = True
+                        elif room_id == "roomRoadCorner" and room_road_corner.counter_1:
                             print("the black knight. He shouts, \"IZH VO'POZ!\" before his body vaporizes into nothing.")
                             if not spell_persuade:
                                 spell_persuade = 1
-                            roomRoadCorner.westBlocked = False
-                        elif roomID == "roomHouseOffice":
-                            roomCurrent.counter_2 += 1
-                            if roomCurrent.counter_2 == 1:
+                            room_road_corner.west_blocked = False
+                        elif room_id == "roomHouseOffice":
+                            room_current.counter_2 += 1
+                            if room_current.counter_2 == 1:
                                 print("Eden Von Roquefort. His body flies back and crashes on the desk.")
-                            elif roomCurrent.counter_2 == 2:
+                            elif room_current.counter_2 == 2:
                                 print("Vesh'kathal. She resists the shock and charges towards you, knocking the staff out of your hand. Merely grazing her arm against the holy staff causes her scales to burn, making her to topple over in pain.")
                                 inv.staff -= 1
-                                roomCurrent.staff += 1
-                                roomCurrent.itemsPresent()
+                                room_current.staff += 1
+                                room_current.items_present()
                             else:
                                 print("Vesh'kathal. She is severly weaked, but manages to stay alive.")
-                        elif roomID.startswith("roomCave"):
+                        elif room_id.startswith("roomCave"):
                             print("the creature, which resists the spell. It only gets angrier.")
-                        elif roomID.startswith("roomLair"):
+                        elif room_id.startswith("roomLair"):
                             print("the creature, which resists the spell. It only gets angrier.")
-                            if not creatureLairChase:
-                                creatureLairChase = True
-                        elif roomID == "roomLake":
+                            if not room_lair_chase:
+                                room_lair_chase = True
+                        elif room_id == "roomLake":
                             print("the stranger, leaving his supplies behind.")
-                            roomCurrent.pie += 1
-                            roomCurrent.itemsPresent()
+                            room_current.pie += 1
+                            room_current.items_present()
                 # Kill self (My life ends)
                 # From Journal
                 elif option == "ozh sol fek":
                     print("You feel a surge of energy emit from the utterance of your words as your own heart stops.")
-                    endGame = True
+                    end_game = True
                     valid = True
                     spell_killself = 2
                 if spell and not valid:
                     print("You feel a strange sense of energy flow throughout your body although nothing else happens.")
 
                 # Responses
-                if roomID == "roomRoadCorner" and not roomCurrent.characterDead and roomCurrent.counter_1 and option not in ("ozh gluth izh sol","izh vo'poz"):
+                if room_id == "roomRoadCorner" and not room_current.character_dead and room_current.counter_1 and option not in ("ozh gluth izh sol","izh vo'poz"):
                     print("The black knight stands silently, ignoring your words.")
-                elif roomID == "roomBookMirror" and not roomCurrent.characterDead:
+                elif room_id == "roomBookMirror" and not room_current.character_dead:
                     print("\nThe gargoyle says, \"%s\" in return." % reverse_cap(option))
                     if option == "los hzi htulg hzo":
                         print("You are overwhelmed with pain and agony as you fall to your knees.")
-                        endGame = True
+                        end_game = True
                     elif option == "zop'ov hzi":
                         print("You stand motionless... forever.")
-                        endGame = True
+                        end_game = True
                     elif option == "los htorg hzo":
-                        if not roomCurrent.counter_1:
+                        if not room_current.counter_1:
                             print("A ball of light appears in the room.")
                         else:
                             print("The ball of light brightens.")
@@ -6452,24 +6462,24 @@ def inGame(debug):
                         # roomCurrent.counter_1
                     elif option == "kef los hzo":
                         print("It crumbles into pieces. A pedestal emerges from the floor, with a mysterious book on it.")
-                        roomCurrent.characterDead = True
-                        roomCurrent.itemFound = True
-                        roomCurrent.book += 1
-                        roomCurrent.itemsPresent()
+                        room_current.character_dead = True
+                        room_current.item_found = True
+                        room_current.book += 1
+                        room_current.items_present()
         # Filler commands
         # Do nothing important
         # Lie down
         elif option in ("save","save game","save the game"):
             print("HAHAHAHA. YOU THOUGHT THIS GAME WAS ACTUALLY GOOD ENOUGH TO HAVE A SAVE FEATURE?")
-            notTurn = True
+            not_turn = True
         elif option in ("load","load game","load saved game"):
             print("No saved game to load.")
-            notTurn = True
+            not_turn = True
         elif option.startswith("lie down on") or option.startswith("lie down in"):
             option = option[11:]
             if option in ("floor","ground","back"):
                     print("You lie down. It'x pretty relaxing.")
-            elif roomID == "roomJailCell":
+            elif room_id == "roomJailCell":
                 if option == "haystack":
                     print("You lie down. The haystack makes your back a bit itchy, but you've gotten used to it by now.")
             else:
@@ -6507,372 +6517,372 @@ def inGame(debug):
                 option = option[4:]
             elif option.startswith("purchase"):
                 optoin = option[9:]
-            if roomCurrent.isBuy:
+            if room_current.is_buy:
                 if option == "":
                     print("Buy what?")
-                    notTurn = True
+                    not_turn = True
                 else:
-                    buyPickaxe = False
-                    buyFunnelCake = False
-                    buyFoot = False
-                    buyLantern = False
-                    buyOil = False
-                    buyPie = False
-                    buyHook = False
-                    buyBandage = False
-                    buyTicket = False
-                    buyPotion = False
+                    buy_pickaxe = False
+                    buy_funnel_cake = False
+                    buy_foot = False
+                    buy_lantern = False
+                    buy_oil = False
+                    buy_pie = False
+                    buy_hook = False
+                    buy_bandage = False
+                    buy_ticket = False
+                    buy_potion = False
                     # Checking what is being bought and how many
                     # Buy pickaxe
                     if option in ("pick","pickaxe","a pick","a pickaxe"):
                         buy_count = 1
-                        buyPickaxe = True
+                        buy_pickaxe = True
                     elif option.endswith("pickaxe"):
                         buy_count = option[:len(option) - len("pickaxe") - 1]
-                        buyPickaxe = True
+                        buy_pickaxe = True
                     elif option.endswith("pickaxes"):
                         buy_count = option[:len(option) - len("pickaxes") - 1]
-                        buyPickaxe = True
+                        buy_pickaxe = True
                     elif option.endswith("pick"):
                         buy_count = option[:len(option) - len("pick") - 1]
-                        buyPickaxe = True
+                        buy_pickaxe = True
                     elif option.endswith("picks"):
                         buy_count = option[:len(option) - len("picks") - 1]
-                        buyPickaxe = True
+                        buy_pickaxe = True
                     # Buy funnel cake
                     elif option.startswith("funnel") or option.startswith("cake"):
                         buy_count = 1
-                        buyFunnelCake = True
+                        buy_funnel_cake = True
                     elif option.endswith("funnel cake"):
                         buy_count = option[:len(option) - len("funnel cake") - 1]
-                        buyFunnelCake = True
+                        buy_funnel_cake = True
                     elif option.endswith("funnel cakes"):
                         buy_count = option[:len(option) - len("funnel cakes") - 1]
-                        buyFunnelCake = True
+                        buy_funnel_cake = True
                     elif option.endswith("cake"):
                         buy_count = option[:len(option) - len("cake") - 1]
-                        buyFunnelCake = True
+                        buy_funnel_cake = True
                     elif option.endswith("cakes"):
                         buy_count = option[:len(option) - len("cakes") - 1]
-                        buyFunnelCake = True
+                        buy_funnel_cake = True
                     # Buy lucky rabbit foot
                     elif option.startswith("lucky") or option.startswith("rabbit") or option.startswith("foot") or option.startswith("feet"):
                         buy_count = 1
-                        buyFoot = True
+                        buy_foot = True
                     elif option.endswith("lucky rabbit foot") or option.endswith("lucky rabbit feet"):
                         buy_count = option[:len(option) - len("lucky rabbit foot") - 1]
-                        buyFoot = True
+                        buy_foot = True
                     elif option.endswith("lucky rabbit"):
                         buy_count = option[:len(option) - len("lucky rabbit") - 1]
-                        buyFoot = True
+                        buy_foot = True
                     elif option.endswith("lucky foot") or option.endswith("lucky feet"):
                         buy_count = option[:len(option) - len("lucky foot") - 1]
-                        butFoot = True
+                        buy_foot = True
                     elif option.endswith("foot") or option.endswith("feet"):
                         buy_count = option[:len(option) - len("foot") - 1]
-                        buyFoot = True
+                        buy_foot = True
                     # Buy lantern
                     elif option == "lantern":
                         buy_count = 1
-                        buyLantern = True
+                        buy_lantern = True
                     elif option == "lanterns":
                         buy_count = 1
-                        buyLantern = True
+                        buy_lantern = True
                     elif option.endswith("lantern"):
                         buy_count = option[:len(option) - len("lantern") - 1]
-                        buyLantern = True
+                        buy_lantern = True
                     elif option.endswith("lanterns"):
                         buy_count = option[:len(option) - len("lanterns") - 1]
-                        buyLantern = True
+                        buy_lantern = True
                     # Buy vial of lantern oil
                     elif option.startswith("vial") or option.startswith("oil") or option.startswith("lantern oil"):
                         buy_count = 1
-                        buyOil = True
+                        buy_oil = True
                     elif option.endswith("vials of lantern oil"):
                         buy_count = option[:len(option) - len("vials of lantern oil") - 1]
-                        buyOil = True
+                        buy_oil = True
                     elif option.endswith("vial of lantern oil"):
                         buy_count = option[:len(option) - len("vial of lantern oil") - 1]
-                        buyOil =True
+                        buy_oil =True
                     elif option.endswith("vial of oil"):
                         buy_count = option[:len(option) - len("vial of oil") - 1]
-                        buyOil =True
+                        buy_oil =True
                     elif option.endswith("vials of oil"):
                         buy_count = option[:len(option) - len("vials of oil") - 1]
-                        buyOil =True
+                        buy_oil =True
                     elif option.endswith("oil"):
                         buy_count = option[:len(option) - len("oil") - 1]
-                        buyOil = True
+                        buy_oil = True
                     elif option.endswith("vial"):
                         buy_count = option[:len(option) - len("vial") - 1]
-                        buyOil =True
+                        buy_oil =True
                     elif option.endswith("vials"):
                         buy_count = option[:len(option) - len("vials") - 1]
-                        buyOil =True
+                        buy_oil =True
                     # Buy pie
                     elif option.startswith("chicken") or option.startswith("pie"):
                         buy_count = 1
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("chicken pot pie"):
                         buy_count = option[:len(option) - len("chicken pot pie") - 1]
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("chicken pot pies"):
                         buy_count = option[:len(option) - len("chicken pot pies") - 1]
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("chicken pie"):
                         buy_count = option[:len(option) - len("chicken pie") - 1]
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("chicken pies"):
                         buy_count = option[:len(option) - len("chicken pies") - 1]
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("pie"):
                         buy_count = option[:len(option) - len("pie") - 1]
-                        buyPie = True
+                        buy_pie = True
                     elif option.endswith("pies"):
                         buy_count = option[:len(option) - len("pies") - 1]
-                        buyPie = True
+                        buy_pie = True
                     # Buy grappling hook
                     elif option.startswith("grappling") or option.startswith("hook"):
                         buy_count = 1
-                        buyHook = True
+                        buy_hook = True
                     elif option.endswith("grappling hook"):
                         buy_count = option[:len(option) - len("grappling hook") - 1]
-                        buyHook = True
+                        buy_hook = True
                     elif option.endswith("grappling hooks"):
                         buy_count = option[:len(option) - len("grappling hooks") - 1]
-                        buyHook = True
+                        buy_hook = True
                     elif option.endswith("hook"):
                         buy_count = option[:len(option) - len("hook") - 1]
-                        buyHook = True
+                        buy_hook = True
                     elif option.endswith("hooks"):
                         buy_count = option[:len(option) - len("hooks") - 1]
-                        buyHook = True
+                        buy_hook = True
                     # Buy bandage
                     elif option in ("bandage","bandages"):
                         buy_count = 1
-                        buyBandage = True
+                        buy_bandage = True
                     elif option.endswith("bandage"):
                         buy_count = option[:len(option) - len("bandage") - 1]
-                        buyBandage = True
+                        buy_bandage = True
                     elif option.endswith("bandages"):
                         buy_count = option[:len(option) - len("bandages") - 1]
-                        buyBandage = True
+                        buy_bandage = True
                     # Buy ticket
                     elif option in ("raffle ticket","ticket","raffle"):
                         buy_count = 1
-                        buyTicket = True
+                        buy_ticket = True
                     elif option.endswith("raffle ticket"):
                         buy_count = option[:len(option) - len("raffle ticket") - 1]
-                        buyTicket = True
+                        buy_ticket = True
                     elif option.endswith("ticket"):
                         buy_count = option[:len(option) - len("ticket") - 1]
-                        buyTicket = True
+                        buy_ticket = True
                     elif option.endswith("raffle tickets"):
                         buy_count = option[:len(option) - len("raffle tickets") - 1]
-                        buyTicket = True
+                        buy_ticket = True
                     elif option.endswith("tickets"):
                         buy_count = option[:len(option) - len("tickets") - 1]
-                        buyTicket = True
+                        buy_ticket = True
                     # Potion
                     elif option in ("potion","potion of rejuvination"):
                         buy_count = 1
-                        buyPotion = True
+                        buy_potion = True
                     elif option.endswith("potion of rejuvination"):
                         buy_count = option[:len(option) - len("potion of rejuvination") - 1]
-                        buyPotion = True
+                        buy_potion = True
                     elif option.endswith("potions of rejuvination"):
                         buy_count = option[:len(option) - len("potions of rejuvination") - 1]
-                        buyPotion = True
+                        buy_potion = True
                     elif option.endswith("potion"):
                         buy_count = option[:len(option) - len("potion") - 1]
-                        buyPotion = True
+                        buy_potion = True
                     elif option.endswith("potions"):
                         buy_count = option[:len(option) - len("potions") - 1]
-                        buyPotion = True
+                        buy_potion = True
                     else:
                         print("You cannot buy that.")
-                        notTurn = True
-                    if (buyPickaxe or buyFunnelCake or buyFoot or buyLantern or buyOil or buyPie or buyHook or buyBandage or buyTicket or buyPotion):
+                        not_turn = True
+                    if buy_pickaxe or buy_funnel_cake or buy_foot or buy_lantern or buy_oil or buy_pie or buy_hook or buy_bandage or buy_ticket or buy_potion:
                         # Item information
-                        if buyFunnelCake:
-                            itemName = "funnel cake"
-                            itemsName = "funnel cakes"
-                            invItem = inv.funnelCake
+                        if buy_funnel_cake:
+                            item_name = "funnel cake"
+                            items_name = "funnel cakes"
+                            inv_item = inv.funnel_cake
                             price = PRICE_BUY_FUNNELCAKE
-                        elif buyPie:
-                            itemName = "chicken pot pie"
-                            itemsName = "chicken pot pies"
-                            invItem = inv.pie
+                        elif buy_pie:
+                            item_name = "chicken pot pie"
+                            items_name = "chicken pot pies"
+                            inv_item = inv.pie
                             price = PRICE_BUY_PIE
-                        elif buyFoot:
-                            itemName = "lucky rabbit foot"
-                            itemsName = "lucky rabbit feet"
-                            invItem = inv.foot
+                        elif buy_foot:
+                            item_name = "lucky rabbit foot"
+                            items_name = "lucky rabbit feet"
+                            inv_item = inv.foot
                             price = PRICE_BUY_FOOT
-                        elif buyLantern:
-                            itemName = "lantern"
-                            itemsName = "lanterns"
-                            invItem = inv.lantern
+                        elif buy_lantern:
+                            item_name = "lantern"
+                            items_name = "lanterns"
+                            inv_item = inv.lantern
                             price = PRICE_BUY_LANTERN
-                        elif buyOil:
-                            itemName = "vial of lantern oil"
-                            itemsName = "vials of lantern oil"
-                            invItem = inv.oil
+                        elif buy_oil:
+                            item_name = "vial of lantern oil"
+                            items_name = "vials of lantern oil"
+                            inv_item = inv.oil
                             price = PRICE_BUY_OIL
-                        elif buyBandage:
-                            itemName = "bandage"
-                            itemsName = "bandages"
-                            invItem = inv.bandage
+                        elif buy_bandage:
+                            item_name = "bandage"
+                            items_name = "bandages"
+                            inv_item = inv.bandage
                             price = PRICE_BUY_BANDAGE
-                        elif buyPickaxe:
-                            itemName = "pickaxe"
-                            itemsName = "pickaxes"
-                            invItem = inv.pickaxe
+                        elif buy_pickaxe:
+                            item_name = "pickaxe"
+                            items_name = "pickaxes"
+                            inv_item = inv.pickaxe
                             price = PRICE_BUY_PICKAXE
-                        elif buyHook:
-                            itemName = "grappling hook"
-                            itemsName = "grappling hooks"
-                            invItem = inv.hook
+                        elif buy_hook:
+                            item_name = "grappling hook"
+                            items_name = "grappling hooks"
+                            inv_item = inv.hook
                             price = PRICE_BUY_HOOK
-                        elif buyTicket:
-                            itemName = "raffle ticket"
-                            itemsName = "raffle tickets"
-                            invItem = inv.ticket
+                        elif buy_ticket:
+                            item_name = "raffle ticket"
+                            items_name = "raffle tickets"
+                            inv_item = inv.ticket
                             price = PRICE_BUY_TICKET
-                        elif buyPotion:
-                            itemName = "potion of rejuvination"
-                            itemsName = "potions of rejuvination"
-                            invItem = inv.potion
+                        elif buy_potion:
+                            item_name = "potion of rejuvination"
+                            items_name = "potions of rejuvination"
+                            inv_item = inv.potion
                             price = PRICE_BUY_POTION
-                        itemInStore = False
+                        item_in_store = False
                         # Funnel Cakes Galore
-                        if roomID == "roomCarnivalFood":
-                            shopKeeperName = "vendor"
-                            if invFood.funnelCake:
-                                if buyFunnelCake or buyPie:
-                                    itemInStore = True
+                        if room_id == "roomCarnivalFood":
+                            shop_keeper_name = "vendor"
+                            if inv_food.funnel_cake:
+                                if buy_funnel_cake or buy_pie:
+                                    item_in_store = True
                             else:
-                                if buyPie:
-                                    itemInStore = True
+                                if buy_pie:
+                                    item_in_store = True
                         # General Store
-                        elif roomID == "roomGeneralStore":
-                            shopKeeperName = "the shopkeeper"
-                            if buyFoot or buyLantern or buyOil or buyBandage:
-                                itemInStore = True
+                        elif room_id == "roomGeneralStore":
+                            shop_keeper_name = "the shopkeeper"
+                            if buy_foot or buy_lantern or buy_oil or buy_bandage:
+                                item_in_store = True
                         # Blacksmith
-                        elif roomID == "roomBlacksmith":
-                            shopKeeperName = "the blacksmith"
-                            if buyPickaxe or buyHook:
-                                itemInStore = True
+                        elif room_id == "roomBlacksmith":
+                            shop_keeper_name = "the blacksmith"
+                            if buy_pickaxe or buy_hook:
+                                item_in_store = True
                         # Wheel of Mystery
-                        elif roomID == "roomCarnivalWheelGame":
-                            shopKeeperName = "the man"
-                            if buyTicket:
-                                itemInStore = True
+                        elif room_id == "roomCarnivalWheelGame":
+                            shop_keeper_name = "the man"
+                            if buy_ticket:
+                                item_in_store = True
                         # Alchemist's hut
-                        elif roomID == "roomAlchemist":
-                            shopKeeperName = "Tim the Enchanter"
-                            if buyPotion:
-                                itemInStore = True
+                        elif room_id == "roomAlchemist":
+                            shop_keeper_name = "Tim the Enchanter"
+                            if buy_potion:
+                                item_in_store = True
                             # Checks if invItem buy_count is valid
                             # Must be equivalent to an integer
                             # Must not be negative
                             # With cost, must not exceed inv.gold
-                        if itemInStore:
-                            buyItemCountOkay = False
+                        if item_in_store:
+                            buy_item_count_okay = False
                             try:
                                 buy_count = float(buy_count)
                                 if float(buy_count) % 1 == 0 and buy_count > 0:
-                                    buyItemCountOkay = True
+                                    buy_item_count_okay = True
                                     buy_count = int(buy_count)
                                 else:
-                                    print("You cannot buy",buy_count,"%s." % itemsName)
-                                    notTurn = True
+                                    print("You cannot buy",buy_count,"%s." % items_name)
+                                    not_turn = True
                             except ValueError:
-                                print("You cannot buy \"" + buy_count + "\" %s." % itemsName)
-                                notTurn = True
+                                print("You cannot buy \"" + buy_count + "\" %s." % items_name)
+                                not_turn = True
                             # Buying funnel cakes
-                            if buyItemCountOkay:
+                            if buy_item_count_okay:
                                 # Checks if inventory has enough money
                                 if inv.gold >= buy_count * price:
                                     # If buying funnel cakes past limit
-                                    if buyFunnelCake and buy_count >= invFood.funnelCake:
-                                        if buy_count > invFood.funnelCake:
-                                            print("\n\"It looks like you bought out my final batch of funnel cakes for today. There's only %s cakes left, so I guess that'll do.\"" % invFood.funnelCake)
+                                    if buy_funnel_cake and buy_count >= inv_food.funnel_cake:
+                                        if buy_count > inv_food.funnel_cake:
+                                            print("\n\"It looks like you bought out my final batch of funnel cakes for today. There's only %s cakes left, so I guess that'll do.\"" % inv_food.funnel_cake)
                                         else:
                                             print("\n\"It looks like you bought out my final batch of funnel cakes. I've run out of batter so I won't be able to make any more for today.\"")
-                                        buy_count = invFood.funnelCake
+                                        buy_count = inv_food.funnel_cake
                                     inv.gold -= buy_count * price
                                     if buy_count > 1:
-                                        print("You give",shopKeeperName,buy_count * price,'gold. He gives you %s %s.' % (buy_count, itemsName))
+                                        print("You give",shop_keeper_name,buy_count * price,'gold. He gives you %s %s.' % (buy_count, items_name))
                                     elif buy_count == 1:
-                                        print("You give",shopKeeperName,buy_count * price,'gold. He gives you a %s.' % itemName)
+                                        print("You give",shop_keeper_name,buy_count * price,'gold. He gives you a %s.' % item_name)
                                     # Adds purchased items to inventory
-                                    if buyFunnelCake:
-                                        inv.funnelCake += buy_count
-                                        invItem += buy_count
-                                        invFood.funnelCake -= buy_count
-                                    elif buyPie:
+                                    if buy_funnel_cake:
+                                        inv.funnel_cake += buy_count
+                                        inv_item += buy_count
+                                        inv_food.funnel_cake -= buy_count
+                                    elif buy_pie:
                                         inv.pie += buy_count
-                                        invItem += buy_count
-                                    elif buyPickaxe:
+                                        inv_item += buy_count
+                                    elif buy_pickaxe:
                                         inv.pickaxe += buy_count
-                                        invItem += buy_count
-                                    elif buyFoot:
+                                        inv_item += buy_count
+                                    elif buy_foot:
                                         inv.foot += buy_count
-                                        invItem += buy_count
-                                    elif buyLantern:
+                                        inv_item += buy_count
+                                    elif buy_lantern:
                                         inv.lantern += buy_count
-                                        invItem += buy_count
-                                    elif buyOil:
+                                        inv_item += buy_count
+                                    elif buy_oil:
                                         inv.oil += buy_count
-                                        invItem += buy_count
-                                    elif buyHook:
+                                        inv_item += buy_count
+                                    elif buy_hook:
                                         inv.hook += buy_count
-                                        invItem += buy_count
-                                    elif buyBandage:
+                                        inv_item += buy_count
+                                    elif buy_bandage:
                                         inv.bandage += buy_count
-                                        invItem += buy_count
-                                    elif buyTicket:
+                                        inv_item += buy_count
+                                    elif buy_ticket:
                                         inv.ticket += buy_count
-                                        invItem += buy_count
-                                    elif buyPotion:
+                                        inv_item += buy_count
+                                    elif buy_potion:
                                         inv.potion += buy_count
-                                        invItem += buy_count
+                                        inv_item += buy_count
                                     # Tells users item count
-                                    if invItem:
-                                        if invItem > 1:
-                                            print("You have",invItem,"%s." % itemsName)
+                                    if inv_item:
+                                        if inv_item > 1:
+                                            print("You have",inv_item,"%s." % items_name)
                                         else:
-                                            print("You have",invItem,"%s." % itemName)
+                                            print("You have",inv_item,"%s." % item_name)
                                         print("You have",inv.gold,"gold.")
-                                        if roomID == "roomCarnivalWheelGame" and inv.ticket >= 1 and roomCarnivalWheelGame.isBuy:
+                                        if room_id == "roomCarnivalWheelGame" and inv.ticket >= 1 and room_carnival_wheel_game.is_buy:
                                             # Can't buy more tickets
-                                            roomCarnivalWheelGame.isBuy = False
+                                            room_carnival_wheel_game.is_buy = False
                                             # No one in room
-                                            roomCarnivalWheelGame.characterDead = True
+                                            room_carnival_wheel_game.character_dead = True
                                             # Can return ticket in roomCarnival
-                                            roomCarnival.isGive = True
+                                            room_carnival.is_give = True
                                             # Wheel game is closed
-                                            roomCarnival.westBlocked = True
+                                            room_carnival.west_blocked = True
                                             print("\nJust as you buy the ticket, someone walks around behind the stage and notices magnets lined across the back of the wheel. \"HEY! This raffle's rigged! Throw this FRAUD in jail!\" Guards enter the tent and arrest the raffle host.\n\nA spokesperson walks in and announces to the crowd, \"I apologize on behalf of the carnival for what has happened here. If you would like to be compensated for your tickets, it will be arranged just outside in the fair grounds. Now, everyone out. This man will be taken to the town jail for his crime.\" The crowd of people storm out, eager to give their tickets back.") ## continue make more concise and format well
                                             # print("\"Settle down everyone. We've sold our last ticket. It's time to spin the wonderful wheel of mystery!\" The man takes hold of the large wheel at the centre of the stage and with all his weight, pushes one end down, causing it to turn. The crowd cheers as the numbers along the edge pass the ticker at the top of the wheel. It finally stops at 42. \"I have the ticket! I have it!\" shouts a bearded man in the crowd. Just as he approaches the stage, someone grabs hold of him. \"Wait a minute, I've seen you before.\" His beard is torn off, revealing him in disguise. \"You won yesterday's raffle. In fact, you've been winning the raffle ever since this bloody carnival began. This raffle is rigged! Get 'em!\" Guards outside the tent notice the commotion and enter, grabbing hold of the raffle host and his accomplice to arrest them. \n\nA spokesperson enters the tent. She announces to the crowd, \"I apologize on behalf of the carnival for what has happened here. If you would like to be compensated for your tickets, it will be arranged outside in the fair grounds. Now, everyone out. These two will be taken to the town jail for their crimes.\" The crowd begrungenly walks out.")
                                     else:
-                                        print("You have no %s." % itemsName)
+                                        print("You have no %s." % items_name)
                                 else:
                                     if buy_count > 1:
-                                        print("You do not have enough gold to buy",buy_count,"%s." % itemsName)
-                                        notTurn = True
+                                        print("You do not have enough gold to buy",buy_count,"%s." % items_name)
+                                        not_turn = True
                                     else:
-                                        print("You do not have enough gold to buy a %s." % itemName)
-                                        notTurn = True
+                                        print("You do not have enough gold to buy a %s." % item_name)
+                                        not_turn = True
                         else:
-                            print("You cannot buy any",itemsName,"here.")
-                            notTurn = True
+                            print("You cannot buy any",items_name,"here.")
+                            not_turn = True
             # If not isBuy
             else:
                 print("You cannot buy anything here.")
-                notTurn = True
+                not_turn = True
         # Bet
         # For gambling in shops
         # Carnival Shell Game
@@ -6882,11 +6892,11 @@ def inGame(debug):
                 option = option[4:]
             elif option.startswith("gamble"):
                 option = option[7:]
-            if roomCurrent.isBet:
+            if room_current.is_bet:
                 if option == "":
                     print("Bet what?")
                     option = False
-                    notTurn = True
+                    not_turn = True
                 else:
                     try:
                         if float(option) % 1 == 0:
@@ -6894,81 +6904,81 @@ def inGame(debug):
                         else:
                             option = float(option)
                         print("Bet",option,"what?")
-                        notTurn = True
+                        not_turn = True
                         option = False
                     except ValueError:
                         pass
                 if option:
                     # Sybil's Shell Game
-                    if roomID == "roomCarnivalShellGame":
+                    if room_id == "roomCarnivalShellGame":
                         # If bet is already made
-                        betGold = True
-                        if roomCarnivalShellGame.betMade:
+                        bet_gold = True
+                        if room_carnival_shell_game.bet_made:
                             print("You've already bet",s_bet,"gold. Sybil is waiting for you to choose the left, middle, or right shell.")
-                            notTurn = True
+                            not_turn = True
                         # If bet is not made
                         else:
                             if option.endswith("gold"):
                                 s_bet = option[:len(option) - len("gold") - 1]
                             else:
                                 print("You cannot bet that.")
-                                betGold = False
-                                notTurn = True
+                                bet_gold = False
+                                not_turn = True
                             # Checks if bet s_bet is valid
-                            betGoldOkay = False
-                            if betGold:
+                            bet_gold_okay = False
+                            if bet_gold:
                                 if s_bet == "":
                                     print("Bet how much gold?")
-                                    notTurn = True
+                                    not_turn = True
                                 else:
                                     try:
                                         if float(s_bet) % 1 == 0 and float(s_bet) >= 0:
-                                            betGoldOkay = True
+                                            bet_gold_okay = True
                                             s_bet = int(float(s_bet))
                                         else:
-                                            betGold = False
+                                            bet_gold = False
                                             print('You cannot bet "' + s_bet + '" gold.')
-                                            notTurn = True
+                                            not_turn = True
                                     except ValueError:
                                         if s_bet in ("all","every"):
-                                            betGoldOkay = True
+                                            bet_gold_okay = True
                                             s_bet = inv.gold
                                         elif s_bet in ("none","no","zero"):
-                                            betGoldOkay = True
+                                            bet_gold_okay = True
                                             s_bet = 0
                                         else:
                                             print('You cannot bet "' + s_bet + '" gold.')
-                                            notTurn = True
-                            if betGoldOkay:
+                                            not_turn = True
+                            if bet_gold_okay:
                                 if inv.gold >= s_bet:
                                     inv.gold -= s_bet
-                                    invShell.gold += s_bet
+                                    inv_shell.gold += s_bet
                                     if s_bet > 0:
                                         print("You bet",s_bet,"gold.",end=" ")
                                     else:
                                         print('You bet nothing. "Playing just for fun, I see. So it shall be."',end=" ")
                                     print('Sybil takes out a stone, places it under one of the shells, and elaborately shuffles them all on the table. "Choose a shell," she says, pointing to the left, middle and right shells.')
                                     print("\nYou have %s gold." % inv.gold)
-                                    roomCarnivalShellGame.betMade = True
+                                    room_carnival_shell_game.bet_made = True
                                 else:
                                     print("You do not have enough gold to bet",s_bet,"gold.")
-                                    notTurn = True
+                                    not_turn = True
             else:
                 print("You cannot bet on anything here.")
-                notTurn = True
+                not_turn = True
         # Choose
         # For gambling in shops
         # Carnival Shell Game
         elif option.startswith("choose"):
             option = option[7:]
-            if roomCurrent.isBet:
+            if room_current.is_bet:
                 if option == "":
                     print("Choose what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     # Sybil's Shell Game
-                    if roomID == "roomCarnivalShellGame":
-                        if roomCurrent.betMade:
+                    if room_id == "roomCarnivalShellGame":
+                        if room_current.bet_made:
                             # If bet is already made
                             if "left" in option:
                                 s_choice = "left"
@@ -6981,27 +6991,27 @@ def inGame(debug):
                             if s_choice != "invalid":
                                 # If win
                                 if random.randint(1,100) < (33 + LUCKY_FOOT_MODIFIER * inv.foot):
-                                    if roomCurrent.characterDead:
+                                    if room_current.character_dead:
                                         print("You choose the",s_choice,"shell. As you just killed Sybil, you take a look under the shell and see that you have won. Congratulations for being a terrible person.")
-                                        roomCurrent.betMade = False
+                                        room_current.bet_made = False
                                     else:
                                         print("Sybil raises the",s_choice,"shell and reveals the stone underneath.")
                                         print('"Ahh! Luck is on your side," she exclaims.',end=" ")
                                         if s_bet > 0:
-                                            if (s_bet * SHELL_REWARD_MULTIPLIER) >= invShell.gold:
-                                                print("\"You seem you have run my coffers dry. My days of carnival work here is over. This is all I can give you.\" She hands you %s gold and begins packing her stuff to leave." % invShell.gold)
-                                                inv.gold += invShell.gold
-                                                invShell.gold = 0
-                                                roomCurrent.isBet = False
-                                                roomCarnival.southBlocked = True
+                                            if (s_bet * SHELL_REWARD_MULTIPLIER) >= inv_shell.gold:
+                                                print("\"You seem you have run my coffers dry. My days of carnival work here is over. This is all I can give you.\" She hands you %s gold and begins packing her stuff to leave." % inv_shell.gold)
+                                                inv.gold += inv_shell.gold
+                                                inv_shell.gold = 0
+                                                room_current.is_bet = False
+                                                room_carnival.south_blocked = True
                                             else:
                                                 inv.gold += s_bet * SHELL_REWARD_MULTIPLIER
-                                                invShell.gold -= s_bet * SHELL_REWARD_MULTIPLIER
+                                                inv_shell.gold -= s_bet * SHELL_REWARD_MULTIPLIER
                                                 print("\"Here's your %s gold.\"" % (s_bet * SHELL_REWARD_MULTIPLIER))
                                         else:
                                             print('"If only you bet something, you could reap your reward. Oh well."')
                                         print("\nYou have",inv.gold,"gold.")
-                                        roomCurrent.betMade = False
+                                        room_current.bet_made = False
                                 # If lose
                                 else:
                                     print("Sybil raises the",s_choice,"shell and reveals nothing underneath.")
@@ -7010,19 +7020,19 @@ def inGame(debug):
                                         print('"I guess your gold belongs to me."')
                                     else:
                                         print('"I guess you are fortunate not to bet anything."')
-                                    roomCurrent.betMade = False
+                                    room_current.bet_made = False
                             else:
                                 print("Choose the left, middle, or right shell.")
                         # If bet is not made
                         else:
                             print("You cannot choose a shell until you bet gold.")
-                            notTurn = True
+                            not_turn = True
         elif option.startswith("give"):
             if option == "give":
                 option = ""
             else:
                 option = option[len("give "):]
-            if roomID == "roomBridge":
+            if room_id == "roomBridge":
                 # name X gold -> X gold
                 if option.startswith("troll"):
                     if option == "troll":
@@ -7039,7 +7049,7 @@ def inGame(debug):
                     option = option[:len(option) - len(" to troll")]
                 elif option.endswith("to ugg"):
                     option = option[:len(option) - len(" to ugg")]
-            elif roomID == "roomGate":
+            elif room_id == "roomGate":
                 # name X shrubbery
                 if option.startswith("guard"):
                     if option == "guard":
@@ -7056,7 +7066,7 @@ def inGame(debug):
                     option = option[:len(option) - len(" to guard")]
                 elif option.endswith("to the guard"):
                     option = option[:len(option) - len(" to the guard")]
-            elif roomID == "roomCarnival":
+            elif room_id == "roomCarnival":
                 # spokesperson X ticket
                 if option.startswith("spokesperson"):
                     if option == "spokesperson":
@@ -7073,7 +7083,7 @@ def inGame(debug):
                     option = option[:len(option) - len(" to spokesperson")]
                 elif option.endswith("to the spokesperson"):
                     option = option[:len(option) - len(" to the spokesperson")]
-            elif roomID == "roomLake":
+            elif room_id == "roomLake":
                 if option.startswith("stranger"):
                     if option == "stranger":
                         option = ""
@@ -7081,7 +7091,7 @@ def inGame(debug):
                         option = option[len("stranger ")]
                 elif option.endswith("to stranger"):
                     option = option[:len(option) - len(" to stranger")]
-            elif roomID == "roomHouseOffice":
+            elif room_id == "roomHouseOffice":
                 # eden X staff
                 if option.startswith("eden von roquefort"):
                     if option == "eden von roquefort":
@@ -7105,372 +7115,372 @@ def inGame(debug):
                     option = option[:len(option) - len(" to eden")]
                 elif option.endswith("to roquefort"):
                     option = option[:len(option) - len(" to roquefort")]
-            if roomCurrent.isGive:
-                giveGold = False
-                giveFunnelCake = False
-                giveHalfFunnelCake = False
-                giveshrubbery = False
-                giveTicket = False
-                giveStaff = False
-                giveBird = False
+            if room_current.is_give:
+                give_gold = False
+                give_funnel_cake = False
+                give_half_funnel_cake = False
+                give_shrubbery = False
+                give_ticket = False
+                give_staff = False
+                give_bird = False
                 if option == "":
                     print("Give what?")
-                    notTurn = True
+                    not_turn = True
                 else:
                     # Gold
                     if option == "gold":
                         give_count = 1
-                        giveGold = True
+                        give_gold = True
                     elif option.endswith("gold"):
                         give_count = option[:len(option) - len("gold") - 1]
-                        giveGold = True
+                        give_gold = True
                     # Half-eaten funnel cake
                     elif option in ("half-eaten cake","half cake","half-eaten funnel cake","half eaten funnel cake","half funnel cake","half-eaten cakes","half cakes","half-eaten funnel cakes","half eaten funnel cakes","half funnel cakes"):
                         give_count = 1
-                        giveHalfFunnelCake = True
+                        give_half_funnel_cake = True
                     # Funnel cake
                     elif option in ("cake","cakes","funnel cake","funnel cakes"):
                         give_count = 1
-                        giveFunnelCake = True
+                        give_funnel_cake = True
                     elif option.endswith("funnel cake"):
                         give_count = option[:len(option) - len("funnel cake") - 1]
-                        giveFunnelCake = True
+                        give_funnel_cake = True
                     elif option.endswith("funnel cakes"):
                         give_count = option[:len(option) - len("funnel cakes") - 1]
-                        giveFunnelCake = True
+                        give_funnel_cake = True
                     elif option.endswith("cake"):
                         give_count = option[:len(option) - len("cake") - 1]
-                        giveFunnelCake = True
+                        give_funnel_cake = True
                     elif option.endswith("cakes"):
                         give_count = option[:len(option) - len("cakes") - 1]
-                        giveFunnelCake = True
+                        give_funnel_cake = True
                     # shrubbery
                     elif option in ("shrubberies","shrubbery"):
                         give_count = 1
-                        giveshrubbery = True
+                        give_shrubbery = True
                     elif option.endswith("shrubbery"):
                         give_count = option[:len(option) - len("shrubbery") - 1]
-                        giveshrubbery = True
+                        give_shrubbery = True
                     elif option.endswith("shrubberies"):
                         give_count = option[:len(option) - len("shrubberies") - 1]
-                        giveshrubbery = True
+                        give_shrubbery = True
                     # Raffle ticket
                     elif option in ("raffle ticket","ticket","raffle tickets","tickets"):
                         give_count = 1
-                        giveTicket = True
+                        give_ticket = True
                     elif option.endswith("raffle ticket"):
                         give_count = option[:len(option) - len("raffle ticket") - 1]
-                        giveTicket = True
+                        give_ticket = True
                     elif option.endswith("raffle tickets"):
                         give_count = option[:len(option) - len("raffle tickets") - 1]
-                        giveTicket = True
+                        give_ticket = True
                     elif option.endswith("ticket"):
                         give_count = option[:len(option) - len("ticket") - 1]
-                        giveTicket = True
+                        give_ticket = True
                     elif option.endswith("tickets"):
                         give_count = option[:len(option) - len("tickets") - 1]
-                        giveTicket = True
+                        give_ticket = True
                     # Staff
                     elif option in ("staff","the staff","staff of garrotxa","the staff of garrotxa"):
                         give_count = 1
-                        giveStaff = True
+                        give_staff = True
                     elif option.endswith("staff"):
                         give_count = option[:len(option) - len("staff") - 1]
-                        giveStaff = True
+                        give_staff = True
                     elif option.endswith("the staff of garrotxa"):
                         give_count = option[:len(option) - len("the staff of garrotxa") - 1]
-                        giveStaff = True
+                        give_staff = True
                     elif option.endswith("staff of garrotxa"):
                         give_count = option[:len(option) - len("staff of garrotxa") - 1]
-                        giveStaff = True
+                        give_staff = True
                     # Wooden Bird
                     elif option in ("bird","wooden bird","birds","wooden birds"):
                         give_count = 1
-                        giveBird = True
+                        give_bird = True
                     elif option.endswith("wooden bird"):
                         give_count = option[:len(option) - len("wooden bird") - 1]
-                        giveBird = True
+                        give_bird = True
                     elif option.endswith("wooden birds"):
                         give_count = option[:len(option) - len("wooden birds") - 1]
-                        giveBird = True
+                        give_bird = True
                     elif option.endswith("bird"):
                         give_count = option[:len(option) - len("bird") - 1]
-                        giveBird = True
+                        give_bird = True
                     elif option.endswith("birds"):
                         give_count = option[:len(option) - len("birds") - 1]
-                        giveBird = True
+                        give_bird = True
                     else:
                         print("You cannot give that.")
-                        notTurn = True
-                    if (giveGold or giveFunnelCake or giveHalfFunnelCake or giveshrubbery or giveTicket or giveStaff or giveBird):
+                        not_turn = True
+                    if give_gold or give_funnel_cake or give_half_funnel_cake or give_shrubbery or give_ticket or give_staff or give_bird:
                         # Item Information
-                        if giveGold:
-                            itemName = "gold"
-                            itemsName = "gold"
-                            invItem = inv.gold
-                        elif giveFunnelCake:
-                            itemName = "a funnel cake"
-                            itemsName = "funnel cakes"
-                            invItem = inv.funnelCake
-                        elif giveHalfFunnelCake:
-                            itemName = "a half-eaten funnel cake"
-                            itemsName = "half-eaten funnel cakes"
-                            invItem = inv.halfFunnelCake
-                        elif giveshrubbery:
-                            itemName = "a shrubbery"
-                            itemsName = "shrubberies"
-                            invItem = inv.shrubbery
-                        elif giveTicket:
-                            itemName = "your raffle ticket"
-                            itemsName = "raffle tickets"
-                            invItem = inv.ticket
-                        elif giveStaff:
-                            itemName = "the staff of Garrotxa"
-                            itemsName = "the staves of Garrotxa"
-                            invItem = inv.staff
-                        elif giveBird:
-                            itemName = "wooden bird"
-                            itemsName = "wooden birds"
-                            invItem = inv.bird
-                        itemCanGive = False
+                        if give_gold:
+                            item_name = "gold"
+                            items_name = "gold"
+                            inv_item = inv.gold
+                        elif give_funnel_cake:
+                            item_name = "a funnel cake"
+                            items_name = "funnel cakes"
+                            inv_item = inv.funnel_cake
+                        elif give_half_funnel_cake:
+                            item_name = "a half-eaten funnel cake"
+                            items_name = "half-eaten funnel cakes"
+                            inv_item = inv.half_funnel_cake
+                        elif give_shrubbery:
+                            item_name = "a shrubbery"
+                            items_name = "shrubberies"
+                            inv_item = inv.shrubbery
+                        elif give_ticket:
+                            item_name = "your raffle ticket"
+                            items_name = "raffle tickets"
+                            inv_item = inv.ticket
+                        elif give_staff:
+                            item_name = "the staff of Garrotxa"
+                            items_name = "the staves of Garrotxa"
+                            inv_item = inv.staff
+                        elif give_bird:
+                            item_name = "wooden bird"
+                            items_name = "wooden birds"
+                            inv_item = inv.bird
+                        item_can_give = False
                         # Bridge
-                        if roomID == "roomBridge":
-                            receiverName = "the troll"
-                            if giveGold or giveFunnelCake or giveHalfFunnelCake:
-                                itemCanGive = True
+                        if room_id == "roomBridge":
+                            receiver_name = "the troll"
+                            if give_gold or give_funnel_cake or give_half_funnel_cake:
+                                item_can_give = True
                         # Gate
-                        if roomID == "roomGate":
-                            receiverName = "the guard"
-                            if giveshrubbery:
-                                itemCanGive = True
+                        if room_id == "roomGate":
+                            receiver_name = "the guard"
+                            if give_shrubbery:
+                                item_can_give = True
                         # Carnival
-                        if roomID == "roomCarnival":
-                            receiverName = "the spokesperson"
-                            if giveTicket:
-                                itemCanGive = True
+                        if room_id == "roomCarnival":
+                            receiver_name = "the spokesperson"
+                            if give_ticket:
+                                item_can_give = True
                         # Office
-                        if roomID == "roomHouseOffice":
-                            receiverName = "Eden Von Roquefort"
-                            if giveStaff:
-                                itemCanGive = True
+                        if room_id == "roomHouseOffice":
+                            receiver_name = "Eden Von Roquefort"
+                            if give_staff:
+                                item_can_give = True
                         # Lake
-                        if roomID == "roomLake":
-                            receiverName = "the stranger"
-                            if giveBird:
-                                itemCanGive = True
-                        if itemCanGive:
-                            giveItemCountOkay = False
+                        if room_id == "roomLake":
+                            receiver_name = "the stranger"
+                            if give_bird:
+                                item_can_give = True
+                        if item_can_give:
+                            give_item_count_okay = False
                             try:
                                 give_count = float(give_count)
                                 if float(give_count) % 1 == 0 and give_count > 0:
-                                    giveItemCountOkay = True
+                                    give_item_count_okay = True
                                     give_count = int(give_count)
                                 else:
                                     if give_count == 1:
-                                        print("You can't give a %s." % itemName)
+                                        print("You can't give a %s." % item_name)
                                     else:
-                                        print("You can't give",give_count,"%s." % itemsName)
+                                        print("You can't give",give_count,"%s." % items_name)
                             except ValueError:
                                 print("You cannot give that.")
-                                notTurn = True
-                            if giveItemCountOkay:
+                                not_turn = True
+                            if give_item_count_okay:
                                 # Checks if inventory has enough item
-                                if invItem >= give_count:
-                                    invItem -= give_count
-                                    if giveGold:
+                                if inv_item >= give_count:
+                                    inv_item -= give_count
+                                    if give_gold:
                                         inv.gold -= give_count
-                                        invTroll.gold += give_count
-                                    elif giveFunnelCake:
-                                        inv.funnelCake -= give_count
-                                        invTroll.gold += give_count * TROLL_FUNNELCAKE_MULTIPLIER
-                                    elif giveHalfFunnelCake:
-                                        inv.halfFunnelCake -= give_count
-                                        invTroll.gold += give_count * TROLL_HALFFUNNELCAKE_MULTIPLIER
-                                    elif giveshrubbery:
+                                        inv_troll.gold += give_count
+                                    elif give_funnel_cake:
+                                        inv.funnel_cake -= give_count
+                                        inv_troll.gold += give_count * TROLL_FUNNELCAKE_MULTIPLIER
+                                    elif give_half_funnel_cake:
+                                        inv.half_funnel_cake -= give_count
+                                        inv_troll.gold += give_count * TROLL_HALFFUNNELCAKE_MULTIPLIER
+                                    elif give_shrubbery:
                                         inv.shrubbery -= give_count
-                                        invGate.shrubbery += give_count
-                                    elif giveTicket:
+                                        inv_gate.shrubbery += give_count
+                                    elif give_ticket:
                                         inv.ticket -= give_count
-                                    elif giveStaff:
+                                    elif give_staff:
                                         inv.staff -= give_count
-                                    elif giveBird:
+                                    elif give_bird:
                                         inv.bird -= give_count
                                     # Give response
-                                    if roomCurrent.characterDead and roomID == "roomBridge":
-                                        print('You place %s %s by the troll\'s body to pay respects.' % (give_count,itemsName))
+                                    if room_current.character_dead and room_id == "roomBridge":
+                                        print('You place %s %s by the troll\'s body to pay respects.' % (give_count,items_name))
                                     else:
-                                        if give_count == 1 and not giveGold:
+                                        if give_count == 1 and not give_gold:
                                             print(hi)
                                             #print('You give %s %s.' % (receiverName,itemName))
                                             #Deepsource warns about UnboundLocalError due to Variable used before assignment
-                                        elif give_count > 1 and not giveGold:
-                                            print('You give %s %s %s.' % (receiverName,give_count,itemsName))
+                                        elif give_count > 1 and not give_gold:
+                                            print('You give %s %s %s.' % (receiver_name,give_count,items_name))
                                         # Response once item given
-                                        if not roomBridge.eastBlocked and roomID == "roomBridge":
+                                        if not room_bridge.east_blocked and room_id == "roomBridge":
                                             print('"Thank you human! Ugg never have enough funnel cakes."')
-                                        elif roomID == "roomCarnival":
+                                        elif room_id == "roomCarnival":
                                             print("Amongst the crowd of people handing her tickets, she miscounts and gives you %s gold in compensation for your troubles." % RAFFLE_COMPENSATION)
                                             inv.gold += RAFFLE_COMPENSATION
-                                            invSpokesperson.ticket += 1
+                                            inv_spokesperson.ticket += 1
                                             print("\nYou have %s gold." % inv.gold)
-                                        elif roomID == "roomHouseOffice":
-                                            roomCurrent.counter_1 = 1
-                                            roomCurrent.isGive = False
-                                            roomCurrent.characterDead = True # spawns vesh, which kills Eden
-                                            roomCurrent.counter_2 += 1
-                                        elif roomID == "roomLake":
+                                        elif room_id == "roomHouseOffice":
+                                            room_current.counter_1 = 1
+                                            room_current.is_give = False
+                                            room_current.character_dead = True # spawns vesh, which kills Eden
+                                            room_current.counter_2 += 1
+                                        elif room_id == "roomLake":
                                             print("\"Thank you!\" He gives a chicken pot pie.\n\n\"One more thing. You see that stone tablet? Whatever is written there is in language of demons, or the TONGUE OF THE OZKAVOSH. Some phrases are merely words. However, some are SPELLS and can grant you great powers when SPOKEN.\n\nOne such example is, \'OZH ENSH,\' which when spoken as a prefix followed by other words in Ozkavosh, forms a spell that will translate them for you.\nOnce you know what that spell is, you can SAY that spell on its own to cast it.\nYou can EXAMINE your SPELLS if you ever forget what they are.\n\nTry to figure out what written on that TABLET and see if you can open my LOCKBOX. You can take whatever is inside.\"")
                                             inv.pie += LAKE_PIE_REWARD
-                                            roomCurrent.isGive = False
+                                            room_current.is_give = False
                                             if not spell_learn:
                                                 spell_learn = 2
-                                    if roomBridge.eastBlocked and invTroll.gold < TROLL_GOAL and roomID == "roomBridge":
-                                        print('"Ugg only needs %s gold left until Ugg has enough to buy all the funnel cakes Ugg wants."' % (TROLL_GOAL - invTroll.gold))
+                                    if room_bridge.east_blocked and inv_troll.gold < TROLL_GOAL and room_id == "roomBridge":
+                                        print('"Ugg only needs %s gold left until Ugg has enough to buy all the funnel cakes Ugg wants."' % (TROLL_GOAL - inv_troll.gold))
                                 # If not enough items in inventory to give
                                 else:
                                     if give_count > 1:
-                                        print("You do not have enough to give %s %s to %s." % (give_count,itemsName,receiverName))
-                                        notTurn = True
+                                        print("You do not have enough to give %s %s to %s." % (give_count,items_name,receiver_name))
+                                        not_turn = True
                                     else:
-                                        print("You do not have any %s to give to %s." % (itemsName,receiverName))
-                                        notTurn = True
+                                        print("You do not have any %s to give to %s." % (items_name,receiver_name))
+                                        not_turn = True
                         else:
-                            print("You cannot give any",itemsName,"here.")
-                            notTurn = True
+                            print("You cannot give any",items_name,"here.")
+                            not_turn = True
                         # Result after give
-                        if roomBridge.eastBlocked and invTroll.gold >= TROLL_GOAL:
+                        if room_bridge.east_blocked and inv_troll.gold >= TROLL_GOAL:
                             print('The troll celebrates as his funnel cake dreams are fulfilled. "Ugg is very happy!" he cheers. He grabs everything you\'ve given him and goes back under the bridge.')
-                            roomBridge.eastBlocked = False
-                        if roomGate.northBlocked and invGate.shrubbery:
+                            room_bridge.east_blocked = False
+                        if room_gate.north_blocked and inv_gate.shrubbery:
                             print("The guard takes a quick look. \"Yes, it is a good shrubbery. I like the laurels particularly.\" He lets you through the gate.")
                             print("You can now go North.")
-                            roomGate.northBlocked = False
-                            roomGate.isGive = False
+                            room_gate.north_blocked = False
+                            room_gate.is_give = False
 
             else:
                 print("You can't give anything here.")
-                notTurn = True
+                not_turn = True
         # Sell
         # Exchange items for gold
         elif option.startswith("sell"):
             option = option[5:]
-            if roomCurrent.isSell:
+            if room_current.is_sell:
                 if option == "":
                     print("Sell what?")
-                    notTurn = True
+                    not_turn = True
                 else:
-                    sellCoal = False
-                    sellStone = False
+                    sell_coal = False
+                    sell_stone = False
                     # Checking what is being sold and how many
                     # Sell coal
                     if option in ("coal", "piece of coal", "pieces of coal"):
                         sell_count = 1
-                        sellCoal = True
+                        sell_coal = True
                     elif option.endswith("pieces of coal"):
                         sell_count = option[:len(option) - len("pieces of coal") - 1]
-                        sellCoal = True
+                        sell_coal = True
                     elif option.endswith("piece of coal"):
                         sell_count = option[:len(option) - len("piece of coal") - 1]
-                        sellCoal = True
+                        sell_coal = True
                     elif option.endswith("coal"):
                         sell_count = option[:len(option) - len("coal") - 1]
-                        sellCoal = True
+                        sell_coal = True
                     # Dragonstone
                     elif option in ("dragonstone", "stone"):
                         sell_count = 1
-                        sellStone = True
+                        sell_stone = True
                     elif option.endswith("dragonstone"):
                         sell_count = option[:len(option) - len("dragonstone") - 1]
-                        sellStone = True
+                        sell_stone = True
                     elif option.endswith("stone"):
                         sell_count = option[:len(option) - len("stone") - 1]
-                        sellStone = True
+                        sell_stone = True
                     else:
                         print("You cannot sell that.")
-                    if (sellCoal or sellStone):
+                    if sell_coal or sell_stone:
                        # Item information
-                        if sellCoal:
-                            itemName = "piece of coal"
-                            itemsName = "pieces of coal"
-                            invItem = inv.coal
+                        if sell_coal:
+                            item_name = "piece of coal"
+                            items_name = "pieces of coal"
+                            inv_item = inv.coal
                             price = PRICE_SELL_COAL
-                        elif sellStone:
-                            itemName = "dragonstone"
-                            itemsName = "dragonstones"
-                            invItem = inv.stone
+                        elif sell_stone:
+                            item_name = "dragonstone"
+                            items_name = "dragonstones"
+                            inv_item = inv.stone
                             price = PRICE_SELL_STONE
-                        itemInStore = False
+                        item_in_store = False
                         # Blacksmith
-                        if roomID == "roomBlacksmith":
-                            shopKeeperName = "the blacksmith"
-                            if sellCoal:
-                                itemInStore = True
+                        if room_id == "roomBlacksmith":
+                            shop_keeper_name = "the blacksmith"
+                            if sell_coal:
+                                item_in_store = True
                         # Alchemist
-                        if roomID == "roomAlchemist":
-                            shopKeeperName = "Tim the Enchanter"
-                            if sellStone:
-                                itemInStore = True
-                        if itemInStore:
-                            sellItemCountOkay = False
+                        if room_id == "roomAlchemist":
+                            shop_keeper_name = "Tim the Enchanter"
+                            if sell_stone:
+                                item_in_store = True
+                        if item_in_store:
+                            sell_item_count_okay = False
                             try:
                                 sell_count = float(sell_count)
                                 if float(sell_count) % 1 == 0 and sell_count > 0:
-                                    sellItemCountOkay = True
+                                    sell_item_count_okay = True
                                     sell_count = int(sell_count)
                                 else:
-                                    print("You cannot sell ",sell_count," %s." % itemsName)
-                                    notTurn = True
+                                    print("You cannot sell ",sell_count," %s." % items_name)
+                                    not_turn = True
                             except ValueError:
                                 if sell_count in ("all","every"):
-                                    sell_count = invItem
-                                    sellItemCountOkay = True
+                                    sell_count = inv_item
+                                    sell_item_count_okay = True
                                 elif sell_count in ("a","the","only one","only 1"):
                                     sell_count = 1
-                                    sellItemCountOkay = True
+                                    sell_item_count_okay = True
                                 else:
-                                    print("You cannot sell \"" + sell_count + "\" %s." % itemsName)
-                                    notTurn = True
+                                    print("You cannot sell \"" + sell_count + "\" %s." % items_name)
+                                    not_turn = True
                             # Selling coal
-                            if sellItemCountOkay:
+                            if sell_item_count_okay:
                                 # Checks if inventory has enough item
-                                if invItem >= sell_count:
-                                    invItem -= sell_count
-                                    if sellCoal:
+                                if inv_item >= sell_count:
+                                    inv_item -= sell_count
+                                    if sell_coal:
                                         inv.coal -= sell_count
-                                    elif sellStone:
+                                    elif sell_stone:
                                         inv.stone -= sell_count
                                     if sell_count == 1:
-                                        print("You give the %s" % shopKeeperName,"a %s. He gives you %s gold." % (itemName,sell_count * price))
+                                        print("You give the %s" % shop_keeper_name,"a %s. He gives you %s gold." % (item_name,sell_count * price))
                                     elif sell_count > 1:
-                                        print("You give the %s" % shopKeeperName,"%s %s. He gives you %s gold." % (sell_count,itemsName,sell_count * price))
+                                        print("You give the %s" % shop_keeper_name,"%s %s. He gives you %s gold." % (sell_count,items_name,sell_count * price))
                                     inv.gold += sell_count * price
                                     print("You have",inv.gold,"gold.")
                                     # Sell is completed
-                                    if roomID == "roomAlchemist":
-                                        roomCurrent.isSell = False
-                                        roomCurrent.isBuy = True
-                                        roomCurrent.isFill = True
+                                    if room_id == "roomAlchemist":
+                                        room_current.is_sell = False
+                                        room_current.is_buy = True
+                                        room_current.is_fill = True
                                         print("\"Wow, a full-sized dragonstone! Once I get that ground up, that will make enough powder to last me a life time.\" He grabs a mortar and pestle and works away at the dragonstone. After tossing some odd-looking herbs and the powder into the cauldron, the water thickens and turns red almost immediately. \"My potions both heal your wounds and satisfy your hunger. If you have an empty flask, you can refill it for a reduced cost. Those flasks don't come cheap after all.\"")
                                         print("\nGoods available to buy:\n    Potion of rejuvination (%s gold)" % PRICE_BUY_POTION)
                                         print("\nGoods available to fill:\n    Flask (%s gold)" % PRICE_REFILL_POTION)
                                 else:
                                     if sell_count > 1:
-                                        print("You do not have %s %s." % (sell_count,itemsName))
-                                        notTurn = True
+                                        print("You do not have %s %s." % (sell_count,items_name))
+                                        not_turn = True
                                     else:
-                                        print("You do not have have %s %s." % (sell_count,itemName))
-                                        notTurn = True
+                                        print("You do not have have %s %s." % (sell_count,item_name))
+                                        not_turn = True
                         else:
-                            print("You cannot sell any",itemsName,"here.")
-                            notTure = True
+                            print("You cannot sell any",items_name,"here.")
+                            not_ture = True
             # If not inSell
             else:
                 print("You cannot sell anything here.")
-                notTurn = True
+                not_turn = True
         # Universally invalid action
         else:
             print("You cannot do that.")
-            notTurn = True
+            not_turn = True
 
 #_______Special Decisions__________________________________________________________
 # Being inside certain rooms allows for special actions.
@@ -7482,361 +7492,361 @@ def inGame(debug):
 #_______Current Room____________________________________________________________
 # Current room information
         # Refers to room classes for current room information
-        if changeRoom:
+        if change_room:
             # Jail
-            if roomID == "roomJailCell":
-                roomCurrent = roomJailCell
-            elif roomID == "roomJailCorridor":
-                roomCurrent = roomJailCorridor
-            elif roomID == "roomJailFoyer":
-                roomCurrent = roomJailFoyer
-            elif roomID == "roomJailAntechamber":
-                roomCurrent = roomJailAntechamber
-            elif roomID == "roomJailHallway":
-                roomCurrent = roomJailHallway
-            elif roomID == "roomJailBreakRoom":
-                roomCurrent = roomJailBreakRoom
-            elif roomID == "roomJailEntrance":
-                roomCurrent = roomJailEntrance
+            if room_id == "roomJailCell":
+                room_current = room_jail_cell
+            elif room_id == "roomJailCorridor":
+                room_current = room_jail_corridor
+            elif room_id == "roomJailFoyer":
+                room_current = room_jail_foyer
+            elif room_id == "roomJailAntechamber":
+                room_current = room_jail_antechamber
+            elif room_id == "roomJailHallway":
+                room_current = room_jail_hallway
+            elif room_id == "roomJailBreakRoom":
+                room_current = room_jail_break_room
+            elif room_id == "roomJailEntrance":
+                room_current = room_jail_entrance
             # Town
-            elif roomID == "roomCourtyardNorth":
-                roomCurrent = roomCourtyardNorth
-            elif roomID == "roomCourtyardSouth":
-                roomCurrent = roomCourtyardSouth
-            elif roomID == "roomBlacksmith":
-                roomCurrent = roomBlacksmith
-            elif roomID == "roomAlchemist":
-                roomCurrent = roomAlchemist
-            elif roomID == "roomCarnival":
-                roomCurrent = roomCarnival
-            elif roomID == "roomCarnivalShellGame":
-                roomCurrent = roomCarnivalShellGame
-            elif roomID == "roomCarnivalFood":
-                roomCurrent = roomCarnivalFood
-            elif roomID == "roomCarnivalWheelGame":
-                roomCurrent = roomCarnivalWheelGame
-            elif roomID == "roomGeneralStore":
-                roomCurrent = roomGeneralStore
-            elif roomID == "roomGate":
-                roomCurrent = roomGate
+            elif room_id == "roomCourtyardNorth":
+                room_current = room_courtyard_north
+            elif room_id == "roomCourtyardSouth":
+                room_current = room_courtyard_south
+            elif room_id == "roomBlacksmith":
+                room_current = room_blacksmith
+            elif room_id == "roomAlchemist":
+                room_current = room_alchemist
+            elif room_id == "roomCarnival":
+                room_current = room_carnival
+            elif room_id == "roomCarnivalShellGame":
+                room_current = room_carnival_shell_game
+            elif room_id == "roomCarnivalFood":
+                room_current = room_carnival_food
+            elif room_id == "roomCarnivalWheelGame":
+                room_current = room_carnival_wheel_game
+            elif room_id == "roomGeneralStore":
+                room_current = room_general_store
+            elif room_id == "roomGate":
+                room_current = room_gate
             # Road
-            elif roomID == "roomRoadSouth":
-                roomCurrent = roomRoadSouth
-            elif roomID == "roomRoadMid":
-                roomCurrent = roomRoadMid
-            elif roomID == "roomRoadNorth":
-                roomCurrent = roomRoadNorth
-            elif roomID == "roomRoadEast":
-                roomCurrent = roomRoadEast
-            elif roomID == "roomRoadWest":
-                roomCurrent = roomRoadWest
-            elif roomID == "roomRoadCorner":
-                roomCurrent = roomRoadCorner
-            elif roomID == "roomLake":
-                roomCurrent = roomLake
-            elif roomID == "roomForest":
-                roomCurrent = roomForest
-            elif roomID == "roomShrineSouth":
-                roomCurrent = roomShrineSouth
+            elif room_id == "roomRoadSouth":
+                room_current = room_road_south
+            elif room_id == "roomRoadMid":
+                room_current = room_road_mid
+            elif room_id == "roomRoadNorth":
+                room_current = room_road_north
+            elif room_id == "roomRoadEast":
+                room_current = room_road_east
+            elif room_id == "roomRoadWest":
+                room_current = room_road_west
+            elif room_id == "roomRoadCorner":
+                room_current = room_road_corner
+            elif room_id == "roomLake":
+                room_current = room_lake
+            elif room_id == "roomForest":
+                room_current = room_forest
+            elif room_id == "roomShrineSouth":
+                room_current = room_shrine_south
                 if not word_darkness:
                     word_darkness = 1
             # Bridge
-            elif roomID == "roomBridge":
-                roomCurrent = roomBridge
+            elif room_id == "roomBridge":
+                room_current = room_bridge
             # Temple
-            elif roomID == "roomTempleEntrance":
-                roomCurrent = roomTempleEntrance
-            elif roomID == "roomTempleInside":
-                roomCurrent = roomTempleInside
-            elif roomID == "roomTempleBasement":
-                roomCurrent = roomTempleBasement
+            elif room_id == "roomTempleEntrance":
+                room_current = room_temple_entrance
+            elif room_id == "roomTempleInside":
+                room_current = room_temple_inside
+            elif room_id == "roomTempleBasement":
+                room_current = room_temple_basement
             # Cave
-            elif roomID == "roomMountEntrance":
-                roomCurrent = roomMountEntrance
+            elif room_id == "roomMountEntrance":
+                room_current = room_mount_entrance
             # 1
-            elif roomID == "roomCave_1_m":
-                roomCurrent = roomCave_1_m
+            elif room_id == "roomCave_1_m":
+                room_current = room_cave_1_m
             # 2
-            elif roomID == "roomCave_2_m":
-                roomCurrent = roomCave_2_m
-            elif roomID == "roomCave_2_mr":
-                roomCurrent = roomCave_2_mr
-            elif roomID == "roomCave_2_lm":
-                roomCurrent = roomCave_2_lm
-            elif roomID == "roomCave_2_llm":
-                roomCurrent = roomCave_2_llm
+            elif room_id == "roomCave_2_m":
+                room_current = room_cave_2_m
+            elif room_id == "roomCave_2_mr":
+                room_current = room_cave_2_mr
+            elif room_id == "roomCave_2_lm":
+                room_current = room_cave_2_lm
+            elif room_id == "roomCave_2_llm":
+                room_current = room_cave_2_llm
             # 3
-            elif roomID == "roomCave_3_m_coalmine":
-                roomCurrent = roomCave_3_m_coalmine
-            elif roomID == "roomCave_3_mr":
-                roomCurrent = roomCave_3_mr
-            elif roomID == "roomCave_3_mrr_coalmine":
-                roomCurrent = roomCave_3_mrr_coalmine
-            elif roomID == "roomCave_3_lm_coalmine":
-                roomCurrent = roomCave_3_lm_coalmine
-            elif roomID == "roomCave_3_llm_crevasse":
-                roomCurrent = roomCave_3_llm_crevasse
-            elif roomID == "roomCave__3_lllm_treasure_crevasse":
-                roomCurrent = roomCave__3_lllm_treasure_crevasse
+            elif room_id == "roomCave_3_m_coalmine":
+                room_current = room_cave_3_m_coalmine
+            elif room_id == "roomCave_3_mr":
+                room_current = room_cave_3_mr
+            elif room_id == "roomCave_3_mrr_coalmine":
+                room_current = room_cave_3_mrr_coalmine
+            elif room_id == "roomCave_3_lm_coalmine":
+                room_current = room_cave_3_lm_coalmine
+            elif room_id == "roomCave_3_llm_crevasse":
+                room_current = room_cave_3_llm_crevasse
+            elif room_id == "roomCave__3_lllm_treasure_crevasse":
+                room_current = room_cave_3_lllm_treasure_crevasse
             # 4
-            elif roomID == "roomCave_4_m":
-                roomCurrent = roomCave_4_m
-            elif roomID == "roomCave_4_mr":
-                roomCurrent = roomCave_4_mr
-            elif roomID == "roomCave_4_lm":
-                roomCurrent = roomCave_4_lm
-            elif roomID == "roomCave_4_llm":
-                roomCurrent = roomCave_4_llm
+            elif room_id == "roomCave_4_m":
+                room_current = room_cave_4_m
+            elif room_id == "roomCave_4_mr":
+                room_current = room_cave_4_mr
+            elif room_id == "roomCave_4_lm":
+                room_current = room_cave_4_lm
+            elif room_id == "roomCave_4_llm":
+                room_current = room_cave_4_llm
             # 5
-            elif roomID == "roomCave_5_m":
-                roomCurrent = roomCave_5_m
-            elif roomID == "roomCave_5_mr_coalmine":
-                roomCurrent = roomCave_5_mr_coalmine
-            elif roomID == "roomCave_5_lm_coalmine":
-                roomCurrent = roomCave_5_lm_coalmine
-            elif roomID == "roomCave_5_llm":
-                roomCurrent = roomCave_5_llm
-            elif roomID == "roomCave_5_lllm":
-                roomCurrent = roomCave_5_lllm
+            elif room_id == "roomCave_5_m":
+                room_current = room_cave_5_m
+            elif room_id == "roomCave_5_mr_coalmine":
+                room_current = room_cave_5_mr_coalmine
+            elif room_id == "roomCave_5_lm_coalmine":
+                room_current = room_cave_5_lm_coalmine
+            elif room_id == "roomCave_5_llm":
+                room_current = room_cave_5_llm
+            elif room_id == "roomCave_5_lllm":
+                room_current = room_cave_5_lllm
             # 6
-            elif roomID == "roomCave_6_m":
-                roomCurrent = roomCave_6_m
-            elif roomID == "roomCave_6_mr":
-                roomCurrent = roomCave_6_mr
-            elif roomID == "roomCave_6_lm_coalmine":
-                roomCurrent = roomCave_6_lm_coalmine
-            elif roomID == "roomCave_6_llm_coalmine":
-                roomCurrent = roomCave_6_llm_coalmine
-            elif roomID == "roomCave_6_lllm":
-                roomCurrent = roomCave_6_lllm
+            elif room_id == "roomCave_6_m":
+                room_current = room_cave_6_m
+            elif room_id == "roomCave_6_mr":
+                room_current = room_cave_6_mr
+            elif room_id == "roomCave_6_lm_coalmine":
+                room_current = room_cave_6_lm_coalmine
+            elif room_id == "roomCave_6_llm_coalmine":
+                room_current = room_cave_6_llm_coalmine
+            elif room_id == "roomCave_6_lllm":
+                room_current = room_cave_6_lllm
             # 7
-            elif roomID == "roomCave_7_m":
-                roomCurrent = roomCave_7_m
-            elif roomID == "roomCave_7_mr":
-                roomCurrent = roomCave_7_mr
-            elif roomID == "roomCave_7_lm":
-                roomCurrent = roomCave_7_lm
-            elif roomID == "roomCave_7_llm":
-                roomCurrent = roomCave_7_llm
-            elif roomID == "roomCave_7_lllm":
-                roomCurrent = roomCave_7_lllm
+            elif room_id == "roomCave_7_m":
+                room_current = room_cave_7_m
+            elif room_id == "roomCave_7_mr":
+                room_current = room_cave_7_mr
+            elif room_id == "roomCave_7_lm":
+                room_current = room_cave_7_lm
+            elif room_id == "roomCave_7_llm":
+                room_current = room_cave_7_llm
+            elif room_id == "roomCave_7_lllm":
+                room_current = room_cave_7_lllm
             # 8
-            elif roomID == "roomCave_8_mr_crevasse":
-                roomCurrent = roomCave_8_mr_crevasse
-            elif roomID == "roomCave_8_llm_coalmine":
-                roomCurrent = roomCave_8_llm_coalmine
+            elif room_id == "roomCave_8_mr_crevasse":
+                room_current = room_cave_8_mr_crevasse
+            elif room_id == "roomCave_8_llm_coalmine":
+                room_current = room_cave_8_llm_coalmine
             # 9
-            elif roomID == "roomCave_9_mr_crevasse":
-                roomCurrent = roomCave_9_mr_crevasse
+            elif room_id == "roomCave_9_mr_crevasse":
+                room_current = room_cave_9_mr_crevasse
             # 10
-            elif roomID == "roomCave__10_m":
-                roomCurrent = roomCave__10_m
-            elif roomID == "roomCave__10_mr":
-                roomCurrent = roomCave__10_mr
-            elif roomID == "roomCave__10_mrr":
-                roomCurrent = roomCave__10_mrr
-            elif roomID == "roomCave__10_mrrr":
-                roomCurrent = roomCave__10_mrrr
-            elif roomID == "roomCave__10_lm":
-                roomCurrent = roomCave__10_lm
+            elif room_id == "roomCave__10_m":
+                room_current = room_cave__10_m
+            elif room_id == "roomCave__10_mr":
+                room_current = room_cave__10_mr
+            elif room_id == "roomCave__10_mrr":
+                room_current = room_cave__10_mrr
+            elif room_id == "roomCave__10_mrrr":
+                room_current = room_cave__10_mrrr
+            elif room_id == "roomCave__10_lm":
+                room_current = room_cave__10_lm
             # 11
-            elif roomID == "roomCave__11_mrrr":
-                roomCurrent = roomCave__11_mrrr
-            elif roomID == "roomCave__11_lm":
-                roomCurrent = roomCave__11_lm
+            elif room_id == "roomCave__11_mrrr":
+                room_current = room_cave__11_mrrr
+            elif room_id == "roomCave__11_lm":
+                room_current = room_cave__11_lm
             # Darkness
-            elif roomID == "roomDarkness":
-                roomCurrent = roomDarkness
+            elif room_id == "roomDarkness":
+                room_current = room_darkness
             # Lair
-            elif roomID == "roomLairMid":
-                roomCurrent = roomLairMid
-            elif roomID == "roomLairEast":
-                roomCurrent = roomLairEast
-            elif roomID == "roomLairWest":
-                roomCurrent = roomLairWest
-            elif roomID == "roomLairHole":
-                roomCurrent = roomLairHole
+            elif room_id == "roomLairMid":
+                room_current = room_lair_mid
+            elif room_id == "roomLairEast":
+                room_current = room_lair_east
+            elif room_id == "roomLairWest":
+                room_current = room_lair_west
+            elif room_id == "roomLairHole":
+                room_current = room_lair_hole
             # Field
-            elif roomID == "roomRoad2South":
-                roomCurrent = roomRoad2South
-            elif roomID == "roomRoad2Mid":
-                roomCurrent = roomRoad2Mid
-            elif roomID == "roomFarm":
-                roomCurrent = roomFarm
-            elif roomID == "roomBarn":
-                roomCurrent = roomBarn
-            elif roomID == "roomBarnUp":
-                roomCurrent = roomBarnUp
-            elif roomID == "roomHouseGate":
-                roomCurrent = roomHouseGate
-            elif roomID == "roomField":
-                roomCurrent = roomField
-            elif roomID == "roomShrineNorth":
-                roomCurrent = roomShrineNorth
+            elif room_id == "roomRoad2South":
+                room_current = room_road_2_south
+            elif room_id == "roomRoad2Mid":
+                room_current = room_road_2_mid
+            elif room_id == "roomFarm":
+                room_current = room_farm
+            elif room_id == "roomBarn":
+                room_current = room_barn
+            elif room_id == "roomBarnUp":
+                room_current = room_barn_up
+            elif room_id == "roomHouseGate":
+                room_current = room_house_gate
+            elif room_id == "roomField":
+                room_current = room_field
+            elif room_id == "roomShrineNorth":
+                room_current = room_shrine_north
                 if not word_darkness:
                     word_darkness = 1
             # House
-            elif roomID == "roomHouseEntrance":
-                roomCurrent = roomHouseEntrance
-            elif roomID == "roomHouseFoyer":
-                roomCurrent = roomHouseFoyer
-            elif roomID == "roomHouseKitchen":
-                roomCurrent = roomHouseKitchen
-            elif roomID == "roomHousePantry":
-                roomCurrent = roomHousePantry
-            elif roomID == "roomHouseHallway":
-                roomCurrent = roomHouseHallway
-            elif roomID == "roomHouseOffice":
-                roomCurrent = roomHouseOffice
+            elif room_id == "roomHouseEntrance":
+                room_current = room_house_entrance
+            elif room_id == "roomHouseFoyer":
+                room_current = room_house_foyer
+            elif room_id == "roomHouseKitchen":
+                room_current = room_house_kitchen
+            elif room_id == "roomHousePantry":
+                room_current = room_house_pantry
+            elif room_id == "roomHouseHallway":
+                room_current = room_house_hallway
+            elif room_id == "roomHouseOffice":
+                room_current = room_house_office
             # Mysterious book
-            elif roomID == "roomBookAnimal":
-                roomCurrent = roomBookAnimal
-            elif roomID == "roomBookMirror":
-                roomCurrent = roomBookMirror
-            elif roomID == "roomBook_3_1":
-                roomCurrent = roomBook_3_1
-            elif roomID == "roomBook_3_2":
-                roomCurrent = roomBook_3_2
-            elif roomID == "roomBook_3_3":
-                roomCurrent = roomBook_3_3
-            elif roomID == "roomBook_3_4":
-                roomCurrent = roomBook_3_4
-            elif roomID == "roomBook_3_5":
-                roomCurrent = roomBook_3_5
-            elif roomID == "roomBook_3_6":
-                roomCurrent = roomBook_3_6
-            elif roomID == "roomBook_3_7":
-                roomCurrent = roomBook_3_7
-            elif roomID == "roomBook_3_8":
-                roomCurrent = roomBook_3_8
-            elif roomID == "roomBook_3_End":
-                roomCurrent = roomBook_3_End
-                roomCurrent.itemFound = True
+            elif room_id == "roomBookAnimal":
+                room_current = room_book_animal
+            elif room_id == "roomBookMirror":
+                room_current = room_book_mirror
+            elif room_id == "roomBook_3_1":
+                room_current = room_book_3_1
+            elif room_id == "roomBook_3_2":
+                room_current = room_book_3_2
+            elif room_id == "roomBook_3_3":
+                room_current = room_book_3_3
+            elif room_id == "roomBook_3_4":
+                room_current = room_book_3_4
+            elif room_id == "roomBook_3_5":
+                room_current = room_book_3_5
+            elif room_id == "roomBook_3_6":
+                room_current = room_book_3_6
+            elif room_id == "roomBook_3_7":
+                room_current = room_book_3_7
+            elif room_id == "roomBook_3_8":
+                room_current = room_book_3_8
+            elif room_id == "roomBook_3_End":
+                room_current = room_book_3_end
+                room_current.item_found = True
                 if not word_dominion:
                     word_dominion = 1
 
             else:
-                print("Uh oh, you broke the game.",roomID,"does not exist. Room not changed.")
+                print("Uh oh, you broke the game.",room_id,"does not exist. Room not changed.")
             if direction:
                 print("You go %s." % direction)
-                justEntered = True
+                just_entered = True
             # Rubble falling
-            if roomID.startswith("roomCave_") and not roomID.startswith("roomCave__") and random.randint(1,100) <= RUBBLE_FALL_CHANCE:
+            if room_id.startswith("roomCave_") and not room_id.startswith("roomCave__") and random.randint(1,100) <= RUBBLE_FALL_CHANCE:
                 print("The mountain shakes and some rubble falls and hits you.")
-                stat.lowerHealth()
+                stat.lower_health()
 
 
-            changeRoom = False
-        elif direction == "North" and roomCurrent.northBlocked:
-            print(roomCurrent.northBlockedReason)
-            notTurn = True
-        elif direction == "East" and roomCurrent.eastBlocked:
-            print(roomCurrent.eastBlockedReason)
-            notTurn = True
-        elif direction == "South" and roomCurrent.southBlocked:
-            print(roomCurrent.southBlockedReason)
-            notTurn = True
-        elif direction == "West" and roomCurrent.westBlocked:
-            print(roomCurrent.westBlockedReason)
-            notTurn = True
+            change_room = False
+        elif direction == "North" and room_current.north_blocked:
+            print(room_current.north_blocked_reason)
+            not_turn = True
+        elif direction == "East" and room_current.east_blocked:
+            print(room_current.east_blocked_reason)
+            not_turn = True
+        elif direction == "South" and room_current.south_blocked:
+            print(room_current.south_blocked_reason)
+            not_turn = True
+        elif direction == "West" and room_current.west_blocked:
+            print(room_current.west_blocked_reason)
+            not_turn = True
 #_______Events__________________________________________________________________
         # Before justEntered description
-        if roomID.startswith("roomCave") and not roomID == "roomCave_1_m":
+        if room_id.startswith("roomCave") and not room_id == "roomCave_1_m":
             # Creatures does not naturally roam if have staff in normal cave
             # However, lantern is still needed to prevent creature chase
-            if inv.staff and not roomID.startswith("roomCave__"):
-                creatureRoam = False
+            if inv.staff and not room_id.startswith("roomCave__"):
+                creature_roam = False
             else:
-                creatureRoam = True
+                creature_roam = True
             # Chase begins immediately if no light
-            if not ((oilCounter and (inv.lantern or roomCurrent.lantern)) or lightCounter):
-                creatureRoam = False
-                creatureChase = True
-                if creatureChase and creatureChaseCounter > 5:
-                    creatureChaseCounter = 6
-        if roomID == "roomJailCell" and roomCurrent.counter_1 and not notTurn:
-            if roomCurrent.counter_1 == 1:
+            if not ((oil_counter and (inv.lantern or room_current.lantern)) or light_counter):
+                creature_roam = False
+                creature_chase = True
+                if creature_chase and creature_chase_counter > 5:
+                    creature_chase_counter = 6
+        if room_id == "roomJailCell" and room_current.counter_1 and not not_turn:
+            if room_current.counter_1 == 1:
                 print("\nYou hear a loud crack of thunder and a mystical portal opens in the nearby corridor. A woman veiled in white robes jumps through, entering the room. She swiftly runs through the corridor, scanning each cell she passes. Suddenly, she stops at your cell, pauses and draws nearer. \"Tell me your name, stranger.\" she exclaims. \"You may be who I'm looking for.\" She looks worried.")
-                askName = True
-                roomCurrent.counter_1 += 1
-            elif turnCounter >= 2 and askName:
-                if playerName:
-                    if playerName.lower() == "ozh gluth izh sol":
+                ask_name = True
+                room_current.counter_1 += 1
+            elif turn_counter >= 2 and ask_name:
+                if player_name:
+                    if player_name.lower() == "ozh gluth izh sol":
                         print("\n\"Ha! You think you can kill me with the tongue of the Ozkavosh? You are a fool!\" The woman transforms in a scaly demon, sprouting wings and sharp claws. \"No mortal shall defeat Vesh'kathal the Deceiver. OZH GLUTH IZH SOL!\"\n\nYou are overwhelmed with pain and agony as you fall to your knees.\n")
-                        endGame = True
-                        playerName = False
-                        askName = False
-                    elif playerName.lower() in ("ozh ensh","ozh vo'ses sa","izh vo'poz","ozh sol fek","ozh thok alatho","ozh groth sol","eyik vo'hollom","ozh vo'irush","ozh gluth nith","omoz gloth nith","izh tal el ozh icha rek'tal","ahm'domosh","ozhkavosh icha domosh sa nith","izh icha vo'fek ozh domosh","ahm'fol","sof izh"):
-                        print("\n\"" + playerName + "? You dare speak the tongue of the Ozhkavosh to me? She zaps you with a bolt of electricity. \"I'll let you live your last few moments bleeding in your cell. Farewell.\" She leaves through the portal from whence she came. The portal snaps shut and disappears.")
-                        endGame = True
-                        playerName = False
-                        askName = False
-                    elif playerName.lower() in ("eden von roquefort","vesh'kathal","vesh'raheen","vesh'arkosh","garrotxa","rodney williams"):
-                        print("\n\"" + playerName + "? I do not appreciate being lied to.\" She zaps you with a bolt of electricity. \"I'll let you live your last few moments bleeding in your cell. Farewell.\" She leaves through the portal from whence she came. The portal snaps shut and disappears.")
-                        endGame = True
-                        playerName = False
-                        askName = False
+                        end_game = True
+                        player_name = False
+                        ask_name = False
+                    elif player_name.lower() in ("ozh ensh","ozh vo'ses sa","izh vo'poz","ozh sol fek","ozh thok alatho","ozh groth sol","eyik vo'hollom","ozh vo'irush","ozh gluth nith","omoz gloth nith","izh tal el ozh icha rek'tal","ahm'domosh","ozhkavosh icha domosh sa nith","izh icha vo'fek ozh domosh","ahm'fol","sof izh"):
+                        print("\n\"" + player_name + "? You dare speak the tongue of the Ozhkavosh to me? She zaps you with a bolt of electricity. \"I'll let you live your last few moments bleeding in your cell. Farewell.\" She leaves through the portal from whence she came. The portal snaps shut and disappears.")
+                        end_game = True
+                        player_name = False
+                        ask_name = False
+                    elif player_name.lower() in ("eden von roquefort","vesh'kathal","vesh'raheen","vesh'arkosh","garrotxa","rodney williams"):
+                        print("\n\"" + player_name + "? I do not appreciate being lied to.\" She zaps you with a bolt of electricity. \"I'll let you live your last few moments bleeding in your cell. Farewell.\" She leaves through the portal from whence she came. The portal snaps shut and disappears.")
+                        end_game = True
+                        player_name = False
+                        ask_name = False
                     else:
-                        print("\n\"" + playerName + "? Finally, my search is over. This letter is for you. READ it and you will understand the urgency of the situation. I unforunately have no time to explain as I have much yet to do.\" She nods, tosses a key and a letter through your cell window, and quickly leaves through the portal from whence she came. The portal snaps shut and disappears.")
-                        roomCurrent.letter += 1
-                        roomCurrent.key += 1
-                        roomCurrent.itemsPresent()
-                        inv.letterRead = "It reads:\n\nTo " + playerName + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
-                        askName = False
-                if not playerName and askName:
-                    if roomCurrent.counter_1 == 2:
+                        print("\n\"" + player_name + "? Finally, my search is over. This letter is for you. READ it and you will understand the urgency of the situation. I unforunately have no time to explain as I have much yet to do.\" She nods, tosses a key and a letter through your cell window, and quickly leaves through the portal from whence she came. The portal snaps shut and disappears.")
+                        room_current.letter += 1
+                        room_current.key += 1
+                        room_current.items_present()
+                        inv.letterRead = "It reads:\n\nTo " + player_name + ",\n\nA certain Eden Von Roquefort has set up residence NORTH of MOUNT MAGNA. While he purports to be a lowly cheese mage, reliable sources claim him to be the demon lord, Vesh'kathal the Deceiver, a shapeshifter infamous of manipulating the minds and bending the wills of others. Legend tells of a saviour, deemed the Monterey Messiah, who will save all of Kashkaval from his wickedness. It has be brought to my attention that you are that saviour that the legends speak of. While I have very important matters to attend to, the best I can do is help instruct you in how to defeat this demon lord:\n\nFIRST, you must acquire the staff from the Garrotxian temple NORTHEAST of this town, for it is the only weapon capable of defeating such a powerful demon.\n\nNEXT, once you have the staff, go NORTH through the MINES of MOUNT MAGNA and find him at his house on the other end.\n\nFINALLY, kill Roquefort and Kashkaval will be saved from his wrath.\n\nI know this is probably a lot to digest at once, but you are our only hope. I fear in your attempt to complete this task, Vesh'kathal will attempt to thwart you. He may attempt to contact and manipulate you, or have his minions work to stop you. Whatever he does, you must persevere.\n\nMay you be blessed,\n\nThe last prophet of Garrotxa"
+                        ask_name = False
+                if not player_name and ask_name:
+                    if room_current.counter_1 == 2:
                         print('\nThe stranger impatiently waits for your response. "I beg of you. Tell me your name. This is of utmost importance."')
-                    elif roomCurrent.counter_1 == 3:
+                    elif room_current.counter_1 == 3:
                         print("\nThe stranger quickly grows angry as you continue to ignore her.")
                     else:
                         print("\n\"Why am I wasting my time with a mute rotting in a jail cell?\" She zaps you with a bolt of electricity and walks back through the portal, which snaps shut and disappears.")
-                        askName = False
-                        endGame = True
-                    roomCurrent.counter_1 += 1
-        elif roomID == "roomJailFoyer":
+                        ask_name = False
+                        end_game = True
+                    room_current.counter_1 += 1
+        elif room_id == "roomJailFoyer":
             # if jailGuards == False: 
             # used singleton pattern, deepsource warning
-             if jailGuards is False:
-                jailGuards = True
-                jailGuardCounter = 3
-        elif roomID == "roomCourtyardSouth":
+             if jail_guards is False:
+                jail_guards = True
+                jail_guard_counter = 3
+        elif room_id == "roomCourtyardSouth":
 
             #if jailGuards == True:
             # used singleton pattern, deepsource warning
-                if jailGuards is True:
+                if jail_guards is True:
                     print("You get lost in the crowd, confusing and disorienting the jail guards. They lose interest, probably because they don't get paid enough.")
-                jailGuards = False
+                jail_guards = False
         # Creature stops chase at crevasse if visible or outside
-        elif roomID == "roomMountEntrance" or (roomID.endswith("crevasse") and roomID_Last.endswith("crevasse") and roomID != roomID_Last):
-            if roomID == "roomMountEntrance":
-                creatureRoam = False
-                creatureChase = False
-                if creatureChaseCounter <= 2:
+        elif room_id == "roomMountEntrance" or (room_id.endswith("crevasse") and room_id_last.endswith("crevasse") and room_id != room_id_last):
+            if room_id == "roomMountEntrance":
+                creature_roam = False
+                creature_chase = False
+                if creature_chase_counter <= 2:
                     print("The creature is blinded by the outside light and stops its chase, returning back to the cavern.")
-                creatureRoamCounter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
-                creatureChaseCounter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
+                creature_roam_counter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
+                creature_chase_counter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
             else:
-                if creatureChaseCounter <= 2:
-                    creatureRoam = False
-                    creatureChase = False
+                if creature_chase_counter <= 2:
+                    creature_roam = False
+                    creature_chase = False
                     print("The creature stops at the crevasse, unable to cross. Frustrated, it crawls away.")
-                    creatureRoamCounter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
-                    creatureChaseCounter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
+                    creature_roam_counter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
+                    creature_chase_counter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
         # Creature stops chas at outside of lair
-        elif roomID == "roomRoad2South":
-            creatureLairChase = False
-            if creatureLairChaseCounter <= 2 and roomID_Last == "roomLairEast":
+        elif room_id == "roomRoad2South":
+            room_lair_chase = False
+            if creature_lair_chase_counter <= 2 and room_id_last == "roomLairEast":
                 print("The creature is blinded by the outside light and stops its chase, returning back to the cavern.")
         # If player returns to lair after exiting it
-        elif roomID == "roomLairEast" and roomID_Last == "roomRoad2South":
+        elif room_id == "roomLairEast" and room_id_last == "roomRoad2South":
             print("The creature is just at the opening and notices you immediately. It claws your face off.")
-            endGame = True
+            end_game = True
             # continue
             # see how actually works out, may be better to have as post-justEntered text
 
         # Lose lantern
         # Start of creature chase
-        if roomID == "roomCave_9_mr_crevasse" and roomCurrent.firstTime:
+        if room_id == "roomCave_9_mr_crevasse" and room_current.first_time:
             if inv.lantern > 1:
                 lantern_count = "lanterns"
             elif inv.lantern == 1:
@@ -7844,8 +7854,8 @@ def inGame(debug):
             else:
                 lantern_count = False
             inv.lantern = 0
-            roomCave_8_mr_crevasse.hook = 0
-            roomCave_8_mr_crevasse.northBlocked = True
+            room_cave_8_mr_crevasse.hook = 0
+            room_cave_8_mr_crevasse.north_blocked = True
             if lantern_count:
                 lantern_loss = "Your " + lantern_count + " fall into the abyss below."
                 aswell = " as well"
@@ -7854,25 +7864,25 @@ def inGame(debug):
                 aswell = ""
             print("As you cross the crevasse, the entire mountain begins to shake and a loud rumble echoes throughout the cavern walls.",lantern_loss,"You finally make it to the other side just before the grappling hook shakes loose and falls%s." % aswell)
         # Rubble falls
-        elif roomID == "roomCave__10_mr" and roomCurrent.firstTime:
+        elif room_id == "roomCave__10_mr" and room_current.first_time:
             print("Rubble collapses from above as the mountain shakes, blocking the path behind you.")
-            roomCave_9_mr_crevasse.northBlocked = True
+            room_cave_9_mr_crevasse.north_blocked = True
         # Enter darkness
-        elif roomID == "roomDarkness":
-            creatureRoam = False
-            creatureChase = False
+        elif room_id == "roomDarkness":
+            creature_roam = False
+            creature_chase = False
             stat.hunger = HUNGER_DARKNESS
             stat.health = HEALTH_MAX - 1
             stat.shield = 0
-            oilCounter = 0
-            lightCounter = 0
-            creatureRoamCounter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
-            creatureChaseCounter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
+            oil_counter = 0
+            light_counter = 0
+            creature_roam_counter = random.randint(CREATURE_ROAM_MIN,CREATURE_ROAM_MAX)
+            creature_chase_counter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
             if inv.pickaxe:
-                roomLairMid.counter_3 = 1
+                room_lair_mid.counter_3 = 1
             if inv.staff:
-                roomLairMid.counter_2 = 1
-            inv = Inventory(note_1 = vaultAnswer_1, note_2 = vaultAnswer_2, note_3 = vaultAnswer_3, note_4 = vaultAnswer_4)
+                room_lair_mid.counter_2 = 1
+            inv = Inventory(note_1 = vault_answer_1, note_2 = vault_answer_2, note_3 = vault_answer_3, note_4 = vault_answer_4)
             print("The mountain shakes again, and more rubble collapses from above. A large rock hits you, knocking you unconcious.")
 
         # OLD CODE
@@ -7894,249 +7904,249 @@ def inGame(debug):
 
         #DEEPSOURCE OUTPUT
         if (
-            roomCurrent.isCrevasse
-            and not roomCurrent.hook and not roomCurrent.northBlocked and not roomCurrent.eastBlocked and not roomCurrent.westBlocked
-            and not roomCurrent.southBlocked
+            room_current.is_crevasse
+            and not room_current.hook and not room_current.north_blocked and not room_current.east_blocked and not room_current.west_blocked
+            and not room_current.south_blocked
         ):
-            if roomID == "roomCave_3_llm_crevasse":
-                roomCurrent.westBlocked = True
-            elif roomID == "roomCave__3_lllm_treasure_crevasse":
-                roomCurrent.eastBlocked = True
-            elif roomID == "roomCave_8_mr_crevasse":
-                roomCurrent.northBlocked = True
-            elif roomID == "roomCave_9_mr_crevasse":
-                roomCurrent.southBlocked = True
+            if room_id == "roomCave_3_llm_crevasse":
+                room_current.west_blocked = True
+            elif room_id == "roomCave__3_lllm_treasure_crevasse":
+                room_current.east_blocked = True
+            elif room_id == "roomCave_8_mr_crevasse":
+                room_current.north_blocked = True
+            elif room_id == "roomCave_9_mr_crevasse":
+                room_current.south_blocked = True
         #END DEEPSOURCE OUTPUT
 
         # Grappling hook spawn check
-        if roomID in ("roomCave_3_llm_crevasse","roomCave__3_lllm_treasure_crevasse","roomCave_8_mr_crevasse","roomCave_9_mr_crevasse"):
-            if roomID == "roomCave__3_lllm_treasure_crevasse" and roomCurrent.eastBlocked and not roomCave_3_llm_crevasse.westBlocked and roomCave_3_llm_crevasse.hook:
-                roomCurrent.eastBlocked = False
-                roomCurrent.hook += 1
-                roomCave_3_llm_crevasse.hook -= 1
-            elif roomID == "roomCave_3_llm_crevasse" and roomCurrent.westBlocked and not roomCave__3_lllm_treasure_crevasse.eastBlocked and roomCave__3_lllm_treasure_crevasse.hook:
-                roomCurrent.westBlocked = False
-                roomCurrent.hook += 1
-                roomCave__3_lllm_treasure_crevasse.hook -= 1
-            elif roomID == "roomCave_9_mr_crevasse" and roomCurrent.southBlocked and not roomCave_8_mr_crevasse.northBlocked and roomCave_8_mr_crevasse.hook:
-                roomCurrent.southBlocked = False
-                roomCurrent.hook += 1
-                roomCave_8_mr_crevasse.hook -= 1
-            elif roomID == "roomCave_8_mr_crevasse" and roomCurrent.northBlocked and not roomCave_9_mr_crevasse.southBlocked and roomCave_9_mr_crevasse.hook:
-                roomCurrent.northBlocked = False
-                roomCurrent.hook += 1
-                roomCave_9_mr_crevasse.hook -= 1
+        if room_id in ("roomCave_3_llm_crevasse","roomCave__3_lllm_treasure_crevasse","roomCave_8_mr_crevasse","roomCave_9_mr_crevasse"):
+            if room_id == "roomCave__3_lllm_treasure_crevasse" and room_current.east_blocked and not room_cave_3_llm_crevasse.west_blocked and room_cave_3_llm_crevasse.hook:
+                room_current.east_blocked = False
+                room_current.hook += 1
+                room_cave_3_llm_crevasse.hook -= 1
+            elif room_id == "roomCave_3_llm_crevasse" and room_current.west_blocked and not room_cave_3_lllm_treasure_crevasse.east_blocked and room_cave_3_lllm_treasure_crevasse.hook:
+                room_current.west_blocked = False
+                room_current.hook += 1
+                room_cave_3_lllm_treasure_crevasse.hook -= 1
+            elif room_id == "roomCave_9_mr_crevasse" and room_current.south_blocked and not room_cave_8_mr_crevasse.north_blocked and room_cave_8_mr_crevasse.hook:
+                room_current.south_blocked = False
+                room_current.hook += 1
+                room_cave_8_mr_crevasse.hook -= 1
+            elif room_id == "roomCave_8_mr_crevasse" and room_current.north_blocked and not room_cave_9_mr_crevasse.south_blocked and room_cave_9_mr_crevasse.hook:
+                room_current.north_blocked = False
+                room_current.hook += 1
+                room_cave_9_mr_crevasse.hook -= 1
 
-        if roomID == "roomHouseEntrance" and roomID_Last == "roomHouseGate" and not roomCurrent.firstTime:
+        if room_id == "roomHouseEntrance" and room_id_last == "roomHouseGate" and not room_current.first_time:
             silenced = True
             print("You feel the strange force take over you again.")
-        elif roomID == "roomHouseGate" and roomID_Last == "roomHouseEntrance":
+        elif room_id == "roomHouseGate" and room_id_last == "roomHouseEntrance":
             silenced = False
             print("You feel the strange force leave your body.")
 #_______________________________________________________________________________
         # justEntered Description
         # Prints room description if just entered.
-        if justEntered:
-            roomCurrent.description()
-            roomCurrent.itemsPresent()
-            justEntered = False
+        if just_entered:
+            room_current.description()
+            room_current.items_present()
+            just_entered = False
 #_______________________________________________________________________________
 
 # COUNTERS
 # Counts end of turn
         direction = False
-        if not notTurn or endGame:
+        if not not_turn or end_game:
             # After changeRoom description
-            turnCounter += 1
-            turnCounter_total += 1
+            turn_counter += 1
+            turn_counter_total += 1
             # Darkness loop
-            if roomID == "roomDarkness":
-                darknessCounter = DARKNESS_DURATION
-                while darknessCounter:
+            if room_id == "roomDarkness":
+                darkness_counter = DARKNESS_DURATION
+                while darkness_counter:
                     option = input("\n\n\n\n> ").lower()
-                    darknessCounter -= 1
-                    if darknessCounter:
+                    darkness_counter -= 1
+                    if darkness_counter:
                         print("You feel nothing.")
-                roomID = "roomLairMid"
-                roomCurrent = roomLairMid
+                room_id = "roomLairMid"
+                room_current = room_lair_mid
                 print("You wake up.")
-                roomCurrent.description()
-                roomCurrent.itemsPresent()
+                room_current.description()
+                room_current.items_present()
 
             # Jail guards
-            if jailGuards and not endGame:
-                jailGuardCounter -= 1
-                if jailGuardCounter == 2:
+            if jail_guards and not end_game:
+                jail_guard_counter -= 1
+                if jail_guard_counter == 2:
                     print("\nJail guards notice you walking into the foyer and begin to run towards you from the eastern hallway, armed with bludgeons.")
-                elif jailGuardCounter == 1:
+                elif jail_guard_counter == 1:
                     print("\nThe jail guards draw nearer, closing in the distance.")
-                elif jailGuardCounter == 0:
+                elif jail_guard_counter == 0:
                     print("\nThe jail guards catch up and grab hold of you. They beat you to death for trying to escape.")
-                    endGame = True
+                    end_game = True
             # Lair Creature
-            if creatureLairChase:
-                if creatureLairChaseCounter > 5:
+            if room_lair_chase:
+                if creature_lair_chase_counter > 5:
                     print("\nThe creature notices it is trapped and tries to escape.")
-                elif creatureLairChaseCounter == 5:
+                elif creature_lair_chase_counter == 5:
                     print("\nThe creature screeches as it claws away at the rock around it.")
-                elif creatureLairChaseCounter == 4:
+                elif creature_lair_chase_counter == 4:
                     print("\nThe creature's torso erupts free as it breaks the surrounding rubble.")
-                elif creatureLairChaseCounter == 3:
+                elif creature_lair_chase_counter == 3:
                     print("\nThe creature is almost free, with only its foot caught in the rocks.")
-                elif creatureLairChaseCounter == 2:
+                elif creature_lair_chase_counter == 2:
                     print("\nThe creature entirely breaks free from the rocks, which stops to release an ear-piercing scream. It erupts into full sprint towards you.")
-                elif creatureLairChaseCounter == 1:
+                elif creature_lair_chase_counter == 1:
                     print("\nThe creature extends its arms towards you as it runs, continuing it's chaotic screeching in full force. It claws your arm.")
-                    stat.lowerHealth()
+                    stat.lower_health()
                 else:
                     print("\nThe creature grabs hold of you, tearing you to pieces.")
-                    endGame = True
-                creatureLairChaseCounter -= 1
-            if creatureRoam:
-                creatureRoamCounter -= 1
-                if creatureRoamCounter == 0:
-                    creatureRoam = False
-                    creatureChase = True
-            if creatureChase:
-                creatureChaseCounter -= 1
-                if creatureChaseCounter > CREATURE_CHASE_MIN:
+                    end_game = True
+                creature_lair_chase_counter -= 1
+            if creature_roam:
+                creature_roam_counter -= 1
+                if creature_roam_counter == 0:
+                    creature_roam = False
+                    creature_chase = True
+            if creature_chase:
+                creature_chase_counter -= 1
+                if creature_chase_counter > CREATURE_CHASE_MIN:
                     print("\nSomething doesn't feel quite right...")
-                elif creatureChaseCounter >= 9:
+                elif creature_chase_counter >= 9:
                     print("\nA faint noise echoes in the cavern.")
-                elif creatureChaseCounter >= 5:
+                elif creature_chase_counter >= 5:
                     print("\nDistant breathing can be heard in rhythm of steady footsteps.")
-                elif creatureChaseCounter == 4:
+                elif creature_chase_counter == 4:
                     print("\nThe breathing draws nearer as the footsteps quicken in pace.")
-                elif creatureChaseCounter == 3:
+                elif creature_chase_counter == 3:
                     print("\nThe breathing turns into growling, which reverberates throughout the cavern walls.")
-                elif creatureChaseCounter == 2:
+                elif creature_chase_counter == 2:
                     print("\nA creature appears, which stops to release an ear-piercing scream. It erupts into full sprint towards you.")
-                elif creatureChaseCounter == 1:
+                elif creature_chase_counter == 1:
                     print("\nThe creature extends its arms towards you as it runs, continuing it's chaotic screeching in full force. It claws your arm.")
-                    stat.lowerHealth()
-                elif creatureChaseCounter == 0:
+                    stat.lower_health()
+                elif creature_chase_counter == 0:
                     print("\nThe creature grabs hold of you, tearing you to pieces.")
-                    endGame = True
+                    end_game = True
             # Raffle reimbursement
-            if roomID == "roomCarnival" and roomCurrent.counter_1 <= RAFFLE_TIMER:
-                if roomCurrent.isGive:
-                    roomCurrent.counter_1 += 1
-                if roomCurrent.counter_1 > RAFFLE_TIMER:
+            if room_id == "roomCarnival" and room_current.counter_1 <= RAFFLE_TIMER:
+                if room_current.is_give:
+                    room_current.counter_1 += 1
+                if room_current.counter_1 > RAFFLE_TIMER:
                     print("\nThe spokesperson and the guards pack and up and leave the grounds.")
-                    roomCurrent.isGive = False
-            if not roomID.startswith("roomBook") or roomID.startswith("roomDarkness"):
+                    room_current.is_give = False
+            if not room_id.startswith("roomBook") or room_id.startswith("roomDarkness"):
                 # Hunger
-                stat.lowerHunger()
-                stat.lowerShield()
+                stat.lower_hunger()
+                stat.lower_shield()
                 if stat.hunger <= 0:
-                    endGame = True
+                    end_game = True
                 elif stat.hunger <= HUNGER_WARNING:
                     print()
-                    stat.examineHunger()
+                    stat.examine_hunger()
                 # Health
                 if stat.health in range(1,stat.healthmax):
-                    stat.lowerHealth()
+                    stat.lower_health()
                     print()
-                    stat.examineHealth()
+                    stat.examine_health()
                 if stat.health <= 0:
-                    endGame = True
+                    end_game = True
                 # Oil
-                if oilCounter:
+                if oil_counter:
                     inv.lanternDescription = "Perfect for lighting dark areas. It is currently LIT."
-                    oilCounter -= 1
+                    oil_counter -= 1
                 else:
                     inv.lanternDescription = "Perfect for lighting dark areas. It is currently UNLIT."
                 # Oil warning
-                if inv.lantern > 0 or roomCurrent.lantern > 0:
-                    if oilCounter in range(3,5):
+                if inv.lantern > 0 or room_current.lantern > 0:
+                    if oil_counter in range(3,5):
                         print("\nYour lantern flickers.")
-                    elif oilCounter == 2:
+                    elif oil_counter == 2:
                         print("\nYour lantern is about to run out of oil.")
-                    elif oilCounter == 1:
+                    elif oil_counter == 1:
                         print("\nYour lantern has ran out of oil.")
 
             # Ball of light
-            if lightCounter:
-                lightCounter -= 1
-                if lightCounter > 2:
+            if light_counter:
+                light_counter -= 1
+                if light_counter > 2:
                     print("\nA ball of light illuminates your surroundings.")
-                elif lightCounter == 2:
+                elif light_counter == 2:
                     print("\nA ball of light dimly illuminates your surroundings.")
-                elif lightCounter == 1:
+                elif light_counter == 1:
                     print("\nA ball of light fades away.")
 
 
             # Roquefort messages
             # roomCourtyardNorth
-            if roomID == "roomCourtyardNorth" and roomCurrent.firstTime:
+            if room_id == "roomCourtyardNorth" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"I do not know who you are, but you if you seek to do me harm, you are making a grave mistake.\"")
                 #messageCounter = 1
                 #Deepsource said unsed variable found for 'messageCounter = 1'
             # roomRoadSouth
-            elif roomID == "roomRoadMid" and roomCurrent.firstTime:
+            elif room_id == "roomRoadMid" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"You continue to work against me. You know nothing of who you are dealing with! Why do you persist?\"")
             # roomCave_5_m or roomCave_5_llm
-            if roomID in ("roomCave_5_m","roomCave_5_llm") and (roomCave_5_m.firstTime and roomCave_5_llm.firstTime):
+            if room_id in ("roomCave_5_m","roomCave_5_llm") and (room_cave_5_m.first_time and room_cave_5_llm.first_time):
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"You are still determined to defeat me? If I cannot persuade you, then so be it. Be warned that that it will take more than cold steel to defeat a cheese mage such as myself.\"")
             # roomTempleEntrance after get staff
-            if roomID == "roomTempleEntrance" and roomTempleBasement.characterDead and roomCurrent.firstTime:
+            if room_id == "roomTempleEntrance" and room_temple_basement.character_dead and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"The staff of Garrotxa? No mere mortal would obtain such a weapon to defeat me. You clearly have a plan. No matter. You will be stopped.\"")
             # roomRoad2South
-            if roomID == "roomRoad2South" and roomCurrent.firstTime:
+            if room_id == "roomRoad2South" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"One does not simply obtain the staff of Garrotxa, kill my knight and travel through the mines of Mount Magna on their own accord. You must be an assassin or something of the likes. But sent by who?\"")
             # roomBarn
-            if roomID == "roomBarn" and roomCurrent.firstTime:
+            if room_id == "roomBarn" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"Who ARE you? You seem driven to kill me, yet for reasons still unbeknownst to me. This seems personal, yet I do not recall ever wronging you. This must be something more at stake here.\"")
             # roomHouseEntrance
-            if roomID == "roomHouseEntrance" and roomCurrent.firstTime:
+            if room_id == "roomHouseEntrance" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"Enough. You speak the tongue of demon-kind in order to trespass into my property. Clearly you are a servant of the Ozhkavosh. I will do what I can in my power to stop you. Hold your tongue for you are silenced!\"")
                 print("A strange force takes over you.")
                 silenced = True
             # roomHouseFoyer
-            if roomID == "roomHouseFoyer" and roomCurrent.firstTime:
+            if room_id == "roomHouseFoyer" and room_current.first_time:
                 print("\nYou feel like someone is trying to enter your mind. A voice echoes in your head.")
                 print("\"It seems your power is beyond that of my own. I don't know how you got through that door as I had enchanted it with my strongest incantations. If what I fear is true, then I will simply make one request of you: See me at my office. There is one final thing to discuss.")
 
             # End game dialogue
-            if roomID == "roomHouseOffice":
+            if room_id == "roomHouseOffice":
                 # Eden asks to give staff at firstTime
-                if not roomCurrent.characterDead:
+                if not room_current.character_dead:
                     # If player gives staff: counter_1 = 1 and isGive = False
                     #if roomCurrent.counter_1 == 1 and roomCurrent.isGive == False:
                     #singleton
-                    if roomCurrent.counter_1 == 1 and roomCurrent.isGive is False: 
+                    if room_current.counter_1 == 1 and room_current.is_give is False: 
                  # spawn Vesh ()
-                        roomCurrent.counter_2 = 1
+                        room_current.counter_2 = 1
                     # If player does not give staff: counter_1 = 0 and isGive = True
                     #elif roomCurrent.counter_1 == 0 and roomCurrent.isGive == True:
                     # Singleton
-                    elif roomCurrent.counter_1 == 0 and roomCurrent.isGive is True:
+                    elif room_current.counter_1 == 0 and room_current.is_give is True:
                         # If player does something else, or nothing, given a second chance
-                        roomCurrent.counter_3 += 1
-                        if roomCurrent.counter_3 == 2:
+                        room_current.counter_3 += 1
+                        if room_current.counter_3 == 2:
                             # Roquefort asks again (print)
                             print("Roquefort asks you again. \"I plead of you. Break free from the demon's control and give me the staff.\"")
-                        elif roomCurrent.counter_3 > 2:
+                        elif room_current.counter_3 > 2:
                             # Roquefort kills you if you reject 2nd opportunity to give
                             print("\"If you will not give me the staff, then I will take it by force.\" Roquefort extends his arms forward and shoots a fireball at you.")
-                            endGame = True
+                            end_game = True
                 # If player kills Roquefort
                 # Vesh is in room, uninjured
-                elif roomCurrent.counter_2 == 1: # staff has been used once or Eden is dead
+                elif room_current.counter_2 == 1: # staff has been used once or Eden is dead
                     # Spawn Vesh (print)
                     # Reveals self
                     # Tries to kill you
-                    roomCurrent.counter_4 += 1
-                    if roomCurrent.counter_4 == 1:
+                    room_current.counter_4 += 1
+                    if room_current.counter_4 == 1:
 
-                        if roomCurrent.counter_1: # attemptted to give staff
+                        if room_current.counter_1: # attemptted to give staff
                             response = "\"Fool!\" She transforms into a scaly demon, sprouting wings and sharp claws. \"IZH ICHA VO'FEK OZH DOMOSH! IZH VO'POZ!\" You lose all control of your body and immediately grab the staff back. You aim at Roquefort and fire a bolt of lighting, killing him. \"INSOLENT HUMAN. YOU DARE DEFY ME IN GIVING THE STAFF TO THE ENEMY? NO MATTER, FOR I AM VESH'KATHAL, LAST OF THE AHM'FOL, DECEIVER OF MANY, AND NOW, THANKS YOU TO, RULER OF KASHKAVAL. WITH THE FINAL PROPHET OF GARROTXA DEAD, NO ONE WILL BE ABLE TO STOP MY REIGN. NOW, YOU TOO MUST DIE, AND THE STAFF OF GARROTXA SHALL BE DESTROYED.\"\nYou feel the control over your own body returning."
                             if not word_stop:
                                 word_stop = 1
@@ -8153,17 +8163,17 @@ def inGame(debug):
                         print("Vesh'kathal lets out a bellowing roar. \"OZH GLUTH IZH SOL!\"\n\nYou are overwhelmed with pain and agony as you fall to your knees.")
                         if not spell_kill:
                             spell_kill = 1
-                        endGame = True
+                        end_game = True
                 # Player injures vesh after reveal and loses staff
-                elif roomCurrent.counter_2 == 2:
-                    roomCurrent.counter_4 += 1
-                    if roomCurrent.counter_4 == 3:
+                elif room_current.counter_2 == 2:
+                    room_current.counter_4 += 1
+                    if room_current.counter_4 == 3:
                         print("Vesh'kathal recovers from her burns, and gets back up on her feet.")
-                    elif roomCurrent.counter_4 > 3:
+                    elif room_current.counter_4 > 3:
                         print("Vesh'kathal lets out a bellowing roar. \"OZH GLUTH IZH SOL!\"\n\nYou are overwhelmed with pain and agony as you fall to your knees.")
                         if not spell_kill:
                             spell_kill = 1
-                        endGame = True
+                        end_game = True
                 else:
                     # Vesh resists hit and tries to kill you again (differently?)
                     if inv.potato:
@@ -8177,118 +8187,118 @@ def inGame(debug):
                         print("Vesh'kathal lets out a bellowing roar. \"OZH GLUTH IZH SOL!\"\n\nYou are overwhelmed with pain and agony as you fall to your knees.")
                         if not spell_kill:
                             spell_kill = 1
-                    endGame = True
+                    end_game = True
 
 
         # Objective check
         # Main
-        if roomID == "roomCourtyardSouth":
-            stat.setObjectiveMain(1)
+        if room_id == "roomCourtyardSouth":
+            stat.set_objective_main(1)
         if inv.staff:
-            stat.setObjectiveMain(2)
-        if roomID == "roomRoad2South":
-            stat.setObjectiveMain(3)
-        if roomID == "roomHouseFoyer":
-            stat.setObjectiveMain(4)
-        if roomHouseOffice.characterDead:
-            stat.setObjectiveMain(5)
+            stat.set_objective_main(2)
+        if room_id == "roomRoad2South":
+            stat.set_objective_main(3)
+        if room_id == "roomHouseFoyer":
+            stat.set_objective_main(4)
+        if room_house_office.character_dead:
+            stat.set_objective_main(5)
         # Secondary add
-        if roomID == "roomCourtyardSouth":
-            stat.addObjectiveSecondary(1)
-        if roomID == "roomCourtyardNorth":
-            stat.addObjectiveSecondary(2)
-        if roomCarnivalWheelGame.characterDead:
-            stat.addObjectiveSecondary(3)
-        if roomID == "roomGate":
-            stat.addObjectiveSecondary(4)
-        if roomID == "roomBridge":
-            stat.addObjectiveSecondary(5)
-        if roomID == "roomAlchemist":
-            stat.addObjectiveSecondary(6)
-        if roomID == "roomLake":
-            stat.addObjectiveSecondary(7)
-        if roomID == "roomLake" and spell_unlock != 2 and not roomCurrent.isGive:
-            stat.addObjectiveSecondary(8)
-        if not roomLake.isGive:
-            stat.setObjectiveSecondary(9)
-        if roomID == "roomMountEntrance":
-            stat.addObjectiveSecondary(10)
-        if roomID == "roomCave_3_llm_crevasse":
-            stat.addObjectiveSecondary(11)
-        if roomID == "roomCave__3_lllm_treasure_crevasse":
-            stat.addObjectiveSecondary(12)
-        if roomID == "roomTempleEntrance":
-            stat.addObjectiveSecondary(13)
-        if roomID == "roomTempleBasement":
-            stat.addObjectiveSecondary(14)
-        if roomID == "roomRoadCorner" and roomCurrent.westBlocked:
-            stat.addObjectiveSecondary(15)
-        if roomID == "roomLairMid":
-            stat.addObjectiveSecondary(16)
-        if roomID == "roomHouseEntrance":
-            stat.addObjectiveSecondary(17)
+        if room_id == "roomCourtyardSouth":
+            stat.add_objective_secondary(1)
+        if room_id == "roomCourtyardNorth":
+            stat.add_objective_secondary(2)
+        if room_carnival_wheel_game.character_dead:
+            stat.add_objective_secondary(3)
+        if room_id == "roomGate":
+            stat.add_objective_secondary(4)
+        if room_id == "roomBridge":
+            stat.add_objective_secondary(5)
+        if room_id == "roomAlchemist":
+            stat.add_objective_secondary(6)
+        if room_id == "roomLake":
+            stat.add_objective_secondary(7)
+        if room_id == "roomLake" and spell_unlock != 2 and not room_current.is_give:
+            stat.add_objective_secondary(8)
+        if not room_lake.is_give:
+            stat.add_objective_secondary(9)
+        if room_id == "roomMountEntrance":
+            stat.add_objective_secondary(10)
+        if room_id == "roomCave_3_llm_crevasse":
+            stat.add_objective_secondary(11)
+        if room_id == "roomCave__3_lllm_treasure_crevasse":
+            stat.add_objective_secondary(12)
+        if room_id == "roomTempleEntrance":
+            stat.add_objective_secondary(13)
+        if room_id == "roomTempleBasement":
+            stat.add_objective_secondary(14)
+        if room_id == "roomRoadCorner" and room_current.west_blocked:
+            stat.add_objective_secondary(15)
+        if room_id == "roomLairMid":
+            stat.add_objective_secondary(16)
+        if room_id == "roomHouseEntrance":
+            stat.add_objective_secondary(17)
         if spell_oblivion == 2:
-            stat.addObjectiveSecondary(18)
-        if roomID == "roomBookMirror":
-            stat.addObjectiveSecondary(19)
-        if roomID == "roomBook_3_1":
-            stat.addObjectiveSecondary(20)
-        if roomID == "roomHouseFoyer":
-            stat.addObjectiveSecondary(21)
-        if roomID == "roomHouseOffice":
-            stat.addObjectiveSecondary(22)
+            stat.add_objective_secondary(18)
+        if room_id == "roomBookMirror":
+            stat.add_objective_secondary(19)
+        if room_id == "roomBook_3_1":
+            stat.add_objective_secondary(20)
+        if room_id == "roomHouseFoyer":
+            stat.add_objective_secondary(21)
+        if room_id == "roomHouseOffice":
+            stat.add_objective_secondary(22)
         # Secondary remove
         if inv.gold >= RAFFLE_COMPENSATION:
-            stat.removeObjectiveSecondary(1)
+            stat.remove_objective_secondary(1)
 
         if inv.ticket:
-            stat.removeObjectiveSecondary(2)
-        if invSpokesperson.ticket or (roomCarnivalWheelGame.characterDead and not roomCarnival.isGive):
-            stat.removeObjectiveSecondary(3)
-        if not roomGate.northBlocked:
-            stat.removeObjectiveSecondary(4)
-        if not roomBridge.eastBlocked:
-            stat.removeObjectiveSecondary(5)
-        if roomAlchemist.isBuy:
-            stat.removeObjectiveSecondary(6)
-        if not roomLake.isGive:
-            stat.removeObjectiveSecondary(7)
+            stat.remove_objective_secondary(2)
+        if inv_spokesperson.ticket or (room_carnival_wheel_game.character_dead and not room_carnival.is_give):
+            stat.remove_objective_secondary(3)
+        if not room_gate.north_blocked:
+            stat.remove_objective_secondary(4)
+        if not room_bridge.east_blocked:
+            stat.remove_objective_secondary(5)
+        if room_alchemist.is_buy:
+            stat.remove_objective_secondary(6)
+        if not room_lake.is_give:
+            stat.remove_objective_secondary(7)
         if spell_unlock == 2:
-            stat.removeObjectiveSecondary(8)
-        if roomLake.itemFound:
-            stat.removeObjectiveSecondary(9)
-        if not roomMountEntrance.northBlocked:
-            stat.removeObjectiveSecondary(10)
-        if roomID == "roomCave__3_lllm_treasure_crevasse":
-            stat.removeObjectiveSecondary(11)
-        if roomCave__3_lllm_treasure_crevasse.itemFound:
-            stat.removeObjectiveSecondary(12)
-        if not roomTempleEntrance.northBlocked:
-            stat.removeObjectiveSecondary(13)
-        if roomTempleBasement.characterDead:
-            stat.removeObjectiveSecondary(14)
-        if (not roomRoadCorner.westBlocked) and (roomTempleBasement.characterDead):
-            stat.removeObjectiveSecondary(15)
-        if roomID == "roomRoad2South":
-            stat.removeObjectiveSecondary(16)
-        if not roomHouseEntrance.northBlocked:
-            stat.removeObjectiveSecondary(17)
-        if not roomID == "roomShrineNorth":
-            stat.removeObjectiveSecondary(18)
-        if roomBookMirror.characterDead:
-            stat.removeObjectiveSecondary(19)
-        if (not roomID.startswith("roomBook_3")) and roomBook_3_End.itemFound:
-            stat.removeObjectiveSecondary(20)
-        if not roomHouseFoyer.northBlocked:
-            stat.removeObjectiveSecondary(21)
-        if roomHouseOffice.characterDead:
-            stat.removeObjectiveSecondary(22)
+            stat.remove_objective_secondary(8)
+        if room_lake.item_found:
+            stat.remove_objective_secondary(9)
+        if not room_mount_entrance.north_blocked:
+            stat.remove_objective_secondary(10)
+        if room_id == "roomCave__3_lllm_treasure_crevasse":
+            stat.remove_objective_secondary(11)
+        if room_cave_3_lllm_treasure_crevasse.item_found:
+            stat.remove_objective_secondary(12)
+        if not room_temple_entrance.north_blocked:
+            stat.remove_objective_secondary(13)
+        if room_temple_basement.character_dead:
+            stat.remove_objective_secondary(14)
+        if (not room_road_corner.west_blocked) and room_temple_basement.character_dead:
+            stat.remove_objective_secondary(15)
+        if room_id == "roomRoad2South":
+            stat.remove_objective_secondary(16)
+        if not room_house_entrance.north_blocked:
+            stat.remove_objective_secondary(17)
+        if not room_id == "roomShrineNorth":
+            stat.remove_objective_secondary(18)
+        if room_book_mirror.character_dead:
+            stat.remove_objective_secondary(19)
+        if (not room_id.startswith("roomBook_3")) and room_book_3_end.item_found:
+            stat.remove_objective_secondary(20)
+        if not room_house_foyer.north_blocked:
+            stat.remove_objective_secondary(21)
+        if room_house_office.character_dead:
+            stat.remove_objective_secondary(22)
 
-        roomCurrent.firstTime = False
+        room_current.first_time = False
 
     # End Game Message
     if win:
-        print("Congratulations! You win!\nYou took %s turns.\n\nTotal deaths: %s\nTotal turns: %s\n" % (turnCounter,deaths_total,turnCounter_total))
+        print("Congratulations! You win!\nYou took %s turns.\n\nTotal deaths: %s\nTotal turns: %s\n" % (turn_counter,deaths_total,turn_counter_total))
     else:
         deaths_total += 1
         if stat.health <= 0:
@@ -8297,11 +8307,11 @@ def inGame(debug):
             cause = " from starvation"
         else:
             cause = ""
-        if turnCounter == 1:
+        if turn_counter == 1:
             turn = "turn"
         else:
             turn = "turns"
-        print("\nOh no! You died%s.\nYou took %s %s this life.\n\nTotal deaths: %s\nTotal turns: %s\n" % (cause,turnCounter,turn, deaths_total,turnCounter_total))
+        print("\nOh no! You died%s.\nYou took %s %s this life.\n\nTotal deaths: %s\nTotal turns: %s\n" % (cause,turn_counter,turn, deaths_total,turn_counter_total))
 
     # Restart the program
     repeat()
