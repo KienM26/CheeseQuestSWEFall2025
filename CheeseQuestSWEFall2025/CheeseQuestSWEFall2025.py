@@ -834,12 +834,12 @@ def in_game(debug):
                 self.objective_main = option
         def add_objective_secondary(self,option):
             if option not in self.objective_secondary_block:
-                self.remove_objective_secondary.append(option)
+                self.objective_secondary.append(option)
                 self.objective_secondary_block.append(option)
         def remove_objective_secondary(self,option):
             self.objective_secondary_block.append(option)
-            if option in self.remove_objective_secondary:
-                self.remove_objective_secondary.remove(option)
+            if option in self.objective_secondary:
+                self.objective_secondary.remove(option)
         def print_objective(self):
             # Main goal
             print("Main Objective:",end = "\n    - ")
@@ -857,22 +857,22 @@ def in_game(debug):
                 print("Kill Vesh'kathal the Deceiver")
             # Immediate problems to solve
             print("\nSecondary Objective:")
-            if 0 in self.remove_objective_secondary:
+            if 0 in self.objective_secondary:
                 print("    - ",end="")
                 print("Have enough food to stay alive")
-            if 1 in self.remove_objective_secondary:
+            if 1 in self.objective_secondary:
                 print("    - ",end="")
                 print("Find enough money to stay alive")
-            if 2 in self.remove_objective_secondary:
+            if 2 in self.objective_secondary:
                 print("    - ",end="")
                 print("Buy a raffle ticket from the Wonderful Wheel of Mystery")
-            if 3 in self.remove_objective_secondary:
+            if 3 in self.objective_secondary:
                 print("    - ",end="")
                 print("Give the raffle ticket to the spokesperson to get reimbursed")
-            if 4 in self.remove_objective_secondary:
+            if 4 in self.objective_secondary:
                 print("    - ",end="")
                 print("Give the shrubbery to the guard at the town gate")
-            if 5 in self.remove_objective_secondary:
+            if 5 in self.objective_secondary:
                 print("    - ",end="")
                 print("Get enough gold/funnel cakes to bypass the troll at the bridge")
                 print("        - ",end="")
@@ -883,61 +883,61 @@ def in_game(debug):
                 print("Complete tasks for people around Airedale")
                 print("        - ",end="")
                 print("Play Sybil's Shell Game at the Carnival")
-            if 6 in self.remove_objective_secondary:
+            if 6 in self.objective_secondary:
                 print("    - ",end="")
                 print("Give the dragonstone to Tim the Enchanter")
-            if 7 in self.remove_objective_secondary:
+            if 7 in self.objective_secondary:
                 print("    - ",end="")
                 print("Give the wooden bird to the stranger at the lake")
-            if 8 in self.remove_objective_secondary:
+            if 8 in self.objective_secondary:
                 print("    - ",end="")
                 print("Learn the spell from the stone tablet at the lake")
-            if 9 in self.remove_objective_secondary:
+            if 9 in self.objective_secondary:
                 print("    - ",end="")
                 print("Open the lockbox at the lake")
-            if 10 in self.remove_objective_secondary:
+            if 10 in self.objective_secondary:
                 print("    - ",end="")
                 print("Unlock the vault door at the Mount Magna Mine entrance")
-            if 11 in self.remove_objective_secondary:
+            if 11 in self.objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get across the crevasse to reach the treasure chest in Mount Magna Mine")
-            if 12 in self.remove_objective_secondary:
+            if 12 in self.objective_secondary:
                 print("    - ",end="")
                 print("Open the treasure chest in Mount Magna Mine")
-            if 13 in self.remove_objective_secondary:
+            if 13 in self.objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get through the rubble blocking the Temple of Garrotxa entrance")
-            if 14 in self.remove_objective_secondary:
+            if 14 in self.objective_secondary:
                 print("    - ",end="")
                 print("Solve the ghostly figure's riddle")
-            if 15 in self.remove_objective_secondary:
+            if 15 in self.objective_secondary:
                 print("    - ",end="")
                 print("Get past the black knight")
-            if 16 in self.remove_objective_secondary:
+            if 16 in self.objective_secondary:
                 print("    - ",end="")
                 print("Escape the creature's lair")
-            if 17 in self.remove_objective_secondary:
+            if 17 in self.objective_secondary:
                 print("    - ",end="")
                 print("Find a way to get into Eden von Roquefort's house without using spells")
-            if 18 in self.remove_objective_secondary:
+            if 18 in self.objective_secondary:
                 print("    - ",end="")
                 print("Go into the obsidian hemisphere")
-            if 19 in self.remove_objective_secondary:
+            if 19 in self.objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle of the gargoyle")
-            if 20 in self.remove_objective_secondary:
+            if 20 in self.objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle of the coloured rooms")
-            if 21 in self.remove_objective_secondary:
+            if 21 in self.objective_secondary:
                 print("    - ",end="")
                 print("Solve the puzzle to get through the metal door")
-            if 22 in self.remove_objective_secondary:
+            if 22 in self.objective_secondary:
                 print("    - ",end="")
                 print("Alternatively, give the staff of Garrotxa to Eden von Roquefort")
 
 
     ## good place to start making methods for repeated code
-    
+
     #______Rooms____________________________________________________
     # Room information
     #	 Description
@@ -1447,7 +1447,7 @@ def in_game(debug):
 
             print("\nFunnel Cakes Galore\n")
             if self.character_dead:
-                
+
                 print("There is a charred body here, lying by a stovetop.")
             else:
                 if inv_food.funnel_cake <= 0:
@@ -3738,8 +3738,8 @@ def in_game(debug):
                             print("the creature, which resists the shock. It only gets angrier.")
                         elif room_id.startswith("roomLair"):
                             print("the creature, which resists the shock. It only gets angrier.")
-                            if not room_lair_chase:
-                                room_lair_chase = True
+                            if not creature_lair_chase:
+                                creature_lair_chase = True
                         elif room_id == "roomLake":
                             print("the stranger, leaving his supplies behind.")
                             room_current.pie += 1
@@ -4304,8 +4304,8 @@ def in_game(debug):
                 if room_id == "roomTempleBasement" and not room_current.character_dead and room_current.staff:
                     print("\"You are not worthy to take the staff!\" The figure zaps you with a bolt of electricity.")
                     stat.lower_health()
-                elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and room_current.staff and room_current.pickaxe:
-                    room_lair_chase = True
+                elif room_id == "roomLairMid" and room_current.counter_2 and not creature_lair_chase and room_current.staff and room_current.pickaxe:
+                    creature_lair_chase = True
                     creature_lair_chase_counter -= 1 # To make it balanced with taking them individually
                     room_current.counter_2 = 0
                     room_current.counter_1 = 0
@@ -4320,8 +4320,8 @@ def in_game(debug):
                         else:
                             source = "the ball of light"
                         print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and room_current.staff:
-                    room_lair_chase = True
+                elif room_id == "roomLairMid" and room_current.counter_2 and not creature_lair_chase and room_current.staff:
+                    creature_lair_chase = True
                     room_current.counter_2 = 0
                     inv.staff += room_current.staff
                     room_current.staff = 0
@@ -4332,8 +4332,8 @@ def in_game(debug):
                         else:
                             source = "the ball of light"
                         print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                elif room_id == "roomLairMid" and room_current.counter_1 and not room_lair_chase and room_current.pickaxe:
-                    room_lair_chase = True
+                elif room_id == "roomLairMid" and room_current.counter_1 and not creature_lair_chase and room_current.pickaxe:
+                    creature_lair_chase = True
                     room_current.counter_1 = 0
                     inv.pickaxe += room_current.pickaxe
                     room_current.pickaxe = 0
@@ -5051,8 +5051,8 @@ def in_game(debug):
                         print("\"You are not worthy to take the staff!\" The figure zaps you with a bolt of electricity.")
                         stat.lower_health()
                         item_name = ""
-                    elif room_id == "roomLairMid" and room_current.counter_2 and not room_lair_chase and item_name == "staff of Garrotxa":
-                        room_lair_chase = True
+                    elif room_id == "roomLairMid" and room_current.counter_2 and not creature_lair_chase and item_name == "staff of Garrotxa":
+                        creature_lair_chase = True
                         room_current.counter_2 = 0
                         inv.staff += room_current.staff
                         room_current.staff = 0
@@ -5063,8 +5063,8 @@ def in_game(debug):
                             else:
                                 source = "the ball of light"
                             print("Luckily, the light from %s blinds it, giving you some extra time." % source)
-                    elif room_id == "roomLairMid" and room_current.counter_1 and not room_lair_chase and item_name == "pickaxe":
-                        room_lair_chase = True
+                    elif room_id == "roomLairMid" and room_current.counter_1 and not creature_lair_chase and item_name == "pickaxe":
+                        creature_lair_chase = True
                         room_current.counter_1 = 0
                         inv.pickaxe += room_current.pickaxe
                         room_current.pickaxe = 0
@@ -6426,8 +6426,8 @@ def in_game(debug):
                             print("the creature, which resists the spell. It only gets angrier.")
                         elif room_id.startswith("roomLair"):
                             print("the creature, which resists the spell. It only gets angrier.")
-                            if not room_lair_chase:
-                                room_lair_chase = True
+                            if not creature_lair_chase:
+                                creature_lair_chase = True
                         elif room_id == "roomLake":
                             print("the stranger, leaving his supplies behind.")
                             room_current.pie += 1
@@ -7804,7 +7804,7 @@ def in_game(debug):
                         end_game = True
                     room_current.counter_1 += 1
         elif room_id == "roomJailFoyer":
-            # if jailGuards == False: 
+            # if jailGuards == False:
             # used singleton pattern, deepsource warning
              if jail_guards is False:
                 jail_guards = True
@@ -7834,7 +7834,7 @@ def in_game(debug):
                     creature_chase_counter = random.randint(CREATURE_CHASE_MIN,CREATURE_CHASE_MAX)
         # Creature stops chas at outside of lair
         elif room_id == "roomRoad2South":
-            room_lair_chase = False
+            creature_lair_chase = False
             if creature_lair_chase_counter <= 2 and room_id_last == "roomLairEast":
                 print("The creature is blinded by the outside light and stops its chase, returning back to the cavern.")
         # If player returns to lair after exiting it
@@ -7984,7 +7984,7 @@ def in_game(debug):
                     print("\nThe jail guards catch up and grab hold of you. They beat you to death for trying to escape.")
                     end_game = True
             # Lair Creature
-            if room_lair_chase:
+            if creature_lair_chase:
                 if creature_lair_chase_counter > 5:
                     print("\nThe creature notices it is trapped and tries to escape.")
                 elif creature_lair_chase_counter == 5:
@@ -8121,7 +8121,7 @@ def in_game(debug):
                     # If player gives staff: counter_1 = 1 and isGive = False
                     #if roomCurrent.counter_1 == 1 and roomCurrent.isGive == False:
                     #singleton
-                    if room_current.counter_1 == 1 and room_current.is_give is False: 
+                    if room_current.counter_1 == 1 and room_current.is_give is False:
                  # spawn Vesh ()
                         room_current.counter_2 = 1
                     # If player does not give staff: counter_1 = 0 and isGive = True
