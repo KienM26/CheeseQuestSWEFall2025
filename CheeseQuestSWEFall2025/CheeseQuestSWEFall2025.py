@@ -357,7 +357,7 @@ class Inventory(object):
 # Multiple imports for an import name detected, deep source
 # #_______Libraries_______________________________________________________________
 # import random,os,getpass
-# playerName = "Hero"
+player_name = "Hero"
 
 # Resize command line window to appropriate size
 # col is width
@@ -394,7 +394,7 @@ word_curse = 0
 spell_oblivion = 0
 
 # Player name
-# playerName = False
+player_name = True
 
 
 
