@@ -13,11 +13,11 @@
 import random, os, getpass
 from constants import *
 
-# === KEEP THESE VARIABLES (Your game uses them) ===
+# Version constants
 VERSION = "1.4.3"
 DATE = "October 17, 2016"
 
-# === ADD THIS LINE (Required for Inventory to work) ===
+# needed for inventory declaration
 player_name = "Hero"
 
 # Inventory
