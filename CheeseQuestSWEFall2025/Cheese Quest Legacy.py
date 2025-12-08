@@ -559,7 +559,6 @@ playerName = False
 #_______Functions_______________________________________________________________
 
 def demonWords():
-    global spell_learn,spell_unlock,spell_persuade,spell_jump,spell_light,spell_heal,spell_feed,spell_kill,spell_killself,spell_oblivion,word_darkness,word_reign,word_stop,word_servant,word_mirror,word_dominion,word_curse
     if not (spell_learn or spell_unlock or spell_persuade or spell_jump or spell_light or spell_heal or spell_feed or spell_kill or spell_killself or spell_oblivion or word_darkness or word_reign or word_stop or word_servant or word_mirror or word_dominion or word_curse):
         print("You do not know any words in Ozhkavosh.")
     else:
