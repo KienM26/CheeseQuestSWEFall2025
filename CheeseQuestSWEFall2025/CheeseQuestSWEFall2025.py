@@ -401,10 +401,6 @@ player_name = True
 #_______Functions_______________________________________________________________
 
 def demon_words():
-    global spell_learn, spell_unlock, spell_persuade, spell_jump, spell_light
-    global spell_heal, spell_feed, spell_kill, spell_killself, spell_oblivion
-    global word_darkness, word_reign, word_stop, word_servant, word_mirror
-    global word_dominion, word_curse
 
     # Dictionaries describing all words
     spells = {
